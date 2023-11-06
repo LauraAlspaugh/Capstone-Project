@@ -1,6 +1,6 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
-import { valuesService } from '../services/ValuesService.js'
 import BaseController from '../utils/BaseController'
+import { valuesService } from '../services/ValuesService.js'
 
 export class ValuesController extends BaseController {
   constructor() {

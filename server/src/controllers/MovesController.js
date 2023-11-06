@@ -1,5 +1,5 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
-import BaseController from "../utils/BaseController.js";
+import BaseController from "../utils/BaseController";
 import { movesService } from "../services/MovesService.js";
 
 export class MovesController extends BaseController {
@@ -19,12 +19,9 @@ export class MovesController extends BaseController {
             const userId = request.userInfo.id
             const move = await movesService.destroyMove(moveId, userId)
             return response.send(move)
-        } catch (error) {
-            next.error(error)
-
-        }
-
+        } catch (error) { next(error) }
     }
+
     async editMove(request, response, next) {
         try {
             const moveId = request.params.moveId
@@ -32,40 +29,32 @@ export class MovesController extends BaseController {
             const moveData = request.body
             const updatedMove = await movesService.editMove(moveId, userId, moveData)
             return response.send(updatedMove)
-        } catch (error) {
-            next.error(error)
-
-        }
+        } catch (error) { next(error) }
     }
+
     async getMoveById(request, response, next) {
         try {
             const moveId = request.params.moveId
             const move = await movesService.getMoveById(moveId)
             return response.send(move)
-        } catch (error) {
-            next.error(error)
-
-        }
+        } catch (error) { next(error) }
     }
+
     async getMoves(request, response, next) {
         try {
             const moves = await movesService.getMoves()
             return response.send(moves)
-        } catch (error) {
-            next.error(error)
-
-        }
+        } catch (error) { next(error) }
     }
+
     async createMove(request, response, next) {
         try {
-            const moveData = request.body
-            const userId = request.userInfo.id
-            moveData.creatorId = userId
-            const move = await movesService.createMove(moveData)
-            return response.send(move)
-
-        } catch (error) {
-            next.error(error)
-        }
+            const moveData = request.body;
+            const userId = request.userInfo.id;
+            moveData.creatorId = userId;
+            const newMove = await movesService.createMove(moveData)
+            return response.send(newMove)
+        } catch (error) { next(error) }
     }
+
 }
