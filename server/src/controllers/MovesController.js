@@ -1,6 +1,5 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController.js";
-import { dbContext } from "../db/DbContext.js";
 import { movesService } from "../services/MovesService.js";
 
 export class MovesController extends BaseController {
@@ -67,7 +66,6 @@ export class MovesController extends BaseController {
 
         } catch (error) {
             next.error(error)
-
         }
     }
 }
