@@ -10,8 +10,9 @@ class MovesService {
     getMoveById(moveId) {
 
     }
-    getMoves() {
-
+    async getMoves(query) {
+        const moves = await dbContext.Moves.find(query).populate('creator', 'name picture')
+        return moves
     }
     async createMove(moveData) {
         const move = await dbContext.Moves.create(moveData)
