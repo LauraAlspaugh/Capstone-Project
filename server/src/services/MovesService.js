@@ -16,7 +16,7 @@ class MovesService {
     }
     async createMove(moveData) {
         const move = await dbContext.Moves.create(moveData)
-        await move.populate('creator', 'name picture')
+        // await move.populate('creator', 'name picture')
         return move
     }
 
