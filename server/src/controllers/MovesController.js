@@ -39,10 +39,10 @@ export class MovesController extends BaseController {
             return response.send(move)
         } catch (error) { next(error) }
     }
-
     async getMoves(request, response, next) {
         try {
-            const moves = await movesService.getMoves()
+            const query = request.query
+            const moves = await movesService.getMoves(query)
             return response.send(moves)
         } catch (error) { next(error) }
     }

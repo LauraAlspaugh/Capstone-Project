@@ -36,6 +36,7 @@ class MovesService {
         await move.populate('creator', 'name picture')
         return move
     }
+
     async getMoves(query) {
         const moves = await dbContext.Moves.find(query)
             .populate('creator', 'name picture')
