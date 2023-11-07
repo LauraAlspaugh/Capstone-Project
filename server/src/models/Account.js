@@ -9,6 +9,7 @@ export const AccountSchema = new Schema(
     picture: { type: String },
     bio: { type: String },
     dailyPlayStreak: { type: Number, default: 0 },
+    lastActive: { type: Date, default: new Date() },
     customLogoUrl: { type: String },
     useCustomLogo: { type: Boolean },
     enableAudio: { type: Boolean },
