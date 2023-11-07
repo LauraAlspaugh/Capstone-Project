@@ -2,8 +2,8 @@ import { Schema } from "mongoose";
 
 export const MoveSchema = new Schema({
     level: { type: String, enum: ['beginner', 'intermediate', 'expert'], required: true },
-    imgUrl: { type: String, required: true, maxLength: 300 },
-    bodyPart: { type: String, enum: ['neck', 'shoulder', 'chest', 'lower back', 'upper back', 'hips', 'glutes', 'quads', 'hamstrings', 'innerthighs', 'core'], required: true },
+    imgUrl: { type: String, required: true, maxLength: 600 },
+    bodyPart: { type: Array, required: true },
     description: { type: String, required: true, maxLength: 1000 },
     name: { type: String, required: true, maxLength: 100 },
     benefits: { type: String, required: true, maxLength: 1000 },
@@ -13,3 +13,9 @@ export const MoveSchema = new Schema({
 },
     { timestamps: true, toJSON: { virtuals: true } }
 )
+MoveSchema.virtual('creator', {
+    localField: 'creatorId',
+    foreignField: '_id',
+    justOne: true,
+    ref: 'Profile'
+})
