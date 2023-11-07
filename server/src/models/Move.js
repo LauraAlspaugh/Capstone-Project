@@ -14,9 +14,16 @@ export const MoveSchema = new Schema({
 },
     { timestamps: true, toJSON: { virtuals: true } }
 )
+
 MoveSchema.virtual('creator', {
     localField: 'creatorId',
     foreignField: '_id',
     justOne: true,
     ref: 'Account'
+})
+
+MoveSchema.virtual('moveUsage', {
+    localField: '_id',
+    foreignField: 'moveId',
+    ref: 'ListEntry'
 })
