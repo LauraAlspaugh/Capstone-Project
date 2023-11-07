@@ -21,3 +21,15 @@ ListEntrySchema.virtual('creator', {
     justOne: true,
     ref: 'Account'
 })
+ListEntrySchema.virtual('move', {
+    localField: 'moveId',
+    foreignField: '_id',
+    justOne: true,
+    ref: 'Move'
+})
+ListEntrySchema.virtual('routine', {
+    localField: 'routineId',
+    foreignField: '_id',
+    justOne: true,
+    ref: 'Routine'
+})

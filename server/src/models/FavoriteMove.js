@@ -11,3 +11,10 @@ FavoriteMoveSchema.virtual('creator', {
     justOne: true,
     ref: 'Account'
 })
+
+FavoriteMoveSchema.virtual('move', {
+    localField: 'moveId',
+    foreignField: '_id',
+    justOne: true,
+    ref: 'Move'
+})
