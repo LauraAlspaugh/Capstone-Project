@@ -2,8 +2,13 @@ import { dbContext } from "../db/DbContext.js";
 import { BadRequest, Forbidden } from "../utils/Errors.js";
 
 class MovesService {
-    destroyMove(moveId, userId) {
-
+    async destroyMove(moveId, userId) {
+        let moveToDelete = await this.getMoveById(moveId)
+        if (moveToDelete.creatorId.toString() != userId) {
+            throw new Forbidden(`This is not your move to delete.`)
+        }
+        await moveToDelete.delete()
+        return "Move deleted."
     }
     async editMove(moveId, userId, moveData) {
         let moveToEdit = await this.getMoveById(moveId)
