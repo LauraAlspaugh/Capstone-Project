@@ -12,9 +12,9 @@ FavoriteRoutineSchema.virtual('creator', {
     ref: 'Account'
 })
 
-FavoriteRoutineSchema.virtual('move', {
-    localField: 'moveId',
+FavoriteRoutineSchema.virtual('routine', {
+    localField: 'routineId',
     foreignField: '_id',
     justOne: true,
-    ref: 'Move'
+    ref: 'Routine'
 })
