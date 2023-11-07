@@ -3,7 +3,7 @@ import { Schema } from "mongoose";
 export const MoveSchema = new Schema({
     level: { type: String, enum: ['beginner', 'intermediate', 'expert'], required: true },
     imgUrl: { type: String, required: true, maxLength: 600 },
-    bodyPart: { type: Array, required: true },
+    bodyPart: [{ type: String, required: true }],
     description: { type: String, required: true, maxLength: 1000 },
     englishName: { type: String, required: true, maxLength: 100 },
     sanskritName: { type: String, required: true, maxLength: 100 },

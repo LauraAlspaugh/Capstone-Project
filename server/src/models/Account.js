@@ -7,7 +7,13 @@ export const AccountSchema = new Schema(
     email: { type: String, lowercase: true, unique: true },
     name: { type: String, required: true },
     picture: { type: String },
-    bio: { type: String }
+    bio: { type: String },
+    dailyPlayStreak: { type: Number, default: 0 },
+    customLogoUrl: { type: String },
+    useCustomLogo: { type: Boolean },
+    enableAudio: { type: Boolean },
+    customAudioId: { type: String },
+
     // NOTE If you wish to add additional properties do so here
   },
   { timestamps: true, toJSON: { virtuals: true } }
