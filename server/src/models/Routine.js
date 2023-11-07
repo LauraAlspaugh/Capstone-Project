@@ -12,15 +12,20 @@ export const RoutineSchema = new Schema({
     creatorId: { type: Schema.Types.ObjectId, required: true, ref: 'Account' },
     level: { type: String, enum: ['beginner', 'intermediate', 'expert'], required: true },
     moves: [{ type: Schema.Types.ObjectId, ref: 'Move' }]
-
-
-
 },
     { timestamps: true, toJSON: { virtuals: true } }
 )
+
 RoutineSchema.virtual('creator', {
     localField: 'creatorId',
     foreignField: '_id',
     justOne: true,
     ref: 'Account'
+})
+
+RoutineSchema.virtual('moveCount', {
+    localField: '_id',
+    foreignField: 'routineId',
+    count: true,
+    ref: 'ListEntry'
 })

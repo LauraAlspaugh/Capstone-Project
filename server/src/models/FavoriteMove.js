@@ -1,8 +1,8 @@
 import { Schema } from "mongoose";
 
 export const FavoriteMoveSchema = new Schema({
-    moveId: { type: Schema.Types.ObjectId, ref: 'Move' },
-    creatorId: { type: Schema.Types.ObjectId, ref: 'Account' }
+    moveId: { type: Schema.Types.ObjectId, required: true, ref: 'Move' },
+    creatorId: { type: Schema.Types.ObjectId, required: true, ref: 'Account' }
 
 })
 FavoriteMoveSchema.virtual('creator', {

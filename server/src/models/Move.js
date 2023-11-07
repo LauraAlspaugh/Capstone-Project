@@ -9,14 +9,21 @@ export const MoveSchema = new Schema({
     sanskritName: { type: String, required: true, maxLength: 100 },
     benefits: { type: String, required: true, maxLength: 1000 },
     category: { type: String, enum: ['core yoga', 'seated yoga', 'strengthening yoga', 'chest opening yoga', 'backbend yoga', 'forward bend yoga', 'hip opening yoga', 'standing yoga', 'restorative yoga', 'arm balance yoga', 'balancing yoga', 'inversion yoga'], required: true },
-    defaultTime: { type: Number, required: true, default: 45 },
+    time: { type: Number, required: true, default: 45 },
     creatorId: { type: Schema.Types.ObjectId, required: true, ref: 'Account' },
 },
     { timestamps: true, toJSON: { virtuals: true } }
 )
+
 MoveSchema.virtual('creator', {
     localField: 'creatorId',
     foreignField: '_id',
     justOne: true,
     ref: 'Account'
+})
+
+MoveSchema.virtual('moveUsage', {
+    localField: '_id',
+    foreignField: 'moveId',
+    ref: 'ListEntry'
 })

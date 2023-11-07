@@ -8,6 +8,8 @@ export class AccountController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
+      .put('', this.updateUserAccount)
+      .post('', this.dailyActivity)
   }
 
   async getUserAccount(req, res, next) {
@@ -18,4 +20,23 @@ export class AccountController extends BaseController {
       next(error)
     }
   }
+
+  async updateUserAccount(req, res, next) {
+    try {
+      const account = await accountService.updateAccount(req.userInfo, req.body)
+      res.send(account)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async dailyActivity(req, res, next) {
+    try {
+      const account = await accountService.dailyActivity(req.userInfo)
+      res.send(account)
+    } catch (error) {
+      next(error)
+    }
+  }
+
 }
