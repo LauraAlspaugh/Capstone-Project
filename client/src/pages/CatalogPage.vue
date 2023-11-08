@@ -58,7 +58,7 @@
     </section>
     <section class="row">
       <div v-for="move in moves" :key="move.id" class="col-12">
-      <MoveCard :moveProp="move"/>
+      <MoveCatalogCard :moveProp="move"/>
       </div>
     
     </section>
@@ -74,7 +74,8 @@ import { computed, reactive, onMounted, ref } from 'vue';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { movesService } from '../services/MovesService.js';
-import MoveCard from '../components/MoveCard.vue';
+import MoveCatalogCard from '../components/MoveCatalogCard.vue';
+
 export default {
     setup() {
         const levels = ["Beginner", "Intermediate", "Expert"];
@@ -93,6 +94,9 @@ export default {
                 Pop.error(error);
             }
         }
+        async function getRoutines(){
+
+        }
         return {
             editableLevel,
             editableFocus,
@@ -101,7 +105,7 @@ export default {
             moves: computed(() => AppState.moves)
         };
     },
-    components: { MoveCard }
+    components: { MoveCatalogCard }
 };
 </script>
 
