@@ -2,38 +2,6 @@ import { dbContext } from "../db/DbContext.js";
 import { BadRequest, Forbidden } from "../utils/Errors.js";
 import { logger } from "../utils/Logger.js";
 
-function _tallyTotal(counts) {
-    let total = 0;
-    counts.forEach(c => total += c.count)
-    return total
-}
-
-async function _updateUsageCount(moveId) {
-    const ObjectId = require('mongoose').Types.ObjectId
-    const counts = await dbContext.ListEntries.aggregate([
-        { $match: { moveId: ObjectId(moveId) } },
-        {
-            "$group": {
-                "_id": { "routineId": "$routineId" },
-                "routineId": { "$first": "$routineId" },
-                "count": { "$sum": 1 }
-            }
-        },
-        { "$project": { "_id": 0 } }
-    ])
-    const totals = _tallyTotal(counts);
-    logger.log('count results', totals, 'returned array?', counts, 'move', moveId,)
-    await dbContext.Moves.findOneAndUpdate(
-        { _id: moveId },
-        {
-            $set: {
-                useageCount: counts.length,
-                totalCount: totals
-            }
-        }
-    );
-}
-
 class MovesService {
 
     async getMoves(query) {
@@ -43,7 +11,6 @@ class MovesService {
     }
 
     async getMoveById(moveId) {
-        await _updateUsageCount(moveId);
         const move = await dbContext.Moves.findById(moveId).populate('creator', 'name picture');
         if (!move) {
             throw new BadRequest(`${moveId} is not a valid ID`);
