@@ -58,9 +58,7 @@
     </section>
     <section class="row">
       <div v-for="move in moves" :key="move.id" class="col-12">
-        <p>{{ move.englishName}}</p>
-        <p>{{ move.sanskritName }}</p>
-        <img :src="move.imgUrl" alt="move.imgUrl">
+      <MoveCard :moveProp="move"/>
       </div>
     
     </section>
@@ -76,34 +74,34 @@ import { computed, reactive, onMounted, ref } from 'vue';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { movesService } from '../services/MovesService.js';
+import MoveCard from '../components/MoveCard.vue';
 export default {
-  setup() {
-    const levels = ["Beginner", "Intermediate", "Expert"]
-    const focuses = ["Arms", "Chest", "Core", "Neck", "Glutes", "Hamstrings", "Hips", "Inner thighs", "Lower Back", "Quads", "Shoulder", "Upper Back"]
-    const editableLevel = ref({})
-    const editableFocus = ref({})
-    onMounted(() => {
-      getMoves()
-    });
-    async function getMoves() {
-      try {
-        await movesService.getMoves()
-      }
-      catch (error) {
-        logger.error(error)
-        Pop.error(error)
-      }
-    }
-    return {
-      editableLevel,
-      editableFocus,
-      levels,
-      focuses,
-      moves: computed(() => AppState.moves)
-    }
-
-
-  }
+    setup() {
+        const levels = ["Beginner", "Intermediate", "Expert"];
+        const focuses = ["Arms", "Chest", "Core", "Neck", "Glutes", "Hamstrings", "Hips", "Inner thighs", "Lower Back", "Quads", "Shoulder", "Upper Back"];
+        const editableLevel = ref({});
+        const editableFocus = ref({});
+        onMounted(() => {
+            getMoves();
+        });
+        async function getMoves() {
+            try {
+                await movesService.getMoves();
+            }
+            catch (error) {
+                logger.error(error);
+                Pop.error(error);
+            }
+        }
+        return {
+            editableLevel,
+            editableFocus,
+            levels,
+            focuses,
+            moves: computed(() => AppState.moves)
+        };
+    },
+    components: { MoveCard }
 };
 </script>
 

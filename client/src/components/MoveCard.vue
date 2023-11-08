@@ -1,5 +1,7 @@
 <template>
-    <div></div>
+    <img :src="moveProp.imgUrl" alt="moveProp.englishName">
+    <p>{{ moveProp.englishName }}</p>
+    <p>{{ moveProp.description }}</p>
 </template>
 
 
