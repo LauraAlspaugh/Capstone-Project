@@ -1,6 +1,7 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController.js";
 import { routinesService } from "../services/RoutinesService.js";
+import { listEntriesService } from "../services/ListEntriesService.js";
 
 export class RoutinesController extends BaseController {
     constructor() {
@@ -8,10 +9,21 @@ export class RoutinesController extends BaseController {
         this.router
             .get('', this.getRoutines)
             .get('/:routineId', this.getRoutineById)
+            .get('/:routineId/listentries', this.getListEntryByRoutineId)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createRoutine)
             .put('/:routineId', this.editRoutine)
             .delete('/:routineId', this.archiveRoutine)
+    }
+    async getListEntryByRoutineId(request, response, next) {
+        try {
+            const routineId = request.params.routineId
+            const listEntries = await listEntriesService.getListEntryByRoutineId(routineId)
+            return response.send(listEntries)
+        } catch (error) {
+            next(error)
+
+        }
     }
 
     async archiveRoutine(request, response, next) {
@@ -61,6 +73,7 @@ export class RoutinesController extends BaseController {
     }
     async getRoutines(request, response, next) {
         try {
+            const query = request.query
             const routines = await routinesService.getRoutines()
             return response.send(routines)
         } catch (error) {

@@ -3,13 +3,18 @@ import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class ListEntriesService {
+    async getListEntryByRoutineId(routineId) {
+        const listEntries = await dbContext.ListEntries.find({ routineId: routineId })
+            .populate('creator', 'name picture')
+        return listEntries
+    }
     async destroyListEntry(listEntryId, userId) {
-        const listEntry = await this.getListEntryById(listEntryId)
-        if (listEntry.creatorId.toString() != userId) {
-            throw new Forbidden('not your list Entry to archive!')
+        const listEntryToDelete = await this.getListEntryById(listEntryId)
+        if (listEntryToDelete.creatorId.toString() != userId) {
+            throw new Forbidden('not your list Entry to delete!')
         }
-        await listEntry.delete()
-        return ('this listEntry has been deleted')
+        await listEntryToDelete.delete()
+        return "this listEntry has been deleted"
     }
     async getListEntryById(listEntryId) {
         const listEntry = await dbContext.ListEntries.findById(listEntryId).populate('creator', 'name picture')

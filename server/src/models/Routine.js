@@ -6,6 +6,7 @@ export const RoutineSchema = new Schema({
     category: [{ type: String, required: true }],
     target: [{ type: String, required: true }],
     isPrivate: { type: Boolean, default: true },
+    isExample: { type: Boolean, default: false, required: false },
     isArchived: { type: Boolean, default: false },
     playCount: { type: Number, default: 0 },
     playTime: { type: Number, default: 0 },
