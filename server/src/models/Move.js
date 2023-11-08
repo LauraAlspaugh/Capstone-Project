@@ -10,6 +10,7 @@ export const MoveSchema = new Schema({
     benefits: { type: String, required: true, maxLength: 1000 },
     category: { type: String, enum: ['core yoga', 'seated yoga', 'strengthening yoga', 'chest opening yoga', 'backbend yoga', 'forward bend yoga', 'hip opening yoga', 'standing yoga', 'restorative yoga', 'arm balance yoga', 'balancing yoga', 'inversion yoga'], required: true },
     time: { type: Number, required: true, default: 45 },
+    useageCount: { type: Number, required: true, default: 0 },
     creatorId: { type: Schema.Types.ObjectId, required: true, ref: 'Account' },
 },
     { timestamps: true, toJSON: { virtuals: true } }
