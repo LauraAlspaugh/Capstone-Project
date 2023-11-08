@@ -63,7 +63,12 @@
     
     </section>
 
-
+    <section class="row">
+      <div v-for="routine in routines" :key="routine.id" class="col-12">
+      <RoutineCatalogCard :routineProp="routine"/>
+      </div>
+    
+    </section>
   </div>
 </template>
 
@@ -75,6 +80,8 @@ import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { movesService } from '../services/MovesService.js';
 import MoveCatalogCard from '../components/MoveCatalogCard.vue';
+import { routinesService } from '../services/RoutinesService.js';
+import RoutineCatalogCard from '../components/RoutineCatalogCard.vue';
 
 export default {
     setup() {
@@ -84,6 +91,7 @@ export default {
         const editableFocus = ref({});
         onMounted(() => {
             getMoves();
+            getRoutines()
         });
         async function getMoves() {
             try {
@@ -95,6 +103,13 @@ export default {
             }
         }
         async function getRoutines(){
+          try {
+            await routinesService.getRoutines()
+          } catch (error) {
+            logger.error(error)
+            Pop.error(error)
+            
+          }
 
         }
         return {
@@ -102,10 +117,11 @@ export default {
             editableFocus,
             levels,
             focuses,
-            moves: computed(() => AppState.moves)
+            moves: computed(() => AppState.moves),
+            routines: computed(()=> AppState.routines)
         };
     },
-    components: { MoveCatalogCard }
+    components: { MoveCatalogCard, RoutineCatalogCard }
 };
 </script>
 
