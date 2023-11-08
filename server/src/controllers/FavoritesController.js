@@ -1,43 +1,43 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController.js";
-import { favoriteMovesService } from "../services/FavoriteMovesService.js";
+import { favoritesService } from "../services/FavoritesService.js"
 
-export class FavoriteMovesController extends BaseController {
+export class FavoritesController extends BaseController {
   constructor() {
-    super("api/favoritemoves")
+    super("api/favorites")
     this.router
-      .get("", this.getFavoriteMoves)
+      .get("/moves", this.getFavoritedMoves)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .post("", this.createFavoriteMove)
-      .delete('/:favoritemoveId', this.removeFavoriteMove)
+      .post("/moves", this.createFavoritedMove)
+      .delete('moves/:favoritedmoveId', this.removeFavoritedMove)
   }
 
-  async getFavoriteMoves(request, response, next) {
+  async getFavoritedMoves(request, response, next) {
     try {
-      const favoriteMoves = await favoriteMovesService.getFavoriteMoves()
+      const favoriteMoves = await favoritesService.getFavoritedMoves()
       return response.send(favoriteMoves)
     } catch (error) {
       next(error)
     }
   }
 
-  async createFavoriteMove(request, response, next) {
+  async createFavoritedMove(request, response, next) {
     try {
       const favoriteMoveData = request.body
       const userInfo = request.userInfo
       favoriteMoveData.creatorId = userInfo.creatorId
-      let favoriteMove = await favoriteMovesService.createFavoriteMove(favoriteMoveData)
+      let favoriteMove = await favoritesService.createFavoritedMove(favoriteMoveData)
       return response.send(favoriteMove)
     } catch (error) {
       next(error)
     }
   }
 
-  async removeFavoriteMove(request, response, next) {
+  async removeFavoritedMove(request, response, next) {
     try {
       const favoritemoveId = request.params.favoritemoveId
       const userId = request.userInfo.id
-      const deleteMessage = await favoriteMovesService.removeFavoriteMove(favoritemoveId, userId)
+      const deleteMessage = await favoritesService.removeFavoritedMove(favoritemoveId, userId)
       return response.send(deleteMessage)
     } catch (error) {
       next(error)
