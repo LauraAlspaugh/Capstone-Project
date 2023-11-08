@@ -1,13 +1,38 @@
 import { dbContext } from "../db/DbContext.js";
 import { BadRequest, Forbidden } from "../utils/Errors.js";
+import { logger } from "../utils/Logger.js";
 
-async function _updateUsageCount(_id) {
+function _tallyTotal(counts) {
+    let total = 0;
+    counts.forEach(c => total += c.count)
+    return total
+}
+
+async function _updateUsageCount(moveId) {
     // const moves = await dbContext.Moves.findById(moveId);
-    const count = await dbContext.Routines.aggregate([
-        { "$match": { "moves": _id } },
-        { "$project": { "count": { $sum: 1 } } }
+    const counts = await dbContext.ListEntries.aggregate([
+        { "$match": { "moveId": `"${moveId}"` } }
+        // {
+        //     "$group": {
+        //         "_id": { "routineId": "$routineId" },
+        //         "routineId": { "$first": "$routineId" },
+        //         "count": { "$sum": 1 }
+        //     }
+        // },
+        // { "$project": { "_id": 0 } }
+        // { "$project": { "count": { "$sum": 1 } } }
     ])
-    await dbContext.Moves.findOneAndUpdate({ _id }, { $set: { useageCount: count.length } });
+    const totals = _tallyTotal(counts);
+    logger.log('count results', totals, 'returned array?', counts)
+    // await dbContext.Moves.findOneAndUpdate(
+    //     { _id: moveId },
+    //     {
+    //         $set: {
+    //             useageCount: counts.length,
+    //             totalInstanceCount: totals
+    //         }
+    //     }
+    // );
 }
 
 class MovesService {
@@ -18,11 +43,11 @@ class MovesService {
     }
 
     async getMoveById(moveId) {
+        await _updateUsageCount(moveId);
         const move = await dbContext.Moves.findById(moveId).populate('creator', 'name picture');
         if (!move) {
             throw new BadRequest(`${moveId} is not a valid ID`);
         }
-        await _updateUsageCount(moveId);
         return move
     }
 
