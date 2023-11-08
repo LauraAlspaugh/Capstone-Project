@@ -1,8 +1,16 @@
 import { query } from "express"
 import { dbContext } from "../db/DbContext.js"
-import { BadRequest } from "../utils/Errors.js"
+import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class ListEntriesService {
+    async destroyListEntry(listEntryId, userId) {
+        const listEntry = await this.getListEntryById(listEntryId)
+        if (listEntry.creatorId.toString() != userId) {
+            throw new Forbidden('not your list Entry to archive!')
+        }
+        await listEntry.delete()
+        return ('this listEntry has been deleted')
+    }
     async getListEntryById(listEntryId) {
         const listEntry = await dbContext.ListEntries.findById(listEntryId).populate('creator', 'name picture')
         if (!listEntry) {

@@ -11,6 +11,20 @@ export class ListEntriesController extends BaseController {
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createListEntry)
             .put('/:listEntryId', this.editListEntry)
+            .delete('/:listEntryId', this.destroyListEntry)
+    }
+    async destroyListEntry(request, response, next) {
+        try {
+            const listEntryId = request.params.listEntryId
+            const userId = request.userInfo.id
+            const listEntry = await listEntriesService.destroyListEntry(listEntryId, userId)
+            return listEntry
+        } catch (error) {
+            next(error)
+
+        }
+
+
     }
     async getListEntryById(request, response, next) {
         try {
