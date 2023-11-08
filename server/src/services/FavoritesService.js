@@ -51,12 +51,12 @@ class FavoritesService {
   }
 
   async getMyFavoritedMoves(userId) {
-    let myFavoritedMoves = await dbContext.FavoriteMoves.find({ userId: userId }).populate("creator move")
+    let myFavoritedMoves = await dbContext.FavoriteMoves.find({ creatorId: userId }).populate("creator move")
     return myFavoritedMoves
   }
 
   async getMyFavoritedRoutines(userId) {
-    let myFavoritedRoutines = await dbContext.FavoriteRoutines.find({ userId: userId }).populate("creator move")
+    let myFavoritedRoutines = await dbContext.FavoriteRoutines.find({ creatorId: userId }).populate("creator")
     return myFavoritedRoutines
   }
 
