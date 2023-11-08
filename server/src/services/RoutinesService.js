@@ -38,6 +38,8 @@ class RoutinesService {
             routineToBeUpdated.playCount
         routineToBeUpdated.playTime = routineData.playTime != undefined ? routineData.playTime :
             routineToBeUpdated.playTime
+        routineToBeUpdated.isExample = routineData.isExample != undefined ? routineData.isExample :
+            routineToBeUpdated.isExample
         await routineToBeUpdated.save()
         return routineToBeUpdated
     }
