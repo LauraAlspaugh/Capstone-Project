@@ -1,4 +1,5 @@
 import { Schema } from "mongoose";
+import { dbContext } from "../db/DbContext.js";
 
 export const ListEntrySchema = new Schema({
     name: { type: String, maxLength: 100 },
@@ -33,4 +34,52 @@ ListEntrySchema.virtual('routine', {
     foreignField: '_id',
     justOne: true,
     ref: 'Routine'
+})
+
+ListEntrySchema.post("save", async function () {
+    let listEntry = this
+    let routine = await dbContext.Routines.findById(listEntry.routineId)
+    if (!routine) {
+        return
+    }
+    let totalPlayTime = await dbContext.ListEntries.aggregate([
+        {
+            $match: {
+                routineId: routine._id
+            },
+        },
+        {
+            $group: {
+                _id: "$routineId", totalPlayTime: { $sum: "$duration" },
+            },
+        },
+    ]);
+
+    routine.playTime = totalPlayTime[0].totalPlayTime
+
+    await routine.save()
+})
+
+ListEntrySchema.post("remove", async function () {
+    let listEntry = this
+    let routine = await dbContext.Routines.findById(listEntry.routineId)
+    if (!routine) {
+        return
+    }
+    let totalPlayTime = await dbContext.ListEntries.aggregate([
+        {
+            $match: {
+                routineId: routine._id
+            },
+        },
+        {
+            $group: {
+                _id: "$routineId", totalPlayTime: { $sum: "$duration" },
+            },
+        },
+    ]);
+
+    routine.playTime = totalPlayTime[0].totalPlayTime
+
+    await routine.save()
 })
