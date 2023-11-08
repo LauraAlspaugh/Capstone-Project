@@ -19,13 +19,14 @@ export const RoutineSchema = new Schema({
 RoutineSchema.virtual('creator', {
     localField: 'creatorId',
     foreignField: '_id',
-    justOne: true,
-    ref: 'Account'
+    ref: 'Account',
+    justOne: true
 })
 
 RoutineSchema.virtual('moveCount', {
-    localField: '_id',
+    match: { transition: false },
     foreignField: 'routineId',
-    count: true,
-    ref: 'ListEntry'
+    localField: '_id',
+    ref: 'ListEntry',
+    count: true
 })
