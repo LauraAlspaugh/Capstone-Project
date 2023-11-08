@@ -16,4 +16,7 @@ export class Move  {
         this.creator = data.creator
 
     }
+    get benefitsArray(){
+        return this.benefits.split('.')
+    }
 }
