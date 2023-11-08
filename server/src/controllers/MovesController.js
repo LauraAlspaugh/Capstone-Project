@@ -8,11 +8,31 @@ export class MovesController extends BaseController {
         this.router
             .get('', this.getMoves)
             .get('/:moveId', this.getMoveById)
+            // 🔽 REQUIRES AUTHENTICATION 🔽
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createMove)
             .put('/:moveId', this.editMove)
             .delete('/:moveId', this.destroyMove)
     }
+
+    async getMoves(request, response, next) {
+        try {
+            const query = request.query
+            const moves = await movesService.getMoves(query)
+            return response.send(moves)
+        } catch (error) { next(error) }
+    }
+
+    async getMoveById(request, response, next) {
+        try {
+            const moveId = request.params.moveId
+            const move = await movesService.getMoveById(moveId)
+            return response.send(move)
+        } catch (error) { next(error) }
+    }
+
+    // SECTION 🔽 REQUIRES AUTHENTICATION 🔽
+
     async destroyMove(request, response, next) {
         try {
             const moveId = request.params.moveId
@@ -29,21 +49,6 @@ export class MovesController extends BaseController {
             const moveData = request.body
             const updatedMove = await movesService.editMove(moveId, userId, moveData)
             return response.send(updatedMove)
-        } catch (error) { next(error) }
-    }
-
-    async getMoveById(request, response, next) {
-        try {
-            const moveId = request.params.moveId
-            const move = await movesService.getMoveById(moveId)
-            return response.send(move)
-        } catch (error) { next(error) }
-    }
-    async getMoves(request, response, next) {
-        try {
-            const query = request.query
-            const moves = await movesService.getMoves(query)
-            return response.send(moves)
         } catch (error) { next(error) }
     }
 
