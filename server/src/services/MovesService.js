@@ -28,7 +28,7 @@ async function _updateUsageCount(moveId) {
         {
             $set: {
                 useageCount: counts.length,
-                totalInstanceCount: totals
+                totalCount: totals
             }
         }
     );
@@ -38,6 +38,7 @@ class MovesService {
 
     async getMoves(query) {
         const moves = await dbContext.Moves.find(query);
+        // moves.forEach(m => _updateUsageCount(m.id));
         return moves
     }
 
