@@ -38,6 +38,8 @@ class RoutinesService {
             routineToBeUpdated.playCount
         routineToBeUpdated.playTime = routineData.playTime != undefined ? routineData.playTime :
             routineToBeUpdated.playTime
+        routineToBeUpdated.isExample = routineData.isExample != undefined ? routineData.isExample :
+            routineToBeUpdated.isExample
         await routineToBeUpdated.save()
         return routineToBeUpdated
     }
@@ -54,7 +56,7 @@ class RoutinesService {
 
     }
     async getRoutines(query) {
-        const moves = await dbContext.Routines.find(query).populate('creator', 'name picture')
+        const moves = await dbContext.Routines.find(query).populate('creator listEntry', 'name picture')
         return moves
 
     }
