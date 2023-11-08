@@ -2,14 +2,26 @@ import { dbContext } from "../db/DbContext.js";
 import { BadRequest, Forbidden } from "../utils/Errors.js";
 class FavoritesService {
 
-  async getFavoritedMoves() {
-    let favoritedMoves = await dbContext.FavoriteMoves.find().populate("creator move")
-    return favoritedMoves
+  async getMyFavoritedMoves(userId) {
+    let myFavoritedMoves = await dbContext.FavoriteMoves
+      .find({ creatorId: userId }).populate({
+        path: "move",
+        populate: {
+          path: "creator"
+        }
+      })
+    return myFavoritedMoves
   }
 
-  async getFavoritedRoutines() {
-    let favoritedRoutines = await dbContext.FavoriteRoutines.find().populate("creator routine")
-    return favoritedRoutines
+  async getMyFavoritedRoutines(userId) {
+    let myFavoritedRoutines = await dbContext.FavoriteRoutines
+      .find({ creatorId: userId }).populate({
+        path: "routine",
+        populate: {
+          path: "creator"
+        }
+      })
+    return myFavoritedRoutines
   }
 
   async createFavoritedMove(favoritedMoveData) {
@@ -50,15 +62,6 @@ class FavoritesService {
     return "This move has been removed from your favorites."
   }
 
-  async getMyFavoritedMoves(userId) {
-    let myFavoritedMoves = await dbContext.FavoriteMoves.find({ creatorId: userId }).populate("creator move")
-    return myFavoritedMoves
-  }
-
-  async getMyFavoritedRoutines(userId) {
-    let myFavoritedRoutines = await dbContext.FavoriteRoutines.find({ creatorId: userId }).populate("creator")
-    return myFavoritedRoutines
-  }
 
 }
 

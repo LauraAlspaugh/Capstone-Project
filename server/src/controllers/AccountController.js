@@ -8,6 +8,7 @@ export class AccountController extends BaseController {
   constructor() {
     super('account')
     this.router
+      // 🔽 AUTHENTICATION REQUIRED 🔽
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('/favorites/moves', this.getMyFavoritedMoves)
       .get('/favorites/routines', this.getMyFavoritedRoutines)
@@ -16,6 +17,8 @@ export class AccountController extends BaseController {
       .post('', this.dailyActivity)
       .get('/routines', this.getRoutineByCreatorId)
   }
+
+  // SECTION 🔽 AUTHENTICATION REQUIRED 🔽
 
   async getMyFavoritedMoves(request, response, next) {
     try {

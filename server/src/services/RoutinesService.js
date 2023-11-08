@@ -49,7 +49,6 @@ class RoutinesService {
         routineToBeUpdated.isArchived = routineData.isArchived != undefined ? routineData.isArchived :
             routineToBeUpdated.isArchived
         routineToBeUpdated.level = routineData.level || routineToBeUpdated.level
-        // routineToBeUpdated.moves = routineData.moves || routineToBeUpdated.moves
         routineToBeUpdated.keyImage = routineData.keyImage || routineToBeUpdated.keyImage
         routineToBeUpdated.playCount = routineData.playCount != undefined ? routineData.playCount :
             routineToBeUpdated.playCount

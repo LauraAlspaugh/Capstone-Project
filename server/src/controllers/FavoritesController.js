@@ -6,8 +6,9 @@ export class FavoritesController extends BaseController {
   constructor() {
     super("api/favorites")
     this.router
-      .get("/moves", this.getFavoritedMoves)
-      .get("/routines", this.getFavoritedRoutines)
+      .get("/moves", this.getMyFavoritedMoves)
+      .get("/routines", this.getMyFavoritedRoutines)
+      // 🔽 AUTHENTICATION REQUIRED 🔽
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post("/moves", this.createFavoritedMove)
       .post("/routines", this.createFavoritedRoutine)
@@ -15,23 +16,21 @@ export class FavoritesController extends BaseController {
       .delete('/routines/:favoritedroutineId', this.removeFavoritedRoutine)
   }
 
-  async getFavoritedMoves(request, response, next) {
+  async getMyFavoritedMoves(request, response, next) {
     try {
-      const favoritedMoves = await favoritesService.getFavoritedMoves()
+      const favoritedMoves = await favoritesService.getMyFavoritedMoves()
       return response.send(favoritedMoves)
-    } catch (error) {
-      next(error)
-    }
+    } catch (error) { next(error) }
   }
 
-  async getFavoritedRoutines(request, response, next) {
+  async getMyFavoritedRoutines(request, response, next) {
     try {
-      const favoritedRoutines = await favoritesService.getFavoritedRoutines()
+      const favoritedRoutines = await favoritesService.getMyFavoritedRoutines()
       return response.send(favoritedRoutines)
-    } catch (error) {
-      next(error)
-    }
+    } catch (error) { next(error) }
   }
+
+  // SECTION 🔽 AUTHENTICATION REQUIRED 🔽
 
   async createFavoritedMove(request, response, next) {
     try {
@@ -40,9 +39,7 @@ export class FavoritesController extends BaseController {
       favoritedMoveData.creatorId = userInfo.id
       let favoritedMove = await favoritesService.createFavoritedMove(favoritedMoveData)
       return response.send(favoritedMove)
-    } catch (error) {
-      next(error)
-    }
+    } catch (error) { next(error) }
   }
 
   async createFavoritedRoutine(request, response, next) {
@@ -52,9 +49,7 @@ export class FavoritesController extends BaseController {
       favoritedRoutineData.creatorId = userInfo.id
       let favoritedRoutine = await favoritesService.createFavoritedRoutine(favoritedRoutineData)
       return response.send(favoritedRoutine)
-    } catch (error) {
-      next(error)
-    }
+    } catch (error) { next(error) }
   }
 
   async removeFavoritedMove(request, response, next) {
@@ -63,9 +58,7 @@ export class FavoritesController extends BaseController {
       const userId = request.userInfo.id
       const deleteMessage = await favoritesService.removeFavoritedMove(favoritedmoveId, userId)
       return response.send(deleteMessage)
-    } catch (error) {
-      next(error)
-    }
+    } catch (error) { next(error) }
   }
 
   async removeFavoritedRoutine(request, response, next) {
@@ -74,9 +67,7 @@ export class FavoritesController extends BaseController {
       const userId = request.userInfo.id
       const deleteMessage = await favoritesService.removeFavoritedRoutine(favoritedroutineId, userId)
       return response.send(deleteMessage)
-    } catch (error) {
-      next(error)
-    }
+    } catch (error) { next(error) }
   }
 
 }
