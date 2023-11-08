@@ -9,30 +9,29 @@ function _tallyTotal(counts) {
 }
 
 async function _updateUsageCount(moveId) {
-    // const moves = await dbContext.Moves.findById(moveId);
+    const ObjectId = require('mongoose').Types.ObjectId
     const counts = await dbContext.ListEntries.aggregate([
-        { "$match": { "moveId": `"${moveId}"` } }
-        // {
-        //     "$group": {
-        //         "_id": { "routineId": "$routineId" },
-        //         "routineId": { "$first": "$routineId" },
-        //         "count": { "$sum": 1 }
-        //     }
-        // },
-        // { "$project": { "_id": 0 } }
-        // { "$project": { "count": { "$sum": 1 } } }
+        { $match: { moveId: ObjectId(moveId) } },
+        {
+            "$group": {
+                "_id": { "routineId": "$routineId" },
+                "routineId": { "$first": "$routineId" },
+                "count": { "$sum": 1 }
+            }
+        },
+        { "$project": { "_id": 0 } }
     ])
     const totals = _tallyTotal(counts);
-    logger.log('count results', totals, 'returned array?', counts)
-    // await dbContext.Moves.findOneAndUpdate(
-    //     { _id: moveId },
-    //     {
-    //         $set: {
-    //             useageCount: counts.length,
-    //             totalInstanceCount: totals
-    //         }
-    //     }
-    // );
+    logger.log('count results', totals, 'returned array?', counts, 'move', moveId,)
+    await dbContext.Moves.findOneAndUpdate(
+        { _id: moveId },
+        {
+            $set: {
+                useageCount: counts.length,
+                totalInstanceCount: totals
+            }
+        }
+    );
 }
 
 class MovesService {
