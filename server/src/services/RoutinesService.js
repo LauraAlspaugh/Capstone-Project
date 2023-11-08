@@ -3,7 +3,9 @@ import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class RoutinesService {
     async getRoutineByCreatorId(userId) {
-        const routines = await dbContext.Routines.find({ creatorId: userId }).populate('creator', 'name picture')
+        const routines = await dbContext.Routines.find({ creatorId: userId })
+            .populate('creator', 'name picture')
+            .populate("listEntry")
         return routines
 
     }
@@ -41,10 +43,13 @@ class RoutinesService {
         routineToBeUpdated.isExample = routineData.isExample != undefined ? routineData.isExample :
             routineToBeUpdated.isExample
         await routineToBeUpdated.save()
+        await routineToBeUpdated.populate("listEntry")
         return routineToBeUpdated
     }
     async getRoutineById(routineId) {
-        const routine = (await dbContext.Routines.findById(routineId)).populate('creator', 'name picture')
+        const routine = await dbContext.Routines.findById(routineId)
+        await routine.populate('creator', 'name picture')
+        await routine.populate("listEntry")
         if (!routine) {
             throw new BadRequest('this is not a valid routine')
         } return routine
@@ -56,7 +61,9 @@ class RoutinesService {
 
     }
     async getRoutines(query) {
-        const moves = await dbContext.Routines.find(query).populate('creator listEntry', 'name picture')
+        const moves = await dbContext.Routines.find(query)
+            .populate('creator', 'name picture')
+            .populate("listEntry")
         return moves
 
     }

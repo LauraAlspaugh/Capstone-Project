@@ -1,6 +1,7 @@
 import { query } from "express"
 import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
+import { routinesService } from "./RoutinesService.js"
 
 class ListEntriesService {
     async getListEntryByRoutineId(routineId) {
@@ -42,6 +43,8 @@ class ListEntriesService {
     async createListEntry(listEntryData) {
         const newListEntry = await dbContext.ListEntries.create(listEntryData)
         await newListEntry.populate('creator', 'name picture')
+        let routine = await routinesService.getRoutineById(newListEntry.routineId)
+        routine.moves.push(newListEntry.id)
         return newListEntry
     }
     async getListEntries(query) {
