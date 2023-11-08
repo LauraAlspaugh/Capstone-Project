@@ -57,7 +57,12 @@
       </div>
     </section>
     <section class="row">
-      {{ moves }}
+      <div v-for="move in moves" :key="move.id" class="col-12">
+        <p>{{ move.englishName}}</p>
+        <p>{{ move.sanskritName }}</p>
+        <img :src="move.imgUrl" alt="move.imgUrl">
+      </div>
+    
     </section>
 
 
