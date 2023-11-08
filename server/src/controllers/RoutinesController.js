@@ -13,6 +13,7 @@ export class RoutinesController extends BaseController {
             .put('/:routineId', this.editRoutine)
             .delete('/:routineId', this.archiveRoutine)
     }
+
     async archiveRoutine(request, response, next) {
         try {
             const routineId = request.params.routineId

@@ -1,6 +1,7 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { accountService } from '../services/AccountService'
 import BaseController from '../utils/BaseController'
+import { routinesService } from '../services/RoutinesService.js'
 
 export class AccountController extends BaseController {
   constructor() {
@@ -10,6 +11,7 @@ export class AccountController extends BaseController {
       .get('', this.getUserAccount)
       .put('', this.updateUserAccount)
       .post('', this.dailyActivity)
+      .get('/routines', this.getRoutineByCreatorId)
   }
 
   async getUserAccount(req, res, next) {
@@ -18,6 +20,16 @@ export class AccountController extends BaseController {
       res.send(account)
     } catch (error) {
       next(error)
+    }
+  }
+  async getRoutineByCreatorId(request, response, next) {
+    try {
+      const userId = request.userInfo.id
+      const routines = await routinesService.getRoutineByCreatorId(userId)
+      return response.send(routines)
+    } catch (error) {
+      next(error)
+
     }
   }
 
