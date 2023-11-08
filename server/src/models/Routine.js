@@ -31,6 +31,7 @@ RoutineSchema.virtual('moveCount', {
     ref: 'ListEntry',
     count: true
 })
+
 RoutineSchema.virtual('listEntry', {
     foreignField: 'routineId',
     localField: '_id',
