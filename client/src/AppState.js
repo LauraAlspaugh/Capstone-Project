@@ -9,7 +9,7 @@ export const AppState = reactive({
   routines: [],
   /** @type {import('./models/Move.js').Move} */
   moves: [],
-  /** @type {import('./models/listEntry.js').ListEntry} */
+  /** @type {import('./models/ListEntry.js').ListEntry} */
   listEntries: [], 
 
 })
