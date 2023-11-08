@@ -18,27 +18,11 @@
             Level
           </button>
           <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
-            <li class="ps-3">
+            <li class="ps-3" v-for="level in levels" :key="level">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input v-model="editable[level]" class=" form-check-input" type="checkbox" value="" id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
-                  Beginner
-                </label>
-              </div>
-            </li>
-            <li class="ps-3">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                  Intermediate
-                </label>
-              </div>
-            </li>
-            <li class="ps-3">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                  Expert
+                  {{ level }}
                 </label>
               </div>
             </li>
@@ -57,9 +41,9 @@
             Focus
           </button>
           <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
-            <li class="ps-3">
+            <li class="ps-3" v-for="focus in focuss" :key="focus">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input v-model="editable.arms" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
                   Arms
                 </label>
@@ -67,7 +51,7 @@
             </li>
             <li class="ps-3">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input v-model="editable.chest" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
                   Chest
                 </label>
@@ -167,12 +151,15 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted } from 'vue';
+import { computed, reactive, onMounted, ref } from 'vue';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { movesService } from '../services/MovesService.js';
 export default {
   setup() {
+    const levels = ["Beginner", "Intermediate", "Expert"]
+    const focuss = ["Arms", "Chest", "Core", "Neck", "Glutes", "Hamstrings", "Hips", "Inner thighs", "Lower Back", "Quads", "Shoulder", "Upper Back"]
+    const editable = ref({})
     onMounted(()=> {
       getMoves()
     });
@@ -186,8 +173,13 @@ export default {
       }
     }
     return {
+      editable,
+      levels,
+      focus,
       moves: computed(()=> AppState.moves)
     }
+    
+  
   }
 };
 </script>
