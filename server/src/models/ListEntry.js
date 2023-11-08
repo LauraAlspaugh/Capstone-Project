@@ -36,7 +36,7 @@ ListEntrySchema.virtual('routine', {
     ref: 'Routine'
 })
 
-ListEntrySchema.post("save", async function () {
+async function calcRuntime() {
     let listEntry = this
     let routine = await dbContext.Routines.findById(listEntry.routineId)
     if (!routine) {
@@ -58,28 +58,8 @@ ListEntrySchema.post("save", async function () {
     routine.playTime = totalPlayTime[0].totalPlayTime
 
     await routine.save()
-})
+}
 
-ListEntrySchema.post("remove", async function () {
-    let listEntry = this
-    let routine = await dbContext.Routines.findById(listEntry.routineId)
-    if (!routine) {
-        return
-    }
-    let totalPlayTime = await dbContext.ListEntries.aggregate([
-        {
-            $match: {
-                routineId: routine._id
-            },
-        },
-        {
-            $group: {
-                _id: "$routineId", totalPlayTime: { $sum: "$duration" },
-            },
-        },
-    ]);
+ListEntrySchema.post("save", calcRuntime)
 
-    routine.playTime = totalPlayTime[0].totalPlayTime
-
-    await routine.save()
-})
+ListEntrySchema.post("remove", calcRuntime)
