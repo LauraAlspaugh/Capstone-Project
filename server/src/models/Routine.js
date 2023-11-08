@@ -11,8 +11,7 @@ export const RoutineSchema = new Schema({
     playCount: { type: Number, required: true, default: 0 },
     playTime: { type: Number, required: true, default: 0 },
     creatorId: { type: Schema.Types.ObjectId, required: true, ref: 'Account' },
-    level: { type: String, enum: ['beginner', 'intermediate', 'expert'], required: true },
-    moves: [{ type: Schema.Types.ObjectId, ref: 'ListEntry' }]
+    level: { type: String, enum: ['beginner', 'intermediate', 'expert'], required: true }
 },
     { timestamps: true, toJSON: { virtuals: true } }
 )

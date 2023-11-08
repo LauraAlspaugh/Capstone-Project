@@ -43,8 +43,6 @@ class ListEntriesService {
     async createListEntry(listEntryData) {
         const newListEntry = await dbContext.ListEntries.create(listEntryData)
         await newListEntry.populate('creator', 'name picture')
-        let routine = await routinesService.getRoutineById(newListEntry.routineId)
-        routine.moves.push(newListEntry.id)
         return newListEntry
     }
     async getListEntries(query) {
