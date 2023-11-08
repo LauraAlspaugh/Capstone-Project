@@ -1,15 +1,30 @@
 import { dbContext } from "../db/DbContext.js";
 import { BadRequest, Forbidden } from "../utils/Errors.js";
 
+
 class MovesService {
-    async destroyMove(moveId, userId) {
-        let moveToDelete = await this.getMoveById(moveId)
-        if (moveToDelete.creatorId.toString() != userId) {
-            throw new Forbidden(`This is not your move to delete.`)
-        }
-        await moveToDelete.delete()
-        return "Move deleted."
+
+    async getMoves(query) {
+        const moves = await dbContext.Moves.find(query)
+        return moves
     }
+
+    async getMoveById(moveId) {
+        const move = await dbContext.Moves.findById(moveId)
+        if (!move) {
+            throw new BadRequest(`${moveId} is not a valid ID`)
+        }
+        await move.populate('creator', 'name picture')
+        return move
+    }
+
+    // SECTION 🔽 REQUIRES AUTHENTICATION 🔽
+
+    async createMove(moveData) {
+        const newMove = await dbContext.Moves.create(moveData)
+        return newMove
+    }
+
     async editMove(moveId, userId, moveData) {
         let moveToEdit = await this.getMoveById(moveId)
         if (moveToEdit.creatorId.toString() != userId) {
@@ -28,24 +43,14 @@ class MovesService {
         await moveToEdit.save()
         return moveToEdit
     }
-    async getMoveById(moveId) {
-        const move = await dbContext.Moves.findById(moveId)
-        if (!move) {
-            throw new BadRequest(`${moveId} is not a valid ID`)
-        }
-        await move.populate('creator', 'name picture')
-        return move
-    }
 
-    async getMoves(query) {
-        const moves = await dbContext.Moves.find(query)
-            .populate('creator', 'name picture')
-        return moves
-    }
-    async createMove(moveData) {
-        const newMove = await dbContext.Moves.create(moveData)
-        await newMove.populate('creator', 'name picture')
-        return newMove
+    async destroyMove(moveId, userId) {
+        let moveToDelete = await this.getMoveById(moveId)
+        if (moveToDelete.creatorId.toString() != userId) {
+            throw new Forbidden(`This is not your move to delete.`)
+        }
+        await moveToDelete.delete()
+        return "Move deleted."
     }
 
 }
