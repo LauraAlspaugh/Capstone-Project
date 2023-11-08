@@ -12,6 +12,16 @@ const routes = [
     component: loadPage('HomePage')
   },
   {
+    path: '/routine-designer',
+    name: 'RoutineDesigner',
+    component: loadPage('RoutineDesignerPage')
+  },
+  {
+    path: '/catalog',
+    name: 'Catalog',
+    component: loadPage('CatalogPage')
+  },
+  {
     path: '/about',
     name: 'About',
     component: loadPage('AboutPage')

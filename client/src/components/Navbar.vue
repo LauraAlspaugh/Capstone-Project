@@ -1,8 +1,8 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <nav class="navbar navbar-expand-lg navbar-grey px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+        <img class="logo-nav" alt="logo" src="../assets/img/RootedFlow Logo-only.png" />
       </div>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -12,7 +12,17 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
+          <router-link :to="{ name: 'RoutineDesigner' }" class="btn text-black lighten-30 selectable text-uppercase">
+            Routine Designer
+          </router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'Catalog' }" class="btn text-black lighten-30 selectable text-uppercase">
+            Catalog
+          </router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'About' }" class="btn text-black lighten-30 selectable text-uppercase">
             About
           </router-link>
         </li>
@@ -43,14 +53,29 @@ a:hover {
 }
 
 .navbar-nav .router-link-exact-active {
-  border-bottom: 2px solid var(--bs-success);
+  border-bottom: 2px solid var(--bs-dark);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
+.navbar-grey {
+  background-color: #E0DDDB;
+  /* height: 60px; */
+}
+
+.logo-nav {
+  height: 155px;
+}
+
+nav {
+  height: 133px;
+}
+
 @media screen and (min-width: 768px) {
   nav {
-    height: 64px;
+    height: 133px;
   }
+
+
 }
 </style>
