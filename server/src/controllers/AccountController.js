@@ -8,9 +8,9 @@ export class AccountController extends BaseController {
   constructor() {
     super('account')
     this.router
+      .use(Auth0Provider.getAuthorizedUserInfo)
       .get('/favorites/moves', this.getMyFavoritedMoves)
       .get('/favorites/routines', this.getMyFavoritedRoutines)
-      .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
       .put('', this.updateUserAccount)
       .post('', this.dailyActivity)
