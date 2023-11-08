@@ -3,6 +3,7 @@ export class Routine{
         this.id = data.id || data._id
         this.name = data.name
         this.description = data.description
+        this.keyImage = data.keyImage
         this.category = data.category
         this.target = data.target
         this.isPrivate = data.isPrivate

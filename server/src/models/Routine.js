@@ -3,6 +3,7 @@ import { Schema } from "mongoose";
 export const RoutineSchema = new Schema({
     name: { type: String, required: true, maxLength: 100 },
     description: { type: String, required: true, maxLength: 700 },
+    keyImage: { type: String, maxLength: 700 },
     category: [{ type: String, required: true }],
     target: [{ type: String, required: true }],
     isPrivate: { type: Boolean, required: false, default: true },
