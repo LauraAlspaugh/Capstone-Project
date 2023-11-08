@@ -20,7 +20,7 @@
           <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
             <li class="ps-3" v-for="level in levels" :key="level">
               <div class="form-check">
-                <input v-model="editableLevel[level]" class=" form-check-input" type="checkbox" value=""
+                <input v-model="editableLevel[level]" class=" form-check-input" type="radio" value=""
                   id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
                   {{ level }}
@@ -58,16 +58,16 @@
     </section>
     <section class="row">
       <div v-for="move in moves" :key="move.id" class="col-12">
-      <MoveCatalogCard :moveProp="move"/>
+        <MoveCatalogCard :moveProp="move" />
       </div>
-    
+
     </section>
 
     <section class="row">
       <div v-for="routine in routines" :key="routine.id" class="col-12">
-      <RoutineCatalogCard :routineProp="routine"/>
+        <RoutineCatalogCard :routineProp="routine" />
       </div>
-    
+
     </section>
   </div>
 </template>
@@ -84,44 +84,44 @@ import { routinesService } from '../services/RoutinesService.js';
 import RoutineCatalogCard from '../components/RoutineCatalogCard.vue';
 
 export default {
-    setup() {
-        const levels = ["Beginner", "Intermediate", "Expert"];
-        const focuses = ["Arms", "Chest", "Core", "Neck", "Glutes", "Hamstrings", "Hips", "Inner thighs", "Lower Back", "Quads", "Shoulder", "Upper Back"];
-        const editableLevel = ref({});
-        const editableFocus = ref({});
-        onMounted(() => {
-            getMoves();
-            getRoutines()
-        });
-        async function getMoves() {
-            try {
-                await movesService.getMoves();
-            }
-            catch (error) {
-                logger.error(error);
-                Pop.error(error);
-            }
-        }
-        async function getRoutines(){
-          try {
-            await routinesService.getRoutines()
-          } catch (error) {
-            logger.error(error)
-            Pop.error(error)
-            
-          }
+  setup() {
+    const levels = ["Beginner", "Intermediate", "Expert"];
+    const focuses = ["Arms", "Chest", "Core", "Neck", "Glutes", "Hamstrings", "Hips", "Inner thighs", "Lower Back", "Quads", "Shoulder", "Upper Back"];
+    const editableLevel = ref({});
+    const editableFocus = ref({});
+    onMounted(() => {
+      getMoves();
+      getRoutines()
+    });
+    async function getMoves() {
+      try {
+        await movesService.getMoves();
+      }
+      catch (error) {
+        logger.error(error);
+        Pop.error(error);
+      }
+    }
+    async function getRoutines() {
+      try {
+        await routinesService.getRoutines()
+      } catch (error) {
+        logger.error(error)
+        Pop.error(error)
 
-        }
-        return {
-            editableLevel,
-            editableFocus,
-            levels,
-            focuses,
-            moves: computed(() => AppState.moves),
-            routines: computed(()=> AppState.routines)
-        };
-    },
-    components: { MoveCatalogCard, RoutineCatalogCard }
+      }
+
+    }
+    return {
+      editableLevel,
+      editableFocus,
+      levels,
+      focuses,
+      moves: computed(() => AppState.moves),
+      routines: computed(() => AppState.routines)
+    };
+  },
+  components: { MoveCatalogCard, RoutineCatalogCard }
 };
 </script>
 
