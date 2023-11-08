@@ -54,7 +54,7 @@ class RoutinesService {
 
     }
     async getRoutines(query) {
-        const moves = await dbContext.Routines.find(query).populate('creator', 'name picture')
+        const moves = await dbContext.Routines.find(query).populate('creator listEntry', 'name picture')
         return moves
 
     }
