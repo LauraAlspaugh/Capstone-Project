@@ -2,6 +2,11 @@ import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class RoutinesService {
+    async getRoutineByCreatorId(userId) {
+        const routines = await dbContext.Routines.find({ creatorId: userId }).populate('creator', 'name picture')
+        return routines
+
+    }
     async archiveRoutine(routineId, userId) {
         const routine = await this.getRoutineById(routineId)
         if (routine.creatorId.toString() != userId) {
@@ -9,7 +14,7 @@ class RoutinesService {
         }
         routine.isArchived = !routine.isArchived
         await routine.save()
-        return ('this routine has been archived!')
+        return routine
     }
     async editRoutine(routineId, userId, routineData) {
         const routineToBeUpdated = await this.getRoutineById(routineId)
