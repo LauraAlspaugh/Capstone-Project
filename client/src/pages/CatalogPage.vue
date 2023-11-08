@@ -20,7 +20,8 @@
           <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
             <li class="ps-3" v-for="level in levels" :key="level">
               <div class="form-check">
-                <input v-model="editable[level]" class=" form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input v-model="editableLevel[level]" class=" form-check-input" type="checkbox" value=""
+                  id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
                   {{ level }}
                 </label>
@@ -41,15 +42,16 @@
             Focus
           </button>
           <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
-            <li class="ps-3" v-for="focus in focuss" :key="focus">
+            <li class="ps-3" v-for="focus in focuses" :key="focus">
               <div class="form-check">
-                <input v-model="editable.arms" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input v-model="editableFocus[focus]" class="form-check-input" type="checkbox" value=""
+                  id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
-                  Arms
+                  {{ focus }}
                 </label>
               </div>
             </li>
-            <li class="ps-3">
+            <!-- <li class="ps-3">
               <div class="form-check">
                 <input v-model="editable.chest" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
@@ -136,7 +138,7 @@
                   Upper Back
                 </label>
               </div>
-            </li>
+            </li> -->
           </ul>
         </div>
         <!-- !SECTION Filter by Focus End -->
@@ -158,28 +160,30 @@ import { movesService } from '../services/MovesService.js';
 export default {
   setup() {
     const levels = ["Beginner", "Intermediate", "Expert"]
-    const focuss = ["Arms", "Chest", "Core", "Neck", "Glutes", "Hamstrings", "Hips", "Inner thighs", "Lower Back", "Quads", "Shoulder", "Upper Back"]
-    const editable = ref({})
-    onMounted(()=> {
+    const focuses = ["Arms", "Chest", "Core", "Neck", "Glutes", "Hamstrings", "Hips", "Inner thighs", "Lower Back", "Quads", "Shoulder", "Upper Back"]
+    const editableLevel = ref({})
+    const editableFocus = ref({})
+    onMounted(() => {
       getMoves()
     });
-    async function getMoves(){
+    async function getMoves() {
       try {
         await movesService.getMoves()
-    } 
+      }
       catch (error) {
         logger.error(error)
         Pop.error(error)
       }
     }
     return {
-      editable,
+      editableLevel,
+      editableFocus,
       levels,
-      focus,
-      moves: computed(()=> AppState.moves)
+      focuses,
+      moves: computed(() => AppState.moves)
     }
-    
-  
+
+
   }
 };
 </script>
