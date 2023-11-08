@@ -6,15 +6,13 @@ class MovesService {
 
     async getMoves(query) {
         const moves = await dbContext.Moves.find(query);
-        // moves.forEach(m => _updateUsageCount(m.id));
         return moves
     }
 
     async getMoveById(moveId) {
-        const move = await dbContext.Moves.findById(moveId).populate('creator', 'name picture');
-        if (!move) {
-            throw new BadRequest(`${moveId} is not a valid ID`);
-        }
+        const move = await dbContext.Moves.findById(moveId)
+            .populate('creator', 'name picture');
+        if (!move) { throw new BadRequest(`${moveId} is not a valid ID`); }
         return move
     }
 
