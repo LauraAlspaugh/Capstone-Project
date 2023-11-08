@@ -8,6 +8,7 @@ export class AccountController extends BaseController {
     super('account')
     this.router
       .get('/favorites/moves', this.getMyFavoritedMoves)
+      .get('/favorites/routines', this.getMyFavoritedRoutines)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
       .put('', this.updateUserAccount)
@@ -22,7 +23,16 @@ export class AccountController extends BaseController {
     } catch (error) {
       next(error)
     }
+  }
 
+  async getMyFavoritedRoutines(request, response, next) {
+    try {
+      const userId = request.userInfo.id
+      const myFavoritedRoutines = await favoritesService.getMyFavoritedRoutines(userId)
+      return response.send(myFavoritedRoutines)
+    } catch (error) {
+      next(error)
+    }
   }
 
   async getUserAccount(req, res, next) {
