@@ -11,7 +11,12 @@ async getMoves(){
     
 }
 async getMoveById(moveId){
+    AppState.activeMove = null
     const res = await api.get(`api/moves/${moveId}`)
+    logger.log('getting move by Id', res.data)
+    AppState.activeMove = new Move(res.data)
+
+
 }
 }
 export const movesService = new MovesService()

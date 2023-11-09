@@ -11,5 +11,6 @@ export const AppState = reactive({
   moves: [],
   /** @type {import('./models/ListEntry.js').ListEntry} */
   listEntries: [], 
+  activeMove: null
 
 })
