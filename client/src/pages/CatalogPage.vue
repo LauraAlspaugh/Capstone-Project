@@ -28,7 +28,7 @@
               <li class="ps-3" v-for="level in levels" :key="level">
                 <div class="form-check">
                   <input v-model="editableLevel" class="form-check-input" type="radio" name="changeLevel"
-                    @click="changeLevel(level)" value="${editableLevel}" id="flexCheckDefault">
+                    @change="changeLevel(level)" value="${editableLevel}" id="flexCheckDefault">
                   <label class="form-check-label italiana" for="flexCheckDefault">
                     {{ level }}
                   </label>
