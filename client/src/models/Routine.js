@@ -15,6 +15,7 @@ export class Routine{
         this.level = data.level
         this.moves = data.moves
         this.creator = data.creator
+        this.moveCount = data.moveCount
     }
     
     get descriptionArray(){

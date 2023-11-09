@@ -37,9 +37,12 @@
       <MoveDetailCard/>
       <div class="mb-4"></div>
       <RoutineDetailCard/>
+      <div class="mb-4"></div>
+      <MoveBasicCard/>
 </template>
 
 <script>
+import MoveBasicCard from '../components/MoveBasicCard.vue';
 import MoveDetailCard from '../components/MoveDetailCard.vue';
 import RoutineDetailCard from '../components/RoutineDetailCard.vue';
 
@@ -47,7 +50,7 @@ export default {
     setup() {
         return {};
     },
-    components: { MoveDetailCard, RoutineDetailCard }
+    components: { MoveDetailCard, RoutineDetailCard, MoveBasicCard }
 }
 </script>
 
