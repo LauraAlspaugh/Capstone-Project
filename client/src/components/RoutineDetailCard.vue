@@ -1,15 +1,15 @@
 <template>
     <section class="row justify-content-center">
-        <div v-if="activeRoutine?.keyImage" class="col-8 active-move">
+        <div v-if="activeRoutine?.keyImage" class="col-6 active-move">
 <section class="row justify-content-center">
     <div class="col-12 col-md-10 mt-5 pt-3 pb-0">
 <img :src="activeRoutine.keyImage" alt="activeRoutine name">
-<p class="text-center name-text italiana">{{ activeRoutine.name }}</p>
+<p class="text-center name-text italiana  pt-3 pb-0">{{ activeRoutine.name }}</p>
     </div>
 </section>
 <section class="row  italiana text-white px-4">
     <div class="col-12">
-        <p class="text-mint">{{ activeRoutine.playTime }} Min  |  Pose Count {{ activeRoutine.playCount }}</p>
+        <p class="text-mint ">{{ activeRoutine.playTime }} Min  |  Pose Count {{ activeRoutine.playCount }}</p>
         <div class=" ">
         <p class="text-mint m-2 d-flex justify-content-between ">{{ activeRoutine.level }} <span><i class="mdi mdi-heart  fs-4"></i></span></p>
         <span class="text-mint pe-3 m-2" v-for="focus in activeRoutine.target" :key="focus"> {{ focus }}</span>
@@ -19,7 +19,10 @@
         <li  v-for="description in activeRoutine.descriptionArray" :key="description">{{ description }}</li>
     </div>
     <div>
-        <!-- <p class="text-white fs-3">{{ activeRoutine.creator.name }}</p> -->
+    <p class="text-mint"> Created by {{ activeRoutine.creator.name }}</p>  
+    </div>
+    <div class="p-2 mb-5">
+        <Button class="btn btn-outline-light p-2 text-white">Open Full Routine</Button>
     </div>
     
     </div>
@@ -45,7 +48,7 @@ export default {
             
     "_id": "654aaaa4dd97bee01b12ae23",
     "name": "Saturday Refresh Kick",
-    "description": "Start your weekend off right with this combination of moves",
+    "description": "A refreshing class for all levels, this vinyasa flow class continues to build on the foundation established in Beginner Yoga. Working with the needs of the class, more attention is placed on alignment, breath work, and coordination. Participants begin to explore more challenging asanas (poses) with plenty of options for everyone. This is an excellent class for beginning through experienced students.",
     "category": [
         "core yoga"
     ],
@@ -78,7 +81,7 @@ export default {
     "updatedAt": "2023-11-09T17:58:51.905Z",
     "__v": 2,
     "isExample": false,
-    "keyImage": "https://res.cloudinary.com/dko1be2jy/image/upload/fl_sanitize/v1676483088/yoga-api/27_m4yux9.svg",
+    "keyImage": "https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHlvZ2F8ZW58MHx8MHx8fDA%3D",
     "creator": {
         "_id": "652ef49aff9881f8395eb350",
         "name": "lauraalspaugh2002",
@@ -299,9 +302,11 @@ background-color: #0F2D24;
 img{
 border: solid black 2px;
 border-radius: 3px;
-width: 775px; 
+width: 580px; 
 height: 350px;
 box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.412);
+object-fit: cover;
+position: center;
     
 }
 .name-text{

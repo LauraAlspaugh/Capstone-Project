@@ -2,7 +2,7 @@
   <section class="row justify-content-center">
 
  
-  <div v-if="activeMove?.imgUrl" class="col-8 active-move">
+  <div v-if="activeMove?.imgUrl" class="col-6 active-move">
     <section class="row justify-content-center">
       <div class="col-10 mt-5 pt-3 pb-0 ">
         <img :src="activeMove.imgUrl" alt="activeMove.englishName">
@@ -17,7 +17,7 @@
         <p class=" m-0 mt-3 ">Description: </p>
         <li  v-for="description in activeMove.descriptionArray" :key="description">{{ description }}</li>
       </div>
-      <div class="mb-3">
+      <div class="mb-5">
         <p class=" m-0">Benefits: </p>
         <li  v-for="benefit in activeMove.benefitsArray" :key="benefit">{{ benefit }}</li>
       </div>
@@ -44,7 +44,7 @@ export default {
     "time": 45,
     "_id": "654a8bc57407b2b1be8ac694",
     "level": "intermediate",
-    "imgUrl": "https://res.cloudinary.com/dko1be2jy/image/upload/fl_sanitize/v1676483088/yoga-api/27_m4yux9.svg",
+    "imgUrl": "https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHlvZ2F8ZW58MHx8MHx8fDA%3D",
     "bodyPart": [
         "core",
         "glutes",
@@ -96,9 +96,11 @@ export default {
 img{
   border: solid black 2px;
   border-radius: 3px;
-  width: 775px; 
+  width: 580px; 
   height: 350px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.412);
+  object-fit: cover;
+  position: center;
     
 }
 </style>

@@ -14,6 +14,7 @@ export class Routine{
         this.creatorId = data.creatorId
         this.level = data.level
         this.moves = data.moves
+        this.creator = data.creator
     }
     
     get descriptionArray(){
