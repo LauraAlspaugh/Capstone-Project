@@ -22,7 +22,7 @@ async favoriteMove(moveId){
     AppState.myFavoriteMoves = new Move(res.data)
 }
 
-async getMyFavoriteMoves(moveId){
+async getMyFavoriteMoves(){
     const res = await api.get(`api/favorites/moves`)
     logger.log('get my favorite moves', res.data)
 }

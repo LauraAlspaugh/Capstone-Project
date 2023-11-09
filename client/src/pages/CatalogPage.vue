@@ -173,8 +173,7 @@ export default {
     }
     async function getMyFavoriteMoves() {
       try {
-        const moveId = route.params.moveId
-        await movesService.getMyFavoriteMoves(moveId)
+        await movesService.getMyFavoriteMoves()
       } catch (error) {
         logger.error(error)
         Pop.error(error)
