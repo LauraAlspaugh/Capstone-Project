@@ -18,3 +18,5 @@ FavoriteMoveSchema.virtual('move', {
     justOne: true,
     ref: 'Move'
 })
+
+FavoriteMoveSchema.index({ moveId: 1, creatorId: 1 }, { unique: true })
