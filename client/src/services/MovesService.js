@@ -20,7 +20,7 @@ async getMoveById(moveId){
 async favoriteMove(moveId){
     const res = await api.post(`api/favorites/moves`, {moveId})
     logger.log(res.data)
-    AppState.myFavoriteMoves = new Move(res.data)
+    AppState.myFavoriteMoves.push(new FavoriteMove(res.data))
 }
 
 async unfavoriteMove(moveId){

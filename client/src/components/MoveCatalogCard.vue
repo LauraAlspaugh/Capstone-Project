@@ -28,8 +28,8 @@
                 </div>
                 <div class="col-1 d-flex justify-content-end h-100">
                     <!-- TODO add v-if to show closed in heart if the logged in user has favorited that pose -->
-                    <span @click="favoriteMove()" role="button"><i class="fs-2 mdi mdi-heart-outline"></i></span>
-                    <span @click="unfavoriteMove()" role="button"><i class="fs-2 mdi mdi-heart"></i></span>
+                    <span v-if="isFavMove" @click="unfavoriteMove()" role="button"><i class="fs-2 mdi mdi-heart"></i></span>
+                    <span v-else @click="favoriteMove()" role="button"><i class="fs-2 mdi mdi-heart-outline"></i></span>
                 </div>
             </section>
         </div>
@@ -68,7 +68,9 @@ export default {
                     logger.error(error)
                     Pop.error(error)
                 }
-            }
+            },
+            myFavoriteMoves: computed(() => AppState.myFavoriteMoves),
+            isFavMove: computed(() => AppState.myFavoriteMoves.find((move) => move.moveId == props.moveProp.id))
         }
     }
 };
