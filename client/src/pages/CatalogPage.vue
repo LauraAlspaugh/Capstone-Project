@@ -82,16 +82,19 @@ import { movesService } from '../services/MovesService.js';
 import MoveCatalogCard from '../components/MoveCatalogCard.vue';
 import { routinesService } from '../services/RoutinesService.js';
 import RoutineCatalogCard from '../components/RoutineCatalogCard.vue';
+import { useRoute } from 'vue-router';
 
 export default {
   setup() {
+    const route = useRoute();
     const levels = ["Beginner", "Intermediate", "Expert"];
     const focuses = ["Arms", "Chest", "Core", "Neck", "Glutes", "Hamstrings", "Hips", "Inner thighs", "Lower Back", "Quads", "Shoulder", "Upper Back"];
     const editableLevel = ref({});
     const editableFocus = ref({});
     onMounted(() => {
       getMoves();
-      getRoutines()
+      getRoutines();
+      getMoveById();
     });
     async function getMoves() {
       try {
@@ -111,6 +114,16 @@ export default {
 
       }
 
+    }
+    async function getMoveById(){
+      try {
+        const moveId = route.params.moveId
+        await movesService.getMoveById(moveId)
+      } catch (error) {
+        logger.error(error)
+        Pop.error(error)
+        
+      }
     }
     return {
       editableLevel,

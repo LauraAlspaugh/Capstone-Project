@@ -10,5 +10,8 @@ async getMoves(){
     AppState.moves = res.data.map(pojo => new Move(pojo))
     
 }
+async getMoveById(moveId){
+    const res = await api.get(`api/moves/${moveId}`)
+}
 }
 export const movesService = new MovesService()
