@@ -109,7 +109,7 @@
     <!-- SECTION show Routine Cards if !wantsPoses -->
     <div v-else>
       <section class="row">
-        <div v-for="routine in routines" :key="routine.id" class="col-12">
+        <div v-for="routine in routines" :key="routine.id" class="col-3">
           <RoutineCatalogCard :routineProp="routine" />
         </div>
       </section>

@@ -4,23 +4,27 @@ import { logger } from "../utils/Logger.js";
 
 const CALC_CACHE = {}
 
-
 async function _calcTarget(routineId) {
 
-    if (CALC_CACHE[routineId]) {
-        return CALC_CACHE[routineId]
-    }
+    // if (CALC_CACHE[routineId]) {
+    //     return CALC_CACHE[routineId]
+    // }
 
-    const totalEntries = await dbContext.ListEntries.find({ routineId }).populate('move', 'englishName bodyPart').lean()
+    const totalEntries = await dbContext.ListEntries.find({ routineId })
+        .populate('move', 'englishName bodyPart')
+        .lean() // lean trims the document format back into a more readable object 
 
     const bodyParts = {}
 
     const movesObject = totalEntries.reduce((acc, entry) => {
         const moveId = entry.moveId.toString()
+
+        // tally # of times a move is in a routine  --  acc = accumulator
         // @ts-ignore
         acc[moveId] = acc[moveId] || { name: entry.move.englishName, count: 0 }
         acc[moveId].count++
 
+        //tally number of instances a body part is mentioned as a target
         // @ts-ignore
         entry.move.bodyPart.forEach(p => {
             bodyParts[p] = bodyParts[p] || { name: p, count: 0 }
@@ -29,11 +33,8 @@ async function _calcTarget(routineId) {
 
         return acc
     }, {})
-
-    logger.log({ movesObject, bodyParts })
-
-    CALC_CACHE[routineId] = { movesObject, bodyParts }
-    return CALC_CACHE[routineId]
+    const bodyPartArray = Object.entries(bodyParts).map(e => ({ [e[0]]: e[1] }))
+    logger.log('bodyPartArray', bodyPartArray)
 
     // const target = await dbContext.Routines.aggregate([
     //     { $match: { _id: ObjectId(routineId) } },
@@ -45,13 +46,16 @@ async function _calcTarget(routineId) {
     //     { $group: { _id: '$move.bodyPart', count: { $sum: 1 } } },
     //     { $sort: { count: -1 } },
     //     { $limit: 5 }
-    // ])
-    // logger.log('calc target results', target)
-    // await dbContext.Routines.findOneAndUpdate(
-    //     { _id: routineId },
-    //     { $set: { target: target } },
-    //     { new: true }
-    // )
+    // ]) // Denied due to free-tier of MongoDB not permitting $lookup for injecting data (the populate for aggregates)
+
+    await dbContext.Routines.findOneAndUpdate(
+        { _id: routineId },
+        { $set: { target: bodyPartArray } },
+        { new: true }
+    )
+
+    // CALC_CACHE[routineId] = { movesObject, bodyParts }
+    // return CALC_CACHE[routineId]
 }
 
 class RoutinesService {
@@ -60,6 +64,14 @@ class RoutinesService {
         const moves = await dbContext.Routines.find(query)
             .populate('creator', 'name picture')
             .populate("moveCount")
+            .populate({
+                path: 'listEntry',
+                select: 'name position duration transition moveId',
+                populate: {
+                    path: 'move',
+                    select: 'englishName imgUrl bodyPart'
+                }
+            })
         return moves
     }
 
@@ -83,7 +95,15 @@ class RoutinesService {
     async getRoutineByCreatorId(userId) {
         const routines = await dbContext.Routines.find({ creatorId: userId })
             .populate('creator', 'name picture')
-            .populate("listEntry")
+            .populate("moveCount")
+            .populate({
+                path: 'listEntry',
+                select: 'name position duration transition moveId',
+                populate: {
+                    path: 'move',
+                    select: 'englishName imgUrl bodyPart'
+                }
+            })
         return routines
     }
 
@@ -91,7 +111,17 @@ class RoutinesService {
 
     async createRoutine(routineData) {
         const newRoutine = await dbContext.Routines.create(routineData)
-
+        _calcTarget(newRoutine.id);
+        await newRoutine.populate('creator', 'name picture')
+        await newRoutine.populate('moveCount')
+        await newRoutine.populate({
+            path: 'listEntry',
+            select: 'name position duration transition moveId',
+            populate: {
+                path: 'move',
+                select: 'englishName imgUrl bodyPart'
+            }
+        })
         return newRoutine
     }
 
@@ -120,7 +150,7 @@ class RoutinesService {
             routineToBeUpdated.isExample
         await routineToBeUpdated.save()
         await routineToBeUpdated.populate("listEntry")
-
+        _calcTarget(routineId);
         return routineToBeUpdated
     }
 
