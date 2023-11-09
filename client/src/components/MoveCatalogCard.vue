@@ -10,8 +10,7 @@
                         <div class="col d-flex justify-content-between">
                             <span>{{ moveProp.englishName }}</span>
                             <span>{{ moveProp.level }}</span>
-                            <!-- <p>{{ moveProp.bodyPart }}</p> -->
-                            <span v-for="focus in moveProp.bodyPart" :key="focus"> {{ focus }}</span>
+                            <span>{{ moveProp.sanskritName }}</span>
                             <!-- TODO add v-if to show closed in heart if the logged in user has favorited that pose -->
                             <span><i class=" fs-2 mdi mdi-heart-outline"></i></span>
                             <!-- <p><i class="fs-2 mdi mdi-heart"></i></p> -->
@@ -19,7 +18,7 @@
                     </section>
                     <section class="row">
                         <div class="col">
-                            {{ moveProp.sanskritName }}
+                            <span v-for="focus in moveProp.bodyPart" :key="focus"> {{ focus }}</span>
                         </div>
                     </section>
                     <section class="row">
