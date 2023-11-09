@@ -189,16 +189,7 @@ export default {
             return movesByLevel
           }
         }
-        else if (editableLevel.value == "all" && editableFocus.value && !editableFocus.value.includes("all")) {
-          return AppState.moves.filter(move =>
-            editableFocus.value.every(part => move.bodyPart.includes(part)))
-        }
-        else {
-          return AppState.moves;
-        }
-      }),
-      movesByFocus: computed(() => {
-        if (editableFocus.value && !editableFocus.value.includes("all")) {
+        else if (!editableLevel.value || editableLevel.value == "all" && editableFocus.value && !editableFocus.value.includes("all")) {
           return AppState.moves.filter(move =>
             editableFocus.value.every(part => move.bodyPart.includes(part)))
         } else {
