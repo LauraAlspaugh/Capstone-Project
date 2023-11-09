@@ -20,8 +20,8 @@
           <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
             <li class="ps-3" v-for="level in levels" :key="level">
               <div class="form-check">
-                <input v-model="editableLevel[level]" class=" form-check-input" type="radio" value=""
-                  id="flexCheckDefault">
+                <input v-model="editableLevel" class=" form-check-input" type="radio" name="changeLevel"
+                  @click="changeLevel(level)" value="${editableLevel}" id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
                   {{ level }}
                 </label>
@@ -44,7 +44,7 @@
           <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
             <li class="ps-3" v-for="focus in focuses" :key="focus">
               <div class="form-check">
-                <input v-model="editableFocus[focus]" class="form-check-input" type="checkbox" value=""
+                <input v-model="editableFocus" class="form-check-input" type="checkbox" :value="focus"
                   id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
                   {{ focus }}
@@ -87,10 +87,12 @@ import { useRoute } from 'vue-router';
 export default {
   setup() {
     const route = useRoute();
-    const levels = ["Beginner", "Intermediate", "Expert"];
-    const focuses = ["Arms", "Chest", "Core", "Neck", "Glutes", "Hamstrings", "Hips", "Inner thighs", "Lower Back", "Quads", "Shoulder", "Upper Back"];
-    const editableLevel = ref({});
-    const editableFocus = ref({});
+    const levels = ["all", "beginner", "intermediate", "expert"];
+    const focuses = ["all", "arms", "chest", "core", "neck", "glutes", "hamstrings", "hips", "inner thighs", "lower Back", "quads", "shoulder", "upper back"];
+    // const editableLevel = ref({});
+    let editableLevel = ref("");
+    // const editableFocus = ref({});
+    let editableFocus = ref([]);
     onMounted(() => {
       getMoves();
       getRoutines();
@@ -115,14 +117,14 @@ export default {
       }
 
     }
-    async function getMoveById(){
+    async function getMoveById() {
       try {
         const moveId = route.params.moveId
         await movesService.getMoveById(moveId)
       } catch (error) {
         logger.error(error)
         Pop.error(error)
-        
+
       }
     }
     return {
@@ -130,10 +132,44 @@ export default {
       editableFocus,
       levels,
       focuses,
-      moves: computed(() => AppState.moves),
-      routines: computed(() => AppState.routines)
+      moves: computed(() => {
+        if (editableLevel.value && editableLevel.value != "All") {
+          let movesByLevel = AppState.moves.filter(
+            (move) => move.level == editableLevel.value.toLocaleLowerCase()
+          );
+          if (editableFocus.value && !editableFocus.value.includes("All")) {
+            return movesByLevel.filter(move =>
+              editableFocus.value.every(part => move.bodyPart.includes(part)))
+          } else {
+            return movesByLevel
+          }
+        }
+        else if (editableLevel.value == "All" && editableFocus.value && !editableFocus.value.includes("All")) {
+          return AppState.moves.filter(move =>
+            editableFocus.value.every(part => move.bodyPart.includes(part)))
+        }
+        else {
+          return AppState.moves;
+        }
+      }),
+      movesByFocus: computed(() => {
+        if (editableFocus.value && !editableFocus.value.includes("All")) {
+          return AppState.moves.filter(move =>
+            editableFocus.value.every(part => move.bodyPart.includes(part)))
+        } else {
+          return AppState.moves;
+        }
+      }),
+
+      routines: computed(() => AppState.routines),
+
+      changeLevel(level) {
+        editableLevel.value = level;
+      },
+
     };
   },
+
   components: { MoveCatalogCard, RoutineCatalogCard }
 };
 </script>
