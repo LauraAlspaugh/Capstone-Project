@@ -19,4 +19,7 @@ export class Move  {
     get benefitsArray(){
         return this.benefits.split('. ')
     }
+    get descriptionArray(){
+        return this.description.split('. ')
+    }
 }

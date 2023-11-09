@@ -34,14 +34,16 @@
           </div>
         </section>
       </div>
+      <MoveDetailCard/>
 </template>
 
 <script>
-export default {
-  setup() {
-    return {
+import MoveDetailCard from '../components/MoveDetailCard.vue';
 
-    }
-  }
+export default {
+    setup() {
+        return {};
+    },
+    components: { MoveDetailCard }
 }
 </script>
