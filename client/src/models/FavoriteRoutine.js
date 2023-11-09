@@ -4,5 +4,6 @@ export class FavoriteRoutine{
         this.routineId = data.routineId
         this.creatorId = data.creatorId
         this.creator = data.creator
+        this.routine = data.routine
     }
 }

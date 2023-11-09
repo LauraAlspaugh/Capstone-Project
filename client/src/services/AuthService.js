@@ -8,6 +8,7 @@ import { socketService } from './SocketService'
 import { movesService } from "./MovesService"
 import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
+import { routinesService } from "./RoutinesService"
 
 export const AuthService = initialize({
   domain,
@@ -31,6 +32,7 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function() {
   socketService.authenticate(AuthService.bearer)
   // NOTE if there is something you want to do once the user is authenticated, place that here
   getMyFavoriteMoves()
+  _getFavRoutines();
 })
 
 async function refreshAuthToken(config) {
@@ -55,4 +57,10 @@ async function getMyFavoriteMoves() {
     logger.error(error)
     Pop.error(error)
   }
+}
+
+async function _getFavRoutines() {
+  try {
+    await routinesService.getFavRoutines();
+  } catch (error) { Pop.error(error) }
 }

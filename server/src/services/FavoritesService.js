@@ -1,30 +1,23 @@
 import { dbContext } from "../db/DbContext.js";
 import { BadRequest, Forbidden } from "../utils/Errors.js";
+import { logger } from "../utils/Logger.js";
 class FavoritesService {
 
   async getMyFavoritedMoves(userId) {
-    let myFavoritedMoves = await dbContext.FavoriteMoves
-      .find({ creatorId: userId })
+    const myFavoritedMoves = await dbContext.FavoriteMoves.find({ creatorId: userId })
       .populate({
-        path: "move",
-        populate: {
-          path: "creator",
-          select: "name picture"
-        }
+        path: "move", populate: { path: "creator", select: "name picture" }
       })
+    logger.log('myFavoritedMoves', myFavoritedMoves)
     return myFavoritedMoves
   }
 
   async getMyFavoritedRoutines(userId) {
-    let myFavoritedRoutines = await dbContext.FavoriteRoutines
-      .find({ creatorId: userId })
+    const myFavoritedRoutines = await dbContext.FavoriteRoutines.find({ creatorId: userId })
       .populate({
-        path: "routine",
-        populate: {
-          path: "creator",
-          select: "name picture"
-        }
+        path: "routine", populate: { path: "creator", select: "name picture" }
       })
+    logger.log('myFavoritedRoutines', myFavoritedRoutines)
     return myFavoritedRoutines
   }
 
