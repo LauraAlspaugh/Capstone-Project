@@ -94,7 +94,7 @@ export default {
     onMounted(() => {
       getMoves();
       getRoutines();
-      getMoveById();
+      // getMoveById();
     });
     async function getMoves() {
       try {
