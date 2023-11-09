@@ -20,6 +20,16 @@ class RoutinesService{
     async favoriteRoutine(routineId) {
         const res = await api.post(`api/favorites/routines`, { routineId })
         AppState.myFavoriteRoutines.push(new FavoriteRoutine(res.data))
+        logger.log('favorited routine', res.data)
+    }
+
+    async unfavoriteRoutine(routineId){
+        logger.log('routineId', routineId)
+        const myFavoritedRoutineObjectData = AppState.myFavoriteRoutines.find(favoriteRoutine => favoriteRoutine.routineId == routineId)
+        logger.log('myFavoritedRoutineObjectData', myFavoritedRoutineObjectData)
+        const res = await api.delete(`api/favorites/routines/${myFavoritedRoutineObjectData.id}`)
+        logger.log(res.data)
+        AppState.myFavoriteRoutines = AppState.myFavoriteRoutines.filter(fav => fav.id != myFavoritedRoutineObjectData.id)
     }
 
 }

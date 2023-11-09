@@ -4,8 +4,8 @@
             <img class="img-fluid" :src="routineProp.keyImage" alt="routineProp.name">
             <div class="d-flex justify-content-between">
                 <span class="fs-3"> {{ routineProp.name }}</span>
-                <span class="fs-3"><i class="mdi mdi-heart"></i></span>
-                <span class="fs-3"><i class="mdi mdi-heart-outline"></i></span>
+                <span @click="unfavoriteRoutine()" role="button" class="fs-3"><i class="mdi mdi-heart"></i></span>
+                <span @click="favoriteRoutine()" role="button" class="fs-3"><i class="mdi mdi-heart-outline"></i></span>
             </div>
             <div>
                 <span>{{ routineProp.playTime }} sec</span>
@@ -45,6 +45,16 @@ export default {
                     Pop.error(error)
                 }
             },
+            async unfavoriteRoutine() {
+                try {
+                    const routineId = props.routineProp.id
+                    await routinesService.unfavoriteRoutine(routineId)
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+                }
+
+            }
             // myFavoriteRoutines:
         }
     }
