@@ -186,18 +186,18 @@ export default {
       focuses,
       wantsPoses,
       moves: computed(() => {
-        if (editableLevel.value && editableLevel.value != "All") {
+        if (editableLevel.value && editableLevel.value != "all") {
           let movesByLevel = AppState.moves.filter(
             (move) => move.level == editableLevel.value.toLocaleLowerCase()
           );
-          if (editableFocus.value && !editableFocus.value.includes("All")) {
+          if (editableFocus.value && !editableFocus.value.includes("all")) {
             return movesByLevel.filter(move =>
               editableFocus.value.every(part => move.bodyPart.includes(part)))
           } else {
             return movesByLevel
           }
         }
-        else if (editableLevel.value == "All" && editableFocus.value && !editableFocus.value.includes("All")) {
+        else if (editableLevel.value == "all" && editableFocus.value && !editableFocus.value.includes("all")) {
           return AppState.moves.filter(move =>
             editableFocus.value.every(part => move.bodyPart.includes(part)))
         }
@@ -206,7 +206,7 @@ export default {
         }
       }),
       movesByFocus: computed(() => {
-        if (editableFocus.value && !editableFocus.value.includes("All")) {
+        if (editableFocus.value && !editableFocus.value.includes("all")) {
           return AppState.moves.filter(move =>
             editableFocus.value.every(part => move.bodyPart.includes(part)))
         } else {
