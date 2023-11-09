@@ -1,21 +1,22 @@
 <template>
-    <section class="row justify-content-center">
+    <section class="row justify-content-center italiana">
         <div class="col-10 py-3">
             <section class="row white-gb p-3">
-                <div class="col-3 d-flex align-items-center">
-                    <img class="img-fluid" :src="moveProp.imgUrl" alt="moveProp.englishName">
+                <div class="col-4 d-flex align-items-center">
+                    <img class="img-fluid black-border" :src="moveProp.imgUrl" alt="moveProp.englishName">
                 </div>
-                <div class="col-8">
+                <div class="col-7">
                     <section class="row">
                         <div class="col d-block d-md-flex justify-content-between align-items-center">
-                            <span class="fs-3 m-0">{{ moveProp.englishName }}</span>
-                            <p class="m-0">{{ moveProp.level }}</p>
+                            <span class="fs-3 m-0 pe-3">{{ moveProp.englishName }}</span>
+                            <p class="m-0 color3 fw-bold">{{ moveProp.level }}</p>
 
                         </div>
                     </section>
                     <section class="row my-2">
                         <div class="col">
-                            <span class="pe-4" v-for="focus in moveProp.bodyPart" :key="focus"> {{ focus }}</span>
+                            <span class="pe-4 color3 fw-bold" v-for="focus in moveProp.bodyPart" :key="focus"> {{ focus
+                            }}</span>
                         </div>
                     </section>
                     <section class="row">
@@ -28,7 +29,7 @@
                 <div class="col-1 d-flex justify-content-end h-100">
                     <!-- TODO add v-if to show closed in heart if the logged in user has favorited that pose -->
                     <span><i class="fs-2 mdi mdi-heart-outline"></i></span>
-                    <!-- <p><i class="fs-2 mdi mdi-heart"></i></p> -->
+                    <span><i class="fs-2 mdi mdi-heart"></i></span>
                 </div>
             </section>
         </div>
@@ -50,5 +51,19 @@ export default {
 
 
 <style lang="scss" scoped>
+.color3 {
+    color: #6B8373;
+}
 
+.black-border {
+    border: 2px solid black;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.412);
+    border-radius: 3px;
+}
+
+img {
+    border-radius: 3px;
+    height: 15rem;
+    width: 20rem;
+}
 </style>
