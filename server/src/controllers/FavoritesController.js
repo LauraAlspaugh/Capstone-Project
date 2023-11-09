@@ -19,14 +19,14 @@ export class FavoritesController extends BaseController {
   // SECTION 🔽 AUTHENTICATION REQUIRED 🔽
   async getMyFavoritedMoves(request, response, next) {
     try {
-      const favoritedMoves = await favoritesService.getMyFavoritedMoves()
+      const favoritedMoves = await favoritesService.getMyFavoritedMoves(request.userInfo.id)
       return response.send(favoritedMoves)
     } catch (error) { next(error) }
   }
 
   async getMyFavoritedRoutines(request, response, next) {
     try {
-      const favoritedRoutines = await favoritesService.getMyFavoritedRoutines()
+      const favoritedRoutines = await favoritesService.getMyFavoritedRoutines(request.userInfo.id)
       return response.send(favoritedRoutines)
     } catch (error) { next(error) }
   }
