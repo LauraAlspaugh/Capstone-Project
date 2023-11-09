@@ -27,9 +27,10 @@
             <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
               <li class="ps-3" v-for="level in levels" :key="level">
                 <div class="form-check">
-                  <input v-model="editableLevel" class="form-check-input" type="radio" name="changeLevel"
-                    @change="changeLevel(level)" value="${editableLevel}" id="flexCheckDefault">
-                  <label class="form-check-label italiana" for="flexCheckDefault">
+                  <label class="form-check-label italiana" for="flexRadioDefault">
+                    <input v-model="editableLevel" class="form-check-input" type="radio" name="radio"
+                      @change="changeLevel(level)" :class="{ 'selectedLevel': level == selectedLevel }"
+                      value="${editableLevel}" id="flexRadioDefault">
                     {{ level }}
                   </label>
                 </div>
@@ -137,6 +138,7 @@ export default {
     let editableLevel = ref("");
     let editableFocus = ref([]);
     let wantsPoses = ref(true);
+    let selectedLevel = ref("");
     onMounted(() => {
       getMoves();
       getRoutines();
@@ -177,6 +179,7 @@ export default {
       levels,
       focuses,
       wantsPoses,
+      selectedLevel,
       moves: computed(() => {
         if (editableLevel.value && editableLevel.value != "all") {
           let movesByLevel = AppState.moves.filter(
@@ -201,6 +204,7 @@ export default {
 
       changeLevel(level) {
         editableLevel.value = level;
+        selectedLevel.value = level
       },
 
       swapPosesAndRoutines() {
@@ -222,6 +226,10 @@ export default {
 
 
 <style lang="scss" scoped>
+.selectedLevel {
+  background-color: #0F2D24;
+}
+
 .white-gb {
   /* From https://css.glass */
   background: rgba(255, 255, 255, 0.38);
