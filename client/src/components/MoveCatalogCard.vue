@@ -1,18 +1,16 @@
 <template>
     <section class="row justify-content-center">
         <div class="col-10 py-3">
-            <section class="row white-gb align-items-center p-3">
-                <div class="col-3">
+            <section class="row white-gb p-3">
+                <div class="col-3 d-flex align-items-center">
                     <img class="img-fluid" :src="moveProp.imgUrl" alt="moveProp.englishName">
                 </div>
-                <div class="col-9">
+                <div class="col-8">
                     <section class="row">
                         <div class="col d-block d-md-flex justify-content-between align-items-center">
                             <span class="fs-3 m-0">{{ moveProp.englishName }}</span>
                             <p class="m-0">{{ moveProp.level }}</p>
-                            <!-- TODO add v-if to show closed in heart if the logged in user has favorited that pose -->
-                            <span><i class=" fs-2 mdi mdi-heart-outline"></i></span>
-                            <!-- <p><i class="fs-2 mdi mdi-heart"></i></p> -->
+
                         </div>
                     </section>
                     <section class="row my-2">
@@ -26,6 +24,11 @@
                             <li v-for="benefit in moveProp.benefitsArray" :key="benefit">{{ benefit }}</li>
                         </div>
                     </section>
+                </div>
+                <div class="col-1 d-flex justify-content-end h-100">
+                    <!-- TODO add v-if to show closed in heart if the logged in user has favorited that pose -->
+                    <span><i class="fs-2 mdi mdi-heart-outline"></i></span>
+                    <!-- <p><i class="fs-2 mdi mdi-heart"></i></p> -->
                 </div>
             </section>
         </div>
@@ -47,8 +50,5 @@ export default {
 
 
 <style lang="scss" scoped>
-// img {
-//     height: 30rem;
-//     width: 30rem;
-// }
+
 </style>
