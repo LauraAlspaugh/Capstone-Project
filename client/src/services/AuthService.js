@@ -5,6 +5,9 @@ import { router } from '../router'
 import { accountService } from './AccountService'
 import { api } from './AxiosService'
 import { socketService } from './SocketService'
+import { movesService } from "./MovesService"
+import { logger } from "../utils/Logger"
+import Pop from "../utils/Pop"
 
 export const AuthService = initialize({
   domain,
@@ -27,6 +30,7 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function() {
   await accountService.getAccount()
   socketService.authenticate(AuthService.bearer)
   // NOTE if there is something you want to do once the user is authenticated, place that here
+  getMyFavoriteMoves()
 })
 
 async function refreshAuthToken(config) {
@@ -42,4 +46,13 @@ async function refreshAuthToken(config) {
     socketService.authenticate(AuthService.bearer)
   }
   return config
+}
+
+async function getMyFavoriteMoves() {
+  try {
+    await movesService.getMyFavoriteMoves()
+  } catch (error) {
+    logger.error(error)
+    Pop.error(error)
+  }
 }
