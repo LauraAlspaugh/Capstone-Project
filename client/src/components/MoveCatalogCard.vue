@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-1 d-flex justify-content-end h-100">
                     <!-- TODO add v-if to show closed in heart if the logged in user has favorited that pose -->
-                    <span @click=""><i class="fs-2 mdi mdi-heart-outline"></i></span>
+                    <span @click="favoriteMove()" role="button"><i class="fs-2 mdi mdi-heart-outline"></i></span>
                     <span><i class="fs-2 mdi mdi-heart"></i></span>
                 </div>
             </section>
@@ -41,10 +41,24 @@
 import { AppState } from '../AppState';
 import { computed, reactive, onMounted } from 'vue';
 import { Move } from '../models/Move.js';
+import { logger } from "../utils/Logger";
+import Pop from "../utils/Pop";
+import { movesService } from "../services/MovesService";
 export default {
     props: { moveProp: { type: Move, required: true } },
-    setup() {
-        return {}
+    setup(props) {
+        return {
+            async favoriteMove() {
+                try {
+                    const moveId = props.moveProp.id
+                    await movesService.favoriteMove(moveId)
+                    
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+                }
+            }
+        }
     }
 };
 </script>

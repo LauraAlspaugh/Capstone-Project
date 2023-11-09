@@ -3,72 +3,117 @@
     <!-- SECTION Filter by Poses or Routines -->
     <section class="row ">
       <div class="col-12 d-flex justify-content-center p-4 italiana">
-        <button class="btn white-gb m-2 mt-sm-5 me-sm-5 fs-1">Poses</button>
-        <button class="btn white-gb m-2 mt-sm-5 ms-sm-5 fs-1">Routines</button>
+        <div v-if="wantsPoses">
+          <button class="btn-underline btn white-gb m-2 mt-sm-5 me-sm-5 fs-1">Poses</button>
+          <button @click="swapPosesAndRoutines()" class="btn white-gb m-2 mt-sm-5 ms-sm-5 fs-1">Routines</button>
+        </div>
+        <div v-else>
+          <button @click="swapPosesAndRoutines()" class="btn white-gb m-2 mt-sm-5 me-sm-5 fs-1">Poses</button>
+          <button class="btn-underline btn white-gb m-2 mt-sm-5 ms-sm-5 fs-1">Routines</button>
+        </div>
       </div>
     </section>
     <!-- !SECTION filter by Poses or Routines End -->
 
     <section class="row">
       <div class="col-12 d-flex justify-content-center">
-        <!-- SECTION filter by Level -->
-        <div class="dropdown me-sm-3">
-          <button class="btn white-gb dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Level
-          </button>
-          <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
-            <li class="ps-3" v-for="level in levels" :key="level">
-              <div class="form-check">
-                <input v-model="editableLevel" class=" form-check-input" type="radio" name="changeLevel"
-                  @click="changeLevel(level)" value="${editableLevel}" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                  {{ level }}
-                </label>
-              </div>
-            </li>
-          </ul>
+        <!-- SECTION filter by Pose Level if wantsPoses -->
+        <div v-if="wantsPoses">
+          <div class="dropdown me-sm-3">
+            <button class="btn white-gb dropdown-toggle italiana" type="button" id="dropdownMenu2"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              level
+            </button>
+            <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
+              <li class="ps-3" v-for="level in levels" :key="level">
+                <div class="form-check">
+                  <input v-model="editableLevel" class="form-check-input" type="radio" name="changeLevel"
+                    @click="changeLevel(level)" value="${editableLevel}" id="flexCheckDefault">
+                  <label class="form-check-label italiana" for="flexCheckDefault">
+                    {{ level }}
+                  </label>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
         <!-- !SECTION Filter by Level End -->
 
-        <!-- SECTION Filter Favorites -->
-        <button class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3" role="button" type="button">My Favorites 🖤</button>
-        <!-- !SECTION Filter Favorites End -->
-
-        <!-- SECTION Filter by Focus -->
-        <div class="dropdown ms-sm-3">
-          <button class="btn white-gb dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Focus
+        <!-- SECTION filter by RootedFlow Routines if !wantsPoses -->
+        <div v-else>
+          <button class="btn white-gb italiana" type="button">
+            RootedFlow
           </button>
-          <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
-            <li class="ps-3" v-for="focus in focuses" :key="focus">
-              <div class="form-check">
-                <input v-model="editableFocus" class="form-check-input" type="checkbox" :value="focus"
-                  id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                  {{ focus }}
-                </label>
-              </div>
-            </li>
-          </ul>
         </div>
-        <!-- !SECTION Filter by Focus End -->
+        <!-- !SECTION Filter by RootedFlow Routines End -->
+
+
+        <!-- SECTION Filter Favorite Poses -->
+        <div v-if="wantsPoses">
+          <button class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana" role="button" type="button">my favorites <i
+              class="mdi mdi-heart"></i></button>
+        </div>
+        <!-- !SECTION Filter Favorite Poses End -->
+
+        <!-- SECTION Filter Favorite Routines -->
+        <div v-else>
+          <button class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana" role="button" type="button">my favorites <i
+              class="mdi mdi-heart"></i></button>
+        </div>
+        <!-- !SECTION Filter Favorite Routines End -->
+
+        <!-- SECTION Filter by Pose Focus if wantsPoses -->
+        <div v-if="wantsPoses">
+          <div class="dropdown ms-sm-3">
+            <button class="btn white-gb dropdown-toggle italiana" type="button" id="dropdownMenu2"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              focus
+            </button>
+            <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
+              <li class="ps-3" v-for="focus in focuses" :key="focus">
+                <div class="form-check">
+                  <input v-model="editableFocus" class="form-check-input" type="checkbox" :value="focus"
+                    id="flexCheckDefault">
+                  <label class="form-check-label italiana" for="flexCheckDefault">
+                    {{ focus }}
+                  </label>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- !SECTION Filter by Pose Focus End -->
+
+        <!-- SECTION filter Routine by Community -->
+        <div v-else>
+          <button class="btn white-gb italiana" type="button">
+            Community
+          </button>
+        </div>
+        <!-- !SECTION filter Routine by Community -->
+
       </div>
     </section>
-    <section class="row">
-      <div v-for="move in moves" :key="move.id" class="col-12">
-        <MoveCatalogCard :moveProp="move" />
-      </div>
 
-    </section>
+    <!-- SECTION show Move Cards if wantsPoses -->
+    <div v-if="wantsPoses">
+      <section class="row">
+        <div v-for="move in moves" :key="move.id" class="col-12">
+          <MoveCatalogCard :moveProp="move" />
+        </div>
+      </section>
+    </div>
+    <!-- !SECTION show Move Cards -->
 
-    <section class="row">
-      <div v-for="routine in routines" :key="routine.id" class="col-12">
-        <RoutineCatalogCard :routineProp="routine" />
-      </div>
-
-    </section>
+    <!-- SECTION show Routine Cards if !wantsPoses -->
+    <div v-else>
+      <section class="row">
+        <div v-for="routine in routines" :key="routine.id" class="col-12">
+          <RoutineCatalogCard :routineProp="routine" />
+        </div>
+      </section>
+    </div>
+    <!-- !SECTION show Routine Cards -->
   </div>
 </template>
 
@@ -89,10 +134,9 @@ export default {
     const route = useRoute();
     const levels = ["all", "beginner", "intermediate", "expert"];
     const focuses = ["all", "arms", "chest", "core", "neck", "glutes", "hamstrings", "hips", "inner thighs", "lower Back", "quads", "shoulder", "upper back"];
-    // const editableLevel = ref({});
     let editableLevel = ref("");
-    // const editableFocus = ref({});
     let editableFocus = ref([]);
+    let wantsPoses = ref(true);
     onMounted(() => {
       getMoves();
       getRoutines();
@@ -132,6 +176,7 @@ export default {
       editableFocus,
       levels,
       focuses,
+      wantsPoses,
       moves: computed(() => {
         if (editableLevel.value && editableLevel.value != "All") {
           let movesByLevel = AppState.moves.filter(
@@ -167,6 +212,11 @@ export default {
         editableLevel.value = level;
       },
 
+      swapPosesAndRoutines() {
+        wantsPoses.value = !wantsPoses.value;
+        logger.log(wantsPoses)
+      },
+
     };
   },
 
@@ -183,5 +233,10 @@ export default {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5.6px);
   -webkit-backdrop-filter: blur(5.6px);
+}
+
+.btn-underline {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
 }
 </style>
