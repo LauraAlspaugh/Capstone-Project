@@ -50,8 +50,8 @@
 
         <!-- SECTION Filter Favorite Poses -->
         <div v-if="wantsPoses">
-          <button class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana" role="button" type="button">my favorites <i
-              class="mdi mdi-heart"></i></button>
+          <button @click="onlyShowFavoriteMoves()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana" role="button"
+            type="button">my favorites <i class="mdi mdi-heart"></i></button>
         </div>
         <!-- !SECTION Filter Favorite Poses End -->
 
@@ -141,7 +141,6 @@ export default {
       getMoves();
       getRoutines();
       // getMoveById();
-      getMyFavoriteMoves();
     });
     async function getMoves() {
       try {
@@ -171,14 +170,7 @@ export default {
         Pop.error(error)
       }
     }
-    async function getMyFavoriteMoves() {
-      try {
-        await movesService.getMyFavoriteMoves()
-      } catch (error) {
-        logger.error(error)
-        Pop.error(error)
-      }
-    }
+
     return {
       editableLevel,
       editableFocus,
@@ -225,6 +217,11 @@ export default {
         logger.log(wantsPoses)
       },
 
+      myFavoriteMoves: computed(() => AppState.myFavoriteMoves),
+
+      onlyShowFavoriteMoves() {
+        this.myFavoriteMoves
+      }
     };
   },
 
