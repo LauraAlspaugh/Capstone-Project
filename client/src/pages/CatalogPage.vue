@@ -141,6 +141,7 @@ export default {
       getMoves();
       getRoutines();
       // getMoveById();
+      getMyFavoriteMoves();
     });
     async function getMoves() {
       try {
@@ -168,7 +169,15 @@ export default {
       } catch (error) {
         logger.error(error)
         Pop.error(error)
-
+      }
+    }
+    async function getMyFavoriteMoves() {
+      try {
+        const moveId = route.params.moveId
+        await movesService.getMyFavoriteMoves(moveId)
+      } catch (error) {
+        logger.error(error)
+        Pop.error(error)
       }
     }
     return {
