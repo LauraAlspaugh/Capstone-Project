@@ -9,7 +9,7 @@ function _tallyTotal(counts) {
 }
 
 async function _updateUsageCount(moveId) {
-    const ObjectId = require('mongoose').Types.ObjectId
+    const ObjectId = require('mongoose').Types.ObjectId;
     const counts = await dbContext.ListEntries.aggregate([
         { $match: { moveId: ObjectId(moveId) } },
         {

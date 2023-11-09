@@ -6,16 +6,17 @@ export class FavoritesController extends BaseController {
   constructor() {
     super("api/favorites")
     this.router
-      .get("/moves", this.getMyFavoritedMoves)
-      .get("/routines", this.getMyFavoritedRoutines)
       // 🔽 AUTHENTICATION REQUIRED 🔽
       .use(Auth0Provider.getAuthorizedUserInfo)
+      .get("/moves", this.getMyFavoritedMoves)
+      .get("/routines", this.getMyFavoritedRoutines)
       .post("/moves", this.createFavoritedMove)
       .post("/routines", this.createFavoritedRoutine)
       .delete('/moves/:favoritedmoveId', this.removeFavoritedMove)
       .delete('/routines/:favoritedroutineId', this.removeFavoritedRoutine)
   }
 
+  // SECTION 🔽 AUTHENTICATION REQUIRED 🔽
   async getMyFavoritedMoves(request, response, next) {
     try {
       const favoritedMoves = await favoritesService.getMyFavoritedMoves()
@@ -29,8 +30,6 @@ export class FavoritesController extends BaseController {
       return response.send(favoritedRoutines)
     } catch (error) { next(error) }
   }
-
-  // SECTION 🔽 AUTHENTICATION REQUIRED 🔽
 
   async createFavoritedMove(request, response, next) {
     try {

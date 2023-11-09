@@ -1,22 +1,83 @@
 import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
+import { logger } from "../utils/Logger.js";
+
+const CALC_CACHE = {}
+
+
+async function _calcTarget(routineId) {
+
+    if (CALC_CACHE[routineId]) {
+        return CALC_CACHE[routineId]
+    }
+
+    const totalEntries = await dbContext.ListEntries.find({ routineId }).populate('move', 'englishName bodyPart').lean()
+
+    const bodyParts = {}
+
+    const movesObject = totalEntries.reduce((acc, entry) => {
+        const moveId = entry.moveId.toString()
+        // @ts-ignore
+        acc[moveId] = acc[moveId] || { name: entry.move.englishName, count: 0 }
+        acc[moveId].count++
+
+        // @ts-ignore
+        entry.move.bodyPart.forEach(p => {
+            bodyParts[p] = bodyParts[p] || { name: p, count: 0 }
+            bodyParts[p].count++
+        })
+
+        return acc
+    }, {})
+
+    logger.log({ movesObject, bodyParts })
+
+    CALC_CACHE[routineId] = { movesObject, bodyParts }
+    return CALC_CACHE[routineId]
+
+    // const target = await dbContext.Routines.aggregate([
+    //     { $match: { _id: ObjectId(routineId) } },
+    //     { $lookup: { from: '$ListEntry', localField: "_id", foreignField: "routineId", as: "listEntry" } },
+    //     { $unwind: '$listEntry' },
+    //     { $lookup: { from: '$Move', localField: "listEntry.moveId", foreignField: "_id", as: "move" } },
+    //     { $unwind: '$move' },
+    //     { $unwind: '$move.bodyPart' },
+    //     { $group: { _id: '$move.bodyPart', count: { $sum: 1 } } },
+    //     { $sort: { count: -1 } },
+    //     { $limit: 5 }
+    // ])
+    // logger.log('calc target results', target)
+    // await dbContext.Routines.findOneAndUpdate(
+    //     { _id: routineId },
+    //     { $set: { target: target } },
+    //     { new: true }
+    // )
+}
 
 class RoutinesService {
 
     async getRoutines(query) {
         const moves = await dbContext.Routines.find(query)
             .populate('creator', 'name picture')
-            .populate("listEntry")
+            .populate("moveCount")
         return moves
     }
 
     async getRoutineById(routineId) {
+        await _calcTarget(routineId);
         const routine = await dbContext.Routines.findById(routineId)
+        if (!routine) { throw new BadRequest('This is not a valid routine') }
         await routine.populate('creator', 'name picture')
-        await routine.populate("listEntry")
-        if (!routine) {
-            throw new BadRequest('this is not a valid routine')
-        } return routine
+        await routine.populate('moveCount')
+        await routine.populate({
+            path: 'listEntry',
+            select: 'name position duration transition moveId',
+            populate: {
+                path: 'move',
+                select: 'englishName imgUrl bodyPart'
+            }
+        })
+        return routine
     }
 
     async getRoutineByCreatorId(userId) {
@@ -30,6 +91,7 @@ class RoutinesService {
 
     async createRoutine(routineData) {
         const newRoutine = await dbContext.Routines.create(routineData)
+
         return newRoutine
     }
 
@@ -58,6 +120,7 @@ class RoutinesService {
             routineToBeUpdated.isExample
         await routineToBeUpdated.save()
         await routineToBeUpdated.populate("listEntry")
+
         return routineToBeUpdated
     }
 
