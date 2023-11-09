@@ -21,4 +21,8 @@ export class Routine{
     get descriptionArray(){
         return this.description.split('. ')
     }
+
+    get shortDescription(){
+        return this.description.slice(0, 66)
+    }
 }
