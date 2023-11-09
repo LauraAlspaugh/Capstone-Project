@@ -15,4 +15,8 @@ export class Routine{
         this.level = data.level
         this.moves = data.moves
     }
+    
+    get descriptionArray(){
+        return this.description.split('. ')
+    }
 }

@@ -17,7 +17,7 @@
         <p class=" m-0 mt-3 ">Description: </p>
         <li  v-for="description in activeMove.descriptionArray" :key="description">{{ description }}</li>
       </div>
-      <div>
+      <div class="mb-3">
         <p class=" m-0">Benefits: </p>
         <li  v-for="benefit in activeMove.benefitsArray" :key="benefit">{{ benefit }}</li>
       </div>
@@ -96,7 +96,7 @@ export default {
 img{
   border: solid black 2px;
   border-radius: 3px;
-  width: 525px; 
+  width: 775px; 
   height: 350px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.412);
     
