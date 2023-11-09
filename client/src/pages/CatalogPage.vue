@@ -181,20 +181,30 @@ export default {
       wantsPoses,
       selectedLevel,
       moves: computed(() => {
+        //if level is anything but "all", filter it by level
         if (editableLevel.value && editableLevel.value != "all") {
           let movesByLevel = AppState.moves.filter(
             (move) => move.level == editableLevel.value.toLocaleLowerCase()
           );
+          //and if focus is anything but "all", filter it even more by bodypart
           if (editableFocus.value && !editableFocus.value.includes("all")) {
             return movesByLevel.filter(move =>
               editableFocus.value.every(part => move.bodyPart.includes(part)))
-          } else {
+          } else { //if level is anything but "all" and focus is "all" or unselected, just return what was filtered by level
             return movesByLevel
           }
         }
-        else if (!editableLevel.value || editableLevel.value == "all" && editableFocus.value && !editableFocus.value.includes("all")) {
-          return AppState.moves.filter(move =>
-            editableFocus.value.every(part => move.bodyPart.includes(part)))
+        //else if level is "all" or unselected, no filters for level
+        else if (!editableLevel.value || editableLevel.value == "all") {
+          //if focus is anything but "all", filter it just by body part
+          if (editableFocus.value && !editableFocus.value.includes("all")) {
+            return AppState.moves.filter(move =>
+              editableFocus.value.every(part => move.bodyPart.includes(part)))
+          }
+          //if level is "all" or unselected and focus is "all" or unselected, return moves from the AppState(no filter)
+          else {
+            return AppState.moves;
+          }
         } else {
           return AppState.moves;
         }
