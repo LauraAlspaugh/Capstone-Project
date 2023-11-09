@@ -1,4 +1,5 @@
 import { AppState } from "../AppState.js"
+import { FavoriteMove } from "../models/FavoriteMove.js"
 import { Move } from "../models/Move.js"
 import { logger } from "../utils/Logger.js"
 import { api } from "./AxiosService.js"
@@ -19,14 +20,23 @@ async getMoveById(moveId){
 async favoriteMove(moveId){
     const res = await api.post(`api/favorites/moves`, {moveId})
     logger.log(res.data)
-    // AppState.myFavoriteMoves = new Move(res.data)
+    AppState.myFavoriteMoves = new Move(res.data)
+}
+
+async unfavoriteMove(moveId){
+    // logger.log('moveId', moveId)
+    const myFavoritedMoveObjectData = AppState.myFavoriteMoves.find(favoriteMove => favoriteMove.moveId == moveId)
+    // logger.log('myFavoritedMoveObjectData', myFavoritedMoveObjectData)
+    const res = await api.delete(`api/favorites/moves/${myFavoritedMoveObjectData.id}`)
+    // logger.log(res.data)
+    AppState.myFavoriteMoves = AppState.myFavoriteMoves.filter(fav => fav.id != myFavoritedMoveObjectData.id)
 }
 
 async getMyFavoriteMoves(){
     const res = await api.get(`api/favorites/moves`)
     logger.log('get my favorite moves', res.data)
 
-    // AppState.myFavoriteMoves = new Move(res.data)
+    AppState.myFavoriteMoves = res.data.map(fav => new FavoriteMove(fav))
 }
 }
 export const movesService = new MovesService()
