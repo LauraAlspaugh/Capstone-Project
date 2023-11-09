@@ -4,5 +4,6 @@ export class FavoriteMove{
         this.moveId = data.moveId
         this.creatorId = data.creatorId
         this.creator = data.creator
+        this.move = data.move
     }
 }
