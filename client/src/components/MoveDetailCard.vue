@@ -3,7 +3,7 @@
     <div v-if="activeMove?.imgUrl" class="col active-move">
       <section class="row justify-content-center">
         <div class="col-10 mt-5 pt-3 pb-0 ">
-          <img :src="activeMove.imgUrl" alt="activeMove.englishName">
+          <img class="img-fluid" :src="activeMove.imgUrl" alt="activeMove.englishName">
           <p class="text-center m-0 name-text  italiana pt-3 pb-0">{{ activeMove.englishName }}</p>
         </div>
       </section>
@@ -66,8 +66,8 @@ export default {
 img {
   border: solid black 2px;
   border-radius: 3px;
-  width: 580px;
-  height: 350px;
+  // width: 580px;
+  // height: 350px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.412);
   object-fit: cover;
   position: center;
