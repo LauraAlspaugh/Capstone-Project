@@ -1,8 +1,14 @@
 <template>
     <section class="row justify-content-center">
         <div v-if="activeRoutine?.keyImage" class="col active-move">
+            <section class="row">
+                <div class="col">
+                    <button type="button" class="btn-close btn-close-white p-3" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+            </section>
             <section class="row justify-content-center">
-                <div class=" col-10 mt-5 pt-3 pb-0 text-center">
+                <div class=" col-10 mt-2  pb-0 text-center">
                     <img class="img-fluid" :src="activeRoutine.keyImage" alt="activeRoutine name">
                     <p class="text-center name-text italiana  pt-3 m-0 pb-0">{{ activeRoutine.name }}</p>
                 </div>
@@ -35,9 +41,8 @@
                     </div>
 
                 </div>
-
-
             </section>
+
         </div>
     </section>
 </template>
