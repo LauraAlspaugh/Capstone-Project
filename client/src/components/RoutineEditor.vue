@@ -1,13 +1,13 @@
 <template>
   <div class="border boxShadow rounded">
 
-    <section class="header d-flex align-items-center rounded-top px-3 py-2 bgBlur">
+    <section class="header d-flex align-items-center rounded-top px-3 py-2 bgBlur position-relative z1">
       <div class="dropdown open me-auto">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
               My Favorited Routines
             </button>
-        <div class="dropdown-menu" aria-labelledby="triggerId">
+        <div class="dropdown-menu p-0" aria-labelledby="triggerId">
             <RoutineFavs />
         </div>
       </div>
@@ -127,8 +127,5 @@ export default {
 }
 .z1{
   z-index: 1;
-}
-.z3{
-  z-index: 3;
 }
 </style>

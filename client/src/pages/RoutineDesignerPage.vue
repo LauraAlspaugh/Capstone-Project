@@ -22,7 +22,7 @@
     </section>
     <section v-else class="row justify-content-center">
       <div class="col-4 mt-5">
-        <p class="p-2 mb-4 fs-3 fw-bold text-center bgColor">My Favorite Routines</p>
+        <p class="p-2 mb-4 fs-3 fw-bold text-center rounded bgColor">My Favorite Routines</p>
         <!-- ROUTINE FAVORITES LIST -->
         <RoutineFavs />
       </div>
