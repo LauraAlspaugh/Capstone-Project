@@ -6,7 +6,6 @@
         <RoutineEditor />
       </div>
       <div v-if="settings.editRoutine" class="col-12 col-md-3 py-5">
-        <p class="mb-0 fs-1">Pose Search</p>
         <!-- MOVE SEARCH/FILTER COMPONENT -->
         <MoveSearchComponent />
       </div>
