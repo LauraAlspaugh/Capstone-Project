@@ -4,7 +4,7 @@
             <p class="fs-1 pr-4 m-0 italiana">Pose Search</p>
         </div>
     </section>
-    <section class="row py-4 image-border">
+    <section class="row py-3 image-border">
         <div class="col-12 justify-content-around d-flex ">
             <p class="fs-4 m-0 ">Level</p>
             <!-- <p class="text-dark">{{ moves.englishName }}</p> -->
