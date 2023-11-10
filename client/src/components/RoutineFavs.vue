@@ -5,10 +5,21 @@
       <p class="mb-0 p-2 fs-4 ">Create New Routine</p>
       <i class="fs-1 mdi mdi-plus-circle"></i>
     </span>
-    <span v-for="fav in favRoutines" :key="fav.id" @click="setActiveRoutine(fav.routineId)"
+
+    <span v-if="noFavRoutines" class="d-flex align-items-center justify-content-center">
+      <p class="mb-0 me-3 fs-3">Add some favorites! </p>
+      <i class="fs-1 mdi mdi-star mdi-spin"></i>
+    </span>
+    <span v-else-if="favRoutines.length > 0">
+      <div v-for="fav in favRoutines" :key="fav.id" @click="setActiveRoutine(fav.routineId)"
       class="d-flex align-items-center justify-content-between border px-3 selectable lighten-30 bgBlur bgColor2">
-      <p class="mb-0 p-2 fs-5 ">{{fav.routine.name}}</p>
-      <p class="mb-0 p-2 fs-5 ">{{fav.routine.playTime/60}} min</p>
+        <p class="mb-0 p-2 fs-5 ">{{fav.routine.name}}</p>
+        <p class="mb-0 p-2 fs-5 ">{{fav.routine.playTime/60}} min</p>
+      </div>
+    </span>
+    <span v-else class="d-flex align-items-center justify-content-center">
+      <p class="mb-0 me-3 fs-3">Loading...</p>
+      <i class="fs-1 mdi mdi-loading mdi-spin"></i>
     </span>
   </div>
 </template>
@@ -25,6 +36,7 @@ export default {
     
     return {
       favRoutines: computed(() => AppState.myFavoriteRoutines),
+      noFavRoutines: computed(() => AppState.noFavRoutines),
 
       async createRoutine() {
         try {
