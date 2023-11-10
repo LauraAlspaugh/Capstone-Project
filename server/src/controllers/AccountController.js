@@ -8,14 +8,24 @@ export class AccountController extends BaseController {
   constructor() {
     super('account')
     this.router
+      .get('/authors', this.getAppAuthors)
       // 🔽 AUTHENTICATION REQUIRED 🔽
       .use(Auth0Provider.getAuthorizedUserInfo)
+      .get('', this.getUserAccount)
       .get('/favorites/moves', this.getMyFavoritedMoves)
       .get('/favorites/routines', this.getMyFavoritedRoutines)
-      .get('', this.getUserAccount)
-      .put('', this.updateUserAccount)
-      .post('', this.dailyActivity)
       .get('/routines', this.getRoutineByCreatorId)
+      .post('', this.dailyActivity)
+      .put('', this.updateUserAccount)
+  }
+
+  async getAppAuthors(req, res, next) {
+    try {
+      const accounts = await accountService.getAppAuthors()
+      res.send(accounts)
+    } catch (error) {
+      next(error)
+    }
   }
 
   // SECTION 🔽 AUTHENTICATION REQUIRED 🔽
@@ -55,7 +65,6 @@ export class AccountController extends BaseController {
       return response.send(routines)
     } catch (error) {
       next(error)
-
     }
   }
 

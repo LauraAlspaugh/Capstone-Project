@@ -41,16 +41,44 @@ function sanitizeBody(body) {
   const writable = {
     name: body.name,
     picture: body.picture,
-    bio: body.bio,
     useCustomLogo: body.useCustomLogo,
     customLogoUrl: body.customLogoUrl,
     enableAudio: body.enableAudio,
     customAudioId: body.customAudioId,
+    github: body.github,
+    linkedin: body.linkedin,
+    resume: body.resume,
+    website: body.website,
+    bio: body.bio,
+    createdAt: body.createdAt,
+    updatedAt: body.updatedAt,
   }
   return writable
 }
 
+function _filterBody(body) {
+  const shareable = {
+    name: body.name,
+    email: body.email,
+    picture: body.picture,
+    github: body.github,
+    linkedin: body.linkedin,
+    resume: body.resume,
+    website: body.website,
+    bio: body.bio,
+    createdAt: body.createdAt,
+    updatedAt: body.updatedAt,
+  }
+  return shareable
+}
+
 class AccountService {
+  async getAppAuthors() {
+    const accounts = await dbContext.Account.find({ appAuthor: true });
+    const authors = accounts.map(acct => _filterBody(acct));
+    return authors
+  }
+
   /**
    * Returns a user account from the Auth0 user object
    *
