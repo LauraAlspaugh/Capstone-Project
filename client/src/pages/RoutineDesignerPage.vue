@@ -6,14 +6,14 @@
         <RoutineEditor />
       </div>
       <div v-if="settings.editRoutine" class="col-12 col-md-3 py-5">
-        <p class="mb-0 fs-1">Pose Search</p>
-        <MoveBasicCard />
         <!-- MOVE SEARCH/FILTER COMPONENT -->
+        <MoveSearchComponent />
       </div>
     </section>
     <section v-else class="row justify-content-center">
       <div class="col-4 mt-5">
         <p class="p-2 mb-4 fs-3 fw-bold text-center rounded bgColor">My Favorite Routines</p>
+        <!-- ROUTINE FAVORITES LIST -->
         <RoutineFavs />
       </div>
     </section>
@@ -28,7 +28,7 @@ import { AppState } from '../AppState';
 import { computed, onMounted } from 'vue';
 import RoutineEditor from "../components/RoutineEditor.vue";
 import RoutineFavs from "../components/RoutineFavs.vue";
-import MoveBasicCard from "../components/MoveBasicCard.vue";
+import MoveSearchComponent from "../components/MoveSearchComponent.vue";
 
 export default {
   setup() {
@@ -42,7 +42,7 @@ export default {
       
     }
   },
-  components: { RoutineEditor, RoutineFavs, MoveBasicCard }
+  components: { RoutineEditor, RoutineFavs, MoveSearchComponent }
 
 };
 </script>
