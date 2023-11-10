@@ -20,6 +20,9 @@ class RoutinesService{
         const res = await api.get('api/favorites/routines')
         logger.log('getting fav routines!', res.data)
         AppState.myFavoriteRoutines = res.data.map(pojo => new FavoriteRoutine(pojo))
+        if (AppState.myFavoriteMoves.length == 0) {
+            AppState.noFavRoutines = true;
+        }
     }
     
     async favoriteRoutine(routineId) {
