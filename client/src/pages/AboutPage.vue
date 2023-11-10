@@ -43,7 +43,7 @@ export default {
     setup() {
         return {};
     },
-    components: { MoveDetailCard, RoutineDetailCard, MoveSearchComponent }
+    // components: { MoveDetailCard, RoutineDetailCard, MoveSearchComponent }
 }
 </script>
 

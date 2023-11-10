@@ -75,7 +75,14 @@ nav {
   nav {
     height: 133px;
   }
+  
+  }
+  @media screen and (max-width: 768px){
+    .logo-nav{
+    height: 110px;
+    }
+  }
 
 
-}
+
 </style>

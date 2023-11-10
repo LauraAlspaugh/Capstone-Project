@@ -2,11 +2,11 @@
     <section class="row justify-content-center italiana">
         <div class="col-10 py-3">
             <section class="row white-gb p-3">
-                <div class="col-4 d-flex align-items-center" @click="setActiveMove()" data-bs-toggle="modal"
+                <div class="col-12 col-md-4 d-flex align-items-center" @click="setActiveMove()" data-bs-toggle="modal"
                     data-bs-target="#move-modal" type="button">
                     <img class="img-fluid black-border" :src="moveProp.imgUrl" alt="moveProp.englishName">
                 </div>
-                <div class="col-7">
+                <div class="col-12 col-md-7">
                     <section class="row">
                         <div class="col d-block d-md-flex justify-content-between align-items-center">
                             <span class="fs-3 m-0 pe-3">{{ moveProp.englishName }}</span>
@@ -27,7 +27,7 @@
                         </div>
                     </section>
                 </div>
-                <div class="col-1 d-flex justify-content-end h-100">
+                <div class="col-12 col-md-1 d-flex justify-content-end h-100">
                     <span v-if="isFavMove" @click="unfavoriteMove()" role="button"><i class="fs-2 mdi mdi-heart"></i></span>
                     <span v-else @click="favoriteMove()" role="button"><i class="fs-2 mdi mdi-heart-outline"></i></span>
                 </div>
