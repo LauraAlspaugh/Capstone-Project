@@ -54,7 +54,6 @@ export default {
   background-color: #6B8373b9;
 }
 .searchBox{
-  height: 80dvh;
-  overflow-y: hidden;
+  height: 70dvh;
 }
 </style>
