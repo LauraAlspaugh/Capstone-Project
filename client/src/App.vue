@@ -19,6 +19,18 @@
 
     </div>
   </div>
+
+  <div class="modal fade" id="routine-modal" tabindex="-1" data-bs-keyboard="false" role="dialog"
+    aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-top modal-dialog-scrollable modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-body p-0" v-if="activeMove">
+          <RoutineDetailCard />
+        </div>
+      </div>
+
+    </div>
+  </div>
 </template>
 
 
@@ -28,6 +40,7 @@ import { computed } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
 import MoveDetailCard from "./components/MoveDetailCard.vue"
+import RoutineDetailCard from "./components/RoutineDetailCard.vue"
 
 export default {
   setup() {
@@ -36,7 +49,7 @@ export default {
       activeMove: computed(() => AppState.activeMove)
     }
   },
-  components: { Navbar, MoveDetailCard }
+  components: { Navbar, MoveDetailCard, RoutineDetailCard }
 }
 </script>
 <style lang="scss">

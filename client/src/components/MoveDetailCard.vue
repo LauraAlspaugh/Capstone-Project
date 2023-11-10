@@ -1,5 +1,5 @@
 <template>
-  <section class="row justify-content-center scrollable-y">
+  <section class="row justify-content-center ">
     <div v-if="activeMove?.imgUrl" class="col active-move">
       <section class="row justify-content-center">
         <div class="col-10 mt-5 pt-3 pb-0 text-center">
