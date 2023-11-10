@@ -1,10 +1,10 @@
 <template>
   <section class="row image-border">
-    <div  class="col-3">
+    <div  class="col-3 d-flex align-items-center">
 <img class="img-fluid" :src="moveBasicProp.imgUrl" alt="move picture">
     </div>
-    <div  class="col-9 d-flex">
-<p class="fs-4 m-0  d-flex italiana fw-bold p-4 align-items-center">{{ moveBasicProp.englishName }}</p>
+    <div  class="col-9 d-flex align-items-center">
+<p class="fs-5 m-0 italiana fw-bold p-2 ">{{ moveBasicProp.englishName }}</p>
     </div>
   </section>
 </template>
