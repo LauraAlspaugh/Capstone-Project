@@ -19,14 +19,12 @@
 
 
 <script>
-import { AppState } from '../AppState';
-import { computed, onMounted } from 'vue';
-import { Routine } from "../models/Routine";
+import { Move } from "../models/Move";
 
 export default {
-  props: { routine: { type: Routine } },
+  props: { listEntry: { move: { type: Move} } },
   
-  setup(props) {
+  setup() {
     return {
 
     }

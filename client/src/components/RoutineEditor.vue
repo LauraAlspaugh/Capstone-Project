@@ -26,7 +26,7 @@
 
     <section class="px-3 bgBlur">
       <div class="p-3 border rounded"></div>
-      <RoutineBasicCard :routine="routine" />
+      <RoutineBasicCard :listEntry="routine.listEntry" />
     </section>
 
     <section class="rounded-bottom bgBlur">
