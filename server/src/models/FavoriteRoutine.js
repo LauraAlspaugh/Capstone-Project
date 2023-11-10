@@ -19,4 +19,4 @@ FavoriteRoutineSchema.virtual('routine', {
     ref: 'Routine'
 })
 
-FavoriteRoutineSchema.index({ moveId: 1, creatorId: 1 }, { unique: true })
+FavoriteRoutineSchema.index({ routineId: 1, creatorId: 1 }, { unique: true })
