@@ -11,11 +11,11 @@ export class Routine{
         this.isArchived = data.isArchived
         this.playCount = data.playCount
         this.playTime = data.playTime 
-        this.creatorId = data.creatorId
         this.level = data.level
-        this.moves = data.moves
         this.creator = data.creator
         this.moveCount = data.moveCount
+        this.listEntry = data.listEntry
+        this.creatorId = data.creatorId
         this.edit = data.edit
     }
     

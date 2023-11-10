@@ -25,12 +25,15 @@
     </section>
 
     <section class="px-3 bgBlur">
-      <div class="p-3 border rounded"></div>
-      <RoutineBasicCard :listEntry="routine.listEntry" />
+      <div class="p-1 border rounded scroll">
+        <RoutineBasicCard :listEntries="routine.listEntry" />
+      </div>
     </section>
 
-    <section class="rounded-bottom bgBlur">
-      <i class="fs-1 btn color1 mdi mdi-play-box"></i>
+    <section class="rounded-bottom bgBlur mx-3 d-flex align-items-center">
+      <i class="fs-1 btn color1 mdi mdi-play-box me-auto"></i>
+      <p class="fs-5 mb-0">Total Time: 
+        {{ (routine.playTime/60 >= 1? Math.floor(routine.playTime / 60) + ' min ' :'')  + (routine.playTime%60) }} sec</p>
     </section>
 
   </div>
@@ -39,7 +42,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, ref, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 import RoutineBasicCard from "./RoutineBasicCard.vue";
 import Pop from "../utils/Pop";
 import RoutineFavs from "./RoutineFavs.vue";
@@ -101,6 +104,10 @@ export default {
 }
 .lh25{
   line-height: 2.5rem;
+}
+.scroll{
+  height: 57.5dvh;
+  overflow-y: scroll;
 }
 .color1{
   color:#0F2D24;

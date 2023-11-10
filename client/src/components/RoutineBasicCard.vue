@@ -1,18 +1,18 @@
 <template>
-  <section v-for="move in routine" :key="move.id" class="d-flex align-items-center">
-    <span class="d-flex">
-      <i class="fs-1 text-primary mdi mdi-plus-thick"></i>
-      <i class="fs-1 text-primary mdi mdi-triangle"></i>
-      <i class="fs-1 text-primary mdi mdi-triangle-down"></i>
+  <section v-for="listEntry in listEntries" :key="listEntry.id" class="d-flex align-items-center rounded shadow my-1 px-2 py-1">
+    <span class="d-flex align-items-center me-3">
+      <i class="fs-4 text-primary mdi mdi-plus-thick"></i>
+      <i class="fs-3 text-primary mdi mdi-triangle"></i>
+      <i class="fs-3 text-primary mdi mdi-triangle-down"></i>
     </span>
     <span class="d-flex me-auto">
       <img src="" alt="" class="img-fluid thumbnail">
-      <p class="mb-0 fs-5">{{ move.name }}</p>
+      <p class="mb-0 fs-4">{{ listEntry.name || listEntry.move.englishName }}</p>
     </span>
-    <span class="d-flex">
-      <p class="mb-0 fs-4">{{ move.time }} sec</p>
-      <i class="mdi mdi-star-outline"></i>
-      <i class="mdi mdi-star"></i>
+    <span class="d-flex align-items-center">
+      <p class="mb-0 me-2 fs-5">{{ listEntry.time }} sec</p>
+      <i class="fs-3 mdi mdi-star-outline"></i>
+      <i class="fs-3 mdi mdi-star"></i>
     </span>
   </section>
 </template>
@@ -22,7 +22,7 @@
 import { Move } from "../models/Move";
 
 export default {
-  props: { listEntry: { move: { type: Move} } },
+  props: { listEntries: { move: { type: Move} } },
   
   setup() {
     return {
