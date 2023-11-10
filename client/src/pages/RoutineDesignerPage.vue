@@ -1,11 +1,11 @@
 <template>
 <div class="container-fluid">
-    <section v-if="activeRoutine" class="row justify-content-around">
-      <div class="col-12 col-md-8 py-5">
+    <section v-if="activeRoutine" class="row justify-content-center">
+      <div class="col-12 col-md-8 py-5 pe-5">
         <!-- ROUTINE COMPONENT  -->
         <RoutineEditor />
       </div>
-      <div v-if="settings.editRoutine" class="col-12 col-md-3 py-5 searchBox">
+      <div v-if="settings.editRoutine" class="col-12 col-md-3 pt-2 pb-5 searchBox">
         <!-- MOVE SEARCH/FILTER COMPONENT -->
         <MoveSearchComponent />
       </div>
@@ -54,6 +54,6 @@ export default {
   background-color: #6B8373b9;
 }
 .searchBox{
-  height: 70dvh;
+  height: 69dvh;
 }
 </style>

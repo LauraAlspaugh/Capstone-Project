@@ -5,10 +5,7 @@
   <main>
     <router-view />
   </main>
-  <footer class="mint-footer">
-
-  </footer>
-
+  
   <!-- Modal Body -->
   <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
   <div class="modal fade" id="move-modal" tabindex="-1" data-bs-keyboard="false" role="dialog"
