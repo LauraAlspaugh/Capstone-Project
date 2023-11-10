@@ -7,7 +7,7 @@ import { api } from "./AxiosService.js"
 class MovesService{
 async getMoves(){
     const res = await api.get('api/moves')
-    // logger.log('getting moves!', res.data)
+    logger.log('getting moves!', res.data)
     AppState.moves = res.data.map(pojo => new Move(pojo))
 }
 async getMoveById(moveId){
