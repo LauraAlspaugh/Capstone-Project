@@ -34,9 +34,8 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, onMounted, ref, watchEffect } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import RoutineBasicCard from "./RoutineBasicCard.vue";
-import { routinesService } from "../services/RoutinesService.js";
 import Pop from "../utils/Pop";
 import RoutineFavs from "./RoutineFavs.vue";
 
