@@ -2,7 +2,7 @@
   <div class="">
     <span v-if="isFavMove" @click="unfavorite()" role="button"><i class="fs-2 mdi mdi-heart"></i></span>
     <span v-if="isFavRoutine" @click="unfavorite()" role="button"><i class="fs-2 mdi mdi-heart"></i></span>
-    <span v-else @click="favorite()" role="button"><i class="fs-2 mdi mdi-heart-outline"></i></span>
+    <span v-else-if="!isFavMove" @click="favorite()" role="button"><i class="fs-2 mdi mdi-heart-outline"></i></span>
 
   </div>
 </template>

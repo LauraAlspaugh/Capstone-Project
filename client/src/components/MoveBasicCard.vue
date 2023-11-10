@@ -21,7 +21,7 @@ export default {
   props: { moveBasicProp: { type: Move, required: true } },
   setup(props) {
     onMounted(() => {
-      getMoves()
+      // getMoves()
     })
     async function getMoves() {
       try {
@@ -34,7 +34,8 @@ export default {
     }
     return {
       moves: computed(() => AppState.moves),
-
+      myFavoriteMoves: computed(() => AppState.myFavoriteMoves),
+      
       setActiveMove() {
         AppState.activeMove = props.moveBasicProp
       },
