@@ -1,11 +1,11 @@
 <template>
     <div class="container-fluid">
-        <section class="row justify-content-center">
+        <section class="row justify-content-center p-3">
           <div class="col-12 d-flex justify-content-center text-center py-3 px-5">
             <p class="">About the App & Devs <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati nostrum, ab sequi architecto rem accusamus? Repellat voluptatibus repudiandae, unde dicta cum incidunt? Quibusdam explicabo distinctio repellendus consequatur tenetur numquam deleniti.</p>
           </div>
         </section>
-        <section class="row justify-content-center">
+        <section class="row justify-content-center p-3">
           <div class="col-12 col-md-5 p-3 my-2 order-1 order-md-1 d-flex justify-content-center">
             <img src="" alt="img for dev 1" class="img1">
           </div>
