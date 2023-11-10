@@ -1,11 +1,15 @@
 <template>
     <section class="row p-2 p-md-4 italiana">
         <div class="col-12 d-block white-gb p-3">
-            <div @click="setActiveRoutine()" data-bs-toggle="modal" data-bs-target="#routine-modal" type="button">
-                <img class="img-fluid black-border" :src="routineProp.keyImage" alt="routineProp.name">
+            <div @click="setActiveRoutine()" data-bs-toggle="modal" data-bs-target="#routine-modal" type="button"
+                class="row">
+                <div class="col">
+
+                    <img class="img-fluid" :src="routineProp.keyImage" alt="routineProp.name">
+                </div>
             </div>
-            <div class="d-flex justify-content-between">
-                <span class="fs-3"> {{ routineProp.name }}</span>
+            <div class="d-flex justify-content-between pt-2">
+                <span class="fs-4"> {{ routineProp.name }}</span>
                 <span v-if="isFavRoutine" @click="unfavoriteRoutine()" role="button" class="fs-3"><i
                         class="mdi mdi-heart"></i></span>
                 <span v-else @click="favoriteRoutine()" role="button" class="fs-3"><i
@@ -75,15 +79,13 @@ export default {
     color: #6B8373;
 }
 
-.black-border {
-    border: 2px solid black;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.412);
-    border-radius: 3px;
-}
-
 img {
-    // max-height: 10rem;
-    // max-width: 15rem;
+    border: solid black 2px;
     border-radius: 3px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.412);
+    width: 250px;
+    height: 170px;
+    object-fit: cover;
+    position: center;
 }
 </style>
