@@ -16,6 +16,7 @@ export class Routine{
         this.moves = data.moves
         this.creator = data.creator
         this.moveCount = data.moveCount
+        this.edit = data.edit
     }
     
     get descriptionArray(){
