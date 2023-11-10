@@ -1,6 +1,7 @@
 <template>
   <div class="">
     <span v-if="isFavMove" @click="unfavorite()" role="button"><i class="fs-2 mdi mdi-heart"></i></span>
+    <span v-if="isFavRoutine" @click="unfavorite()" role="button"><i class="fs-2 mdi mdi-heart"></i></span>
     <span v-else @click="favorite()" role="button"><i class="fs-2 mdi mdi-heart-outline"></i></span>
 
   </div>
@@ -70,7 +71,10 @@ export default {
       },
       moves: computed(() => AppState.moves),
       myFavoriteMoves: computed(() => AppState.myFavoriteMoves),
-      isFavMove: computed(() => AppState.myFavoriteMoves.find((move) => move.moveId == props.id))
+      isFavMove: computed(() => AppState.myFavoriteMoves.find((move) => move.moveId == props.id)),
+      routines: computed(() => AppState.routines),
+      myFavoriteRoutines: computed(() => AppState.myFavoriteRoutines),
+      isFavRoutine: computed(() => AppState.myFavoriteRoutines.find((routine) => routine.routineId == props.id))
     }
   }
 };

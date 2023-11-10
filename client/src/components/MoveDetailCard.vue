@@ -2,7 +2,7 @@
   <section class="row justify-content-center ">
     <div v-if="activeMove?.imgUrl" class="col active-move">
       <section class="row justify-content-center">
-        <div class="col-10 mt-5 pt-3 pb-0 text-center">
+        <div class="col-12 col-md-10 mt-5 pt-3 pb-0 text-center">
           <img class="img-fluid" :src="activeMove.imgUrl" alt="activeMove.englishName">
           <p class="text-center m-0 name-text  italiana pt-3 pb-0">{{ activeMove.englishName }}</p>
         </div>

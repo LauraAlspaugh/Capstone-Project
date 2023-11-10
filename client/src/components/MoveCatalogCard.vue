@@ -6,7 +6,7 @@
                     data-bs-target="#move-modal" type="button">
                     <img class="img-fluid black-border" :src="moveProp.imgUrl" alt="moveProp.englishName">
                 </div>
-                <div class="col-10 col-md-7 mt-3 mt-md-0">
+                <div class="col-7">
                     <section class="row">
                         <div class="col d-block d-md-flex justify-content-between align-items-center">
                             <span class="fs-3 m-0 pe-3">{{ moveProp.englishName }}</span>
@@ -28,12 +28,8 @@
                     </section>
                 </div>
                 <div class="col-1 d-flex justify-content-end h-100">
-                    <div class="col-1 d-flex justify-content-end h-100 mt-3 mt-md-0">
-                        <!-- TODO add v-if to show closed in heart if the logged in user has favorited that pose -->
-                        <span v-if="isFavMove" @click="unfavoriteMove()" role="button"><i
-                                class="fs-2 mdi mdi-heart"></i></span>
-                        <span v-else @click="favoriteMove()" role="button"><i class="fs-2 mdi mdi-heart-outline"></i></span>
-                    </div>
+                    <span v-if="isFavMove" @click="unfavoriteMove()" role="button"><i class="fs-2 mdi mdi-heart"></i></span>
+                    <span v-else @click="favoriteMove()" role="button"><i class="fs-2 mdi mdi-heart-outline"></i></span>
                 </div>
             </section>
         </div>
