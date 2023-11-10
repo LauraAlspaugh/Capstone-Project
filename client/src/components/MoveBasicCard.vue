@@ -1,9 +1,9 @@
 <template>
   <section class="row">
-    <div v-if="move?.imgUrl" class="col-4">
+    <div  class="col-4">
 <img :src="moveBasicProp.imgUrl" alt="move picture">
     </div>
-    <div v-if="move?.englishName" class="col-8">
+    <div  class="col-8">
 <p>{{ moveBasicProp.englishName }}</p>
     </div>
   </section>
@@ -14,9 +14,24 @@
 import { AppState } from '../AppState';
 import { computed, reactive, onMounted } from 'vue';
 import { Move } from '../models/Move.js';
+import { movesService } from '../services/MovesService.js';
+import { logger } from '../utils/Logger.js';
+import Pop from '../utils/Pop.js';
 export default {
-  props: { moveBasicProp: { type: Move } },
+  props: { moveBasicProp: { type: Move, required: true } },
   setup() {
+    onMounted(()=> {
+            getMoves()
+        })
+        async function getMoves() {
+    try {
+        await movesService.getMoves();
+    }
+    catch (error) {
+        logger.error(error);
+        Pop.error(error);
+    }
+    }
     return {
       moves: computed(() => AppState.moves),
       //     move: new Move ({

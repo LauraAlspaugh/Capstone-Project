@@ -38,7 +38,7 @@
       <div class="mb-4"></div>
       <RoutineDetailCard/>
       <div class="mb-4"></div>
-      <MoveSearchComponent/>
+      <MoveSearchComponent :moveSearchProp="move"/>
 </template>
 
 <script>
