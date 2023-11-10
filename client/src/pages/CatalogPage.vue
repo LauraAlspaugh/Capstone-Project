@@ -17,8 +17,8 @@
 
     <section class="row">
       <div class="col-12 d-flex justify-content-center">
-        <!-- SECTION filter by Pose Level if wantsPoses -->
-        <div v-if="wantsPoses">
+        <!-- SECTION filter by Pose Level if wantsPoses but not favorites -->
+        <div v-if="wantsPoses && wantsToSeeFavorites == false">
           <div class="dropdown me-sm-3">
             <button class="btn white-gb dropdown-toggle italiana" type="button" id="dropdownMenu2"
               data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,6 +40,10 @@
         </div>
         <!-- !SECTION Filter by Level End -->
 
+        <!-- SECTION no filter if looking at Pose favorites -->
+        <div v-else-if="wantsPoses && wantsToSeeFavorites == true"></div>
+        <!-- !SECTION no filter if looking at Pose favorites -->
+
         <!-- SECTION filter by RootedFlow Routines if !wantsPoses -->
         <div v-else>
           <button class="btn white-gb italiana" type="button">
@@ -50,11 +54,18 @@
 
 
         <!-- SECTION Filter Favorite Poses -->
-        <div v-if="wantsPoses">
+        <div v-if="wantsPoses && wantsToSeeFavorites == false">
           <button @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
-            role="button" type="button">my favorites <i class="mdi mdi-heart"></i></button>
+            role="button" type="button">my favorites<i class="mdi mdi-heart"></i></button>
         </div>
         <!-- !SECTION Filter Favorite Poses End -->
+
+        <!-- SECTION be able to flip back to see all if looking at Pose favorites -->
+        <div v-else-if="wantsPoses && wantsToSeeFavorites == true">
+          <button @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
+            role="button" type="button">all poses</button>
+        </div>
+        <!-- !SECTION be able to flip back to see all if looking at Pose favorites -->
 
         <!-- SECTION Filter Favorite Routines -->
         <div v-else>
@@ -64,7 +75,7 @@
         <!-- !SECTION Filter Favorite Routines End -->
 
         <!-- SECTION Filter by Pose Focus if wantsPoses -->
-        <div v-if="wantsPoses">
+        <div v-if="wantsPoses && wantsToSeeFavorites == false">
           <div class="dropdown ms-sm-3">
             <button class="btn white-gb dropdown-toggle italiana" type="button" id="dropdownMenu2"
               data-bs-toggle="dropdown" aria-expanded="false">
@@ -74,7 +85,7 @@
               <li class="ps-3" v-for="focus in focuses" :key="focus">
                 <div class="form-check">
                   <input v-model="editableFocus" class="form-check-input" type="checkbox" :value="focus"
-                    id="flexCheckDefault">
+                    id="flexCheckDefault" @change="uncheckIfAll(focus)">
                   <label class="form-check-label italiana" for="flexCheckDefault">
                     {{ focus }}
                   </label>
@@ -84,6 +95,10 @@
           </div>
         </div>
         <!-- !SECTION Filter by Pose Focus End -->
+
+        <!-- SECTION no filter if looking at Pose favorites -->
+        <div v-else-if="wantsPoses && wantsToSeeFavorites == true"></div>
+        <!-- !SECTION no filter if looking at Pose favorites -->
 
         <!-- SECTION filter Routine by Community -->
         <div v-else>
@@ -241,13 +256,27 @@ export default {
         wantsToSeeFavorites.value = !wantsToSeeFavorites.value;
       },
 
-      // onlyShowFavoriteMoves() {
-      //   this.myFavoriteMoves
-      // }
+      uncheckIfAll(selection) {
+        if (selection == "all") {
+          this.editableFocus = [selection]
+          this.focuses.forEach((focus) => {
+            if (focus != "all" && this.editableFocus.indexOf(focus) != -1) {
+              this.editableFocus.splice(this.editableFocus.indexOf(focus))
+            }
+          })
+        } else {
+          this.editableFocus.forEach((focus) => {
+            if (focus == "all" && this.editableFocus.indexOf(focus) != -1) {
+              this.editableFocus.splice(this.editableFocus.indexOf(focus), 1)
+            }
+          })
+        }
+      }
+
     };
   },
 
-  components: { MoveCatalogCard, RoutineCatalogCard }
+  components: {}
 };
 </script>
 
