@@ -47,8 +47,8 @@
             </div>
         </div>
     </section>
-    <section v-if="moves.length > 0" class="row moves-list">
-        <div v-for="move in moves" :key="move.id" class="col-12">
+    <section v-if="moves.length > 0" class="row moves-list ">
+        <div v-for="move in moves" :key="move.id" class="col-12 ">
             <MoveBasicCard :moveBasicProp="move" />
         </div>
     </section>
@@ -159,7 +159,7 @@ export default {
 .image-border {
     border: 2px solid #D7DBDB;
 
-    background-color: #e3e0de87;
+    background-color: #e3e0de5b;
 }
 
 .moves-list {

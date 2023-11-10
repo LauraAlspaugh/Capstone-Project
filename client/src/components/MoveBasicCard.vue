@@ -1,6 +1,6 @@
 <template>
-  <section class="row image-border">
-    <div  class="col-3 d-flex align-items-center">
+  <section class="row image-border align-items-start">
+    <div  class="col-3 d-flex align-items-start">
 <img class="img-fluid" :src="moveBasicProp.imgUrl" alt="move picture">
     </div>
     <div  class="col-9 d-flex align-items-center">
