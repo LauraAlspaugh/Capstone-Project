@@ -12,7 +12,7 @@
             <p class="fs-4 justify-content-end m-0">Focus</p>
         </div>
     </section>
-    <section  v-if="moves.length > 0" class="row">
+    <section  v-if="moves.length > 0" class="row moves-list">
         <div v-for="move in moves" :key="move.id" class="col-12">
             <MoveBasicCard :moveBasicProp="move"/>
         </div>
@@ -60,5 +60,9 @@ export default {
   border: 2px solid #D7DBDB;
 
   background-color: #e3e0dec7;
+}
+.moves-list{
+    overflow-y: scroll;
+    height: 100%;
 }
 </style>
