@@ -146,22 +146,22 @@
     <!-- SECTION show Routine Cards if !wantsPoses -->
     <div v-else>
       <section v-if="wantsToSeeFavorites" class="row">
-        <div v-for="routine in myFavoriteRoutines" :key="routine.id" class="col-3">
+        <div v-for="routine in myFavoriteRoutines" :key="routine.id" class="col-6 col-md-3">
           <RoutineCatalogCard :routineProp="routine" />
         </div>
       </section>
       <section v-else-if="wantsRootedFlowRoutines" class="row">
-        <div v-for="routine in rootedFlowRoutines" :key="routine.id" class="col-3">
+        <div v-for="routine in rootedFlowRoutines" :key="routine.id" class="col-6 col-md-3">
           <RoutineCatalogCard :routineProp="routine" />
         </div>
       </section>
       <section v-else-if="wantsCommunityRoutines" class="row">
-        <div v-for="routine in communityRoutines" :key="routine.id" class="col-3">
+        <div v-for="routine in communityRoutines" :key="routine.id" class="col-6 col-md-3">
           <RoutineCatalogCard :routineProp="routine" />
         </div>
       </section>
       <section v-else class="row">
-        <div v-for="routine in routines" :key="routine.id" class="col-3">
+        <div v-for="routine in routines" :key="routine.id" class="col-6 col-md-3">
           <RoutineCatalogCard :routineProp="routine" />
         </div>
       </section>

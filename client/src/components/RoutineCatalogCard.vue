@@ -1,5 +1,5 @@
 <template>
-    <section class="row p-4 italiana">
+    <section class="row p-2 p-md-4 italiana">
         <div class="col-12 d-block white-gb p-3">
             <img class="img-fluid black-border" :src="routineProp.keyImage" alt="routineProp.name">
             <div class="d-flex justify-content-between">
