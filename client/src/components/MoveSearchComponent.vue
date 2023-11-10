@@ -48,7 +48,7 @@
         </div>
     </section>
     <section v-if="moves.length > 0" class="row moves-list">
-        <div class="col-12">
+        <div class="col-12 p-0">
             <div v-for="move in moves" :key="move.id" class="">
                 <MoveBasicCard :moveBasicProp="move" />
             </div>

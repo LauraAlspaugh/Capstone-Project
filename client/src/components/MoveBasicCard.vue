@@ -2,7 +2,7 @@
   <section class="image-border d-flex">
     <div  class="d-flex align-items-center">
       <img class="thumbnail" :src="moveBasicProp.imgUrl" alt="move picture">
-      <p class="fs-5 m-0 italiana fw-bold p-2 ">{{ moveBasicProp.englishName }}</p>
+      <p class="fs-5 m-0 italiana fw-bold p-2">{{ moveBasicProp.englishName }}</p>
     </div>
   </section>
 </template>
