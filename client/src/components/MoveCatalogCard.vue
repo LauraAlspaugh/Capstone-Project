@@ -34,6 +34,7 @@
                                 class="fs-2 mdi mdi-heart"></i></span>
                         <span v-else @click="favoriteMove()" role="button"><i class="fs-2 mdi mdi-heart-outline"></i></span>
                     </div>
+                </div>
             </section>
         </div>
     </section>
