@@ -7,6 +7,7 @@
       </div>
       <div v-if="settings.editRoutine" class="col-12 col-md-3 py-5">
         <p class="mb-0 fs-1">Pose Search</p>
+        <MoveBasicCard />
         <!-- MOVE SEARCH/FILTER COMPONENT -->
       </div>
     </section>
@@ -27,6 +28,7 @@ import { AppState } from '../AppState';
 import { computed, onMounted } from 'vue';
 import RoutineEditor from "../components/RoutineEditor.vue";
 import RoutineFavs from "../components/RoutineFavs.vue";
+import MoveBasicCard from "../components/MoveBasicCard.vue";
 
 export default {
   setup() {
@@ -40,7 +42,7 @@ export default {
       
     }
   },
-  components: { RoutineEditor, RoutineFavs }
+  components: { RoutineEditor, RoutineFavs, MoveBasicCard }
 
 };
 </script>

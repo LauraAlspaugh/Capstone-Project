@@ -8,7 +8,8 @@
               My Favorited Routines
             </button>
         <div class="dropdown-menu" aria-labelledby="triggerId">
-          <button v-for="fav in myFavRoutines" :key="fav.routineId" href="#" class="dropdown-item">{{ fav }}</button>
+          <!-- <button v-for="fav in myFavRoutines" :key="fav.routineId" href="#" class="dropdown-item">{{ fav.routine.name }}</button> -->
+            <RoutineFavs />
         </div>
       </div>
       <span class="fs-1 mx-2">
@@ -37,6 +38,7 @@ import { computed, onMounted, ref, watchEffect } from 'vue';
 import RoutineBasicCard from "./RoutineBasicCard.vue";
 import { routinesService } from "../services/RoutinesService.js";
 import Pop from "../utils/Pop";
+import RoutineFavs from "./RoutineFavs.vue";
 
 export default {
   setup() {
@@ -69,7 +71,7 @@ export default {
 
         };
     },
-    components: { RoutineBasicCard }
+    components: { RoutineBasicCard, RoutineFavs }
 };
 </script>
 

@@ -6,9 +6,13 @@
       <i class="fs-1 mdi mdi-plus-circle"></i>
     </span>
 
-    <span v-if="noFavRoutines" class="d-flex align-items-center justify-content-center">
-      <p class="mb-0 me-3 fs-3">Add some favorites! </p>
-      <i class="fs-1 mdi mdi-star mdi-spin"></i>
+    <span v-if="noFavRoutines" class="d-flex flex-column align-items-center">
+      <span class="d-flex align-items-center ">
+        <p class="mb-0 me-3 fs-3">Add some favorites! </p>
+        <i class="fs-1 mdi mdi-star mdi-spin"></i>
+      </span>
+      <p class="me-3">Missing favorites?
+        <small class="btn btn-secondary" @click="manualCheck()">Recheck</small></p>
     </span>
     <span v-else-if="favRoutines.length > 0">
       <div v-for="fav in favRoutines" :key="fav.id" @click="setActiveRoutine(fav.routineId)"
@@ -48,6 +52,10 @@ export default {
         try {
           await routinesService.setActiveRoutine(routineId);
         } catch (error) {Pop.error(error)}
+      },
+
+      manualCheck() {
+        routinesService.manualCheck();
       }
 
     }

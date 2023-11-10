@@ -44,5 +44,13 @@ class RoutinesService{
         AppState.activeRoutine = await this.getRoutineById(routineId)
     }
 
+    manualCheck() {
+        if (AppState.myFavoriteMoves.length == 0) {
+            AppState.noFavRoutines = true;
+        } else {
+            AppState.noFavRoutines = false;
+        }
+    }
+
 }
 export const routinesService = new RoutinesService()
