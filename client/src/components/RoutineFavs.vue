@@ -31,7 +31,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import Pop from "../utils/Pop";
 import { routinesService } from "../services/RoutinesService";
 
