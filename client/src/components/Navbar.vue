@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-grey px-3">
+  <nav class="navbar navbar-expand-lg navbar-grey px-3 ">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <img class="logo-nav" alt="logo" src="../assets/img/RootedFlow Logo-only.png" />
