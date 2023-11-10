@@ -24,7 +24,7 @@
     aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-top modal-dialog-scrollable modal-lg" role="document">
       <div class="modal-content">
-        <div class="modal-body p-0" v-if="activeMove">
+        <div class="modal-body p-0" v-if="activeRoutine">
           <RoutineDetailCard />
         </div>
       </div>
@@ -46,7 +46,8 @@ export default {
   setup() {
     return {
       appState: computed(() => AppState),
-      activeMove: computed(() => AppState.activeMove)
+      activeMove: computed(() => AppState.activeMove),
+      activeRoutine: computed(() => AppState.activeRoutine)
     }
   },
   components: { Navbar, MoveDetailCard, RoutineDetailCard }
