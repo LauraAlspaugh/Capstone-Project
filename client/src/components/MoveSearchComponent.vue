@@ -47,9 +47,11 @@
             </div>
         </div>
     </section>
-    <section v-if="moves.length > 0" class="row moves-list ">
-        <div v-for="move in moves" :key="move.id" class="col-12 ">
-            <MoveBasicCard :moveBasicProp="move" />
+    <section v-if="moves.length > 0" class="row moves-list">
+        <div class="col-12 p-0">
+            <div v-for="move in moves" :key="move.id" class="">
+                <MoveBasicCard :moveBasicProp="move" />
+            </div>
         </div>
     </section>
 </template>
@@ -57,8 +59,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted, ref } from 'vue';
-import { Move } from '../models/Move.js';
+import { computed, onMounted, ref } from 'vue';
 import MoveBasicCard from './MoveBasicCard.vue';
 import { movesService } from '../services/MovesService.js';
 import { logger } from '../utils/Logger.js';

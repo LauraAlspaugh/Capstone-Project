@@ -1,40 +1,44 @@
 <template>
-  <section class="row image-border align-items-start">
-    <div  class="col-3 d-flex align-items-start">
-<img class="img-fluid" :src="moveBasicProp.imgUrl" alt="move picture">
-    </div>
-    <div  class="col-9 d-flex align-items-center">
-<p class="fs-5 m-0 italiana fw-bold p-2 ">{{ moveBasicProp.englishName }}</p>
-    </div>
-  </section>
+  <div @click="setActiveMove()" data-bs-toggle="modal" data-bs-target="#move-modal" type="button">
+    <section class="image-border d-flex">
+      <div class="d-flex align-items-center">
+        <img class="thumbnail" :src="moveBasicProp.imgUrl" alt="move picture">
+        <p class="fs-5 m-0 italiana fw-bold p-2">{{ moveBasicProp.englishName }}</p>
+      </div>
+    </section>
+  </div>
 </template>
 
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { Move } from '../models/Move.js';
 import { movesService } from '../services/MovesService.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 export default {
   props: { moveBasicProp: { type: Move, required: true } },
-  setup() {
-    onMounted(()=> {
-            getMoves()
-        })
-        async function getMoves() {
-    try {
+  setup(props) {
+    onMounted(() => {
+      getMoves()
+    })
+    async function getMoves() {
+      try {
         await movesService.getMoves();
-    }
-    catch (error) {
+      }
+      catch (error) {
         logger.error(error);
         Pop.error(error);
-    }
+      }
     }
     return {
       moves: computed(() => AppState.moves),
-      
+
+      setActiveMove() {
+        AppState.activeMove = props.moveBasicProp
+      },
+
     }
   }
 }
@@ -44,17 +48,15 @@ export default {
 
 
 <style lang="scss" scoped>
-img{
-  // width: 225px; 
-  // height: 150px; 
+.image-border {
+  border: 2px solid #D7DBDB;
+  background-color: #E3E0DE;
+}
+
+.thumbnail {
   object-fit: cover;
   position: center;
+  height: 80px;
   padding: 4px;
-  // border: 2px solid #D7DBDB;
-}
-.image-border{
-  border: 2px solid #D7DBDB;
- 
-  background-color: #E3E0DE;
 }
 </style>
