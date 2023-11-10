@@ -2,7 +2,7 @@
   <div class="container-fluid">
       <section class="row justify-content-center">
         <div class="col-12 d-flex justify-content-center p-3">
-          <img src="../assets/img/RootedFlow Logo-lg.png" alt="Rooted Flow Logo" class="bigLogo rounded-circle">
+          <img src="../assets/img/RootedFlow Logo-lg.png" alt="Rooted Flow Logo" class="bigLogo rounded-circle pt-5">
         </div>
       </section>
       <section class="row justify-content-center">

@@ -33,8 +33,7 @@ async function _calcTarget(routineId) {
 
         return acc
     }, {})
-    const bodyPartArray = Object.entries(bodyParts).map(e => ({ [e[0]]: e[1] }))
-    logger.log('bodyPartArray', bodyPartArray)
+    const bodyPartArray = Object.entries(bodyParts).map(e => (e[1]))
 
     // const target = await dbContext.Routines.aggregate([
     //     { $match: { _id: ObjectId(routineId) } },
@@ -48,9 +47,12 @@ async function _calcTarget(routineId) {
     //     { $limit: 5 }
     // ]) // Denied due to free-tier of MongoDB not permitting $lookup for injecting data (the populate for aggregates)
 
+    // (bodyPartArray.sort((a, b) => (b.count - a.count)))).slice(0,5) if wanting to limit to top 5
+    // logger.log('bodyPartArray', bodyPartArray) 
+
     await dbContext.Routines.findOneAndUpdate(
         { _id: routineId },
-        { $set: { target: bodyPartArray } },
+        { $set: { target: bodyPartArray.sort((a, b) => (b.count - a.count)) } },
         { new: true }
     )
 
