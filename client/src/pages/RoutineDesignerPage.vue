@@ -1,9 +1,16 @@
 <template>
 <div class="container-fluid">
     <section v-if="activeRoutine" class="row justify-content-center">
-      <div class="col-12 col-md-8 py-5 pe-5">
+      <div class="col-12 col-md-8 pt-2 pe-5">
+        <span class="d-flex align-items-center">
+          <p class="fs-1 mb-0 pe-3 text-nowrap">{{ activeRoutine.name }}</p>
+            <span class="p-3">
+              <button type="button" :data-bs-title="activeRoutine.name" :data-bs-content="activeRoutine.description" class="btn btn-secondary" data-bs-toggle="popover" data-bs-placement="bottom" >Show description</button>
+            </span>
+          </span>
         <!-- ROUTINE COMPONENT  -->
-        <RoutineEditor />
+        <RoutineEditor :routine="activeRoutine" />
+          {{ activeRoutine }}
       </div>
       <div v-if="settings.editRoutine" class="col-12 col-md-3 pt-2 pb-5 searchBox">
         <!-- MOVE SEARCH/FILTER COMPONENT -->

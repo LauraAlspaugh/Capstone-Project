@@ -17,8 +17,8 @@
     <span v-else-if="favRoutines.length > 0">
       <div v-for="fav in favRoutines" :key="fav.id" @click="setActiveRoutine(fav.routineId)"
       class="d-flex align-items-center justify-content-between border px-3 selectable lighten-30 bgBlur bgColor2">
-        <p class="mb-0 p-2 fs-5 ">{{fav.routine.name}}</p>
-        <p class="mb-0 p-2 fs-5 ">{{fav.routine.playTime/60}} min</p>
+        <p class="mb-0 p-2 fs-5 text-nowrap">{{fav.routine.name}}</p>
+        <p class="mb-0 p-2 fs-5 text-nowrap">{{fav.routine.playTime/60}} min</p>
       </div>
     </span>
     <span v-else class="d-flex align-items-center justify-content-center">
