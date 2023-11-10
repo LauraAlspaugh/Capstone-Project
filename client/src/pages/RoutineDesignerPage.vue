@@ -5,7 +5,7 @@
         <!-- ROUTINE COMPONENT  -->
         <RoutineEditor />
       </div>
-      <div v-if="settings.editRoutine" class="col-12 col-md-3 py-5">
+      <div v-if="settings.editRoutine" class="col-12 col-md-3 py-5 searchBox">
         <!-- MOVE SEARCH/FILTER COMPONENT -->
         <MoveSearchComponent />
       </div>
@@ -52,5 +52,9 @@ export default {
 
 .bgColor{
   background-color: #6B8373b9;
+}
+.searchBox{
+  height: 80dvh;
+  overflow-y: hidden;
 }
 </style>
