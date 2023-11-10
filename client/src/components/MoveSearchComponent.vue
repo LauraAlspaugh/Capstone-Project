@@ -6,10 +6,10 @@
     </section>
     <section class="row py-4 image-border">
         <div class="col-12 justify-content-around d-flex ">
-            <p class="fs-2 m-0 ">Level</p>
+            <p class="fs-3 m-0 ">Level</p>
             <!-- <p class="text-dark">{{ moves.englishName }}</p> -->
             <p class="fs-3 m-0">🖤</p>
-            <p class="fs-2 justify-content-end m-0">Focus</p>
+            <p class="fs-3 justify-content-end m-0">Focus</p>
         </div>
     </section>
     <section  v-if="moves.length > 0" class="row">
