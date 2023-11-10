@@ -38,19 +38,20 @@
       <div class="mb-4"></div>
       <RoutineDetailCard/>
       <div class="mb-4"></div>
-      <MoveBasicCard/>
+      <MoveSearchComponent/>
 </template>
 
 <script>
-import MoveBasicCard from '../components/MoveBasicCard.vue';
+
 import MoveDetailCard from '../components/MoveDetailCard.vue';
+import MoveSearchComponent from '../components/MoveSearchComponent.vue';
 import RoutineDetailCard from '../components/RoutineDetailCard.vue';
 
 export default {
     setup() {
         return {};
     },
-    components: { MoveDetailCard, RoutineDetailCard, MoveBasicCard }
+    components: { MoveDetailCard, RoutineDetailCard, MoveSearchComponent }
 }
 </script>
 
