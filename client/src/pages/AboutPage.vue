@@ -34,24 +34,15 @@
           </div>
         </section>
       </div>
-      <MoveDetailCard/>
-      <div class="mb-4"></div>
-      <RoutineDetailCard/>
-      <div class="mb-4"></div>
-      <MoveSearchComponent :moveSearchProp="move"/>
 </template>
 
 <script>
 
-import MoveDetailCard from '../components/MoveDetailCard.vue';
-import MoveSearchComponent from '../components/MoveSearchComponent.vue';
-import RoutineDetailCard from '../components/RoutineDetailCard.vue';
 
 export default {
     setup() {
         return {};
-    },
-    components: { MoveDetailCard, RoutineDetailCard, MoveSearchComponent }
+    }
 }
 </script>
 
