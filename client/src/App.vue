@@ -12,13 +12,8 @@
     aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-top modal-dialog-scrollable modal-lg" role="document">
       <div class="modal-content">
-        <!-- <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div> -->
-
         <div class="modal-body p-0" v-if="activeMove">
           <MoveDetailCard />
-          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
         </div>
       </div>
 
