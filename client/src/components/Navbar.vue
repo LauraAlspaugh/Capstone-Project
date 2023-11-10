@@ -12,17 +12,17 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'RoutineDesigner' }" class="btn text-black lighten-30 selectable text-uppercase">
+          <router-link :to="{ name: 'RoutineDesigner' }" class="fs-5 me-1 btn text-black lighten-30 selectable text-uppercase">
             Routine Designer
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'Catalog' }" class="btn text-black lighten-30 selectable text-uppercase">
+          <router-link :to="{ name: 'Catalog' }" class="fs-5 mx-1 btn text-black lighten-30 selectable text-uppercase">
             Catalog
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'About' }" class="btn text-black lighten-30 selectable text-uppercase">
+          <router-link :to="{ name: 'About' }" class="fs-5 ms-1 btn text-black lighten-30 selectable text-uppercase">
             About
           </router-link>
         </li>
