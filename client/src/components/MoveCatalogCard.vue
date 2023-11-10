@@ -2,7 +2,8 @@
     <section class="row justify-content-center italiana">
         <div class="col-10 py-3">
             <section class="row white-gb p-3">
-                <div class="col-4 d-flex align-items-center">
+                <div class="col-4 d-flex align-items-center" @click="setActiveMove()" data-bs-toggle="modal"
+                    data-bs-target="#move-modal">
                     <img class="img-fluid black-border" :src="moveProp.imgUrl" alt="moveProp.englishName">
                 </div>
                 <div class="col-7">
@@ -70,7 +71,10 @@ export default {
                 }
             },
             myFavoriteMoves: computed(() => AppState.myFavoriteMoves),
-            isFavMove: computed(() => AppState.myFavoriteMoves.find((move) => move.moveId == props.moveProp.id))
+            isFavMove: computed(() => AppState.myFavoriteMoves.find((move) => move.moveId == props.moveProp.id)),
+            setActiveMove() {
+                AppState.activeMove = props.moveProp
+            }
         }
     }
 };

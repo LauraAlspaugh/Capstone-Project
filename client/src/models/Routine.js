@@ -23,6 +23,6 @@ export class Routine{
     }
 
     get shortDescription(){
-        return this.description.slice(0, 66)
+        return this.description.slice(0, 50)
     }
 }

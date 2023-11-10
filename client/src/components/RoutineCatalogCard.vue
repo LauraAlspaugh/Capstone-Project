@@ -1,13 +1,15 @@
 <template>
-    <section class="row p-4">
-        <div class="col-12 d-block white-gb">
-            <img class="img-fluid" :src="routineProp.keyImage" alt="routineProp.name">
+    <section class="row p-4 italiana">
+        <div class="col-12 d-block white-gb p-3">
+            <img class="img-fluid black-border" :src="routineProp.keyImage" alt="routineProp.name">
             <div class="d-flex justify-content-between">
                 <span class="fs-3"> {{ routineProp.name }}</span>
-                <span @click="unfavoriteRoutine()" role="button" class="fs-3"><i class="mdi mdi-heart"></i></span>
-                <span @click="favoriteRoutine()" role="button" class="fs-3"><i class="mdi mdi-heart-outline"></i></span>
+                <span v-if="isFavRoutine" @click="unfavoriteRoutine()" role="button" class="fs-3"><i
+                        class="mdi mdi-heart"></i></span>
+                <span v-else @click="favoriteRoutine()" role="button" class="fs-3"><i
+                        class="mdi mdi-heart-outline"></i></span>
             </div>
-            <div>
+            <div class="d-flex justify-content-between color3">
                 <span>{{ routineProp.playTime }} sec</span>
                 <span>{{ routineProp.level }}</span>
                 <!-- <span>{{ routineProp.target }}</span> -->
@@ -16,7 +18,7 @@
                 <span>Description: {{ routineProp.shortDescription }}...</span>
             </div>
             <div>
-                <span>Creator: {{ routineProp.creator.name }}</span>
+                <span class="color3">Creator: {{ routineProp.creator.name }}</span>
             </div>
         </div>
     </section>
@@ -54,8 +56,9 @@ export default {
                     Pop.error(error)
                 }
 
-            }
-            // myFavoriteRoutines:
+            },
+            myFavoriteRoutines: computed(() => AppState.myFavoriteRoutines),
+            isFavRoutine: computed(() => AppState.myFavoriteRoutines.find((routine) => routine.routineId == props.routineProp.id))
         }
     }
 };
@@ -63,8 +66,19 @@ export default {
 
 
 <style lang="scss" scoped>
+.color3 {
+    color: #6B8373;
+}
+
+.black-border {
+    border: 2px solid black;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.412);
+    border-radius: 3px;
+}
+
 img {
     // max-height: 10rem;
     // max-width: 15rem;
+    border-radius: 3px;
 }
 </style>
