@@ -7,14 +7,14 @@
           <p class="text-center m-0 name-text  italiana pt-3 pb-0">{{ activeMove.englishName }}</p>
         </div>
       </section>
-      <section class="row italiana text-white px-4">
+      <section class="row  italiana text-white px-4">
         <div class="col-12">
-          <span class="text-mint mt-2 d-flex justify-content-between ">{{ activeMove.level }}
+          <span class="text-mint d-flex justify-content-between align-items-center">{{ activeMove.level }}
             <span>
-              <FavoriteUnfavoriteMove />
+              <FavoriteUnfavoriteMove :id="activeMove.id" :moveOrRoutine="'move'" />
             </span>
           </span>
-          <span class="text-mint pe-3 mt-2" v-for="focus in activeMove.bodyPart" :key="focus"> {{ focus }}</span>
+          <span class="text-mint pe-3 " v-for="focus in activeMove.bodyPart" :key="focus"> {{ focus }}</span>
           <div class="mb-3">
             <p class="m-0 mt-3 ">Description: </p>
             <li v-for="description in activeMove.descriptionArray" :key="description">{{ description }}</li>
