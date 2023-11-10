@@ -44,10 +44,15 @@
         <div v-else-if="wantsPoses && wantsToSeeFavorites == true"></div>
         <!-- !SECTION no filter if looking at Pose favorites -->
 
-        <!-- SECTION filter by RootedFlow Routines if !wantsPoses -->
-        <div v-else>
-          <button class="btn white-gb italiana" type="button">
+        <!-- SECTION filter by RootedFlow Routines if !wantsPoses and !wantsRootedFlowRoutines yet -->
+        <div v-else-if="!wantsPoses && !wantsRootedFlowRoutines">
+          <button @click="swapShowRootedFlowAndShowAll()" class="btn white-gb italiana" type="button">
             RootedFlow
+          </button>
+        </div>
+        <div v-else>
+          <button @click="swapShowRootedFlowAndShowAll()" class="btn white-gb italiana" type="button">
+            all routines
           </button>
         </div>
         <!-- !SECTION Filter by RootedFlow Routines End -->
@@ -68,11 +73,18 @@
         <!-- !SECTION be able to flip back to see all if looking at Pose favorites -->
 
         <!-- SECTION Filter Favorite Routines -->
-        <div v-else>
-          <button class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana" role="button" type="button">my favorites <i
-              class="mdi mdi-heart"></i></button>
+        <div v-else-if="!wantsPoses && wantsToSeeFavorites == false">
+          <button @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
+            role="button" type="button">my favorites <i class="mdi mdi-heart"></i></button>
         </div>
         <!-- !SECTION Filter Favorite Routines End -->
+
+        <!-- SECTION be able to flip back to see all if looking at Routine favorites -->
+        <div v-else>
+          <button @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
+            role="button" type="button">all routines</button>
+        </div>
+        <!-- !SECTION be able to flip back to see all if looking at Routine favorites -->
 
         <!-- SECTION Filter by Pose Focus if wantsPoses -->
         <div v-if="wantsPoses && wantsToSeeFavorites == false">
@@ -101,9 +113,14 @@
         <!-- !SECTION no filter if looking at Pose favorites -->
 
         <!-- SECTION filter Routine by Community -->
-        <div v-else>
-          <button class="btn white-gb italiana" type="button">
+        <div v-else-if="!wantsPoses && !wantsCommunityRoutines">
+          <button @click="swapShowCommunityAndShowAll()" class="btn white-gb italiana" type="button">
             Community
+          </button>
+        </div>
+        <div v-else>
+          <button @click="swapShowCommunityAndShowAll()" class="btn white-gb italiana" type="button">
+            all routines
           </button>
         </div>
         <!-- !SECTION filter Routine by Community -->
@@ -128,7 +145,22 @@
 
     <!-- SECTION show Routine Cards if !wantsPoses -->
     <div v-else>
-      <section class="row">
+      <section v-if="wantsToSeeFavorites" class="row">
+        <div v-for="routine in myFavoriteRoutines" :key="routine.id" class="col-3">
+          <RoutineCatalogCard :routineProp="routine" />
+        </div>
+      </section>
+      <section v-else-if="wantsRootedFlowRoutines" class="row">
+        <div v-for="routine in rootedFlowRoutines" :key="routine.id" class="col-3">
+          <RoutineCatalogCard :routineProp="routine" />
+        </div>
+      </section>
+      <section v-else-if="wantsCommunityRoutines" class="row">
+        <div v-for="routine in communityRoutines" :key="routine.id" class="col-3">
+          <RoutineCatalogCard :routineProp="routine" />
+        </div>
+      </section>
+      <section v-else class="row">
         <div v-for="routine in routines" :key="routine.id" class="col-3">
           <RoutineCatalogCard :routineProp="routine" />
         </div>
@@ -150,6 +182,7 @@ import { routinesService } from '../services/RoutinesService.js';
 import RoutineCatalogCard from '../components/RoutineCatalogCard.vue';
 import { useRoute } from 'vue-router';
 import { Move } from "../models/Move.js";
+import { Routine } from "../models/Routine.js";
 
 export default {
   setup() {
@@ -161,6 +194,8 @@ export default {
     let wantsPoses = ref(true);
     let selectedLevel = ref("");
     let wantsToSeeFavorites = ref(false);
+    let wantsRootedFlowRoutines = ref(false);
+    let wantsCommunityRoutines = ref(false);
     onMounted(() => {
       getMoves();
       getRoutines();
@@ -203,6 +238,8 @@ export default {
       wantsPoses,
       selectedLevel,
       wantsToSeeFavorites,
+      wantsRootedFlowRoutines,
+      wantsCommunityRoutines,
       moves: computed(() => {
         //if level is anything but "all", filter it by level
         if (editableLevel.value && editableLevel.value != "all") {
@@ -232,6 +269,7 @@ export default {
           return AppState.moves;
         }
       }),
+      routines: computed(() => AppState.routines),
 
       myFavoriteMoves: computed(() => {
         let filteredMoves = []
@@ -241,7 +279,23 @@ export default {
         return filteredMoves
       }),
 
-      routines: computed(() => AppState.routines),
+      myFavoriteRoutines: computed(() => {
+        let filteredRoutines = []
+        AppState.myFavoriteRoutines.forEach((routine) => {
+          filteredRoutines.push(new Routine(routine.routine))
+        })
+        return filteredRoutines
+      }),
+
+      rootedFlowRoutines: computed(() => {
+        return AppState.routines.filter(
+          (routine) => routine.isExample)
+      }),
+
+      communityRoutines: computed(() => {
+        return AppState.routines.filter(
+          (routine) => !routine.isExample && !routine.isPrivate)
+      }),
 
       changeLevel(level) {
         editableLevel.value = level;
@@ -254,6 +308,20 @@ export default {
 
       swapShowFavoritesAndShowAll() {
         wantsToSeeFavorites.value = !wantsToSeeFavorites.value;
+        wantsRootedFlowRoutines.value = false
+        wantsCommunityRoutines.value = false
+      },
+
+      swapShowRootedFlowAndShowAll() {
+        wantsRootedFlowRoutines.value = !wantsRootedFlowRoutines.value
+        wantsToSeeFavorites.value = false
+        wantsCommunityRoutines.value = false
+      },
+
+      swapShowCommunityAndShowAll() {
+        wantsCommunityRoutines.value = !wantsCommunityRoutines.value
+        wantsRootedFlowRoutines.value = false
+        wantsToSeeFavorites.value = false
       },
 
       uncheckIfAll(selection) {
