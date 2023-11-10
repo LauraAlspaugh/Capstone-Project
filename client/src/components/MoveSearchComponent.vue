@@ -4,7 +4,7 @@
             <p class="fs-1 pr-4 m-0 italiana">Pose Search</p>
         </div>
     </section>
-    <section class="row py-4 image-border">
+    <section class="row py-2 image-border">
         <div class="col-12 justify-content-around align-items-center d-flex ">
             <div class="dropdown me-sm-3">
                 <button class="btn white-gb dropdown-toggle italiana fw-bold" type="button" id="dropdownMenu2"
@@ -159,7 +159,7 @@ export default {
 .image-border {
     border: 2px solid #D7DBDB;
 
-    background-color: #e3e0dec7;
+    background-color: #e3e0de87;
 }
 
 .moves-list {

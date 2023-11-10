@@ -42,12 +42,13 @@
 export default {
     setup() {
         return {};
-    }
+    },
+    components: { MoveDetailCard, RoutineDetailCard, MoveSearchComponent }
 }
 </script>
 
 <style scoped lang="scss">
-.desc{
+.desc {
   background-color: #ffffff69;
 }
 </style>

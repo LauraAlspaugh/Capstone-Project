@@ -344,7 +344,7 @@ export default {
     };
   },
 
-  components: {}
+  components: { MoveCatalogCard, RoutineCatalogCard }
 };
 </script>
 

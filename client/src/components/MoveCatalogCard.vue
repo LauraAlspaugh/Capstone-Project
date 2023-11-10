@@ -3,7 +3,7 @@
         <div class="col-10 py-3">
             <section class="row white-gb p-3">
                 <div class="col-4 d-flex align-items-center" @click="setActiveMove()" data-bs-toggle="modal"
-                    data-bs-target="#move-modal">
+                    data-bs-target="#move-modal" type="button">
                     <img class="img-fluid black-border" :src="moveProp.imgUrl" alt="moveProp.englishName">
                 </div>
                 <div class="col-7">
