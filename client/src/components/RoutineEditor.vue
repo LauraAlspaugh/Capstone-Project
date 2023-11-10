@@ -1,7 +1,7 @@
 <template>
-  <div class="border boxShadow rounded py-1 px-3">
+  <div class="border boxShadow rounded">
 
-    <section class="header d-flex align-items-center rounded bgBlur">
+    <section class="header d-flex align-items-center rounded-top px-3 py-2 bgBlur">
       <div class="dropdown open me-auto">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
@@ -18,11 +18,12 @@
       <button class="btn btn-secondary ms-5">Clone Routine</button>
     </section>
 
-    <section class="border rounded p-2 mb-3 bgBlur">
+    <section class="px-3 bgBlur">
+      <div class="p-3 border rounded"></div>
       <RoutineBasicCard :routine="routine" />
     </section>
 
-    <section class="">
+    <section class="rounded-bottom bgBlur">
       <i class="fs-1 btn color1 mdi mdi-play-box"></i>
     </section>
 

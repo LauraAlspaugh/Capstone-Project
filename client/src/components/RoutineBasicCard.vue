@@ -7,10 +7,10 @@
     </span>
     <span class="d-flex me-auto">
       <img src="" alt="" class="img-fluid thumbnail">
-      <p class="mb-0">{{ move.name }}</p>
+      <p class="mb-0 fs-5">{{ move.name }}</p>
     </span>
     <span class="d-flex">
-      <p class="mb-0">{{ move.time }} sec</p>
+      <p class="mb-0 fs-4">{{ move.time }} sec</p>
       <i class="mdi mdi-star-outline"></i>
       <i class="mdi mdi-star"></i>
     </span>
@@ -34,5 +34,8 @@ export default {
 };
 </script>
 
-
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.bgColor{
+  background-color: #6B8373;
+}
+</style>

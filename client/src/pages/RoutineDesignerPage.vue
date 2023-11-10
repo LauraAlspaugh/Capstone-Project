@@ -1,6 +1,6 @@
 <template>
 <div class="container-fluid">
-    <section class="row justify-content-around">
+    <section v-if="activeRoutine" class="row justify-content-around">
       <div class="col-12 col-md-8 py-5">
         <!-- ROUTINE COMPONENT  -->
         <RoutineEditor />
@@ -8,6 +8,12 @@
       <div v-if="settings.editRoutine" class="col-12 col-md-3 py-5">
         <p class="mb-0 fs-1">Pose Search</p>
         <!-- MOVE SEARCH/FILTER COMPONENT -->
+      </div>
+    </section>
+    <section v-else class="row justify-content-center">
+      <div class="col-4 mt-5">
+        <p class="p-2 mb-4 fs-3 fw-bold text-center rounded bgColor">My Favorite Routines</p>
+        <RoutineFavs />
       </div>
     </section>
   </div>
@@ -19,8 +25,8 @@
 <script>
 import { AppState } from '../AppState';
 import { computed, onMounted } from 'vue';
-import Pop from "../utils/Pop";
 import RoutineEditor from "../components/RoutineEditor.vue";
+import RoutineFavs from "../components/RoutineFavs.vue";
 
 export default {
   setup() {
@@ -30,14 +36,19 @@ export default {
 
     return {
       settings:computed(()=>AppState.settings),
+      activeRoutine:computed(()=>AppState.activeRoutine),
       
     }
   },
-  components: { RoutineEditor }
+  components: { RoutineEditor, RoutineFavs }
 
 };
 </script>
 
 
 <style lang="scss" scoped>
+
+.bgColor{
+  background-color: #6B8373b9;
+}
 </style>

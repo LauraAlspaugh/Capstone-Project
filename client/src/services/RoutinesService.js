@@ -10,6 +10,11 @@ class RoutinesService{
         logger.log('getting routines!', res.data)
         AppState.routines = res.data.map(pojo => new Routine (pojo))
     }
+
+    async getRoutineById(routineId){
+        const res = await api.get(`api/routines/${routineId}`)
+        return new Routine(res.data)
+    }
     
     async getFavRoutines(){
         const res = await api.get('api/favorites/routines')
@@ -30,6 +35,10 @@ class RoutinesService{
         const res = await api.delete(`api/favorites/routines/${myFavoritedRoutineObjectData.id}`)
         logger.log(res.data)
         AppState.myFavoriteRoutines = AppState.myFavoriteRoutines.filter(fav => fav.id != myFavoritedRoutineObjectData.id)
+    }
+
+    async setActiveRoutine(routineId) {
+        AppState.activeRoutine = await this.getRoutineById(routineId)
     }
 
 }
