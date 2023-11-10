@@ -1,7 +1,7 @@
 <template>
 <div class="container-fluid">
     <section class="row justify-content-around">
-      <div class="col-12 col-md-7 py-5">
+      <div class="col-12 col-md-8 py-5">
         <!-- ROUTINE COMPONENT  -->
         <RoutineEditor />
       </div>
@@ -40,7 +40,4 @@ export default {
 
 
 <style lang="scss" scoped>
-.mdi-lock-open{
-  color: #858e8f
-}
 </style>
