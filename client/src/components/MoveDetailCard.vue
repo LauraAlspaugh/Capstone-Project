@@ -1,8 +1,6 @@
 <template>
   <section class="row justify-content-center">
-
-
-    <div v-if="activeMove?.imgUrl" class="col-12 active-move">
+    <div v-if="activeMove?.imgUrl" class="col active-move">
       <section class="row justify-content-center">
         <div class="col-10 mt-5 pt-3 pb-0 ">
           <img :src="activeMove.imgUrl" alt="activeMove.englishName">
