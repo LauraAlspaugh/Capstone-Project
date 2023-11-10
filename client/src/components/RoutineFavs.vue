@@ -1,6 +1,6 @@
 <template>
-  <div class="rounded-top border">
-    <span class="d-flex align-items-center justify-content-center border rounded-top selectable lighten-30 bgBlur bgColor1"
+  <div class="rounded-top">
+    <span class="d-flex align-items-center justify-content-center rounded-top selectable lighten-30 bgBlur bgColor1"
     @click="createRoutine()">
       <p class="mb-0 p-2 fs-4 ">Create New Routine</p>
       <i class="fs-1 mdi mdi-plus-circle"></i>
