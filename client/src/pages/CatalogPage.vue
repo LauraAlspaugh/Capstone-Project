@@ -51,8 +51,8 @@
 
         <!-- SECTION Filter Favorite Poses -->
         <div v-if="wantsPoses">
-          <button @click="onlyShowFavoriteMoves()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana" role="button"
-            type="button">my favorites <i class="mdi mdi-heart"></i></button>
+          <button @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
+            role="button" type="button">my favorites <i class="mdi mdi-heart"></i></button>
         </div>
         <!-- !SECTION Filter Favorite Poses End -->
 
@@ -98,7 +98,12 @@
 
     <!-- SECTION show Move Cards if wantsPoses -->
     <div v-if="wantsPoses">
-      <section class="row">
+      <section v-if="wantsToSeeFavorites">
+        <div v-for="move in myFavoriteMoves" :key="move.id" class="col-12">
+          <MoveCatalogCard :moveProp="move" />
+        </div>
+      </section>
+      <section v-else class="row">
         <div v-for="move in moves" :key="move.id" class="col-12">
           <MoveCatalogCard :moveProp="move" />
         </div>
@@ -129,6 +134,7 @@ import MoveCatalogCard from '../components/MoveCatalogCard.vue';
 import { routinesService } from '../services/RoutinesService.js';
 import RoutineCatalogCard from '../components/RoutineCatalogCard.vue';
 import { useRoute } from 'vue-router';
+import { Move } from "../models/Move.js";
 
 export default {
   setup() {
@@ -139,6 +145,7 @@ export default {
     let editableFocus = ref([]);
     let wantsPoses = ref(true);
     let selectedLevel = ref("");
+    let wantsToSeeFavorites = ref(false);
     onMounted(() => {
       getMoves();
       getRoutines();
@@ -180,6 +187,7 @@ export default {
       focuses,
       wantsPoses,
       selectedLevel,
+      wantsToSeeFavorites,
       moves: computed(() => {
         //if level is anything but "all", filter it by level
         if (editableLevel.value && editableLevel.value != "all") {
@@ -210,6 +218,14 @@ export default {
         }
       }),
 
+      myFavoriteMoves: computed(() => {
+        let filteredMoves = []
+        AppState.myFavoriteMoves.forEach((move) => {
+          filteredMoves.push(new Move(move.move))
+        })
+        return filteredMoves
+      }),
+
       routines: computed(() => AppState.routines),
 
       changeLevel(level) {
@@ -219,14 +235,15 @@ export default {
 
       swapPosesAndRoutines() {
         wantsPoses.value = !wantsPoses.value;
-        logger.log(wantsPoses)
       },
 
-      myFavoriteMoves: computed(() => AppState.myFavoriteMoves),
+      swapShowFavoritesAndShowAll() {
+        wantsToSeeFavorites.value = !wantsToSeeFavorites.value;
+      },
 
-      onlyShowFavoriteMoves() {
-        this.myFavoriteMoves
-      }
+      // onlyShowFavoriteMoves() {
+      //   this.myFavoriteMoves
+      // }
     };
   },
 
