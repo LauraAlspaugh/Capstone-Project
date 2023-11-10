@@ -1,9 +1,9 @@
 <template>
   <section class="row">
-    <div v-if="move?.imgUrl" class="col-4">
+    <div  class="col-4">
 <img :src="moveBasicProp.imgUrl" alt="move picture">
     </div>
-    <div v-if="move?.englishName" class="col-8">
+    <div class="col-8">
 <p>{{ moveBasicProp.englishName }}</p>
     </div>
   </section>
