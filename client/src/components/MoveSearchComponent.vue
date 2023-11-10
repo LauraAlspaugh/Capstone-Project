@@ -160,7 +160,7 @@ export default {
 .image-border {
     border: 2px solid #D7DBDB;
 
-    background-color: #e3e0de87;
+    background-color: #e3e0de5b;
 }
 
 .moves-list {

@@ -1,7 +1,9 @@
 <template>
     <section class="row p-2 p-md-4 italiana">
         <div class="col-12 d-block white-gb p-3">
-            <img class="img-fluid black-border" :src="routineProp.keyImage" alt="routineProp.name">
+            <div @click="setActiveRoutine()" data-bs-toggle="modal" data-bs-target="#routine-modal" type="button">
+                <img class="img-fluid black-border" :src="routineProp.keyImage" alt="routineProp.name">
+            </div>
             <div class="d-flex justify-content-between">
                 <span class="fs-3"> {{ routineProp.name }}</span>
                 <span v-if="isFavRoutine" @click="unfavoriteRoutine()" role="button" class="fs-3"><i
@@ -58,7 +60,10 @@ export default {
 
             },
             myFavoriteRoutines: computed(() => AppState.myFavoriteRoutines),
-            isFavRoutine: computed(() => AppState.myFavoriteRoutines.find((routine) => routine.routineId == props.routineProp.id))
+            isFavRoutine: computed(() => AppState.myFavoriteRoutines.find((routine) => routine.routineId == props.routineProp.id)),
+            setActiveRoutine() {
+                AppState.activeRoutine = props.routineProp
+            }
         }
     }
 };
