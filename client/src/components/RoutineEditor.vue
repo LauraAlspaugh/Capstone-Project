@@ -26,7 +26,7 @@
 
     <section class="px-3 bgBlur">
       <div class="p-1 border rounded scroll">
-        <RoutineBasicCard :listEntries="routine.listEntry" />
+        <ListEntryCard :listEntries="routine.listEntry" />
       </div>
     </section>
 
@@ -43,7 +43,7 @@
 <script>
 import { AppState } from '../AppState';
 import { ref, watchEffect } from 'vue';
-import RoutineBasicCard from "./RoutineBasicCard.vue";
+import ListEntryCard from "./ListEntryCard.vue";
 import Pop from "../utils/Pop";
 import RoutineFavs from "./RoutineFavs.vue";
 import { Routine } from "../models/Routine";
@@ -80,7 +80,7 @@ export default {
 
         };
     },
-    components: { RoutineBasicCard, RoutineFavs }
+    components: { ListEntryCard, RoutineFavs }
 };
 </script>
 
