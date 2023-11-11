@@ -15,6 +15,7 @@ export class RoutinesController extends BaseController {
             .post('', this.createRoutine)
             .put('/:routineId', this.editRoutine)
             .delete('/:routineId', this.archiveRoutine)
+            .delete('/:routineId/delete', this.deleteRoutine)
     }
 
     async getRoutines(request, response, next) {
@@ -68,6 +69,15 @@ export class RoutinesController extends BaseController {
             const routineId = request.params.routineId
             const userId = request.userInfo.id
             const routine = await routinesService.archiveRoutine(routineId, userId)
+            return response.send(routine)
+        } catch (error) { next(error) }
+    }
+
+    async deleteRoutine(request, response, next) {
+        try {
+            const routineId = request.params.routineId
+            const userId = request.userInfo.id
+            const routine = await routinesService.deleteRoutine(routineId, userId)
             return response.send(routine)
         } catch (error) { next(error) }
     }

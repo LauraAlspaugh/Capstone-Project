@@ -166,5 +166,23 @@ class RoutinesService {
         return routine
     }
 
+    async deleteRoutine(routineId, userId) {
+        const routine = await this.getRoutineById(routineId)
+        if (routine.creatorId.toString() != userId) {
+            throw new Forbidden('Not your routine to delete!')
+        }
+        if (!routine.isArchived) {
+            throw new BadRequest('Cannot delete active routines')
+        }
+        // remove all associated data that would be orphaned before the routine itself
+        const favoriteRoutineResults = await dbContext.FavoriteRoutines.deleteMany({ routineId })
+        const listEntryResults = await dbContext.ListEntries.deleteMany({ routineId })
+        const routineResults = await dbContext.Routines.findByIdAndRemove(routineId)
+        logger.log('Routine Favorites removed. Results:', favoriteRoutineResults)
+        logger.log('List Entries removed. Results:', listEntryResults)
+        logger.log('Routine removed. Results:', routineResults)
+        return `Removed Routine: ${routineResults}, Removed List Entries: ${listEntryResults}, Removed Routine Favorites ${favoriteRoutineResults}, `
+    }
+
 }
 export const routinesService = new RoutinesService()
