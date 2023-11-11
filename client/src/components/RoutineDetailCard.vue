@@ -16,7 +16,7 @@
             <section class="row italiana text-white px-4">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-mint ">{{ activeRoutine.playTime }} Min | Move Count {{ activeRoutine.moveCount
+                        <span class="text-mint ">{{ activeRoutine.playTime/60 }} Min | Move Count {{ activeRoutine.moveCount
                         }}</span>
                         <span>
                             <FavoriteUnfavoriteMove :id="activeRoutine.id" :moveOrRoutine="'routine'" />

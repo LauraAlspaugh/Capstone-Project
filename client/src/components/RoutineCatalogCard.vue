@@ -16,7 +16,7 @@
                         class="mdi mdi-heart-outline"></i></span>
             </div>
             <div class="d-flex justify-content-between color3">
-                <span>{{ routineProp.playTime }} sec</span>
+                <span>{{ routineProp.playTime/60 }} min</span>
                 <span>{{ routineProp.level }}</span>
                 <!-- <span>{{ routineProp.target }}</span> -->
             </div>
