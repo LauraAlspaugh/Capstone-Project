@@ -66,8 +66,8 @@
               <input v-model="editable.enableAudio" class="ms-4" type="checkbox" id="enableAudio">
             </div>
             <div class="m-3 mt-0">
-              <label for="customAudio">Custom Audio</label>
-              <select v-model="editable.customAudio" class="ms-2 form-select" id="customAudio"
+              <label for="customAudioId">Custom Audio</label>
+              <select v-model="editable.customAudioId" class="ms-2 form-select" id="customAudioId"
                 :disabled="!editable.enableAudio">
                 <option value="default">Default</option>
               </select>

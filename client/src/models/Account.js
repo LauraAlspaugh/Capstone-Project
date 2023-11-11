@@ -11,9 +11,9 @@ export class Account {
 
     this.customLogoUrl = data.customLogoUrl
     this.useCustomLogo = data.useCustomLogo
-    
+
     this.enableAudio = data.enableAudio
-    this.customAudio = data.customAudio
+    this.customAudioId = data.customAudioId
 
     this.github = data.github
     this.linkedin = data.linkedin
