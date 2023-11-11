@@ -1,14 +1,10 @@
 <template>
   <div class="container-fluid">
-    <section v-if="activeRoutine" class="row justify-content-center">
-      <div class="col-12 col-md-8 pt-3 pe-md-5">
-        <div class="boxHeight">
+    <section v-if="activeRoutine" class="row justify-content-evenly">
+      <div class="col-12 col-md-7 pt-3 pe-md-5">
+        <div class="boxHeight pt-5">
           <span class="d-flex align-items-center">
             <p class="fs-1 mb-0 pe-3 text-nowrap">{{ activeRoutine.name }}</p>
-            <span class="px-2">
-              <button type="button" :data-bs-title="activeRoutine.name" :data-bs-content="activeRoutine.description"
-                class="btn btn-secondary" data-bs-toggle="popover" data-bs-placement="bottom">Show description</button>
-            </span>
           </span>
           <!-- ROUTINE COMPONENT  -->
           <RoutineEditor :routine="activeRoutine" />
@@ -16,7 +12,7 @@
       </div>
       <div v-if="settings.editRoutine" class="col-12 col-md-3 pt-3 about">
         <!-- MOVE SEARCH/FILTER COMPONENT -->
-        <div class="boxHeight">
+        <div class="boxHeight pt-5">
           <MoveSearchComponent />
         </div>
       </div>
@@ -63,6 +59,6 @@ export default {
 }
 
 .boxHeight {
-  height: 63dvh;
+  max-height: 43dvh;
 }
 </style>

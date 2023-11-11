@@ -3,12 +3,12 @@
 
     <section class="header d-flex align-items-center rounded-top px-3 py-2 bgBlur position-relative z1">
       <div class="dropdown open me-auto">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
-              My Favorited Routines
-            </button>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          My Favorited Routines
+        </button>
         <div class="dropdown-menu p-0" aria-labelledby="triggerId">
-            <RoutineFavs />
+          <RoutineFavs />
         </div>
       </div>
       <span class="fs-1 mx-2 d-flex">
@@ -32,8 +32,9 @@
 
     <section class="rounded-bottom bgBlur mx-3 d-flex align-items-center">
       <i class="fs-1 btn color1 mdi mdi-play-box me-auto"></i>
-      <p class="fs-5 mb-0">Total Time: 
-        {{ (routine.playTime/60 >= 1? Math.floor(routine.playTime / 60) + ' min ' :'')  + (routine.playTime%60) }} sec</p>
+      <p class="fs-5 mb-0">Total Time:
+        {{ (routine.playTime / 60 >= 1 ? Math.floor(routine.playTime / 60) + ' min ' : '') + (routine.playTime % 60) }}
+        sec</p>
     </section>
 
   </div>
@@ -50,7 +51,7 @@ import { Routine } from "../models/Routine";
 
 export default {
   props: { routine: { type: Routine } },
-  
+
   setup() {
 
     const routineData = ref({})
@@ -64,68 +65,77 @@ export default {
       }
     });
 
-        return {
+    return {
 
-          unlockRoutine() {
-            AppState.settings.editRoutine = true;
-          },
+      unlockRoutine() {
+        AppState.settings.editRoutine = true;
+      },
 
-          saveRoutine() {
-            try {
-              // submit changes to service > api and update
-              // routinesService.updateRoutine(routineData.value);
-              AppState.settings.editRoutine = false;
-            } catch (error) {Pop.error(error)}
-          }
+      saveRoutine() {
+        try {
+          // submit changes to service > api and update
+          // routinesService.updateRoutine(routineData.value);
+          AppState.settings.editRoutine = false;
+        } catch (error) { Pop.error(error) }
+      }
 
-        };
-    },
-    components: { ListEntryCard, RoutineFavs }
+    };
+  },
+  components: { ListEntryCard, RoutineFavs }
 };
 </script>
 
 
 <style lang="scss" scoped>
-.bgBlur{
+.bgBlur {
   backdrop-filter: blur(3px);
 }
-.boxShadow{
-  box-shadow: 
+
+.boxShadow {
+  box-shadow:
     0 0 20px 5px white inset;
-    // 0 0 3px 1px white;
+  // 0 0 3px 1px white;
 }
-.tiny{
+
+.tiny {
   font-size: 6px;
-  position:absolute;
+  position: absolute;
   bottom: 10px;
   left: 10px;
   color: white;
   line-height: 14px;
 }
-.lh25{
+
+.lh25 {
   line-height: 2.5rem;
 }
-.scroll{
-  height: 57.5dvh;
-  overflow-y: scroll;
+
+.scroll {
+  max-height: 57.5dvh;
+  overflow-y: auto;
 }
-.color1{
-  color:#0F2D24;
+
+.color1 {
+  color: #0F2D24;
   // background-color: #0F2D24;
 }
-.color2{
-  color:#2B4A3F;
+
+.color2 {
+  color: #2B4A3F;
   // background-color: #2B4A3F;
 }
-.color3{
-  color:#6B8373;
+
+.color3 {
+  color: #6B8373;
   // background-color: #6B8373;
 }
-.color4{
-  color:#C4D0CC;
+
+.color4 {
+  color: #C4D0CC;
   // background-color: #C4D0CC;
 }
-.z1{
+
+.z1 {
   z-index: 1;
 }
 </style>

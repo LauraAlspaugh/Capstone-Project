@@ -57,7 +57,7 @@ export default {
 @import "./assets/scss/main.scss";
 
 :root {
-  --main-height: calc(100vh - 32px - 64px);
+  --main-height: calc(100vh - 6rem);
 }
 
 body {
@@ -67,14 +67,6 @@ body {
   background-repeat: no-repeat;
   background-position: 60% -20%;
   background-color: white;
-}
-
-
-
-footer {
-  display: grid;
-  place-content: center;
-  height: 32px;
 }
 
 .mint-footer {
@@ -104,5 +96,24 @@ footer {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5.6px);
   -webkit-backdrop-filter: blur(5.6px);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <section class="row">
         <div class="col-12">
-            <p class="fs-1 pr-4 m-0 italiana">Pose Search</p>
+            <p class="fs-1 pr-4 m-0 fw-bold italiana">Pose Search</p>
         </div>
     </section>
     <section class="row py-2 image-border align-items-center filter-height">
@@ -198,7 +198,7 @@ export default {
 }
 
 .moves-list {
-    overflow-y: scroll;
-    height: 100%;
+    overflow-y: auto;
+    max-height: 50rem;
 }
 </style>

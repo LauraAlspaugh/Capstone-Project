@@ -46,6 +46,36 @@
         </div>
         <hr>
       </div>
+      <section class="d-flex py-2 position-relative">
+        <p class="preference fw-bold fs-4 position-absolute">Preferences</p>
+        <section class="preferences d-flex w-100 ps-5 pe-3">
+          <span class="w-50">
+            <div class="m-3 mt-0 d-flex align-items-center">
+              <label for="useCustomLogo">Use Custom Logo</label>
+              <input v-model="editable.useCustomLogo" class="ms-4" type="checkbox" id="useCustomLogo"
+                :checked="editable.useCustomLogo">
+            </div>
+            <div class="m-3 mt-0">
+              <label for="customLogoUrl">Custom Logo URL</label>
+              <input v-model="editable.customLogoUrl" class="ms-2 form-control" id="customLogoUrl" type="url"
+                maxlength="64">
+            </div>
+          </span>
+          <span class="w-50">
+            <div class="m-3 mt-0 d-flex align-items-center">
+              <label for="enableAudio">Use Custom Audio</label>
+              <input v-model="editable.enableAudio" class="ms-4" type="checkbox" id="enableAudio"
+                :checked="editable.enableAudio">
+            </div>
+            <div class="m-3 mt-0">
+              <label for="customAudio">Custom Audio</label>
+              <input v-model="editable.customAudio" class="ms-2 form-control" id="customAudio" type="text"
+                maxlength="128">
+            </div>
+          </span>
+        </section>
+      </section>
+      <hr>
 
       <div class="d-flex justify-content-center pe-3">
         <button class="btn btn-success">Submit Changes</button>
@@ -95,4 +125,16 @@ export default {
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+input[type='checkbox'] {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.preference {
+  height: 3rem;
+  rotate: -90deg;
+  top: 2.3rem;
+  left: -1.5rem;
+}
+</style>
