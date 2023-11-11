@@ -4,9 +4,9 @@
             <p class="fs-1 pr-4 m-0 italiana">Pose Search</p>
         </div>
     </section>
-    <section class="row py-2 image-border">
-        <div class="col-12 justify-content-around align-items-center d-flex ">
-            <div class="dropdown me-sm-3">
+    <section class="row py-2 image-border align-items-center filter-height">
+        <div class="col-12 justify-content-evenly align-items-center d-flex">
+            <div v-if="!wantsToSeeFavorites" class="dropdown me-sm-3">
                 <button class="btn white-gb dropdown-toggle italiana fw-bold" type="button" id="dropdownMenu2"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     level
@@ -24,11 +24,17 @@
                     </li>
                 </ul>
             </div>
-            <!-- <p class="fs-4 m-0 ">Level</p> -->
-            <!-- <p class="text-dark">{{ moves.englishName }}</p> -->
-            <p class="fs-2 m-0"><i class="mdi mdi-heart"></i></p>
-            <!-- <p class="fs-4 justify-content-end m-0">Focus</p> -->
-            <div class="dropdown ms-sm-3">
+            <div v-else></div>
+            <div v-if="!wantsPoses && wantsToSeeFavorites == false">
+                <p @click="swapShowFavoritesAndShowAll()" role="button" type="button" class="fs-2 mx-0 my-1"><i
+                        class="mdi mdi-heart"></i></p>
+            </div>
+            <div v-else>
+                <p @click="swapShowFavoritesAndShowAll()" role="button" type="button"
+                    class="btn white-gb italiana mx-0 my-1">all
+                    moves</p>
+            </div>
+            <div v-if="!wantsToSeeFavorites" class="dropdown ms-sm-3">
                 <button class="btn white-gb dropdown-toggle italiana fw-bold" type="button" id="dropdownMenu2"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     focus
@@ -45,11 +51,17 @@
                     </li>
                 </ul>
             </div>
+            <div v-else></div>
         </div>
     </section>
     <section v-if="moves.length > 0" class="row moves-list">
-        <div class="col-12 p-0">
+        <div v-if="!wantsToSeeFavorites" class="col-12 p-0">
             <div v-for="move in moves" :key="move.id" class="">
+                <MoveBasicCard :moveBasicProp="move" />
+            </div>
+        </div>
+        <div v-else class="col-12 p-0">
+            <div v-for="move in myFavoriteMoves" :key="move.id" class="">
                 <MoveBasicCard :moveBasicProp="move" />
             </div>
         </div>
@@ -64,6 +76,7 @@ import MoveBasicCard from './MoveBasicCard.vue';
 import { movesService } from '../services/MovesService.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
+import { Move } from "../models/Move.js";
 
 
 
@@ -78,6 +91,7 @@ export default {
         let editableLevel = ref("");
         let editableFocus = ref([]);
         let selectedLevel = ref("");
+        let wantsToSeeFavorites = ref(false);
         async function getMoves() {
             try {
                 await movesService.getMoves();
@@ -93,6 +107,7 @@ export default {
             editableLevel,
             editableFocus,
             selectedLevel,
+            wantsToSeeFavorites,
             moves: computed(() => {
                 //if level is anything but "all", filter it by level
                 if (editableLevel.value && editableLevel.value != "all") {
@@ -122,6 +137,18 @@ export default {
                     return AppState.moves;
                 }
             }),
+
+            myFavoriteMoves: computed(() => {
+                let filteredMoves = []
+                AppState.myFavoriteMoves.forEach((move) => {
+                    filteredMoves.push(new Move(move.move))
+                })
+                return filteredMoves
+            }),
+
+            swapShowFavoritesAndShowAll() {
+                wantsToSeeFavorites.value = !wantsToSeeFavorites.value;
+            },
 
 
             changeLevel(level) {
@@ -161,6 +188,10 @@ export default {
     border: 2px solid #D7DBDB;
 
     background-color: #e3e0de5b;
+}
+
+.filter-height {
+    height: 25%;
 }
 
 .moves-list {
