@@ -1,12 +1,12 @@
 <template>
   <section v-for="listEntry in listEntries" :key="listEntry.id" class="d-flex align-items-center rounded shadow my-1 p-1">
     <span class="d-flex align-items-center me-2">
-      <i class="fs-4 me-1 hidden text-primary mdi mdi-plus selectable darken-20 rounded" 
+      <i class="fs-4 me-1 hidden timer-color mdi mdi-plus selectable darken-20 rounded" 
         @click="addToEnd()" type="button" title="Add a copy to the end"></i>
-      <i class="fs-4 px-1 text-primary mdi mdi-triangle selectable darken-20 rounded" v-if="listEntry.position != 1"
+      <i class="fs-4 px-1 timer-color mdi mdi-triangle selectable darken-20 rounded" v-if="listEntry.position != 1"
         @click="moveUp()" type="button" title="Move entry up"></i>
         <i class="fs-4 px-1 invisible mdi mdi-triangle-down" v-else></i>
-      <i class="fs-4 px-1 text-primary mdi mdi-triangle-down selectable darken-20 rounded" v-if="listEntry.position != listEntries.length"
+      <i class="fs-4 px-1 timer-color mdi mdi-triangle-down selectable darken-20 rounded" v-if="listEntry.position != listEntries.length"
         @click="moveDown()" type="button" title="Move entry down"></i>
       <i class="fs-4 px-1 invisible mdi mdi-triangle-down" v-else></i>
     </span>
@@ -49,5 +49,8 @@ export default {
 
 .thumbnail{
   height: 3rem;
+}
+.timer-color{
+  color: #85a79d;
 }
 </style>
