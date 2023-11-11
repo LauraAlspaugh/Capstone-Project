@@ -9,18 +9,20 @@
                 </div>
             </div>
             <div class="d-flex justify-content-between pt-2">
-                <span class="fs-4"> {{ routineProp.name }}</span>
+                <span @click="setActiveRoutine()" data-bs-toggle="modal" data-bs-target="#routine-modal" type="button"
+                    class="fs-4"> {{ routineProp.name }}</span>
                 <span v-if="isFavRoutine" @click="unfavoriteRoutine()" role="button" class="fs-3"><i
                         class="mdi mdi-heart"></i></span>
                 <span v-else @click="favoriteRoutine()" role="button" class="fs-3"><i
                         class="mdi mdi-heart-outline"></i></span>
             </div>
-            <div class="d-flex justify-content-between color3">
+            <div @click="setActiveRoutine()" data-bs-toggle="modal" data-bs-target="#routine-modal" type="button"
+                class="d-flex justify-content-between color3">
                 <span>{{ routineProp.playTime }} sec</span>
                 <span>{{ routineProp.level }}</span>
                 <!-- <span>{{ routineProp.target }}</span> -->
             </div>
-            <div>
+            <div @click="setActiveRoutine()" data-bs-toggle="modal" data-bs-target="#routine-modal" type="button">
                 <span>Description: {{ routineProp.shortDescription }}...</span>
             </div>
             <div>
