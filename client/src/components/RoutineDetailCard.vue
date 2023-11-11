@@ -36,8 +36,12 @@
                     <div class="">
                         <p class="text-mint"> Created by {{ activeRoutine.creator.name }}</p>
                     </div>
-                    <div class="p-2 mb-5">
-                        <Button class="btn btn-outline-light p-2 text-white">Open Full Routine</Button>
+                    <div class=" mb-5">
+                        <router-link :to="{ name: 'RoutineDesigner' }" class="">
+                            <button role="button" class="btn btn-outline-light p-2 text-white"
+                                title="Open Full Routine in Routine Designer Page" data-bs-dismiss="modal">Open Full
+                                Routine</button>
+                        </router-link>
                     </div>
 
                 </div>
@@ -57,7 +61,7 @@ export default {
     setup() {
         return {
             routines: computed(() => AppState.routines),
-            activeRoutine: computed(() => AppState.activeRoutine)
+            activeRoutine: computed(() => AppState.activeRoutine),
         };
     },
     components: { FavoriteUnfavoriteMove }

@@ -6,7 +6,8 @@
                     data-bs-target="#move-modal" type="button">
                     <img class="img-fluid black-border" :src="moveProp.imgUrl" alt="moveProp.englishName">
                 </div>
-                <div class="col-10 col-md-7">
+                <div click="setActiveMove()" data-bs-toggle="modal" data-bs-target="#move-modal" type="button"
+                    class="col-10 col-md-7">
                     <section class="row">
                         <div class="col d-block d-md-flex justify-content-between align-items-center">
                             <span class="fs-3 m-0 pe-3">{{ moveProp.englishName }}</span>
