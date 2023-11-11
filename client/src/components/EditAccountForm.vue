@@ -10,7 +10,7 @@
         <section class="user">
           <div class="m-3 mt-0">
             <label for="name">Name</label>
-            <input v-model="editable.name" class="ms-2 form-control" type="text" id="name" maxlength="96">
+            <input v-model="editable.name" class="ms-2 form-control" type="text" id="name" maxlength="128">
           </div>
           <div class="m-3 mt-0">
             <label for="picture">User Picture URL</label>
@@ -18,7 +18,7 @@
           </div>
           <div class="m-3 mt-0">
             <label for="website">Website</label>
-            <input v-model="editable.website" class="ms-2 form-control" type="text" id="website" maxlength="64">
+            <input v-model="editable.website" class="ms-2 form-control" type="text" id="website" maxlength="128">
           </div>
         </section>
       </div>
@@ -26,15 +26,15 @@
         <section class="socials">
           <div class="m-3 mt-0">
             <label for="github">Github</label>
-            <input v-model="editable.github" class="ms-2 form-control" type="url" id="github" maxlength="64">
+            <input v-model="editable.github" class="ms-2 form-control" type="url" id="github" maxlength="128">
           </div>
           <div class="m-3 mt-0">
             <label for="linkedin">LinkedIn</label>
-            <input v-model="editable.linkedin" class="ms-2 form-control" type="url" id="linkedin" maxlength="64">
+            <input v-model="editable.linkedin" class="ms-2 form-control" type="url" id="linkedin" maxlength="128">
           </div>
           <div class="m-3 mt-0">
             <label for="resume">Resume</label>
-            <input v-model="editable.resume" class="ms-2 form-control" type="url" id="resume" maxlength="64">
+            <input v-model="editable.resume" class="ms-2 form-control" type="url" id="resume" maxlength="128">
           </div>
         </section>
       </div>
@@ -52,25 +52,25 @@
           <span class="w-50">
             <div class="m-3 mt-0 d-flex align-items-center">
               <label for="useCustomLogo">Use Custom Logo</label>
-              <input v-model="editable.useCustomLogo" class="ms-4" type="checkbox" id="useCustomLogo"
-                :checked="editable.useCustomLogo">
+              <input v-model="editable.useCustomLogo" class="ms-4" type="checkbox" id="useCustomLogo">
             </div>
             <div class="m-3 mt-0">
               <label for="customLogoUrl">Custom Logo URL</label>
               <input v-model="editable.customLogoUrl" class="ms-2 form-control" id="customLogoUrl" type="url"
-                maxlength="64">
+                maxlength="300" :disabled="!editable.useCustomLogo">
             </div>
           </span>
           <span class="w-50">
             <div class="m-3 mt-0 d-flex align-items-center">
               <label for="enableAudio">Use Custom Audio</label>
-              <input v-model="editable.enableAudio" class="ms-4" type="checkbox" id="enableAudio"
-                :checked="editable.enableAudio">
+              <input v-model="editable.enableAudio" class="ms-4" type="checkbox" id="enableAudio">
             </div>
             <div class="m-3 mt-0">
               <label for="customAudio">Custom Audio</label>
-              <input v-model="editable.customAudio" class="ms-2 form-control" id="customAudio" type="text"
-                maxlength="128">
+              <select v-model="editable.customAudio" class="ms-2 form-select" id="customAudio"
+                :disabled="!editable.enableAudio">
+                <option value="default">Default</option>
+              </select>
             </div>
           </span>
         </section>
