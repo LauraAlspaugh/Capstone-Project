@@ -70,28 +70,30 @@
 
 
 <script>
-import { AppState } from '../AppState';
 import { computed, onMounted, ref } from 'vue';
-import MoveBasicCard from './MoveBasicCard.vue';
-import { movesService } from '../services/MovesService.js';
+import { AppState } from '../AppState';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
+import MoveBasicCard from './MoveBasicCard.vue';
+import { movesService } from '../services/MovesService.js';
 import { Move } from "../models/Move.js";
 
-
-
 export default {
-    // props: { moveSearchProp: { type: Move, required: true } },
+
     setup() {
+
         onMounted(() => {
             getMoves()
         })
+
         const levels = ["all", "beginner", "intermediate", "expert"];
         const focuses = ["all", "arms", "chest", "core", "neck", "glutes", "hamstrings", "hips", "inner thighs", "lower Back", "quads", "shoulder", "upper back"];
+
         let editableLevel = ref("");
         let editableFocus = ref([]);
         let selectedLevel = ref("");
         let wantsToSeeFavorites = ref(false);
+
         async function getMoves() {
             try {
                 await movesService.getMoves();
@@ -101,6 +103,7 @@ export default {
                 Pop.error(error);
             }
         }
+
         return {
             levels,
             focuses,
@@ -108,6 +111,7 @@ export default {
             editableFocus,
             selectedLevel,
             wantsToSeeFavorites,
+
             moves: computed(() => {
                 //if level is anything but "all", filter it by level
                 if (editableLevel.value && editableLevel.value != "all") {
@@ -150,10 +154,9 @@ export default {
                 wantsToSeeFavorites.value = !wantsToSeeFavorites.value;
             },
 
-
             changeLevel(level) {
                 editableLevel.value = level;
-                selectedLevel.value = level
+                selectedLevel.value = level;
             },
 
             uncheckIfAll(selection) {
@@ -172,6 +175,7 @@ export default {
                     })
                 }
             },
+
         };
     },
     components: { MoveBasicCard }
@@ -186,12 +190,11 @@ export default {
 
 .image-border {
     border: 2px solid #D7DBDB;
-
     background-color: #e3e0de5b;
 }
 
 .filter-height {
-    height: 25%;
+    height: 4.8rem;
 }
 
 .moves-list {

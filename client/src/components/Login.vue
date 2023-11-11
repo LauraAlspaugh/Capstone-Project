@@ -1,31 +1,40 @@
 <template>
   <span class="navbar-text">
+
     <button class="btn selectable text-black lighten-30 text-uppercase my-2 my-lg-0" @click="login"
       v-if="!user.isAuthenticated">
       Login
     </button>
+
     <div v-else>
       <div class="dropdown my-2 my-lg-0">
-        <div type="button" class="border-0 selectable no-select rounded-circle p-1" data-bs-toggle="dropdown" aria-expanded="false">
+
+        <div type="button" class="border-0 selectable no-select rounded-circle p-1" data-bs-toggle="dropdown"
+          aria-expanded="false">
           <div v-if="account.picture || user.picture">
-            <img :src="account.picture || user.picture" alt="account photo" height="40" class="rounded" />
+            <img :src="account.picture || user.picture" alt="account photo" class="rounded picture" />
           </div>
         </div>
+
         <div class="dropdown-menu dropdown-menu-lg-end dropdown-menu-start p-0" aria-labelledby="authDropdown">
           <div class="list-group">
+
             <router-link :to="{ name: 'Account' }">
               <div class="list-group-item dropdown-item list-group-item-action">
                 Manage Account
               </div>
             </router-link>
+
             <div class="list-group-item dropdown-item list-group-item-action text-danger selectable" @click="logout">
               <i class="mdi mdi-logout"></i>
               logout
             </div>
+
           </div>
         </div>
       </div>
     </div>
+
   </span>
 </template>
 
@@ -49,4 +58,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.picture {
+  height: 4rem;
+}
+</style>

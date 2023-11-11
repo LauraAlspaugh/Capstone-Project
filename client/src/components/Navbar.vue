@@ -1,18 +1,25 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-grey px-3 ">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img class="logo-nav" alt="logo" src="../assets/img/RootedFlow Logo-only.png" />
-      </div>
-    </router-link>
+  <nav class="navbar navbar-expand-lg navbar-grey px-3 ps-lg-0 pe-lg-3 ">
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'RoutineDesigner' }" class="fs-5 me-1 btn text-black lighten-30 selectable text-uppercase">
+          <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+            <div class="d-flex flex-column align-items-center position-relative">
+              <div class="mx-md-5 px-md-5"></div>
+              <img class="logo-nav position-absolute p-1 pe-3" alt="logo" src="../assets/img/RootedFlow Logo-only.png" />
+            </div>
+          </router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'RoutineDesigner' }"
+            class="fs-5 me-1 btn text-black lighten-30 selectable text-uppercase">
             Routine Designer
           </router-link>
         </li>
@@ -27,14 +34,19 @@
           </router-link>
         </li>
       </ul>
+
       <!-- LOGIN COMPONENT HERE -->
       <Login />
+
     </div>
+
   </nav>
 </template>
 
+
 <script>
 import Login from './Login.vue';
+
 export default {
   setup() {
     return {}
@@ -64,25 +76,29 @@ a:hover {
 }
 
 .logo-nav {
-  height: 155px;
+  background-color: #E0DDDB;
+  border-end-end-radius: 3rem;
+  height: 10rem;
+  top: -2rem;
+  left: 0;
 }
 
 nav {
-  height: 133px;
+  /* height: 133px; */
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   nav {
-    height: 133px;
-  }
-  
-  }
-  @media screen and (max-width: 768px){
-    .logo-nav{
-    height: 110px;
-    }
+    height: 6rem;
   }
 
+}
 
-
+@media screen and (max-width: 992px) {
+  .logo-nav {
+    height: 14rem;
+    top: .5rem;
+    left: 20rem;
+  }
+}
 </style>
