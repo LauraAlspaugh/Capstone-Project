@@ -1,13 +1,15 @@
 <template>
   <div class="container-fluid">
     <section class="row">
+
       <div v-if="activeRoutine" class="col-12">
         <section class="row">
-          <div v-if="currentMoveIndexNumber <= activeRoutine.listEntry.length" class="col-7">
+          <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length ">
+          <div class="col-7">
             <img :src="activeRoutine.listEntry[currentMoveIndexNumber].move.imgUrl" alt="First image" class="main-picture"
               :class="[greenFilter == true ? 'green-filter' : '']">
           </div>
-          <div v-else class="col-3 d-flex align-items-end">
+          <div  class="col-3 d-flex align-items-end">
             <div v-if="activeRoutine.listEntry[nextMoveIndexNumber]">
               <div v-if="activeRoutine.listEntry[nextMoveIndexNumber].transition == false">
                 <img :src="activeRoutine.listEntry[nextMoveIndexNumber].move.imgUrl" alt="Second Picture"
@@ -21,8 +23,14 @@
             </div>
             <div v-else></div>
           </div>
+          </div>
         </section>
-        <button @click="nextMove()" class="btn btn-success">Change Move</button>
+        <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length" >
+        <button  @click="nextMove()" class="btn btn-success">Change Move</button>
+        </div>
+        <div v-else >
+        
+        </div> 
       </div>
     </section>
   </div>
@@ -76,10 +84,10 @@ export default {
           greenFilter.value = false
           return
         }
-        if (AppState.activeRoutine.listEntry.length > currentMoveIndexNumber.value) {
-          if (AppState.activeRoutine.listEntry[nextMoveIndexNumber.value].transition == false && AppState.activeRoutine.listEntry[currentMoveIndexNumber.value].transition == true) {
-            logger.log("First condition TRUE, figure out what to do")
-          } else if (AppState.activeRoutine.listEntry[nextMoveIndexNumber.value].transition == true && AppState.activeRoutine.listEntry[currentMoveIndexNumber.value].transition == false) {
+        if (nextMoveIndexNumber.value < this.activeRoutine.listEntry.length) {
+          // if (AppState.activeRoutine.listEntry[nextMoveIndexNumber.value].transition == false && AppState.activeRoutine.listEntry[currentMoveIndexNumber.value].transition == true) {
+          //   logger.log("First condition TRUE, figure out what to do")
+           if (AppState.activeRoutine.listEntry[nextMoveIndexNumber.value].transition == true && AppState.activeRoutine.listEntry[currentMoveIndexNumber.value].transition == false) {
             currentMoveIndexNumber.value += 2
             nextMoveIndexNumber.value += 2
             greenFilter.value = true
@@ -92,6 +100,7 @@ export default {
           logger.log("Index number", currentMoveIndexNumber.value, "AppState.activeRoutine.length", AppState.activeRoutine.listEntry.length)
         } else {
           logger.log("false")
+          nextMoveIndexNumber.value += 1
           return
         }
       },
