@@ -4,13 +4,22 @@
       <div class="col-12 col-md-7 pt-3 pe-md-5">
         <div class="boxHeight pt-5">
           <span class="d-flex align-items-center">
-            <p class="fs-1 mb-0 pe-3 text-nowrap">{{ activeRoutine.name }}</p>
+            <div class="dropdown open me-auto">
+              <button class="fs-1 mb-0 pe-3 text-nowrap btn d-flex align-items-" type="button" id="triggerId"
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ activeRoutine.name }}
+                <i class="fs-1 mdi mdi-dots-vertical"></i>
+              </button>
+              <div class="dropdown-menu p-0" aria-labelledby="triggerId">
+                <RoutineFavs />
+              </div>
+            </div>
           </span>
           <!-- ROUTINE COMPONENT  -->
           <RoutineEditor :routine="activeRoutine" />
         </div>
       </div>
-      <div v-if="settings.editRoutine" class="col-12 col-md-3 pt-3 about">
+      <div v-if="editRoutine" class="col-12 col-md-3 pt-3 about">
         <!-- MOVE SEARCH/FILTER COMPONENT -->
         <div class="boxHeight pt-5">
           <MoveSearchComponent />
@@ -42,7 +51,7 @@ export default {
     })
 
     return {
-      settings: computed(() => AppState.settings),
+      editRoutine: computed(() => AppState.editRoutine),
       activeRoutine: computed(() => AppState.activeRoutine),
 
     }

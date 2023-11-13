@@ -1,5 +1,5 @@
-export class ListEntry{
-    constructor(data){
+export class ListEntry {
+    constructor(data) {
         this.id = data.id || data._id
         this.name = data.name
         this.description = data.description
@@ -11,5 +11,6 @@ export class ListEntry{
         this.moveId = data.moveId
         this.creatorId = data.creatorId
         this.creator = data.creator
+        this.edit = false
     }
 }

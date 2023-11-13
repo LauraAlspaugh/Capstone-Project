@@ -1,5 +1,5 @@
-export class Routine{
-    constructor(data){
+export class Routine {
+    constructor(data) {
         this.id = data.id || data._id
         this.name = data.name
         this.description = data.description
@@ -10,20 +10,20 @@ export class Routine{
         this.isExample = data.isExample
         this.isArchived = data.isArchived
         this.playCount = data.playCount
-        this.playTime = data.playTime 
+        this.playTime = data.playTime
         this.level = data.level
         this.creator = data.creator
         this.moveCount = data.moveCount
         this.listEntry = data.listEntry
         this.creatorId = data.creatorId
-        this.edit = data.edit
+        this.edit = false
     }
-    
-    get descriptionArray(){
+
+    get descriptionArray() {
         return this.description.split('. ')
     }
 
-    get shortDescription(){
+    get shortDescription() {
         return this.description.slice(0, 50)
     }
 }

@@ -19,7 +19,7 @@
         </li>
         <li>
           <router-link :to="{ name: 'RoutineDesigner' }"
-            class="fs-5 me-1 btn text-black lighten-30 selectable text-uppercase">
+            class="fs-5 ms-2 me-1 btn text-black lighten-30 selectable text-uppercase">
             Routine Designer
           </router-link>
         </li>

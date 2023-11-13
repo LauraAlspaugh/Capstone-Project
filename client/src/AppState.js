@@ -10,19 +10,18 @@ export const AppState = reactive({
   /** @type {import('./models/Move.js').Move[]} */
   moves: [],
   /** @type {import('./models/ListEntry.js').ListEntry[]} */
-  listEntries: [], 
+  listEntries: [],
   /** @type {import('./models/Move.js').Move | null} */
   activeMove: null,
   /** @type {import('./models/Routine.js').Routine | null} */
   activeRoutine: null,
   /** @type {import('./models/Move.js').Move[]} */
   myFavoriteMoves: [],
-   /** @type {import('./models/Routine.js').Routine[]} */
+  /** @type {import('./models/Routine.js').Routine[]} */
   myFavoriteRoutines: [],
-  noFavRoutines:false,
+  noFavRoutines: false,
+  editRoutine: false,
 
-  settings: {
-    editRoutine: false
-  }
+  settings: {}
 
 })

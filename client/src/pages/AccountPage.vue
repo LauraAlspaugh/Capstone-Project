@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <section class="row justify-content-evenly align-items-center pt-5">
 
-      <div class="col-12 col-md-6 mt-5 mt-md-0 text-center text-light">
+      <div class="col-12 col-md-6 mt-5 mt-md-0 text-center text-light d-flex justify-content-center">
         <UserCard :profile="account" />
       </div>
 

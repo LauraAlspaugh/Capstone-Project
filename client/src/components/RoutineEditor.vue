@@ -2,7 +2,7 @@
   <div class="border boxShadow rounded">
 
     <section class="header d-flex align-items-center rounded-top px-3 py-2 bgBlur position-relative z1">
-      <div class="dropdown open me-auto">
+      <!-- <div class="dropdown open me-auto">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           My Favorited Routines
@@ -10,6 +10,9 @@
         <div class="dropdown-menu p-0" aria-labelledby="triggerId">
           <RoutineFavs />
         </div>
+      </div> -->
+      <div class="me-auto">
+        <p class="mb-0">{{ routine.description }}</p>
       </div>
       <span class="fs-1 mx-2 d-flex">
         <span class="text-center me-2 position-relative" type="button" @click="unlockRoutine()">
@@ -32,9 +35,10 @@
 
     <section class="rounded-bottom bgBlur mx-3 d-flex align-items-center">
       <i class="fs-1 btn color1 mdi mdi-play-box me-auto"></i>
-      <p class="fs-5 mb-0">Total Time:
-        {{ (routine.playTime / 60 >= 1 ? Math.floor(routine.playTime / 60) + ' min ' : '') + (routine.playTime % 60) }}
-        sec</p>
+      <p class="fs-5 mb-0 me-5"><small>Total Time: </small>
+        <b>{{ (routine.playTime / 60 >= 1 ? Math.floor(routine.playTime / 60) + ' min ' : '') +
+          (routine.playTime % 60 != 0 ? routine.playTime % 60 + ' sec' : '') }}</b>
+      </p>
     </section>
 
   </div>
@@ -43,7 +47,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { ref, watchEffect } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import ListEntryCard from "./ListEntryCard.vue";
 import Pop from "../utils/Pop";
 import RoutineFavs from "./RoutineFavs.vue";
@@ -66,16 +70,17 @@ export default {
     });
 
     return {
+      editRoutine: computed(() => AppState.editRoutine),
 
       unlockRoutine() {
-        AppState.settings.editRoutine = true;
+        AppState.editRoutine = true;
       },
 
       saveRoutine() {
         try {
           // submit changes to service > api and update
           // routinesService.updateRoutine(routineData.value);
-          AppState.settings.editRoutine = false;
+          AppState.editRoutine = false;
         } catch (error) { Pop.error(error) }
       }
 

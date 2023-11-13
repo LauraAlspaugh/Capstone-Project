@@ -1,5 +1,5 @@
 <template>
-  <div class="bgColor rounded p-3">
+  <div class="bgColor rounded p-5">
     <h1>{{ profile.name }}</h1>
     <img class="rounded-circle mt-2 mb-3" :src="profile.picture" alt="" />
     <p>{{ profile.email }}</p>
