@@ -54,8 +54,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted } from 'vue';
-import { Routine } from '../models/Routine.js';
+import { computed } from 'vue';
 import FavoriteUnfavoriteMove from "./FavoriteUnfavoriteMove.vue";
 export default {
     setup() {

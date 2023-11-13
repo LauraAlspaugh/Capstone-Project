@@ -8,13 +8,10 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav me-auto align-items-center">
         <li>
-          <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-            <div class="d-flex flex-column align-items-center position-relative">
-              <div class="mx-md-5 px-md-5"></div>
-              <img class="logo-nav position-absolute p-1 pe-3" alt="logo" src="../assets/img/RootedFlow Logo-only.png" />
-            </div>
+          <router-link class="navbar-brand d-flex mx-3" :to="{ name: 'Home' }">
+              <img class="logo-nav" alt="logo" src="../assets/img/RootedFlow Logo-only.png" />
           </router-link>
         </li>
         <li>
@@ -76,11 +73,7 @@ a:hover {
 }
 
 .logo-nav {
-  background-color: #E0DDDB;
-  border-end-end-radius: 3rem;
-  height: 10rem;
-  top: -2rem;
-  left: 0;
+  height: 5rem;
 }
 
 nav {
