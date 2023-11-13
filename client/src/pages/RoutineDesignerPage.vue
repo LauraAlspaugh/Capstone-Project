@@ -34,7 +34,6 @@
       </div>
     </section>
   </div>
-  <CreateNewRoutineModal />
 </template>
 
 
