@@ -11,7 +11,7 @@
       <ul class="navbar-nav me-auto align-items-center">
         <li>
           <router-link class="navbar-brand d-flex mx-3" :to="{ name: 'Home' }">
-              <img class="logo-nav" alt="logo" src="../assets/img/RootedFlow Logo-only.png" />
+            <img class="logo-nav" alt="logo" src="../assets/img/RootedFlow Logo-only.png" />
           </router-link>
         </li>
         <li>
