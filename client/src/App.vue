@@ -41,6 +41,7 @@ import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
 import MoveDetailCard from "./components/MoveDetailCard.vue"
 import RoutineDetailCard from "./components/RoutineDetailCard.vue"
+import CreateNewRoutineModal from "./components/CreateNewRoutineModal.vue"
 
 export default {
   setup() {
@@ -50,7 +51,7 @@ export default {
       activeRoutine: computed(() => AppState.activeRoutine)
     }
   },
-  components: { Navbar, MoveDetailCard, RoutineDetailCard }
+  components: { Navbar, MoveDetailCard, RoutineDetailCard, CreateNewRoutineModal }
 }
 </script>
 <style lang="scss">
@@ -97,5 +98,4 @@ body {
   backdrop-filter: blur(5.6px);
   -webkit-backdrop-filter: blur(5.6px);
 }
-
 </style>

@@ -2,11 +2,10 @@
   <div class="rounded-top">
     <span
       class="d-flex align-items-center justify-content-center rounded-top border selectable lighten-30 bgBlur bgColor1"
-      @click="createRoutine()">
+      data-bs-toggle="modal" data-bs-target="#createNewRoutineModal" type="button">
       <p class="mb-0 p-2 fs-4 ">Create New Routine</p>
       <i class="fs-1 mdi mdi-plus-circle"></i>
     </span>
-
     <span v-if="noFavRoutines" class="d-flex flex-column align-items-center">
       <span class="d-flex align-items-center ">
         <p class="mb-0 me-3 fs-3">Add some favorites! </p>
@@ -77,4 +76,5 @@ export default {
 
 .bgColor2 {
   background-color: #6B837369;
-}</style>
+}
+</style>
