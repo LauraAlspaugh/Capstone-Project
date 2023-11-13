@@ -9,6 +9,7 @@ export class ListEntry {
         this.transition = data.transition
         this.routineId = data.routineId
         this.moveId = data.moveId
+        this.move = data.move
         this.creatorId = data.creatorId
         this.creator = data.creator
         this.edit = false

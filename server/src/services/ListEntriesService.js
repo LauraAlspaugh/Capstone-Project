@@ -50,6 +50,8 @@ class ListEntriesService {
     async getListEntryByRoutineId(routineId) {
         const listEntries = await dbContext.ListEntries.find({ routineId: routineId })
             .populate('creator', 'name picture')
+            .populate('move', 'englishName sanskritName imgUrl duration bodyPart')
+        listEntries.sort((a, b) => (a.position - b.position));
         return listEntries
     }
 
@@ -77,6 +79,16 @@ class ListEntriesService {
             listEntryToBeUpdated.transition
         await listEntryToBeUpdated.save()
         return listEntryToBeUpdated
+    }
+
+    async editPlaylist(listEntryData) {
+        const results = await listEntryData.forEach(async ({ _id, position }) => {
+            await dbContext.ListEntries.updateOne(
+                { _id },
+                { $set: { position } }
+            )
+        })
+        return results
     }
 
     async destroyListEntry(listEntryId, userId) {

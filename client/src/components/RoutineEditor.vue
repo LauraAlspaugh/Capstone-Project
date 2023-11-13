@@ -29,7 +29,7 @@
 
     <section class="px-3 bgBlur">
       <div class="p-1 border rounded scroll">
-        <ListEntryCard :listEntries="routine.listEntry" :keyImage="routine.keyImage" />
+        <ListEntryCard :keyImage="routine.keyImage" />
       </div>
     </section>
 

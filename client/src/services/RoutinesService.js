@@ -3,6 +3,7 @@ import { FavoriteRoutine } from "../models/FavoriteRoutine.js"
 import { Routine } from "../models/Routine.js"
 import { logger } from "../utils/Logger.js"
 import { api } from "./AxiosService.js"
+import { listEntriesService } from "./ListEntriesService.js"
 
 class RoutinesService {
     async getRoutines() {
@@ -52,8 +53,8 @@ class RoutinesService {
 
     async setActiveRoutine(routineId) {
         AppState.activeRoutine = await this.getRoutineById(routineId)
-        AppState.activeRoutine.listEntry.sort((a,b) => (a.position - b.position))
-        AppState.listEntries = AppState.activeRoutine.listEntry.map(entry=>entry.id)
+        await listEntriesService.getListEntriesByRoutineId(routineId)
+        AppState.playlist = AppState.listEntries.map(entry=>entry.id)
     }
 
     manualCheck() {
