@@ -4,7 +4,6 @@
             <div @click="setActiveRoutine()" data-bs-toggle="modal" data-bs-target="#routine-modal" type="button"
                 class="row">
                 <div class="col">
-
                     <img class="img-fluid" :src="routineProp.keyImage" alt="routineProp.name">
                 </div>
             </div>
@@ -18,7 +17,7 @@
             </div>
             <div @click="setActiveRoutine()" data-bs-toggle="modal" data-bs-target="#routine-modal" type="button"
                 class="d-flex justify-content-between color3">
-                <span>{{ routineProp.playTime/60 }} min</span>
+                <span>{{ routineProp.playTime / 60 }} min</span>
                 <span>{{ routineProp.level }}</span>
                 <!-- <span>{{ routineProp.target }}</span> -->
             </div>

@@ -1,8 +1,9 @@
 <template>
-  <section v-for="listEntry in listEntries" :key="listEntry.id" class="d-flex align-items-center rounded shadow my-1 p-1">
+  <section v-for="listEntry in listEntries" :key="listEntry.id"
+    class="d-flex align-items-center rounded shadow my-1 p-1 showHidden">
     <span class="d-flex align-items-center me-2" v-if="editRoutine">
-      <i class="fs-4 me-1 hidden timer-color mdi mdi-plus selectable darken-20 rounded" @click="addToEnd()" type="button"
-        title="Add a copy to the end"></i>
+      <i class="fs-4 me-1 hidden timer-color mdi mdi-plus selectable darken-20 rounded hidden" @click="addToEnd()"
+        type="button" title="Add a copy to the end"></i>
       <i class="fs-4 px-1 timer-color mdi mdi-triangle selectable darken-20 rounded" v-if="listEntry.position != 1"
         @click="moveUp()" type="button" title="Move entry up"></i>
       <i class="fs-4 px-1 invisible mdi mdi-triangle-down" v-else></i>
@@ -21,9 +22,9 @@
       <input v-if="listEntry.edit" v-model="listEntry.duration" :placeholder="listEntry.move.defaultTime" type="number"
         class="w-25">
     </span>
-    <span class="d-flex align-items-center">
-      <i v-if="true" class="fs-3 mdi mdi-star"></i>
-      <i v-else class="fs-3 mdi mdi-star-outline" :class="true ? 'invisible' : ''"></i>
+    <span class="d-flex align-items-center" v-if="editRoutine">
+      <i v-if="keyImage == listEntry.move.imgUrl" class="fs-3 mdi mdi-star"></i>
+      <i v-else class="fs-3 mdi mdi-star-outline hidden" type="button" @click="setKeyImage(listEntry.move.imgUrl)"></i>
     </span>
   </section>
 </template>
@@ -35,12 +36,19 @@ import { AppState } from "../AppState.js";
 import { Move } from "../models/Move";
 
 export default {
-  props: { listEntries: { move: { type: Move } } },
+  props: {
+    listEntries: { move: { type: Move } },
+    keyImage: { type: String }
+  },
 
   setup() {
 
     return {
       editRoutine: computed(() => AppState.editRoutine),
+
+      setKeyImage(moveImgUrl) {
+        AppState.activeRoutine.keyImage = moveImgUrl;
+      }
 
     }
   }
@@ -58,5 +66,18 @@ export default {
 
 .timer-color {
   color: #85a79d;
+}
+
+.hidden {
+  opacity: .05;
+  transition: .25s;
+}
+
+.hidden:hover {
+  opacity: 1;
+}
+
+.showHidden:hover+.hidden {
+  opacity: 1;
 }
 </style>

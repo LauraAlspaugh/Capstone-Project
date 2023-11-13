@@ -14,7 +14,7 @@
       <div class="me-auto">
         <p class="mb-0">{{ routine.description }}</p>
       </div>
-      <span class="fs-1 mx-2 d-flex">
+      <span class="fs-1 mx-2 d-flex"> <!-- TODO after edit fully functional: v-if account owner -->
         <span class="text-center me-2 position-relative" type="button" @click="unlockRoutine()">
           <i title="Locked" class="color3 lh25 mdi mdi-lock"></i>
           <p class="mb-0 tiny">Unlock <br> Routine</p>
@@ -29,13 +29,13 @@
 
     <section class="px-3 bgBlur">
       <div class="p-1 border rounded scroll">
-        <ListEntryCard :listEntries="routine.listEntry" />
+        <ListEntryCard :listEntries="routine.listEntry" :keyImage="routine.keyImage" />
       </div>
     </section>
 
     <section class="rounded-bottom bgBlur mx-3 d-flex align-items-center">
-      <i class="fs-1 btn color1 mdi mdi-play-box me-auto"></i>
-      <p class="fs-5 mb-0 me-5"><small>Total Time: </small>
+      <i class="fs-1 ms-2 ps-4 btn color1 mdi mdi-play-box me-auto"></i>
+      <p class="fs-5 mb-0 me-3"><small>Total Time: </small>
         <b>{{ (routine.playTime / 60 >= 1 ? Math.floor(routine.playTime / 60) + ' min ' : '') +
           (routine.playTime % 60 != 0 ? routine.playTime % 60 + ' sec' : '') }}</b>
       </p>
