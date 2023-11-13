@@ -199,6 +199,6 @@ export default {
 
 .moves-list {
     overflow-y: auto;
-    max-height: 50rem;
+    max-height: 26rem;
 }
 </style>
