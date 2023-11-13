@@ -52,6 +52,8 @@ class RoutinesService {
 
     async setActiveRoutine(routineId) {
         AppState.activeRoutine = await this.getRoutineById(routineId)
+        AppState.activeRoutine.listEntry.sort((a,b) => (a.position - b.position))
+        AppState.listEntries = AppState.activeRoutine.listEntry.map(entry=>entry.id)
     }
 
     manualCheck() {

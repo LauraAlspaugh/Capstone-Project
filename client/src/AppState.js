@@ -22,6 +22,8 @@ export const AppState = reactive({
   noFavRoutines: false,
   editRoutine: false,
 
-  settings: {}
+  settings: {},
+
+  playlist:[]
 
 })

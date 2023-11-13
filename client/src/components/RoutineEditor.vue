@@ -57,16 +57,16 @@ export default {
 
   setup() {
 
-    const routineData = ref({})
+    // const routineData = ref({});
 
-    watchEffect(() => {
-      if (AppState.account) {
-        routineData.value = { ...AppState.account };
-      }
-      else {
-        routineData.value = {};
-      }
-    });
+    // watchEffect(() => {
+    //   if (AppState.playlist) {
+    //     routineData.value = { ...AppState.playlist };
+    //   }
+    //   else {
+    //     routineData.value = {};
+    //   }
+    // });
 
     return {
       editRoutine: computed(() => AppState.editRoutine),

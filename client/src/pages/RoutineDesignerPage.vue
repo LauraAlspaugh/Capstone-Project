@@ -43,7 +43,6 @@ import { computed, onMounted } from 'vue';
 import RoutineEditor from "../components/RoutineEditor.vue";
 import RoutineFavs from "../components/RoutineFavs.vue";
 import MoveSearchComponent from "../components/MoveSearchComponent.vue";
-import CreateNewRoutineModal from "../components/CreateNewRoutineModal.vue";
 
 export default {
   setup() {
@@ -57,7 +56,7 @@ export default {
 
     }
   },
-  components: { RoutineEditor, RoutineFavs, MoveSearchComponent, CreateNewRoutineModal }
+  components: { RoutineEditor, RoutineFavs, MoveSearchComponent }
 
 };
 </script>

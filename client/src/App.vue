@@ -16,7 +16,6 @@
           <MoveDetailCard />
         </div>
       </div>
-
     </div>
   </div>
 
@@ -28,9 +27,24 @@
           <RoutineDetailCard />
         </div>
       </div>
-
     </div>
   </div>
+
+  <div class="modal modal-lg fade" id="createNewRoutineModal" data-bs-backdrop="static" data-bs-keyboard="false"
+      tabindex="-1" aria-labelledby="createNewRoutineModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="createNewRoutineModalLabel">Create New Routine</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <CreateNewRoutineModal />
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 
