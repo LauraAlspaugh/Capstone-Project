@@ -1,38 +1,40 @@
 <template>
-  <section class="row justify-content-center ">
-    <div v-if="activeMove?.imgUrl" class="col active-move">
-      <section class="row">
-        <div class="col">
-          <button type="button" class="btn-close btn-close-white p-3" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-      </section>
-      <section class="row justify-content-center">
-        <div class="col-10 mt-2 pb-0 text-center">
-          <img class="img-fluid" :src="activeMove.imgUrl" alt="activeMove.englishName">
-          <p class="text-center m-0 name-text  italiana pt-3 pb-0">{{ activeMove.englishName }}</p>
-        </div>
-      </section>
-      <section class="row  italiana text-white px-4">
-        <div class="col-12">
-          <span class="text-mint d-flex justify-content-between align-items-center">{{ activeMove.level }}
-            <span>
-              <FavoriteUnfavoriteMove :id="activeMove.id" :moveOrRoutine="'move'" />
+  <div class="container-fluid">
+    <section class="row justify-content-center ">
+      <div v-if="activeMove?.imgUrl" class="col active-move">
+        <section class="row">
+          <div class="col">
+            <button type="button" class="btn-close btn-close-white p-3" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+        </section>
+        <section class="row justify-content-center">
+          <div class="col-10 mt-2 pb-0 text-center">
+            <img class="img-fluid" :src="activeMove.imgUrl" alt="activeMove.englishName">
+            <p class="text-center m-0 name-text  italiana pt-3 pb-0">{{ activeMove.englishName }}</p>
+          </div>
+        </section>
+        <section class="row  italiana text-white px-4">
+          <div class="col-12">
+            <span class="text-mint d-flex justify-content-between align-items-center">{{ activeMove.level }}
+              <span>
+                <FavoriteUnfavoriteMove :id="activeMove.id" :moveOrRoutine="'move'" />
+              </span>
             </span>
-          </span>
-          <span class="text-mint pe-3 " v-for="focus in activeMove.bodyPart" :key="focus"> {{ focus }}</span>
-          <div class="mb-3">
-            <p class="m-0 mt-3 ">Description: </p>
-            <li v-for="description in activeMove.descriptionArray" :key="description">{{ description }}</li>
+            <span class="text-mint pe-3 " v-for="focus in activeMove.bodyPart" :key="focus"> {{ focus }}</span>
+            <div class="mb-3">
+              <p class="m-0 mt-3 ">Description: </p>
+              <li v-for="description in activeMove.descriptionArray" :key="description">{{ description }}</li>
+            </div>
+            <div class="mb-5">
+              <p class="m-0">Benefits: </p>
+              <li v-for="benefit in activeMove.benefitsArray" :key="benefit">{{ benefit }}</li>
+            </div>
           </div>
-          <div class="mb-5">
-            <p class="m-0">Benefits: </p>
-            <li v-for="benefit in activeMove.benefitsArray" :key="benefit">{{ benefit }}</li>
-          </div>
-        </div>
-      </section>
-    </div>
-
-  </section>
+        </section>
+      </div>
+      
+    </section>
+  </div>
 </template>
 
 
