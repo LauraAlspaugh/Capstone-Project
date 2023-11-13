@@ -50,7 +50,6 @@ import { AppState } from '../AppState';
 import { computed, ref, watchEffect } from 'vue';
 import ListEntryCard from "./ListEntryCard.vue";
 import Pop from "../utils/Pop";
-import RoutineFavs from "./RoutineFavs.vue";
 import { Routine } from "../models/Routine";
 
 export default {
@@ -86,7 +85,7 @@ export default {
 
     };
   },
-  components: { ListEntryCard, RoutineFavs }
+  components: { ListEntryCard }
 };
 </script>
 
@@ -142,5 +141,24 @@ export default {
 
 .z1 {
   z-index: 1;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
 }
 </style>
