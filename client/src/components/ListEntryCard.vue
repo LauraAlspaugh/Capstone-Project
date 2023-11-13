@@ -18,11 +18,12 @@
 
       </span>
 
-      <span class="d-flex align-items-center me-auto">
+      <span v-if="listEntry?.move?.imgUrl" class="d-flex align-items-center me-auto">
         <p class="mb-0 me-2 border rounded px-1">
-          {{ listEntry.position < 10 ? '&nbsp;' + listEntry.position + '&nbsp;' : listEntry.position }} </p>
-            <img :src="listEntry.move.imgUrl" :alt="listEntry.move.englishName" class="img-fluid px-1 thumbnail">
-            <p class="mb-0 fs-4">{{ listEntry.move.englishName || listEntry.name }}</p>
+          {{ listEntry.position < 10 ? '&nbsp;' + listEntry.position + '&nbsp;' : listEntry.position }} 
+        </p>
+        <img :src="listEntry.move.imgUrl" :alt="listEntry.move.englishName" class="img-fluid px-1 thumbnail">
+        <p class="mb-0 fs-4">{{ listEntry.move.englishName || listEntry.name }}</p>
       </span>
 
       <span class="d-flex align-items-center">

@@ -1,5 +1,6 @@
 import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
+import { logger } from "../utils/Logger.js";
 import { routinesService } from "./RoutinesService.js"
 
 function _tallyTotal(counts) {
@@ -82,12 +83,16 @@ class ListEntriesService {
     }
 
     async editPlaylist(listEntryData) {
-        const results = await listEntryData.forEach(async ({ _id, position }) => {
-            await dbContext.ListEntries.updateOne(
-                { _id },
+        let results = [];
+        await listEntryData.forEach(async ({ id, position }) => {
+            const result = await dbContext.ListEntries.updateOne(
+                { _id: id },
                 { $set: { position } }
             )
+            results.push(result);
+            logger.log('update bulk', { _id: id, position })
         })
+        logger.log('results', results)
         return results
     }
 
