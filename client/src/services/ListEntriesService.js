@@ -11,6 +11,12 @@ class ListEntriesService{
     logger.log('listentries', AppState.listEntries);
   }
 
+  async createListEntry(routineId, moveId) {
+    logger.log('routineId', routineId, ' moveId', moveId)
+    const res = await api.post('api/listentries', { routineId, moveId });
+    AppState.listEntries.push(new ListEntry(res.data))
+  }
+
   async changePosition(listEntryId, newPosition) {
 
     logger.log('listEntryId', listEntryId,'newPosition', newPosition)
@@ -35,13 +41,10 @@ class ListEntriesService{
         AppState.listEntries.splice(newPosition - 1 + i, 1, shiftPositions[i])        
       })
     }
-    
     logger.log('shiftPositions', shiftPositions);
-    
     const updatePositions = shiftPositions.map(entry => new ListEntry({ _id: entry.id, position: entry.position })); // create objects with IDs & new positions
     const res = await api.put('api/listentries', updatePositions) 
     logger.log('api put results', res.data)
-    
   }
   
 }

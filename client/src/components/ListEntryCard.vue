@@ -4,7 +4,7 @@
       class="d-flex align-items-center rounded shadow my-1 p-1 showHidden">
       <span class="d-flex align-items-center me-2" v-if="!editRoutine">
 
-        <i class="fs-4 me-1 hidden timer-color mdi mdi-plus selectable darken-20 rounded hidden" @click="addToEnd()"
+        <i class="fs-4 me-1 hidden timer-color mdi mdi-plus selectable darken-20 rounded hidden" @click="addToEnd(listEntry.moveId)"
           type="button" title="Add a copy to the end"></i>
 
         <i class="fs-4 px-1 timer-color mdi mdi-triangle selectable darken-20 rounded" v-if="listEntry.position != 1"
@@ -70,7 +70,18 @@ export default {
         } catch (error) {
           Pop.error(error)
         }
-      }
+      },
+      
+
+      async addToEnd(moveId) {
+        try {
+          const routineId = AppState.activeRoutine.id;
+          await listEntriesService.createListEntry(routineId, moveId);
+        } catch (error) {
+          Pop.error(error)
+        }
+      },
+
 
     }
   }
