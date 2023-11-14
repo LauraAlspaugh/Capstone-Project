@@ -12,26 +12,13 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import { Move } from '../models/Move.js';
-import { movesService } from '../services/MovesService.js';
-import { logger } from '../utils/Logger.js';
-import Pop from '../utils/Pop.js';
+
 export default {
   props: { moveBasicProp: { type: Move, required: true } },
   setup(props) {
-    onMounted(() => {
-      // getMoves()
-    })
-    async function getMoves() {
-      try {
-        await movesService.getMoves();
-      }
-      catch (error) {
-        logger.error(error);
-        Pop.error(error);
-      }
-    }
+    
     return {
       moves: computed(() => AppState.moves),
       myFavoriteMoves: computed(() => AppState.myFavoriteMoves),
@@ -43,8 +30,6 @@ export default {
     }
   }
 }
-
-
 </script>
 
 

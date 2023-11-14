@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <section class="row justify-content-center ">
+    <section class="row justify-content-center">
       <div v-if="activeMove?.imgUrl" class="col active-move">
         <section class="row">
           <div class="col">
@@ -15,14 +15,20 @@
         </section>
         <section class="row  italiana text-white px-4">
           <div class="col-12">
-            <span class="text-mint d-flex justify-content-between align-items-center">{{ activeMove.level }}
-              <span>
+            <span class="text-mint d-flex justify-content-between align-items-center">
+              {{ activeMove.level }}
+              <span class="d-flex align-items-center">
+                <i class="fs-1 me-5 mdi mdi-plus" title="Add move to routine" @click="addMoveToRoutine(activeMove)"></i>
+                <span class="">
+                  <i class="fs-1 me-5 showHidden mdi mdi-information" title="(set a routine active to add from catalog)"></i>
+                  <p class="mb-0"></p>
+                </span>
                 <FavoriteUnfavoriteMove :id="activeMove.id" :moveOrRoutine="'move'" />
               </span>
             </span>
-            <span class="text-mint pe-3 " v-for="focus in activeMove.bodyPart" :key="focus"> {{ focus }}</span>
+            <span class="text-mint pe-3" v-for="focus in activeMove.bodyPart" :key="focus"> {{ focus }}</span>
             <div class="mb-3">
-              <p class="m-0 mt-3 ">Description: </p>
+              <p class="m-0 mt-3">Description: </p>
               <li v-for="description in activeMove.descriptionArray" :key="description">{{ description }}</li>
             </div>
             <div class="mb-5">
@@ -41,13 +47,22 @@
 <script>
 import { AppState } from '../AppState.js';
 import { computed } from 'vue';
+import { useRouter } from "vue-router";
 import FavoriteUnfavoriteMove from "./FavoriteUnfavoriteMove.vue"
+import { listEntriesService } from "../services/ListEntriesService";
 
 export default {
   setup() {
+    const router = useRouter();
+
     return {
       moves: computed(() => AppState.moves),
-      activeMove: computed(() => AppState.activeMove)
+      activeMove: computed(() => AppState.activeMove),
+
+      addMoveToRoutine(moveObj) {
+        listEntriesService.createListEntry(moveObj.Id);
+        // router.push({name:'RoutineEditor'})
+      }
     };
   },
   components: { FavoriteUnfavoriteMove }

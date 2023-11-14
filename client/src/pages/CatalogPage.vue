@@ -173,22 +173,23 @@
 
 <script>
 import { AppState } from '../AppState';
+import { useRoute } from 'vue-router';
 import { computed, onMounted, ref } from 'vue';
-import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
-import { movesService } from '../services/MovesService.js';
+import RoutineCatalogCard from '../components/RoutineCatalogCard.vue';
 import MoveCatalogCard from '../components/MoveCatalogCard.vue';
 import { routinesService } from '../services/RoutinesService.js';
-import RoutineCatalogCard from '../components/RoutineCatalogCard.vue';
-import { useRoute } from 'vue-router';
-import { Move } from "../models/Move.js";
+import { movesService } from '../services/MovesService.js';
 import { Routine } from "../models/Routine.js";
+import { Move } from "../models/Move.js";
 
 export default {
   setup() {
     const route = useRoute();
+
     const levels = ["all", "beginner", "intermediate", "expert"];
     const focuses = ["all", "arms", "chest", "core", "neck", "glutes", "hamstrings", "hips", "inner thighs", "lower Back", "quads", "shoulder", "upper back"];
+
     let editableLevel = ref("");
     let editableFocus = ref([]);
     let wantsPoses = ref(true);
@@ -196,38 +197,29 @@ export default {
     let wantsToSeeFavorites = ref(false);
     let wantsRootedFlowRoutines = ref(false);
     let wantsCommunityRoutines = ref(false);
+
     onMounted(() => {
       getMoves();
       getRoutines();
       // getMoveById();
     });
+
     async function getMoves() {
-      try {
-        await movesService.getMoves();
-      }
-      catch (error) {
-        logger.error(error);
-        Pop.error(error);
-      }
+      try { await movesService.getMoves(); }
+      catch (error) { Pop.error(error); }
     }
+
     async function getRoutines() {
-      try {
-        await routinesService.getRoutines()
-      } catch (error) {
-        logger.error(error)
-        Pop.error(error)
-
-      }
-
+      try { await routinesService.getRoutines() }
+      catch (error) { Pop.error(error) }
     }
+
     async function getMoveById() {
       try {
         const moveId = route.params.moveId
         await movesService.getMoveById(moveId)
-      } catch (error) {
-        logger.error(error)
-        Pop.error(error)
       }
+      catch (error) { Pop.error(error) }
     }
 
     return {
@@ -240,6 +232,7 @@ export default {
       wantsToSeeFavorites,
       wantsRootedFlowRoutines,
       wantsCommunityRoutines,
+
       moves: computed(() => {
         //if level is anything but "all", filter it by level
         if (editableLevel.value && editableLevel.value != "all") {
@@ -269,6 +262,7 @@ export default {
           return AppState.moves;
         }
       }),
+
       routines: computed(() => AppState.routines),
 
       myFavoriteMoves: computed(() => {
@@ -299,7 +293,7 @@ export default {
 
       changeLevel(level) {
         editableLevel.value = level;
-        selectedLevel.value = level
+        selectedLevel.value = level;
       },
 
       swapPosesAndRoutines() {
