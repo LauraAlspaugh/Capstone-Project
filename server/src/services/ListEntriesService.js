@@ -39,13 +39,13 @@ class ListEntriesService {
     async getListEntries(query) {
         const listEntries = await dbContext.ListEntries.find(query)
             .populate('creator', 'name picture')
-            .populate('move', 'englishName sanskritName imgUrl duration bodyPart')
+            .populate('move', 'englishName sanskritName imgUrl duration bodyPart benefits level description ')
         return listEntries
     }
 
     async getListEntryById(listEntryId) {
         const listEntry = await dbContext.ListEntries.findById(listEntryId)
-            .populate('move', 'englishName sanskritName imgUrl duration bodyPart')
+            .populate('move', 'englishName sanskritName imgUrl duration bodyPart benefits level description')
         if (!listEntry) {
             throw new BadRequest('This is not a valid listEntry')
         } return listEntry
@@ -53,7 +53,7 @@ class ListEntriesService {
 
     async getListEntryByRoutineId(routineId) {
         const listEntries = await dbContext.ListEntries.find({ routineId: routineId })
-            .populate('move', 'englishName sanskritName imgUrl duration bodyPart')
+            .populate('move', 'englishName sanskritName imgUrl duration bodyPart benefits level description')
         listEntries.sort((a, b) => (a.position - b.position));
         return listEntries
     }
@@ -65,7 +65,7 @@ class ListEntriesService {
         const routine = await dbContext.ListEntries.find({ routineId })
         listEntryData.position = routine.length + 1;
         const newListEntry = await dbContext.ListEntries.create(listEntryData)
-        await newListEntry.populate('move', 'englishName sanskritName imgUrl duration bodyPart')
+        await newListEntry.populate('move', 'englishName sanskritName imgUrl duration bodyPart level description benefits')
         await _updateUsageCount(newListEntry.moveId)
         return newListEntry
     }
@@ -85,7 +85,7 @@ class ListEntriesService {
         listEntryToBeUpdated.transition = listEntryData.transition != undefined ? listEntryData.transition :
             listEntryToBeUpdated.transition
         await listEntryToBeUpdated.save()
-        listEntryToBeUpdated.populate('move', 'englishName sanskritName imgUrl duration bodyPart')
+        listEntryToBeUpdated.populate('move', 'englishName sanskritName imgUrl duration bodyPart level')
         return listEntryToBeUpdated
     }
 

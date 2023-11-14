@@ -11,7 +11,7 @@ async function _calcTarget(routineId) {
     // }
 
     const totalEntries = await dbContext.ListEntries.find({ routineId })
-        .populate('move', 'englishName bodyPart')
+        .populate('move', 'englishName bodyPart level benefits description ')
         .lean() // lean trims the document format back into a more readable object 
 
     const bodyParts = {}
@@ -71,7 +71,7 @@ class RoutinesService {
                 select: 'name position duration transition moveId',
                 populate: {
                     path: 'move',
-                    select: 'englishName imgUrl bodyPart'
+                    select: 'englishName imgUrl bodyPart level benefits description '
                 }
             })
         return moves
@@ -88,7 +88,7 @@ class RoutinesService {
             select: 'name position duration transition moveId',
             populate: {
                 path: 'move',
-                select: 'englishName imgUrl bodyPart'
+                select: 'englishName imgUrl bodyPart level benefits description'
             }
         })
         return routine
@@ -103,7 +103,7 @@ class RoutinesService {
                 select: 'name position duration transition moveId',
                 populate: {
                     path: 'move',
-                    select: 'englishName imgUrl bodyPart'
+                    select: 'englishName imgUrl bodyPart  level description benefits'
                 }
             })
         return routines
@@ -121,7 +121,7 @@ class RoutinesService {
             select: 'name position duration transition moveId',
             populate: {
                 path: 'move',
-                select: 'englishName imgUrl bodyPart'
+                select: 'englishName imgUrl bodyPart level description benefits'
             }
         })
         return newRoutine
