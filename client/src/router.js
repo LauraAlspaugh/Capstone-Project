@@ -24,7 +24,7 @@ const routes = [
   {
     path: '/routine/:routineId',
     name: 'Routine',
-    component: loadPage('RoutinePlayPage')
+    component: loadPage('RoutinePlayComponent')
   },
   {
     path: '/catalog',

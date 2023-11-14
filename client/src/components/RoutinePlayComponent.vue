@@ -90,6 +90,7 @@ import Pop from "../utils/Pop.js";
 import { routinesService } from "../services/RoutinesService.js";
 import TimerComponent from './TimerComponent.vue';
 import RoutinePlayPageModal from './RoutinePlayPageModal.vue';
+import { movesService } from '../services/MovesService.js';
 
 export default {
   setup() {
@@ -123,6 +124,7 @@ export default {
       nextMoveIsTransition,
       activeRoutine: computed(() => AppState.activeRoutine),
       activeMove: computed(() => AppState.activeMove),
+      finishedMove: computed(() => AppState.finishedMove),
       nextMove() {
         if (greenFilter.value == true) {
           logger.log("Switching green filter?");
