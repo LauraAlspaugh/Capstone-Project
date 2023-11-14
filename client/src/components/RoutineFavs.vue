@@ -35,9 +35,11 @@ import { AppState } from '../AppState';
 import { computed } from 'vue';
 import Pop from "../utils/Pop";
 import { routinesService } from "../services/RoutinesService";
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
+    const router = useRouter();
 
     return {
       favRoutines: computed(() => AppState.myFavoriteRoutines),
@@ -46,12 +48,15 @@ export default {
       async createRoutine() {
         try {
           await routinesService.createRoutine();
+          const routineId = AppState.activeRoutine.id 
+          router.push({name: 'RoutineEditor', params: {routineId} })
         } catch (error) { Pop.error(error) }
       },
 
       async setActiveRoutine(routineId) {
         try {
           await routinesService.setActiveRoutine(routineId);
+          router.push({name: 'RoutineEditor', params: {routineId} })
         } catch (error) { Pop.error(error) }
       },
 

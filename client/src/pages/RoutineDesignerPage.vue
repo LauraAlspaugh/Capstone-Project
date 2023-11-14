@@ -40,14 +40,28 @@
 <script>
 import { AppState } from '../AppState';
 import { computed, onMounted } from 'vue';
+import { useRoute } from "vue-router";
+import Pop from "../utils/Pop";
+import { routinesService } from "../services/RoutinesService";
 import RoutineEditor from "../components/RoutineEditor.vue";
 import RoutineFavs from "../components/RoutineFavs.vue";
 import MoveSearchComponent from "../components/MoveSearchComponent.vue";
 
 export default {
   setup() {
+    const route = useRoute();
+
+    async function _setActiveIfProvided() {
+      try {
+        const routineId = route.params.routineId;
+        if (routineId) {
+          await routinesService.setActiveRoutine(routineId);
+        }
+      } catch (error) { Pop.error(error) }
+    }
 
     onMounted(() => {
+      _setActiveIfProvided();
     })
 
     return {
@@ -56,7 +70,6 @@ export default {
 
     }
   },
-  components: { RoutineEditor, RoutineFavs, MoveSearchComponent }
 
 };
 </script>

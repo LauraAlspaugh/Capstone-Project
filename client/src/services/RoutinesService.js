@@ -59,8 +59,8 @@ class RoutinesService {
     async setActiveRoutine(routineId) {
         AppState.activeRoutine = {};
         AppState.activeRoutine = await this.getRoutineById(routineId)
+
         await listEntriesService.getListEntriesByRoutineId(routineId)
-        AppState.playlist = AppState.listEntries.map(entry=>entry.id)
     }
 
     manualCheck() {
