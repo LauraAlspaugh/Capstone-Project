@@ -3,7 +3,7 @@
     <section v-for="listEntry in listEntries" :key="listEntry.id"
       class="d-flex align-items-center rounded shadow my-1 p-1 showHidden">
 
-      <span class="d-flex align-items-center" v-if="editRoutine && listEntry?.move?.imgUrl">
+      <span class="d-flex align-items-center" v-if="activeRoutine.edit && listEntry?.move?.imgUrl">
 
         <i class="fs-4 hidden timer-color mdi mdi-plus selectable darken-20 rounded hidden" @click="addToEnd(listEntry.moveId)"
           type="button" title="Add a copy to the end"></i>
@@ -20,8 +20,8 @@
       </span>
 
       <span v-if="listEntry?.move?.imgUrl" class="d-flex align-items-center">
-        <input v-if="editRoutine && listEntry.editPosition"  v-model="listEntry.position" type="number" class="form-control pos mx-2 p-0" @blur="saveEditPosition(listEntry)">
-        <p v-else-if="editRoutine && !listEntry.enableEditPosition" type="button" class="mb-0 mx-2 border rounded pos px-1" @click="enableEditPosition(listEntry)">
+        <input v-if="activeRoutine.edit && listEntry.editPosition"  v-model="listEntry.position" type="number" class="form-control pos mx-2 p-0" @blur="saveEditPosition(listEntry)">
+        <p v-else-if="activeRoutine.edit && !listEntry.enableEditPosition" type="button" class="mb-0 mx-2 border rounded pos px-1" @click="enableEditPosition(listEntry)">
           {{ listEntry.position }} 
         </p>
         <p v-else class="mb-0 mx-2 border rounded pos px-1">
@@ -35,9 +35,9 @@
 
       <span v-if="listEntry?.move?.imgUrl" class="d-flex align-items-center">
         <i v-if="listEntry.editDuration" class="fs-5 mx-1 mdi mdi-cancel" type="button" @click="cancelEditDuration(listEntry)"></i>
-        <input v-if="editRoutine && listEntry.editDuration" v-model="listEntry.duration" :placeholder="listEntry.move.defaultTime" type="number"
+        <input v-if="activeRoutine.edit && listEntry.editDuration" v-model="listEntry.duration" :placeholder="listEntry.move.defaultTime" type="number"
           class="form-control duration fs-5 p-0 ps-1" @blur="saveEditDuration(listEntry)">
-        <p v-else-if="editRoutine && !listEntry.editDuration" class="mb-0 me-2 fs-5 text-nowrap" type="button" @click="enableEditDuration(listEntry)">
+        <p v-else-if="activeRoutine.edit && !listEntry.editDuration" class="mb-0 me-2 fs-5 text-nowrap" type="button" @click="enableEditDuration(listEntry)">
           {{ listEntry.duration }} sec
         </p>
         <p v-else class="mb-0 me-2 fs-5 text-nowrap">
@@ -69,7 +69,7 @@ export default {
 
     return {
       listEntries: computed(() => AppState.listEntries),
-      editRoutine: computed(() => AppState.editRoutine),
+      activeRoutine: computed(() => AppState.activeRoutine),
 
       setKeyImage(moveImgUrl) {
         AppState.activeRoutine.keyImage = moveImgUrl;
