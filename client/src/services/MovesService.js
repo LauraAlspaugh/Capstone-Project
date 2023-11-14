@@ -38,5 +38,14 @@ async getMyFavoriteMoves(){
 
     AppState.myFavoriteMoves = res.data.map(fav => new FavoriteMove(fav))
 }
+
+finishMove() {
+    AppState.finishedMove = true;
+}
+
+startMove() {
+    AppState.finishedMove = false;
+}
+
 }
 export const movesService = new MovesService()
