@@ -2,7 +2,7 @@
   <div v-if="listEntries.length > 0">
     <section v-for="listEntry in listEntries" :key="listEntry.id"
       class="d-flex align-items-center rounded shadow my-1 p-1 showHidden">
-      <span class="d-flex align-items-center me-2" v-if="!editRoutine">
+      <span class="d-flex align-items-center me-2" v-if="editRoutine">
 
         <i class="fs-4 me-1 hidden timer-color mdi mdi-plus selectable darken-20 rounded hidden" @click="addToEnd(listEntry.moveId)"
           type="button" title="Add a copy to the end"></i>
@@ -19,17 +19,27 @@
       </span>
 
       <span v-if="listEntry?.move?.imgUrl" class="d-flex align-items-center me-auto">
-        <p class="mb-0 me-2 border rounded px-1">
-          {{ listEntry.position < 10 ? '&nbsp;' + listEntry.position + '&nbsp;' : listEntry.position }} 
+        <input v-if="editRoutine && listEntry.editPosition"  v-model="listEntry.position" type="number" class="form-control pos mx-2 p-0" @blur="saveEditPosition(listEntry)">
+        <p v-else-if="editRoutine && !listEntry.enableEditPosition" type="button" class="mb-0 mx-2 border rounded pos px-1" @click="enableEditPosition(listEntry)">
+          {{ listEntry.position }} 
+        </p>
+        <p v-else class="mb-0 mx-2 border rounded pos px-1">
+          {{ listEntry.position }} 
         </p>
         <img :src="listEntry.move.imgUrl" :alt="listEntry.move.englishName" class="img-fluid px-1 thumbnail">
         <p class="mb-0 fs-4">{{ listEntry.move.englishName || listEntry.name }}</p>
       </span>
 
       <span class="d-flex align-items-center">
-        <p class="mb-0 me-2 fs-5">{{ listEntry.duration }} sec</p>
-        <input v-if="listEntry.edit" v-model="listEntry.duration" :placeholder="listEntry.move.defaultTime" type="number"
-          class="w-25">
+        <!-- <i v-if="listEntry.editDuration" class="fs-5 mx-2 mdi mdi-content-save" type="button" @click="saveEditDuration(listEntry)"></i> -->
+        <input v-if="editRoutine && listEntry.editDuration" v-model="listEntry.duration" :placeholder="listEntry.move.defaultTime" type="number"
+          class="form-control duration fs-5 p-0 ps-1" @blur="saveEditDuration(listEntry)">
+        <p v-else-if="editRoutine && !listEntry.editDuration" class="mb-0 me-2 fs-5 text-nowrap" type="button" @click="enableEditDuration(listEntry)">
+          {{ listEntry.duration }} sec
+        </p>
+        <p v-else class="mb-0 me-2 fs-5 text-nowrap">
+          {{ listEntry.duration }} sec
+        </p>
       </span>
 
       <!-- <span class="d-flex align-items-center" v-if="editRoutine">
@@ -64,23 +74,38 @@ export default {
         AppState.activeRoutine.keyImage = moveImgUrl;
       },
 
-      async changePosition(listEntryId,newPosition) {
+      async changePosition(listEntryId, newPosition) {
         try {
           await listEntriesService.changePosition(listEntryId, newPosition);
-        } catch (error) {
-          Pop.error(error)
-        }
+        } catch (error) { Pop.error(error) }
       },
-      
 
       async addToEnd(moveId) {
         try {
           const routineId = AppState.activeRoutine.id;
           await listEntriesService.createListEntry(routineId, moveId);
-        } catch (error) {
-          Pop.error(error)
-        }
+        } catch (error) { Pop.error(error) }
       },
+
+      enableEditPosition(listEntryObj) {
+        listEntryObj.editPosition = true;
+        // TODO add auto-focus on field
+      },
+
+      saveEditPosition(listEntryObj) {
+        listEntryObj.editPosition = false;
+        this.changePosition(listEntryObj.id, listEntryObj.position);
+      },
+
+      enableEditDuration(listEntryObj) {
+        listEntryObj.editDuration = true;
+        // TODO add auto-focus on field
+      },
+
+      saveEditDuration(listEntryObj) {
+        listEntryObj.editDuration = false;
+        listEntriesService.changeDuration(listEntryObj);
+      }
 
 
     }
@@ -101,6 +126,16 @@ export default {
   color: #85a79d;
 }
 
+.pos{
+  width: 1.8em;
+  text-align: center;
+}
+
+.duration{
+  width: 3rem;
+  text-align: center;
+}
+
 .hidden {
   opacity: .05;
   transition: .25s;
@@ -112,5 +147,17 @@ export default {
 
 .showHidden:hover+.hidden {
   opacity: 1;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 </style>

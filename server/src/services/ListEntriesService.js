@@ -74,7 +74,8 @@ class ListEntriesService {
         const listEntryToBeUpdated = await this.getListEntryById(listEntryId)
         if (listEntryToBeUpdated.creatorId.toString() != userId) {
             throw new Forbidden('Do not even try it')
-        } if (!listEntryToBeUpdated) {
+        }
+        if (!listEntryToBeUpdated) {
             throw new BadRequest('This is not a listEntry to be updated')
         }
         listEntryToBeUpdated.name = listEntryData.name || listEntryToBeUpdated.name
@@ -89,6 +90,7 @@ class ListEntriesService {
     }
 
     async editPlaylist(listEntryData) {
+        // TODO Add creator verification
         let results = [];
         await listEntryData.forEach(async ({ id, position }) => {
             const result = await dbContext.ListEntries.updateOne(

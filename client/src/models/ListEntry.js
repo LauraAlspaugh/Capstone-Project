@@ -12,6 +12,7 @@ export class ListEntry {
         this.move = data.move
         this.creatorId = data.creatorId
         this.creator = data.creator
-        this.edit = false
+        this.editPosition = false
+        this.editDuration = false
     }
 }
