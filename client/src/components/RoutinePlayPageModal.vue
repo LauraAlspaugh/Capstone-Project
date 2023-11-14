@@ -3,20 +3,28 @@
         <section v-if="activeMove" class="row">
             <div class="col-12 d-flex justify-content-between">
                 <!-- <p>{{activeRoutine.listEntry[currentMoveIndexNumber].move.level}}</p> -->
-                <p>{{ moveProp.level }}</p>
+                <p class="fs-5">{{ moveProp.level }}</p>
                 <i class=" fs-3 mdi mdi-heart"></i>
+            </div>
+        </section>
+        <section v-if="activeMove" class="row">
+            <div class="col-12 text-start p-3">
+                <span class="pe-3 fs-5" v-for="body in moveProp.bodyPart" :key="body">{{ body }}</span>
             </div>
         </section>
         <section v-if="activeMove" class="row">
             <div class="col-12 text-start">
                 <p class="fs-4">Description: </p>
+                <!-- <li v-for="description in moveProp.descriptionArray" :key="description">{{ description }}
+                </li> -->
                 <p class="fs-5">{{ moveProp.description }}</p>
             </div>
         </section>
         <section v-if="activeMove" class="row">
             <div class="col-12 text-start">
-                <p class="fs-3">Benefits: </p>
-                <p>{{ moveProp.benefits }}</p>
+                <p class="fs-4">Benefits: </p>
+                <!-- <li v-for="benefit in moveProp.benefitsArray" :key="benefit"> {{ benefit }}</li> -->
+                <p class="fs-5">{{ moveProp.benefits }}</p>
             </div>
         </section>
 

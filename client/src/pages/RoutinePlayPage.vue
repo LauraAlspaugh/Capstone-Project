@@ -3,7 +3,7 @@
     <section class="row">
 
       <div v-if="activeRoutine" class="col-12 text-end p-5">
-        <p><i class="mdi mdi-play fs-1 "></i></p>
+        <button class="btn btn rounded-pill bg-dark"><i class="mdi mdi-play fs-4 "></i></button>
         <section class="row ">
           <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length">
             <div v-if="activeRoutine" class="col-12 text-center mt-5">
