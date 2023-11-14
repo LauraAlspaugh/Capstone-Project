@@ -7,13 +7,13 @@
       </div>
       <div class="mx-3 w-50">
         <label for="name">Cover Image</label>
-        <input v-model="routineForm.imgUrl" type="text" name="imgUrl" id="imgUrl" class="form-control" required
+        <input v-model="routineForm.keyImage" type="text" name="keyImage" id="keyImage" class="form-control" required
           placeholder="(URL)">
       </div>
     </span>
     <div class="mx-3">
       <label for="name">Routine Description</label>
-      <textarea v-model="routineForm.description" name="description" id="description" rows="6"
+      <textarea v-model="routineForm.shortDescription" name="description" id="description" rows="6"
         class="form-control" required></textarea>
     </div>
     <div class="modal-footer">
@@ -21,25 +21,10 @@
     </div>
   </form>
   <hr>
-  <div class="container-fluid rounded">
-    <section class="row">
-      <div class="col-12 coverImg rounded position-relative">
-        <section class="row bgBlur rounded shadow px-3 py-4">
-          <div class="col-12 col-md-4">
-            <img v-if="routineForm.coverImg" :src="routineForm.coverImg" :alt="routineForm.name"
-              class="rounded shadow eventImg">
-          </div>
-          <div class="col-12 col-md-8 ps-2 pt-2">
-            <section class="">
-              <span class="d-flex justify-content-between align-items-end">
-                <span class="d-block">
-                  <p class="mb-0 fs-3 fw-bold">{{ routineForm.name }}</p>
-                </span>
-              </span>
-              <p class="mt-3 mb-4">{{ routineForm.description }}</p>
-            </section>
-          </div>
-        </section>
+  <div class="container-fluid">
+    <section class="row justify-content-center">
+      <div class="col-9 col-md-10 col-lg-6 noClicky">
+        <RoutineCatalogCard :routineProp="routineForm" />
       </div>
     </section>
   </div>
@@ -53,37 +38,53 @@ import { Modal } from "bootstrap";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { routinesService } from "../services/RoutinesService";
+import RoutineCatalogCard from "./RoutineCatalogCard.vue";
+import { AppState } from "../AppState";
 
 export default {
-  setup() {
-    const router = useRouter();
+    setup() {
+        const router = useRouter();
+        const routineForm = ref({
+          name: 'Routine Name',
+          // description: 'Description of this routine', // defined upon creation
+          // keyImage: 'img URL',
+          playTime: 0,
+          level: '',
+          shortDescription: 'Description of this routine', // used for drawing through prop
+          creator: {name:AppState.account?.name}
+        });
+        return {
+            routineForm,
+            keyImage: computed(() => `url(${routineForm.value.keyImage})`),
 
-    const routineForm = ref({
-      name: 'Routine Name',
-      description: 'Description of this routine',
-      // imgUrl: 'img URL'
-    })
-
-    return {
-      routineForm,
-
-      imgUrl: computed(() => `url(${routineForm.value.imgUrl})`),
-
-      async createRoutine() {
-        try {
-          const newRoutine = await routinesService.createRoutine(routineForm.value)
-          Modal.getOrCreateInstance('#createNewEventModal').hide()
-          router.push({ name: 'Routine Name', params: { routineId: newRoutine.id } })
-        } catch (error) {
-          logger.error(error)
-          Pop.error(error)
-        }
-      }
-
-    }
-  }
+            async createRoutine() {
+              try {
+                  routineForm.value.description = routineForm.value.shortDescription
+                  routineForm.value.shortDescription = routineForm.value.shortDescription.slice(0, 50)
+                  routineForm.value.level = 'beginner'
+                  await routinesService.createRoutine(routineForm.value);
+                  Modal.getOrCreateInstance('#createNewRoutineModal').hide();
+                  router.push({ name: 'RoutineDesigner' });
+                }
+                catch (error) {
+                    logger.error(error);
+                    Pop.error(error);
+                }
+            }
+        };
+    },
+    components: { RoutineCatalogCard }
 };
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.keyImage{
+  object-fit: cover;
+}
+
+.noClicky{
+pointer-events: none;
+user-select: none;
+}
+</style>

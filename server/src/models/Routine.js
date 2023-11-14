@@ -5,6 +5,7 @@ export const RoutineSchema = new Schema({
     description: { type: String, required: true, maxLength: 700 },
     keyImage: { type: String, required: false, maxLength: 700 },
     category: [{ type: String, required: true }],
+    level: { type: String, required: false, enum: ['beginner', 'intermediate', 'expert'] },
     target: [{ type: Object, required: true, default: {} }],
     isPrivate: { type: Boolean, required: false, default: true },
     isExample: { type: Boolean, required: false, default: false },
@@ -12,7 +13,6 @@ export const RoutineSchema = new Schema({
     playCount: { type: Number, required: true, default: 0 },
     playTime: { type: Number, required: true, default: 0 },
     creatorId: { type: Schema.Types.ObjectId, required: true, ref: 'Account' },
-    level: { type: String, enum: ['beginner', 'intermediate', 'expert'], required: true }
 },
     { timestamps: true, toJSON: { virtuals: true } }
 )

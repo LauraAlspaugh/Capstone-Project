@@ -22,7 +22,7 @@ class ListEntriesService{
   async changePosition(listEntryId, newPosition) {
     const currentPosition = AppState.listEntries.findIndex(entry => entry.id == listEntryId) + 1;
     if (currentPosition == newPosition) { return }
-    if (newPosition > AppState.listEntries.length) {
+    if (newPosition > AppState.listEntries.length || newPosition < 1) {
       Pop.error('Position is out of bounds. Please specify a position within the current playlist length.')
       return
     }
