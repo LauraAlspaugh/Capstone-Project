@@ -1,11 +1,13 @@
 import { AppState } from "../AppState"
 import { ListEntry } from "../models/ListEntry";
 import { logger } from "../utils/Logger";
+import Pop from "../utils/Pop";
 import { api } from "./AxiosService";
 
 class ListEntriesService{
 
   async getListEntriesByRoutineId(routineId) {
+    AppState.listEntries = [];
     const res = await api.get(`api/routines/${routineId}/listentries`)
     AppState.listEntries = res.data.map(entry => new ListEntry(entry));
     logger.log('listentries', AppState.listEntries);
@@ -18,10 +20,12 @@ class ListEntriesService{
   }
 
   async changePosition(listEntryId, newPosition) {
-
-    logger.log('listEntryId', listEntryId,'newPosition', newPosition)
     const currentPosition = AppState.listEntries.findIndex(entry => entry.id == listEntryId) + 1;
     if (currentPosition == newPosition) { return }
+    if (newPosition > AppState.listEntries.length) {
+      Pop.error('Position is out of bounds. Please specify a position within the current playlist length.')
+      return
+    }
     
     const shift = newPosition - currentPosition;
     let shiftPositions = [];
