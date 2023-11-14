@@ -9,34 +9,39 @@
           <div v-if="activeRoutine" class="col-12 text-center mt-5">
             <img :src="activeRoutine.listEntry[currentMoveIndexNumber].move.imgUrl" alt="First image" class="main-picture"
               :class="[greenFilter == true ? 'green-filter' : '']">
-              <p class="routine-name italiana mt-5">{{ activeRoutine.name }}</p>
+              
+              <p class="routine-name italiana mt-5">{{ activeRoutine.name }} <span  class="btn fs-1" data-bs-toggle="modal" data-bs-target="#exampleModal"><i  type="button"  class=  "mdi mdi-dots-vertical"></i></span></p>
+          
           </div>
           </div>
         </section>
       <section class="row">
 
       <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length " ></div>
-          <div  class="col-12 pr-4 text-end small-image">
+          <div  class="col-12  d-flex justify-content-between   small-image">
+            <p class="d-flex  pl-4">
+              <TimerComponent/>
+            </p>
             <div v-if="activeRoutine.listEntry[nextMoveIndexNumber]">
               <div v-if="activeRoutine.listEntry[nextMoveIndexNumber].transition == false">
                 <img :src="activeRoutine.listEntry[nextMoveIndexNumber].move.imgUrl" alt="Second Picture"
-                  class="small-picture">
+                  class="small-picture mt-3">
               </div>
               <div v-else>
                 <p>{{ activeRoutine.listEntry[nextMoveIndexNumber].duration }} second interval before next pose.</p>
                 <img :src="activeRoutine.listEntry[nextMoveIndexNumber + 1].move.imgUrl" alt="Second Picture"
                   class="small-picture">
               </div>
-              <div class="text-start">
+              <!-- <p class="text-start pl-4">
               <TimerComponent/>
-            </div>
+            </p> -->
             </div>
             <div v-else></div>
           </div>
         </section>
         <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length" > 
         <button  @click="nextMove()" class="btn btn-success">Change Move</button>
-        </div>
+        </div> 
         <div v-else >
         </div>
           </div>
@@ -137,8 +142,8 @@ export default {
 }
 
 .small-picture {
-  height: 100px;
-  width: 170px;
+  height: 140px;
+  width: 250px;
   object-fit: cover;
   position: center ;
   border: 3px solid black; 

@@ -45,6 +45,22 @@
     </div>
   </div>
 
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <RoutinePlayPageModal/>
+      
+    </div>
+    </div>
+    </div>
+  </div>
+
 </template>
 
 
@@ -56,6 +72,7 @@ import Navbar from './components/Navbar.vue'
 import MoveDetailCard from "./components/MoveDetailCard.vue"
 import RoutineDetailCard from "./components/RoutineDetailCard.vue"
 import CreateNewRoutineModal from "./components/CreateNewRoutineModal.vue"
+import RoutinePlayPageModal from './components/RoutinePlayPageModal.vue'
 
 export default {
   setup() {
@@ -65,7 +82,7 @@ export default {
       activeRoutine: computed(() => AppState.activeRoutine)
     }
   },
-  components: { Navbar, MoveDetailCard, RoutineDetailCard, CreateNewRoutineModal }
+  components: { Navbar, MoveDetailCard, RoutineDetailCard, CreateNewRoutineModal, RoutinePlayPageModal }
 }
 </script>
 <style lang="scss">
