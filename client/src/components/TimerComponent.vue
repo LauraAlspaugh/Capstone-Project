@@ -17,13 +17,10 @@ export default {
   setup() {
 
     let myCanvas = ref(null);
-    let totalTime = 180;  //total time we want to count down
+    let totalTime = 60;  //total time we want to count down in seconds
     let countdown = ref(totalTime); //time remaining in seconds
 
     onMounted(() => {
-      const timer = new Timer();
-      logger.log("Timer", timer)
-
       let canvas = myCanvas.value;
 
       let ctx = canvas.getContext('2d');
