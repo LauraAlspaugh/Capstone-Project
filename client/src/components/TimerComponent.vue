@@ -10,7 +10,6 @@
 <script>
 import { AppState } from '../AppState';
 import { computed, reactive, onMounted, ref } from 'vue';
-import Timer from "easytimer.js";
 import { logger } from '../utils/Logger.js';
 
 export default {
