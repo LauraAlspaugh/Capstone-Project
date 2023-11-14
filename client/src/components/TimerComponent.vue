@@ -16,11 +16,12 @@
 import { AppState } from '../AppState';
 import { computed, reactive, onMounted, ref } from 'vue';
 import { logger } from '../utils/Logger.js';
+import { movesService } from '../services/MovesService.js'
 
 export default {
   setup() {
     let myCanvas = ref(null);
-    let totalTime = 120;  //total time we want to count down in seconds
+    let totalTime = 10;  //total time we want to count down in seconds
     let countdown = ref(totalTime); //time remaining in seconds
 
     let intervalId;
@@ -82,6 +83,7 @@ export default {
 
           if (countdown.value <= 0) {
             clearInterval(intervalId);
+            movesService.finishMove();
             // or perform other actions when countdown reaches 0
           } else {
             drawCircles();
