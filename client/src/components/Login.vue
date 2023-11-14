@@ -9,29 +9,35 @@
     <div v-else>
       <div class="dropdown my-2 my-lg-0">
 
-        <div type="button" class="border-0 selectable no-select rounded-circle p-1" data-bs-toggle="dropdown"
+        <section class="d-flex justify-content-center">
+          <div type="button" class="border-0 selectable no-select rounded p-1" data-bs-toggle="dropdown"
           aria-expanded="false">
-          <div v-if="account.picture || user.picture">
-            <img :src="account.picture || user.picture" alt="account photo" class="rounded picture" />
-          </div>
-        </div>
-
-        <div class="dropdown-menu dropdown-menu-lg-end dropdown-menu-start p-0" aria-labelledby="authDropdown">
-          <div class="list-group">
-
-            <router-link :to="{ name: 'Account' }">
-              <div class="list-group-item dropdown-item list-group-item-action">
-                Manage Account
+            <span class="d-flex align-items-center">
+              <div v-if="account.picture || user.picture">
+                <img :src="account.picture || user.picture" alt="account photo" class="rounded picture" />
               </div>
-            </router-link>
-
-            <div class="list-group-item dropdown-item list-group-item-action text-danger selectable" @click="logout">
-              <i class="mdi mdi-logout"></i>
-              logout
-            </div>
-
+              <p class="mb-0 ms-3">{{ account.name }}</p>
+            </span>
           </div>
-        </div>
+        
+          <div class="dropdown-menu dropdown-menu-lg-end dropdown-menu-end p-0" aria-labelledby="authDropdown">
+            <div class="list-group">
+              
+              <router-link :to="{ name: 'Account' }">
+                <div class="list-group-item dropdown-item list-group-item-action">
+                  Manage Account
+                </div>
+              </router-link>
+
+              <div class="list-group-item dropdown-item list-group-item-action text-danger selectable" @click="logout">
+                <i class="mdi mdi-logout"></i>
+                logout
+              </div>
+              
+            </div>
+          </div>
+        </section>
+
       </div>
     </div>
 

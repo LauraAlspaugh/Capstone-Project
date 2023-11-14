@@ -44,13 +44,15 @@
           {{ listEntry.duration }} sec
         </p>
       </span>
-
       <!-- <span class="d-flex align-items-center" v-if="editRoutine">
         <i v-if="keyImage == listEntry.move.imgUrl" class="fs-3 mdi mdi-star"></i>
         <i v-else class="fs-3 mdi mdi-star-outline hidden" type="button" @click="setKeyImage(listEntry.move.imgUrl)"></i>
       </span> -->
     </section>
   </div>
+  <p v-if="listEntries.length == 0" class="fs-4 text-center rounded shadow my-1 py-1 px-5">
+    <!-- intro message to draw in until a move is added -->
+    Unlock/Add from the pose search list or browse the catalog to add moves</p>
 </template>
 
 
