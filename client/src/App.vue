@@ -44,6 +44,10 @@
       </div>
     </div>
   </div>
+  <!-- Full screen modal -->
+  <div class="modal-dialog modal-fullscreen-sm-down">
+    <RoutinePlayerPage />
+  </div>
 
   <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

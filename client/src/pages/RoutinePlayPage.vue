@@ -7,9 +7,9 @@
         <section class="row ">
           <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length">
             <div v-if="activeRoutine" class="col-12 text-center mt-5">
-              <img :src="activeRoutine.listEntry[currentMoveIndexNumber].move.imgUrl" alt="First image"
-                class="main-picture" :class="[greenFilter == true ? 'green-filter' : '']">
-
+              <div class="main-picture" :class="{ 'green-filter': greenFilter }">
+                <img :src="activeRoutine.listEntry[currentMoveIndexNumber].move.imgUrl" alt="First image" />
+              </div>
               <p class="routine-name italiana mt-5">{{ activeRoutine.listEntry[currentMoveIndexNumber].move.englishName }}
                 <span class="btn fs-1" data-bs-toggle="modal" data-bs-target="#exampleModal"><i type="button"
                     title="open modal " class="mdi mdi-dots-vertical"></i></span>
@@ -152,11 +152,18 @@ export default {
 
 <style lang="scss" scoped>
 .main-picture {
+  display: flex;
+  justify-content: center;
   height: 400px;
-  width: 600px;
-  object-fit: cover;
-  position: center;
-  border: 3px solid black;
+
+  width: 100%;
+
+  img {
+    height: 100%;
+    object-fit: cover;
+    position: center;
+    border: 3px solid black;
+  }
 
 
 }
@@ -170,8 +177,32 @@ export default {
 }
 
 .green-filter {
-  background-color: #6B8373b9;
-  backdrop-filter: blur(5px);
+  position: relative;
+
+  // background-color: #6B8373b9;
+  &::after {
+    position: absolute;
+    margin-inline: auto;
+    top: 0;
+    height: 100%;
+    aspect-ratio: 1/1;
+    content: "";
+    background-color: rgba(82, 109, 82, 0.465)
+  }
+
+  // filter: drop-shadow(8px 8px 10px green);
+}
+
+.wrap {
+  width: 400px;
+  height: 400px;
+  margin: 1em auto;
+  position: relative;
+}
+
+.wrap img {
+  -webkit-filter: sepia(100%) hue-rotate(90deg) saturate(400%);
+  filter: sepia(100%) hue-rotate(90deg) saturate(400%);
 }
 
 .template-body {
