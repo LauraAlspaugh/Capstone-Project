@@ -62,6 +62,12 @@ class ListEntriesService {
 
     async createListEntry(listEntryData) {
         const routineId = listEntryData.routineId
+        const routineDoc = await dbContext.Routines.findById(routineId)
+        if (routineDoc.creatorId.toString() != listEntryData.creatorId) {
+            throw new Forbidden('Do not even try it')
+        } if (!routineDoc) {
+            throw new BadRequest('This is not a routine to be updated')
+        }
         const routine = await dbContext.ListEntries.find({ routineId })
         listEntryData.position = routine.length + 1;
         const newListEntry = await dbContext.ListEntries.create(listEntryData)
@@ -89,8 +95,11 @@ class ListEntriesService {
         return listEntryToBeUpdated
     }
 
-    async editPlaylist(listEntryData) {
-        // TODO Add creator verification
+    async editPosition(listEntryData) {
+        const routine = await dbContext.Routines.findById(listEntryData.routineId);
+        if (routine.creatorId.toString() != listEntryData.userId) {
+            throw new Forbidden('Do not even try it')
+        }
         let results = [];
         await listEntryData.forEach(async ({ id, position }) => {
             const result = await dbContext.ListEntries.updateOne(

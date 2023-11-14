@@ -2,15 +2,6 @@
   <div class="border boxShadow bgBlur rounded">
 
     <section class="header d-flex align-items-center rounded-top px-3 py-2  position-relative z1">
-      <!-- <div class="dropdown open me-auto">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          My Favorited Routines
-        </button>
-        <div class="dropdown-menu p-0" aria-labelledby="triggerId">
-          <RoutineFavs />
-        </div>
-      </div> -->
       <div class="me-auto">
         <p class="mb-0">{{ routine.description }}</p>
       </div>

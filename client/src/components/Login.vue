@@ -16,7 +16,7 @@
               <div v-if="account.picture || user.picture">
                 <img :src="account.picture || user.picture" alt="account photo" class="rounded picture" />
               </div>
-              <p class="mb-0 ms-3">{{ account.name }}</p>
+              <p class="mb-0 ms-3 d-inline d-lg-none">{{ account.name }}</p>
             </span>
           </div>
         
