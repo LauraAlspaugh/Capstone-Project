@@ -19,7 +19,7 @@
           <RoutineEditor :routine="activeRoutine" />
         </div>
       </div>
-      <div v-if="editRoutine" class="col-12 col-md-4 col-lg-4 col-xxl-3 pt-3 pe-md-4 pe-lg-5 about">
+      <div v-if="activeRoutine.edit" class="col-12 col-md-4 col-lg-4 col-xxl-3 pt-3 pe-md-4 pe-lg-5 about">
         <!-- MOVE SEARCH/FILTER COMPONENT -->
         <div class="boxHeight pt-5">
           <MoveSearchComponent />
@@ -43,9 +43,9 @@ import { computed, onMounted } from 'vue';
 import { useRoute } from "vue-router";
 import Pop from "../utils/Pop";
 import { routinesService } from "../services/RoutinesService";
+import MoveSearchComponent from "../components/MoveSearchComponent.vue";
 import RoutineEditor from "../components/RoutineEditor.vue";
 import RoutineFavs from "../components/RoutineFavs.vue";
-import MoveSearchComponent from "../components/MoveSearchComponent.vue";
 
 export default {
   setup() {
@@ -65,12 +65,11 @@ export default {
     })
 
     return {
-      editRoutine: computed(() => AppState.editRoutine),
       activeRoutine: computed(() => AppState.activeRoutine),
 
     }
   },
-
+  components:{ RoutineEditor, RoutineFavs, MoveSearchComponent }
 };
 </script>
 

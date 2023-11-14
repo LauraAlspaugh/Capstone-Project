@@ -18,7 +18,8 @@
             <span class="text-mint d-flex justify-content-between align-items-center">
               {{ activeMove.level }}
               <span class="d-flex align-items-center">
-                <i v-if="activeRoutine.edit" class="fs-1 me-5 mdi mdi-plus" title="Add move to routine" @click="addMoveToRoutine(activeMove)"></i>
+                <i v-if="activeRoutine.edit" class="fs-1 me-5 mdi mdi-plus" title="Add move to routine" type="button" 
+                @click="addMoveToRoutine()"></i>
                 <span v-else class="position-relative">
                   <i class="fs-1 me-5 showHidden mdi mdi-information" title="(set a routine active to add from catalog)"></i>
                   <p class="mb-0 position-absolute hidden card p-3">Set a routine active and unlock it to add directly from the catalog</p>
@@ -47,23 +48,26 @@
 <script>
 import { AppState } from '../AppState.js';
 import { computed } from 'vue';
-import { useRouter } from "vue-router";
 import FavoriteUnfavoriteMove from "./FavoriteUnfavoriteMove.vue"
 import { listEntriesService } from "../services/ListEntriesService";
+import Pop from "../utils/Pop";
 
 export default {
   setup() {
-    const router = useRouter();
 
     return {
       moves: computed(() => AppState.moves),
       activeMove: computed(() => AppState.activeMove),
       activeRoutine: computed(() => AppState.activeRoutine),
 
-      addMoveToRoutine(moveObj) {
-        listEntriesService.createListEntry(moveObj.Id);
-        // router.push({name:'RoutineEditor'})
+      async addMoveToRoutine() {
+        try {
+          await listEntriesService.createListEntry(this.activeRoutine.id, this.activeMove.id);
+          Pop.success(`'${this.activeMove.englishName}' has been added to the routine '${this.activeRoutine.name}'`)
+        }
+        catch (error) { Pop.error(error) }
       }
+
     };
   },
   components: { FavoriteUnfavoriteMove }

@@ -61,14 +61,14 @@ export default {
       }),
 
       unlockRoutine() {
-        AppState.editRoutine = true;
+        AppState.activeRoutine.edit = true;
       },
 
       saveRoutine() {
         try {
           // submit changes to service > api and update
           // routinesService.updateRoutine(routineData.value);
-          AppState.editRoutine = false;
+          AppState.activeRoutine.edit = false;
         } catch (error) { Pop.error(error) }
       }
 
