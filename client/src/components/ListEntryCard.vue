@@ -2,7 +2,8 @@
   <div v-if="listEntries.length > 0">
     <section v-for="listEntry in listEntries" :key="listEntry.id"
       class="d-flex align-items-center rounded shadow my-1 p-1 showHidden">
-      <span class="d-flex align-items-center" v-if="editRoutine">
+
+      <span class="d-flex align-items-center" v-if="editRoutine && listEntry?.move?.imgUrl">
 
         <i class="fs-4 hidden timer-color mdi mdi-plus selectable darken-20 rounded hidden" @click="addToEnd(listEntry.moveId)"
           type="button" title="Add a copy to the end"></i>
@@ -18,7 +19,7 @@
 
       </span>
 
-      <span v-if="listEntry?.move?.imgUrl" class="d-flex align-items-center me-auto">
+      <span v-if="listEntry?.move?.imgUrl" class="d-flex align-items-center">
         <input v-if="editRoutine && listEntry.editPosition"  v-model="listEntry.position" type="number" class="form-control pos mx-2 p-0" @blur="saveEditPosition(listEntry)">
         <p v-else-if="editRoutine && !listEntry.enableEditPosition" type="button" class="mb-0 mx-2 border rounded pos px-1" @click="enableEditPosition(listEntry)">
           {{ listEntry.position }} 
@@ -26,11 +27,13 @@
         <p v-else class="mb-0 mx-2 border rounded pos px-1">
           {{ listEntry.position }} 
         </p>
-        <img :src="listEntry.move.imgUrl" :alt="listEntry.move.englishName" class="img-fluid px-1 thumbnail">
-        <p class="mb-0 fs-4">{{ listEntry.move.englishName || listEntry.name }}</p>
+        <img :src="listEntry.move.imgUrl" :alt="listEntry.move.englishName || listEntry.name" class="img-fluid px-1 thumbnail">
       </span>
 
-      <span class="d-flex align-items-center">
+      <p v-if="listEntry.position == 0" class="fs-4 mb-0 text-center">{{  listEntry.name }}</p>
+      <p v-else class="fs-4 mb-0 me-auto">{{ listEntry.move.englishName || listEntry.name }}</p>
+
+      <span v-if="listEntry?.move?.imgUrl" class="d-flex align-items-center">
         <i v-if="listEntry.editDuration" class="fs-5 mx-1 mdi mdi-cancel" type="button" @click="cancelEditDuration(listEntry)"></i>
         <input v-if="editRoutine && listEntry.editDuration" v-model="listEntry.duration" :placeholder="listEntry.move.defaultTime" type="number"
           class="form-control duration fs-5 p-0 ps-1" @blur="saveEditDuration(listEntry)">

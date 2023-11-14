@@ -3,8 +3,8 @@
         <div class="col-12 d-block white-gb p-3">
             <div @click="setActiveRoutine()" data-bs-toggle="modal" data-bs-target="#routine-modal" type="button"
                 class="row">
-                <div class="col">
-                    <img class="img-fluid" :src="routineProp.keyImage" alt="routineProp.name">
+                <div class="col-12">
+                    <img v-if="routineProp.keyImage" class="img-fluid" :src="routineProp.keyImage" alt="routineProp.name">
                 </div>
             </div>
             <div class="d-flex justify-content-between pt-2">
@@ -36,7 +36,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted } from 'vue';
+import { computed } from 'vue';
 import { Routine } from '../models/Routine.js';
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";

@@ -26,19 +26,28 @@ class RoutinesService {
         }
     }
 
+    async createRoutine(body) {
+        const res = await api.post('api/routines', body)
+        const newRoutine = new Routine(res.data);
+        logger.log('new routine', newRoutine);
+        AppState.listEntries = [{
+            position: 0,
+            name: 'Add from the list on the right or browse the catalog to add moves',
+        }]; // intro message to draw in until a move is added
+        AppState.editRoutine = true; // enable edit view on routine editor
+        AppState.activeRoutine = newRoutine;
+    }
+
     async favoriteRoutine(routineId) {
         const res = await api.post(`api/favorites/routines`, { routineId })
         AppState.myFavoriteRoutines.push(new FavoriteRoutine(res.data))
-        // logger.log('favorited routine', res.data)
     }
 
     async unfavoriteRoutine(routineId) {
-        // logger.log('routineId', routineId)
         const myFavoritedRoutineObjectData = AppState.myFavoriteRoutines.find(favoriteRoutine => favoriteRoutine.routineId == routineId)
-        // logger.log('myFavoritedRoutineObjectData', myFavoritedRoutineObjectData)
         const res = await api.delete(`api/favorites/routines/${myFavoritedRoutineObjectData.id}`)
-        // logger.log(res.data)
         AppState.myFavoriteRoutines = AppState.myFavoriteRoutines.filter(fav => fav.id != myFavoritedRoutineObjectData.id)
+        return res.data
     }
 
     async archiveRoutine(routineId) {
