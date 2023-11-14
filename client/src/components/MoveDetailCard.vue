@@ -18,10 +18,10 @@
             <span class="text-mint d-flex justify-content-between align-items-center">
               {{ activeMove.level }}
               <span class="d-flex align-items-center">
-                <i class="fs-1 me-5 mdi mdi-plus" title="Add move to routine" @click="addMoveToRoutine(activeMove)"></i>
-                <span class="">
+                <i v-if="activeRoutine.edit" class="fs-1 me-5 mdi mdi-plus" title="Add move to routine" @click="addMoveToRoutine(activeMove)"></i>
+                <span v-else class="position-relative">
                   <i class="fs-1 me-5 showHidden mdi mdi-information" title="(set a routine active to add from catalog)"></i>
-                  <p class="mb-0"></p>
+                  <p class="mb-0 position-absolute hidden card p-3">Set a routine active and unlock it to add directly from the catalog</p>
                 </span>
                 <FavoriteUnfavoriteMove :id="activeMove.id" :moveOrRoutine="'move'" />
               </span>
@@ -58,6 +58,7 @@ export default {
     return {
       moves: computed(() => AppState.moves),
       activeMove: computed(() => AppState.activeMove),
+      activeRoutine: computed(() => AppState.activeRoutine),
 
       addMoveToRoutine(moveObj) {
         listEntriesService.createListEntry(moveObj.Id);
@@ -98,6 +99,17 @@ img {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.412);
   object-fit: cover;
   position: center;
+}
 
+.hidden{
+  width: 12.5rem;
+  bottom: 3rem;
+  right: 4.5rem;
+  opacity: 0;
+  transition: .25s;
+  pointer-events: none;
+}
+.showHidden:hover+.hidden{
+  opacity: 1;
 }
 </style>

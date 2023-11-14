@@ -45,10 +45,10 @@
 <script>
 import { AppState } from '../AppState';
 import { computed } from 'vue';
+import { Modal } from "bootstrap";
 import Pop from "../utils/Pop";
 import { Routine } from '../models/Routine.js';
 import { routinesService } from "../services/RoutinesService";
-import { Modal } from "bootstrap";
 
 export default {
     props: { routineProp: { type: Routine, required: true } },
@@ -79,7 +79,6 @@ export default {
             setActiveRoutine() {
                 AppState.activeRoutine = props.routineProp;
                 Modal.getOrCreateInstance('#routine-modal').show();
-
             }
 
         }
