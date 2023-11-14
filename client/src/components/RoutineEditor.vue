@@ -25,7 +25,8 @@
     </section>
 
     <section class="rounded-bottom mx-3 d-flex align-items-center">
-      <i class="fs-1 ms-2 ps-4 btn color1 mdi mdi-play-box me-auto"></i>
+      <i class="fs-1 ms-2 ps-4 btn color1 mdi mdi-play-box me-auto" type="button" data-bs-toggle="modal"
+        data-bs-target="#openPlayer"></i>
       <p class="fs-5 mb-0 me-3"><small>Total Time: </small>
         <b v-if="totalPlayTime">
           {{ (totalPlayTime / 60 >= 1 ? Math.floor(totalPlayTime / 60) + ' min ' : '') +
@@ -41,7 +42,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed} from 'vue';
+import { computed } from 'vue';
 import ListEntryCard from "./ListEntryCard.vue";
 import Pop from "../utils/Pop";
 import { Routine } from "../models/Routine";
@@ -56,7 +57,7 @@ export default {
       totalPlayTime: computed(() => {
         let total = 0;
         AppState.listEntries.forEach(entry => total += entry.duration)
-        if(!total){return 0}
+        if (!total) { return 0 }
         return total
       }),
 

@@ -2,8 +2,12 @@
   <div class="container-fluid template-body">
     <section class="row">
 
-      <div v-if="activeRoutine" class="col-12 text-end p-5">
-        <button class="btn btn rounded-pill bg-dark"><i class="mdi mdi-play fs-4 "></i></button>
+      <div v-if="activeRoutine" class="col-12  p-5 position-relative">
+        <button type="button" class=" fs-3 btn-close position-absolute " data-bs-dismiss="modal"
+          aria-label="Close"></button>
+        <span class="d-flex align-items-center"> <img class="logo-nav d-none d-lg-inline me-auto " alt="logo"
+            src="../assets/img/RootedFlow Logo-only.png" />
+          <button class="btn btn rounded-circle  bg-dark"><i class="mdi mdi-play fs-4 "></i></button></span>
         <section class="row ">
           <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length">
             <div v-if="activeRoutine" class="col-12 text-center mt-5">
@@ -43,10 +47,11 @@
           </div>
         </section>
         <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length">
-          <button @click="nextMove()" class="btn btn-success">Change Move</button>
+          <button @click="nextMove()" class="btn btn-success ">Change Move</button>
         </div>
         <div v-else>
         </div>
+
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -78,13 +83,13 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from "vue-router";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 import { routinesService } from "../services/RoutinesService.js";
-import TimerComponent from '../components/TimerComponent.vue';
-import RoutinePlayPageModal from '../components/RoutinePlayPageModal.vue';
+import TimerComponent from './TimerComponent.vue';
+import RoutinePlayPageModal from './RoutinePlayPageModal.vue';
 
 export default {
   setup() {
@@ -95,7 +100,10 @@ export default {
     let greenFilter = ref(false);
     let nextMoveIsTransition = ref(false);
     onMounted(() => {
-      getRoutineById();
+      if (route.params.routineId) {
+        getRoutineById();
+      }
+
     });
     async function getRoutineById() {
       try {
@@ -212,5 +220,18 @@ export default {
 
 .routine-name {
   font-size: 50px;
+}
+
+.logo-nav {
+  height: 10rem;
+  top: .5rem;
+  left: 20rem;
+
+}
+
+.btn-close {
+  top: 1rem;
+  right: 1rem;
+
 }
 </style>

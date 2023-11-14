@@ -45,9 +45,19 @@
     </div>
   </div>
   <!-- Full screen modal -->
-  <div class="modal-dialog modal-fullscreen-sm-down">
-    <RoutinePlayerPage />
+  <div class="modal modal-lg fade" id="openPlayer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="openPlayerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-body">
+          <RoutinePlayComponent />
+        </div>
+      </div>
+    </div>
   </div>
+
+
+
 
   <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -76,7 +86,8 @@ import Navbar from './components/Navbar.vue'
 import MoveDetailCard from "./components/MoveDetailCard.vue"
 import RoutineDetailCard from "./components/RoutineDetailCard.vue"
 import CreateNewRoutineModal from "./components/CreateNewRoutineModal.vue"
-import RoutinePlayPageModal from './components/RoutinePlayPageModal.vue'
+// import RoutinePlayPageModal from './components/RoutinePlayPageModal.vue'
+import RoutinePlayComponent from './components/RoutinePlayComponent.vue'
 
 export default {
   setup() {
@@ -86,7 +97,7 @@ export default {
       activeRoutine: computed(() => AppState.activeRoutine)
     }
   },
-  components: { Navbar, MoveDetailCard, RoutineDetailCard, CreateNewRoutineModal, RoutinePlayPageModal }
+  components: { Navbar, MoveDetailCard, RoutineDetailCard, CreateNewRoutineModal, RoutinePlayComponent }
 }
 </script>
 <style lang="scss">
