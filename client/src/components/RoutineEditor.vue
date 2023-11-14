@@ -1,16 +1,7 @@
 <template>
-  <div class="border boxShadow rounded">
+  <div class="border boxShadow bgBlur rounded">
 
-    <section class="header d-flex align-items-center rounded-top px-3 py-2 bgBlur position-relative z1">
-      <!-- <div class="dropdown open me-auto">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          My Favorited Routines
-        </button>
-        <div class="dropdown-menu p-0" aria-labelledby="triggerId">
-          <RoutineFavs />
-        </div>
-      </div> -->
+    <section class="header d-flex align-items-center rounded-top px-3 py-2  position-relative z1">
       <div class="me-auto">
         <p class="mb-0">{{ routine.description }}</p>
       </div>
@@ -27,13 +18,13 @@
       <button class="btn btn-secondary ms-5">Clone Routine</button>
     </section>
 
-    <section class="px-3 bgBlur">
+    <section class="px-3">
       <div class="p-1 border rounded scroll">
         <ListEntryCard :keyImage="routine.keyImage" />
       </div>
     </section>
 
-    <section class="rounded-bottom bgBlur mx-3 d-flex align-items-center">
+    <section class="rounded-bottom mx-3 d-flex align-items-center">
       <i class="fs-1 ms-2 ps-4 btn color1 mdi mdi-play-box me-auto"></i>
       <p class="fs-5 mb-0 me-3"><small>Total Time: </small>
         <b v-if="totalPlayTime">

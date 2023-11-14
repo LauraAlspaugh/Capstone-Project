@@ -24,6 +24,4 @@ export const AppState = reactive({
 
   settings: {},
 
-  playlist:[]
-
 })

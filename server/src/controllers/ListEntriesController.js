@@ -11,7 +11,7 @@ export class ListEntriesController extends BaseController {
             // 🔽 AUTHENTICATION REQUIRED 🔽
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createListEntry)
-            .put('', this.editPlaylist)
+            .put('', this.editPosition)
             .put('/:listEntryId', this.editListEntry)
             .delete('/:listEntryId', this.destroyListEntry)
     }
@@ -43,9 +43,10 @@ export class ListEntriesController extends BaseController {
         } catch (error) { next(error) }
     }
 
-    async editPlaylist(request, response, next) {
+    async editPosition(request, response, next) {
         try {
-            const updatedListEntries = await listEntriesService.editPlaylist(request.body)
+            request.body.userId = request.userInfo.id
+            const updatedListEntries = await listEntriesService.editPosition(request.body)
             return response.send(updatedListEntries)
         } catch (error) { next(error) }
     }

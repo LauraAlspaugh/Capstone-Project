@@ -6,7 +6,7 @@
         <p class="fs-5 p-2 rounded">Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati nostrum, ab sequi
           architecto rem accusamus? Repellat voluptatibus repudiandae, unde dicta cum incidunt? Quibusdam explicabo
           distinctio repellendus consequatur tenetur numquam deleniti.</p>
-        <p class="fs-5 p-2 rounded">Express Node.js, Vue 3, Bootstrap 5.3.2, Mongoose, MongoDB (...)</p>
+        <p class="fs-5 p-2 rounded">Express Node.js, Vue 3, Bootstrap 5, Mongoose, MongoDB (...)</p>
       </div>
     </section>
     <section class="row justify-content-center align-items-center px-5">

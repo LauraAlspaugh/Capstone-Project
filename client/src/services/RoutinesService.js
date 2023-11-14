@@ -30,10 +30,6 @@ class RoutinesService {
         const res = await api.post('api/routines', body)
         const newRoutine = new Routine(res.data);
         logger.log('new routine', newRoutine);
-        AppState.listEntries = [{
-            position: 0,
-            name: 'Add from the list on the right or browse the catalog to add moves',
-        }]; // intro message to draw in until a move is added
         AppState.editRoutine = true; // enable edit view on routine editor
         AppState.activeRoutine = newRoutine;
     }
@@ -63,8 +59,8 @@ class RoutinesService {
     async setActiveRoutine(routineId) {
         AppState.activeRoutine = {};
         AppState.activeRoutine = await this.getRoutineById(routineId)
+
         await listEntriesService.getListEntriesByRoutineId(routineId)
-        AppState.playlist = AppState.listEntries.map(entry=>entry.id)
     }
 
     manualCheck() {

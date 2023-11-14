@@ -17,6 +17,11 @@ const routes = [
     component: loadPage('RoutineDesignerPage')
   },
   {
+    path: '/routine-designer/:routineId',
+    name: 'RoutineEditor',
+    component: loadPage('RoutineDesignerPage')
+  },
+  {
     path: '/routine/:routineId',
     name: 'Routine',
     component: loadPage('RoutinePlayPage')
