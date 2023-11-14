@@ -1,15 +1,22 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid template-body">
     <section class="row">
 
-      <div v-if="activeRoutine" class="col-12">
-        <section class="row">
+      <div v-if="activeRoutine" class="col-12 text-end p-5">
+        <p ><i class="mdi mdi-play fs-1 "></i></p>
+        <section class="row ">
           <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length ">
-          <div class="col-7">
+          <div v-if="activeRoutine" class="col-12 text-center mt-5">
             <img :src="activeRoutine.listEntry[currentMoveIndexNumber].move.imgUrl" alt="First image" class="main-picture"
               :class="[greenFilter == true ? 'green-filter' : '']">
+              <p class="routine-name italiana mt-5">{{ activeRoutine.name }}</p>
           </div>
-          <div  class="col-3 d-flex align-items-end">
+          </div>
+        </section>
+      <section class="row">
+
+      <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length " ></div>
+          <div  class="col-12 pr-4 text-end small-image">
             <div v-if="activeRoutine.listEntry[nextMoveIndexNumber]">
               <div v-if="activeRoutine.listEntry[nextMoveIndexNumber].transition == false">
                 <img :src="activeRoutine.listEntry[nextMoveIndexNumber].move.imgUrl" alt="Second Picture"
@@ -23,17 +30,23 @@
             </div>
             <div v-else></div>
           </div>
-          </div>
         </section>
-        <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length" >
+        <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length" > 
+        <button  @click="nextMove()" class="btn btn-success">Change Move</button>
+        </div>
+        <div v-else >
+        </div>
+          </div>
+          
+        </section>
+          <!-- <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length" > 
         <button  @click="nextMove()" class="btn btn-success">Change Move</button>
         </div>
         <div v-else >
         
-        </div> 
+        </div>   -->
       </div>
-    </section>
-  </div>
+  
 </template>
 
 
@@ -115,16 +128,31 @@ export default {
 <style lang="scss" scoped>
 .main-picture {
   height: 400px;
-  width: auto;
+  width: 600px;
+  object-fit: cover;
+  position: center;
+  border: 3px solid black ;
+ 
+
 }
 
 .small-picture {
   height: 100px;
-  width: auto;
+  width: 170px;
+  object-fit: cover;
+  position: center ;
+  border: 3px solid black; 
 }
 
 .green-filter {
   background-color: #6B8373b9;
   backdrop-filter: blur(5px);
+}
+.template-body{
+  background-color: white;
+  
+}
+.routine-name{
+  font-size: 50px;
 }
 </style>
