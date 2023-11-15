@@ -7,7 +7,11 @@
           aria-label="Close"></button>
         <span class="d-flex align-items-center"> <img class="logo-nav d-none d-lg-inline me-auto " alt="logo"
             src="../assets/img/RootedFlow Logo-only.png" />
-          <button class="btn btn rounded-circle  bg-dark"><i class="mdi mdi-play fs-4 "></i></button></span>
+          <button v-if="isPlaying == false" @click="$refs.timer.startTimer(); flipPlayingOrPaused()"
+            class="btn btn rounded-circle  bg-dark"><i class="mdi mdi-play fs-4 "></i></button>
+          <button v-else @click=" $refs.timer.pauseTimer(); flipPlayingOrPaused()"
+            class="btn btn rounded-circle  bg-dark"><i class="mdi mdi-pause fs-4 "></i></button>
+        </span>
         <section class="row ">
           <div v-if="nextMoveIndexNumber <= listEntries.length">
             <div v-if="activeRoutine" class="col-12 text-center mt-5">
@@ -27,11 +31,12 @@
           <div v-if="nextMoveIndexNumber <= listEntries.length"></div>
           <div class="col-12  d-flex justify-content-between   small-image">
             <p class="d-flex  pl-4">
-              <TimerComponent />
+              <TimerComponent ref="timer" />
             </p>
             <div v-if="listEntries[nextMoveIndexNumber]">
               <div v-if="listEntries[nextMoveIndexNumber].transition == false">
-                <img :src="listEntries[nextMoveIndexNumber].move.imgUrl" alt="Second Picture" class="small-picture mt-3">
+                <img :src="listEntries[nextMoveIndexNumber].move.imgUrl" alt="Second Picture"
+                  class="small-picture mt-3">
               </div>
               <div v-else>
                 <p>{{ listEntries[nextMoveIndexNumber].duration }} second interval before next pose.</p>
@@ -91,6 +96,7 @@ export default {
     let currentMoveIndexNumber = ref(0);
     let nextMoveIndexNumber = ref(1);
     let greenFilter = ref(false);
+    let isPlaying = ref(false);
     let nextMoveIsTransition = ref(false);
     const finishedMove = computed(() => AppState.finishedMove);
     let listEntries = computed(() => AppState.listEntries);
@@ -105,7 +111,6 @@ export default {
 
     function nextMove() {
       if (greenFilter.value == true) {
-        logger.log("Switching green filter?");
         greenFilter.value = false;
         return;
       }
@@ -114,20 +119,21 @@ export default {
           currentMoveIndexNumber.value += 2;
           nextMoveIndexNumber.value += 2;
           greenFilter.value = true;
-          logger.log("Second condition TRUE, next move is a transition and current is not, indexNumber", currentMoveIndexNumber.value);
         }
         else {
-          logger.log("Third condition TRUE, neither is interval so go to next move");
           currentMoveIndexNumber.value++;
           nextMoveIndexNumber.value++;
         }
-        logger.log("Index number", currentMoveIndexNumber.value, "AppState.activeRoutine.length", AppState.listEntries.length);
       }
       else {
-        logger.log("false");
         nextMoveIndexNumber.value += 1;
         return;
       }
+    }
+
+    function flipPlayingOrPaused() {
+      isPlaying.value = !isPlaying.value
+      logger.log("isPlaying.value", isPlaying.value)
     }
 
     // return {
@@ -153,6 +159,8 @@ export default {
       greenFilter,
       nextMoveIsTransition,
       showDetails,
+      isPlaying,
+      flipPlayingOrPaused,
 
       activeRoutine: computed(() => AppState.activeRoutine),
       activeMove: computed(() => AppState.activeMove),
