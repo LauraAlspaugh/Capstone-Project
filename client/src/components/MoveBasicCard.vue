@@ -1,9 +1,10 @@
 <template>
-  <div @click="setActiveMove(moveBasicProp)" data-bs-toggle="modal" data-bs-target="#move-modal" type="button">
+  <div @click="setActiveMove(moveBasicProp)" type="button">
     <section class="image-border d-flex">
-      <div class="d-flex align-items-center">
-        <img class="thumbnail" :src="moveBasicProp.imgUrl" alt="move picture">
-        <p class="fs-5 m-0 italiana fw-bold p-2">{{ moveBasicProp.englishName }}</p>
+      <div class="d-flex align-items-center w-100">
+        <img class="thumbnail" :class="moveBasicProp.englishName == 'Interval'? 'rounded-circle' : ''" :src="moveBasicProp.imgUrl" alt="move picture">
+        <p class="fs-5 m-0 me-auto italiana fw-bold p-2">{{ moveBasicProp.englishName }}</p>
+        <i class="fs-4 mx-2 text-secondary dimmed mdi mdi-plus" type="button" @click.stop="addMoveToRoutine(moveBasicProp)"></i>
       </div>
     </section>
   </div>
@@ -14,9 +15,13 @@
 import { AppState } from '../AppState';
 import { computed } from 'vue';
 import { Move } from '../models/Move.js';
+import Pop from "../utils/Pop";
+import { listEntriesService } from "../services/ListEntriesService";
+import { Modal } from "bootstrap";
 
 export default {
   props: { moveBasicProp: { type: Move, required: true } },
+
   setup() {
     
     return {
@@ -25,6 +30,15 @@ export default {
       
       setActiveMove(moveObj) {
         AppState.activeMove = moveObj;
+        Modal.getOrCreateInstance('#move-modal').show()
+      },
+
+      async addMoveToRoutine(moveObj) {
+        try {
+          await listEntriesService.createListEntry(AppState.activeRoutine.id, moveObj.id);
+          Pop.success(`'${moveObj.englishName}' has been added to the routine '${AppState.activeRoutine.name}'`)
+        }
+        catch (error) { Pop.error(error) }
       },
 
     }
@@ -42,7 +56,17 @@ export default {
 .thumbnail {
   object-fit: cover;
   position: center;
-  height: 80px;
+  height: 5rem;
+  width: 5rem ;
   padding: 4px;
+}
+
+.dimmed{
+  opacity: .3;
+  transition: .25s;
+}
+
+.dimmed:hover{
+  opacity: 1;
 }
 </style>
