@@ -1,7 +1,6 @@
 <template>
   <div class="container-fluid componentBody">
     <section class="row">
-
       <div v-if="activeRoutine" class="col-12  p-5 position-relative">
         <button type="button" class=" fs-3 btn-close position-absolute " data-bs-dismiss="modal"
           aria-label="Close"></button>
