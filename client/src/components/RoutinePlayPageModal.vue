@@ -15,7 +15,7 @@
         <section v-if="activeMove" class="row">
             <div class="col-12 p-3 d-flex justify-content-between ">
                 <p class="fs-4 ">Description: </p>
-                <i class=" fs-3 me-3 mdi mdi-heart"></i>
+                <!-- <i class=" fs-3 me-3 mdi mdi-heart"></i> -->
             </div>
         </section>
         <section class="row">
