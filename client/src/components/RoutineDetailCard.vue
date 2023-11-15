@@ -17,7 +17,12 @@
                     </div>
                 </section>
                 <section class="row justify-content-center">
-                    <div class=" col-10 mt-2  pb-0 text-center">
+                    <div class=" col-10 mt-2  pb-0 text-center position-relative">
+                        <p v-if="selectedRoutine.isArchived" class="position-absolute archivedNote rounded fs-5"> <br>
+                            This routine has been archived! <br>
+                            If you wish to unarchive this later,<br>
+                            you can find it on your <router-link :to="{ name: 'Account' }">account</router-link> page.
+                        </p>
                         <img class="img-fluid" :src="selectedRoutine.keyImage" alt="selectedRoutine name">
                         <p class="text-center name-text italiana  pt-3 m-0 pb-0">{{ selectedRoutine.name }}</p>
                     </div>
@@ -68,6 +73,7 @@ import { computed } from 'vue';
 import Pop from "../utils/Pop";
 import FavoriteUnfavoriteMove from "./FavoriteUnfavoriteMove.vue";
 import { routinesService } from "../services/RoutinesService";
+import { Modal } from "bootstrap";
 
 export default {
     setup() {
@@ -89,20 +95,21 @@ export default {
 
             async unarchiveRoutine() {
                 try {
-                    const yes = await Pop.confirm('Restore the routine from the archive?','')
+                    const yes = await Pop.confirm('Restore the routine from the archive?', '');
                     if (!yes) { return }
                     await routinesService.unarchiveRoutine();
-                    Pop.success('The routine has been unarchived. Enjoy!')
+                    Pop.success('The routine has been unarchived. Enjoy!');
                 }
                 catch (error) { Pop.error(error) }
             },
             
             async deleteRoutine() {
                 try {
-                    const yes = await Pop.confirm('Delete the entire routine?')
+                    const yes = await Pop.confirm('Delete the entire routine?');
                     if (!yes) { return }
                     await routinesService.deleteRoutine();
-                    Pop.success('The routine has been permanently deleted.')
+                    Pop.success('The routine has been permanently deleted.');
+                    Modal.getOrCreateInstance('#routine-modal').hide();
                 }
                 catch (error) { Pop.error(error) }
             }
@@ -137,6 +144,15 @@ img {
 
 .text-mint {
     color: #BCC8C4;
+}
+.archivedNote{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    backdrop-filter: blur(5px);
+    color: black;
+    background-color: #f0f0f042;
 }
 
 .hidden{
