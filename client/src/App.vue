@@ -106,7 +106,7 @@ export default {
       activeMove: computed(() => AppState.activeMove),
       activeRoutine: computed(() => AppState.activeRoutine),
       selectedRoutine: computed(() => AppState.selectedRoutine),
-      listEntries: computed(() => AppState.listEntries),,
+      listEntries: computed(() => AppState.listEntries),
       selectedPic: computed(() => AppState.selectedPic)
     }
   },
