@@ -51,8 +51,10 @@ class RoutinesService {
         logger.log('archived', res.data)
     }
 
-    async deleteRoutine(routineId) {
-        const res = await api.delete(`api/routine/${routineId}/delete`)
+    async deleteRoutine() {
+        const routineObj = AppState.selectedRoutine;
+        if (routineObj.creatorId != AppState.account.id) { throw new Error('Not yours to delete') }
+        const res = await api.delete(`api/routine/${routineObj.id}/delete`)
         logger.log(res.data)
     }
 

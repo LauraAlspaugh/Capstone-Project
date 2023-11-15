@@ -79,7 +79,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { logger } from "../utils/Logger.js";
 import TimerComponent from './TimerComponent.vue';
 import RoutinePlayPageModal from './RoutinePlayPageModal.vue';

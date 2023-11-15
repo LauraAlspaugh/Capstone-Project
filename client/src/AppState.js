@@ -15,6 +15,8 @@ export const AppState = reactive({
   activeMove: null,
   /** @type {import('./models/Routine.js').Routine | null} */
   activeRoutine: null,
+  /** @type {import('./models/Routine.js').Routine | null} */
+  selectedRoutine: null,
   /** @type {import('./models/Move.js').Move[]} */
   myFavoriteMoves: [],
   /** @type {import('./models/Routine.js').Routine[]} */
