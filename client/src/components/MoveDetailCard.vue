@@ -18,7 +18,7 @@
             <span class="text-mint d-flex justify-content-between align-items-center">
               {{ activeMove.level }}
               <span class="d-flex align-items-center">
-                <i v-if="activeRoutine.edit" class="fs-1 me-5 mdi mdi-plus" title="Add move to routine" type="button" 
+                <i v-if="activeRoutine?.edit" class="fs-1 me-5 mdi mdi-plus" title="Add move to routine" type="button" 
                 @click="addMoveToRoutine()"></i>
                 <span v-else class="position-relative">
                   <i class="fs-1 me-5 showHidden mdi mdi-information" title="(set a routine active to add from catalog)"></i>

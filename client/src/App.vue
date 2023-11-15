@@ -23,7 +23,7 @@
     aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-top modal-dialog-scrollable modal-lg" role="document">
       <div class="modal-content">
-        <div class="modal-body p-0" v-if="activeRoutine">
+        <div class="modal-body p-0" v-if="selectedRoutine">
           <RoutineDetailCard />
         </div>
       </div>
@@ -49,7 +49,7 @@
     aria-labelledby="openPlayerLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
       <div class="modal-content">
-        <div class="modal-body" v-if="appState.activeRoutine?.id && appState.listEntries.length > 0">
+        <div class="modal-body" v-if="activeRoutine?.id && listEntries.length > 0">
           <RoutinePlayComponent />
         </div>
       </div>
@@ -94,7 +94,9 @@ export default {
     return {
       appState: computed(() => AppState),
       activeMove: computed(() => AppState.activeMove),
-      activeRoutine: computed(() => AppState.activeRoutine)
+      activeRoutine: computed(() => AppState.activeRoutine),
+      selectedRoutine: computed(() => AppState.selectedRoutine),
+      listEntries: computed(() => AppState.listEntries),
     }
   },
   components: { Navbar, MoveDetailCard, RoutineDetailCard, CreateNewRoutineModal, RoutinePlayComponent }

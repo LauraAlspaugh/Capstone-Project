@@ -1,41 +1,49 @@
 <template>
     <div class="container-fluid">
         <section class="row justify-content-center">
-            <div v-if="activeRoutine?.keyImage" class="col active-move">
+            <div v-if="selectedRoutine?.keyImage" class="col active-move position-relative z0">
                 <section class="row">
-                    <div class="col">
-                        <button type="button" class="btn-close btn-close-white p-3" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                    <div class="col-12 d-flex justify-content-between align-items-center px-3 py-2">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                        <span v-if="selectedRoutine.creatorId == account.id" >
+                            <div class="position-relative z3">
+                                <i v-if="!selectedRoutine.isArchived" class="fs-3 onHover showHidden text-success mdi mdi-package-down" type="button" title="Archive the routine?" @click="archiveRoutine()"></i>
+                                <p class="mb-0 p-2 card hidden position-absolute">To permanently delete a routine, you must archive it first.</p>
+                            </div>
+                            <i v-if="selectedRoutine.isArchived" class="fs-3 onHover text-success mdi mdi-package-up" type="button" title="Unarchive the routine?" @click="unarchiveRoutine()"></i>
+                            <i v-if="selectedRoutine.isArchived" class="fs-3 onHover ms-5 text-danger mdi mdi-trash-can" type="button" title="Permanently delete the routine?" @click="deleteRoutine()"></i>
+                        </span>
                     </div>
                 </section>
                 <section class="row justify-content-center">
                     <div class=" col-10 mt-2  pb-0 text-center">
-                        <img class="img-fluid" :src="activeRoutine.keyImage" alt="activeRoutine name">
-                        <p class="text-center name-text italiana  pt-3 m-0 pb-0">{{ activeRoutine.name }}</p>
+                        <img class="img-fluid" :src="selectedRoutine.keyImage" alt="selectedRoutine name">
+                        <p class="text-center name-text italiana  pt-3 m-0 pb-0">{{ selectedRoutine.name }}</p>
                     </div>
                 </section>
                 <section class="row italiana text-white px-4">
                     <div class="col-12">
                         <div class="d-flex justify-content-between align-items-center">
-                            <span class="text-mint ">{{ activeRoutine.playTime/60 }} Min | Move Count {{ activeRoutine.moveCount
+                            <span class="text-mint ">{{ (selectedRoutine.playTime/60).toFixed(1) }} Min | Move Count {{ selectedRoutine.moveCount
                             }}</span>
                             <span>
-                                <FavoriteUnfavoriteMove :id="activeRoutine.id" :moveOrRoutine="'routine'" />
+                                <FavoriteUnfavoriteMove :id="selectedRoutine.id" :moveOrRoutine="'routine'" />
                             </span>
                         </div>
                         <div class=" ">
-                            <p class="text-mint d-flex justify-content-between ">{{ activeRoutine.level }}
+                            <p class="text-mint d-flex justify-content-between ">{{ selectedRoutine.level }}
                                 <span></span>
                             </p>
-                            <span class="text-mint pe-3 m-2" v-for="focus in activeRoutine.target.name" :key="focus"> {{ focus
+                            <span class="text-mint pe-3 m-2" v-for="focus in selectedRoutine.target.name" :key="focus"> {{ focus
                             }}</span>
                         </div>
                         <div class="mb-3">
                             <p class=" m-0 mt-3 ">Description: </p>
-                            <li v-for="description in activeRoutine.descriptionArray" :key="description">{{ description }}</li>
+                            <li v-for="description in selectedRoutine.descriptionArray" :key="description">{{ description }}</li>
                         </div>
                         <div class="">
-                            <p class="text-mint"> Created by {{ activeRoutine.creator.name }}</p>
+                            <p class="text-mint"> Created by {{ selectedRoutine.creator.name }}</p>
                         </div>
                         <div class=" mb-5">
                             <router-link :to="{ name: 'RoutineDesigner' }" class="">
@@ -57,12 +65,47 @@
 <script>
 import { AppState } from '../AppState';
 import { computed } from 'vue';
+import Pop from "../utils/Pop";
 import FavoriteUnfavoriteMove from "./FavoriteUnfavoriteMove.vue";
+import { routinesService } from "../services/RoutinesService";
+
 export default {
     setup() {
         return {
+            account: computed(() => AppState.account),
             routines: computed(() => AppState.routines),
-            activeRoutine: computed(() => AppState.activeRoutine),
+            selectedRoutine: computed(() => AppState.selectedRoutine),
+
+            async archiveRoutine() {
+                try {
+                    const yes = await Pop.confirm('Archive the routine?',
+                        'The routine will not be deleted, but you can only restore the routine from the account page.')
+                    if (!yes) { return }
+                    await routinesService.archiveRoutine();
+                    Pop.success('The routine has been archived. You can restore it via the account page.')
+                }
+                catch (error) { Pop.error(error) }
+            },
+
+            async unarchiveRoutine() {
+                try {
+                    const yes = await Pop.confirm('Restore the routine from the archive?','')
+                    if (!yes) { return }
+                    await routinesService.unarchiveRoutine();
+                    Pop.success('The routine has been unarchived. Enjoy!')
+                }
+                catch (error) { Pop.error(error) }
+            },
+            
+            async deleteRoutine() {
+                try {
+                    const yes = await Pop.confirm('Delete the entire routine?')
+                    if (!yes) { return }
+                    await routinesService.deleteRoutine();
+                    Pop.success('The routine has been permanently deleted.')
+                }
+                catch (error) { Pop.error(error) }
+            }
         };
     },
     components: { FavoriteUnfavoriteMove }
@@ -94,5 +137,21 @@ img {
 
 .text-mint {
     color: #BCC8C4;
+}
+
+.hidden{
+    right: 0;
+    width: 16rem;
+    opacity: 0;
+    transition: .25s;
+}
+
+.onHover{
+    opacity: .5;
+    transition: .25s;
+}
+
+.onHover:hover,.showHidden:hover+.hidden{
+    opacity: 1;
 }
 </style>
