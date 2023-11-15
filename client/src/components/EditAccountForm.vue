@@ -94,7 +94,18 @@ import Pop from "../utils/Pop";
 
 export default {
   setup() {
+    const transitionSounds = [
+      {
+        name: 'ding', audio: new Audio('/src/assets/sounds/chimes-14_By_bliind.wav')
+      },
+      { name: 'marimba', audio: new Audio('src/assets/sounds/g2_By_joesh2.wav') },
+      { name: 'ascend', audio: new Audio('src/assets/sounds/gamepack1-main-horrible-finish_By_adamgoik.wav') },
+      { name: 'gong', audio: new Audio('src/assets/sounds/gong_bymondfisch89_By_yudena.ogg') },
+      { name: 'chimes', audio: new Audio('src/assets/sounds/meinl-ch27-chimes_By_dpoggioli.wav') },
+      { name: 'singingBowl', audio: new Audio('src/assets/sounds/singing-bowl-gong_By_zambolino.wav') },
+      { name: 'solfeggioWindChimes', audio: new Audio('src/assets/sounds/solfeggio-wind-chimes-mi-528-hz-single-cut_By_the_very_real_horst__.wav') }
 
+    ]
     const editable = ref({});
 
     watchEffect(() => {
@@ -108,7 +119,7 @@ export default {
 
     return {
       editable,
-
+      transitionSounds,
       async updateProfile() {
         try {
           await accountService.updateProfile(editable.value);

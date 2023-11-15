@@ -28,5 +28,7 @@ export const AppState = reactive({
 
   finishedMove: false,
   selectedPic: null,
+  transitionSounds: [],
+  activeTransitionSound: null,
 
 })

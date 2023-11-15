@@ -66,6 +66,7 @@ class RoutinesService {
         const moves = await dbContext.Routines.find(query)
             .populate('creator', 'name picture')
             .populate("moveCount")
+            .populate("favoritedCount")
             .populate({
                 path: 'listEntry',
                 select: 'name position duration transition moveId',
@@ -83,6 +84,7 @@ class RoutinesService {
         if (!routine) { throw new BadRequest('This is not a valid routine') }
         await routine.populate('creator', 'name picture')
         await routine.populate('moveCount')
+        await routine.populate('favoritedCount')
         await routine.populate({
             path: 'listEntry',
             select: 'name position duration transition moveId',
@@ -98,6 +100,7 @@ class RoutinesService {
         const routines = await dbContext.Routines.find({ creatorId: userId })
             .populate('creator', 'name picture')
             .populate("moveCount")
+            .populate("favoritedCount")
             .populate({
                 path: 'listEntry',
                 select: 'name position duration transition moveId',
@@ -115,7 +118,6 @@ class RoutinesService {
         const newRoutine = await dbContext.Routines.create(routineData)
         _calcTarget(newRoutine.id);
         await newRoutine.populate('creator', 'name picture')
-        await newRoutine.populate('moveCount')
         await newRoutine.populate({
             path: 'listEntry',
             select: 'name position duration transition moveId',
@@ -152,6 +154,8 @@ class RoutinesService {
             routineToBeUpdated.isExample
         await routineToBeUpdated.save()
         await routineToBeUpdated.populate("listEntry")
+        await routineToBeUpdated.populate("moveCount")
+        await routineToBeUpdated.populate("favoritedCount")
         _calcTarget(routineId);
         return routineToBeUpdated
     }
@@ -163,6 +167,7 @@ class RoutinesService {
         }
         routine.isArchived = !routine.isArchived
         await routine.save()
+        await routine.populate('favoritedCount')
         return routine
     }
 

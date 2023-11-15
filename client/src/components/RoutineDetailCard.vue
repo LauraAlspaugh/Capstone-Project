@@ -12,12 +12,17 @@
                                 <p class="mb-0 p-2 card hidden position-absolute">To permanently delete a routine, you must archive it first.</p>
                             </div>
                             <i v-if="selectedRoutine.isArchived" class="fs-3 onHover text-success mdi mdi-package-up" type="button" title="Unarchive the routine?" @click="unarchiveRoutine()"></i>
-                            <i v-if="selectedRoutine.isArchived" class="fs-3 onHover ms-5 text-danger mdi mdi-trash-can" type="button" title="Permanently delete the routine?" @click="deleteRoutine()"></i>
+                            <i v-if="selectedRoutine.isArchived && selectedRoutine.favoritedCount == 0" class="fs-3 onHover ms-5 text-danger mdi mdi-trash-can" type="button" title="Permanently delete the routine?" @click="deleteRoutine()"></i>
                         </span>
                     </div>
                 </section>
                 <section class="row justify-content-center">
-                    <div class=" col-10 mt-2  pb-0 text-center">
+                    <div class=" col-10 mt-2  pb-0 text-center position-relative">
+                        <p v-if="selectedRoutine.isArchived" class="position-absolute archivedNote rounded fs-5"> <br>
+                            This routine has been archived! <br>
+                            If you wish to unarchive this later,<br>
+                            you can find it on your <router-link :to="{ name: 'Account' }">account</router-link> page.
+                        </p>
                         <img class="img-fluid" :src="selectedRoutine.keyImage" alt="selectedRoutine name">
                         <p class="text-center name-text italiana  pt-3 m-0 pb-0">{{ selectedRoutine.name }}</p>
                     </div>
@@ -68,6 +73,7 @@ import { computed } from 'vue';
 import Pop from "../utils/Pop";
 import FavoriteUnfavoriteMove from "./FavoriteUnfavoriteMove.vue";
 import { routinesService } from "../services/RoutinesService";
+import { Modal } from "bootstrap";
 
 export default {
     setup() {
@@ -89,20 +95,21 @@ export default {
 
             async unarchiveRoutine() {
                 try {
-                    const yes = await Pop.confirm('Restore the routine from the archive?','')
+                    const yes = await Pop.confirm('Restore the routine from the archive?', '');
                     if (!yes) { return }
                     await routinesService.unarchiveRoutine();
-                    Pop.success('The routine has been unarchived. Enjoy!')
+                    Pop.success('The routine has been unarchived. Enjoy!');
                 }
                 catch (error) { Pop.error(error) }
             },
             
             async deleteRoutine() {
                 try {
-                    const yes = await Pop.confirm('Delete the entire routine?')
+                    const yes = await Pop.confirm('Delete the entire routine?');
                     if (!yes) { return }
                     await routinesService.deleteRoutine();
-                    Pop.success('The routine has been permanently deleted.')
+                    Pop.success('The routine has been permanently deleted.');
+                    Modal.getOrCreateInstance('#routine-modal').hide();
                 }
                 catch (error) { Pop.error(error) }
             }
@@ -126,17 +133,28 @@ img {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.412);
     object-fit: cover;
     position: center;
-
 }
 
 .name-text {
     color: white;
     font-size: 50px;
-
 }
 
 .text-mint {
     color: #BCC8C4;
+}
+
+.z3{
+    z-index: 3;
+}
+.archivedNote{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    backdrop-filter: blur(5px);
+    color: black;
+    background-color: #f0f0f042;
 }
 
 .hidden{

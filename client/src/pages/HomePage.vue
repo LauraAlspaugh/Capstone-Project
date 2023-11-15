@@ -7,7 +7,8 @@
     </section>
     <section class="row justify-content-center align-items-center pt-3">
       <div class="col-12 col-md-7 py-3 px-5 order-2 order-md-1 d-flex justify-content-center">
-        <p class="fs-5 p-2 rounded">At Rooted Flow, we believe everyone should have the tools to create their own custom
+        <p @click="test" class="fs-5 p-2 rounded">At Rooted Flow, we believe everyone should have the tools to create
+          their own custom
           yoga routine. We want to empower everyone, from beginner to expert, to take responsibility for their body
           health. Within the Catalog page of this application, you learn more about many different yoga poses and their
           benefits. You can favorite these poses for quick access when creating a routine. The Catalog page also provides
@@ -63,6 +64,10 @@ export default {
       selectedPic(imgObj) {
         AppState.selectedPic = imgObj
         Modal.getOrCreateInstance('#expand-modal').show()
+      },
+      test() {
+        const sound = new Audio('/src/assets/sounds/chimes-14_By_bliind.wav')
+        sound.play()
       }
     }
   }

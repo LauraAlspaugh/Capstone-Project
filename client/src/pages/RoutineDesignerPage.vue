@@ -4,12 +4,13 @@
       <div class="col-12 col-md-8 col-lg-7 pt-3 pe-lg-5">
         <div class="boxHeight pt-5">
           <span class="d-flex align-items-center">
-            <div class="dropdown open me-auto">
-              <button class="fs-1 mb-0 pe-3 text-nowrap btn d-flex align-items-" type="button" id="triggerId"
+            <div class="dropdown open">
+              <button class="fs-1 mb-0 pe-3 text-nowrap btn d-flex showHidden" type="button" id="triggerId"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ activeRoutine.name }}
                 <i class="fs-1 mdi mdi-dots-vertical"></i>
               </button>
+              <div class="hidden position-absolute z3 px-3 py-2 card">{{ activeRoutine.description }}</div>
               <div class="dropdown-menu p-0" aria-labelledby="triggerId">
                 <RoutineFavs />
               </div>
@@ -77,6 +78,25 @@ export default {
 <style lang="scss" scoped>
 .bgColor {
   background-color: #6B8373b9;
+}
+
+.hidden{
+  top: 4rem;
+  left: 2rem;
+  min-width: 10rem;
+  max-width: 50vw;
+  opacity: 0;
+  transition: .25s;
+  visibility: hidden;
+}
+
+.showHidden:hover+.hidden{
+  opacity: 1;
+  visibility: visible;
+}
+
+.z3{
+  z-index: 3;
 }
 
 .boxHeight {

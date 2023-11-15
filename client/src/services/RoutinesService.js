@@ -46,15 +46,34 @@ class RoutinesService {
         return res.data
     }
 
-    async archiveRoutine(routineId) {
-        const res = await api.delete(`api/routine/${routineId}`)
+    async archiveRoutine() {
+        const routineObj = AppState.selectedRoutine;
+        if (routineObj.creatorId != AppState.account.id) { throw new Error('Not yours to archive') }
+        const res = await api.delete(`api/routines/${routineObj.id}`);
+        const updated = new Routine(res.data);
+        AppState.selectedRoutine = updated;
+        const index = AppState.routines.findIndex(routine => routine.id == routineObj.id);
+        AppState.routines.splice(index, 1, updated);
+        logger.log('archived', res.data)
+    }
+
+    async unarchiveRoutine() {
+        const routineObj = AppState.selectedRoutine;
+        if (routineObj.creatorId != AppState.account.id) { throw new Error('Not yours to unarchive') }
+        const res = await api.delete(`api/routines/${routineObj.id}`)
+        const updated = new Routine(res.data);
+        AppState.selectedRoutine = updated;
+        const index = AppState.routines.findIndex(routine => routine.id == routineObj.id);
+        AppState.routines.splice(index, 1, updated);
         logger.log('archived', res.data)
     }
 
     async deleteRoutine() {
         const routineObj = AppState.selectedRoutine;
+        if (routineObj.favoritedCount > 0){ throw new Error('Cannot delete - someone is still using this routine')}
         if (routineObj.creatorId != AppState.account.id) { throw new Error('Not yours to delete') }
-        const res = await api.delete(`api/routine/${routineObj.id}/delete`)
+        const res = await api.delete(`api/routines/${routineObj.id}/delete`)
+        AppState.routines = AppState.routines.filter(routine => routine.id != routineObj.id);
         logger.log(res.data)
     }
 

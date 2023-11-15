@@ -10,6 +10,7 @@ export class Routine {
         this.isExample = data.isExample
         this.isArchived = data.isArchived
         this.playCount = data.playCount
+        this.favoritedCount = data.favoritedCount
         this.playTime = data.playTime
         this.level = data.level
         this.creator = data.creator

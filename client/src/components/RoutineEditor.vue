@@ -3,9 +3,8 @@
 
     <section class="header d-flex align-items-center rounded-top px-3 py-2  position-relative z1">
       <div class="me-auto">
-        <p class="mb-0">{{ routine.description }}</p>
       </div>
-      <span class="fs-1 mx-2 d-flex"> <!-- TODO after edit fully functional: v-if account owner -->
+      <span class="fs-1 mx-2 d-flex" v-if="routine.creatorId == account.id"> <!-- TODO after edit fully functional: v-if account owner -->
         <span class="text-center me-2 position-relative" type="button" @click="unlockRoutine()">
           <i title="Locked" class="color3 lh25 mdi mdi-lock"></i>
           <p class="mb-0 tiny">Unlock <br> Routine</p>
@@ -53,6 +52,7 @@ export default {
   setup() {
 
     return {
+      account: computed(() => AppState.account),
       editRoutine: computed(() => AppState.editRoutine),
       totalPlayTime: computed(() => {
         let total = 0;

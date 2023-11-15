@@ -20,10 +20,11 @@ import { movesService } from '../services/MovesService.js'
 
 export default {
   setup() {
-    let finishedMove = computed(() => AppState.finishedMove);
+    let moveNumber = ref(0);
 
     let myCanvas = ref(null);
-    let totalTime = 10;  //total time we want to count down in seconds
+    let totalTime = AppState.activeRoutine.listEntry[moveNumber.value].duration
+    // let totalTime = 10;  //total time we want to count down in seconds
     let countdown = ref(totalTime); //time remaining in seconds
 
     let intervalId;
@@ -86,6 +87,8 @@ export default {
           if (countdown.value <= 0) {
             clearInterval(intervalId);
             movesService.finishMove();
+            moveNumber.value++
+            logger.log("MoveNumber", moveNumber.value, "seconds", totalTime, "ActiveRoutine", AppState.activeRoutine)
             resetTimer();
             // or perform other actions when countdown reaches 0
           } else {
@@ -117,7 +120,7 @@ export default {
 
     onMounted(() => {
       drawCircles();
-      startTimer();
+      // startTimer();
     })
 
 
@@ -127,6 +130,7 @@ export default {
       resetTimer,
       pauseTimer,
       resumeTimer,
+      startTimer,
     }
 
   }
