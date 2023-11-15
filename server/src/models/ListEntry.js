@@ -7,7 +7,7 @@ export const ListEntrySchema = new Schema({
     imgUrl: { type: String, maxLength: 800 },
     duration: { type: Number, required: true, default: 60 },
     position: { type: Number, required: false },
-    transition: { type: Boolean, required: true, default: false },
+    transition: { type: Boolean, required: false, default: false },
     routineId: { type: Schema.Types.ObjectId, required: true, ref: 'Routine' },
     moveId: { type: Schema.Types.ObjectId, required: true, ref: 'Move' },
     creatorId: { type: Schema.Types.ObjectId, required: true, ref: 'Account' },

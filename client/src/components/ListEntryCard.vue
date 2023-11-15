@@ -27,7 +27,7 @@
         <p v-else class="mb-0 mx-2 border rounded pos px-1">
           {{ listEntry.position }} 
         </p>
-        <img :src="listEntry.move.imgUrl" :alt="listEntry.move.englishName || listEntry.name" class="img-fluid px-1 thumbnail">
+        <img :src="listEntry.move.imgUrl" :alt="listEntry.move.englishName || listEntry.name" class="img-fluid px-1 thumbnail" :class="listEntry.transition? 'rounded-circle' : '' ">
       </span>
 
       <p v-if="listEntry.position == 0" class="fs-4 mb-0 text-center">{{  listEntry.name }}</p>

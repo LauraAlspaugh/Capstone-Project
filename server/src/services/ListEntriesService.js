@@ -70,6 +70,10 @@ class ListEntriesService {
         }
         const routine = await dbContext.ListEntries.find({ routineId })
         listEntryData.position = routine.length + 1;
+        const interval = await dbContext.Moves.find({ englishName: 'Interval' })
+        logger.log('listentry interval find', interval);
+        if (listEntryData.moveId == interval.id) { listEntryData.transition = true; }
+        logger.log('listentry create obj', listEntryData);
         const newListEntry = await dbContext.ListEntries.create(listEntryData)
         await newListEntry.populate('move', 'englishName sanskritName imgUrl duration bodyPart level description benefits')
         await _updateUsageCount(newListEntry.moveId)
