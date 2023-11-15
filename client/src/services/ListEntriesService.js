@@ -19,6 +19,12 @@ class ListEntriesService{
     AppState.listEntries.push(new ListEntry(res.data))
   }
 
+  async removeListEntry(listEntryId) {
+    const res = await api.delete(`api/listentries/${listEntryId}`);
+    AppState.listEntries = AppState.listEntries.filter(entry => entry.id != listEntryId)
+    return res.data
+  }
+
   async changePosition(listEntryId, newPosition) {
     const currentPosition = AppState.listEntries.findIndex(entry => entry.id == listEntryId) + 1;
     if (currentPosition == newPosition) { return }

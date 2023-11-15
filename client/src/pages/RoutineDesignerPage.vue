@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <section v-if="activeRoutine" class="row justify-content-evenly">
+    <section v-if="activeRoutine?.id" class="row justify-content-evenly">
       <div class="col-12 col-md-8 col-lg-7 pt-3 pe-lg-5">
         <div class="boxHeight pt-5">
           <span class="d-flex align-items-center">

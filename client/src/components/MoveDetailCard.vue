@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid" >
     <section class="row justify-content-center">
       <div v-if="activeMove?.imgUrl" class="col active-move">
         <section class="row">
@@ -66,6 +66,10 @@ export default {
           Pop.success(`'${this.activeMove.englishName}' has been added to the routine '${this.activeRoutine.name}'`)
         }
         catch (error) { Pop.error(error) }
+      },
+
+      clearMove() {
+        AppState.activeMove = null;
       }
 
     };

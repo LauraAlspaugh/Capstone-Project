@@ -1,5 +1,5 @@
 <template>
-  <div @click="setActiveMove()" data-bs-toggle="modal" data-bs-target="#move-modal" type="button">
+  <div @click="setActiveMove(moveBasicProp)" data-bs-toggle="modal" data-bs-target="#move-modal" type="button">
     <section class="image-border d-flex">
       <div class="d-flex align-items-center">
         <img class="thumbnail" :src="moveBasicProp.imgUrl" alt="move picture">
@@ -17,14 +17,14 @@ import { Move } from '../models/Move.js';
 
 export default {
   props: { moveBasicProp: { type: Move, required: true } },
-  setup(props) {
+  setup() {
     
     return {
       moves: computed(() => AppState.moves),
       myFavoriteMoves: computed(() => AppState.myFavoriteMoves),
       
-      setActiveMove() {
-        AppState.activeMove = props.moveBasicProp
+      setActiveMove(moveObj) {
+        AppState.activeMove = moveObj;
       },
 
     }

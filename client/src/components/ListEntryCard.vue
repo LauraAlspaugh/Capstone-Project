@@ -33,7 +33,7 @@
       <p v-if="listEntry.position == 0" class="fs-4 mb-0 text-center">{{  listEntry.name }}</p>
       <p v-else class="fs-4 mb-0 me-auto">{{ listEntry.move.englishName || listEntry.name }}</p>
 
-      <span v-if="listEntry?.move?.imgUrl" class="d-flex align-items-center">
+      <span v-if="listEntry?.move?.imgUrl" class="d-flex align-items-center me-1">
         <i v-if="listEntry.editDuration" class="fs-5 mx-1 mdi mdi-cancel" type="button" @click="cancelEditDuration(listEntry)"></i>
         <input v-if="activeRoutine.edit && listEntry.editDuration" v-model="listEntry.duration" :placeholder="listEntry.move.defaultTime" type="number"
           class="form-control duration fs-5 p-0 ps-1" @blur="saveEditDuration(listEntry)">
@@ -44,6 +44,11 @@
           {{ listEntry.duration }} sec
         </p>
       </span>
+
+      <div class="position-relative">
+        <i class="fs-5 text-danger closeBtn position-absolute mdi mdi-close-circle" type="button"
+        @click="removeListEntry(listEntry.id)"></i>
+      </div>
     </section>
   </div>
   <p v-if="listEntries.length == 0" class="fs-4 text-center rounded shadow my-1 py-1 px-5">
@@ -78,14 +83,23 @@ export default {
       async changePosition(listEntryId, newPosition) {
         try {
           await listEntriesService.changePosition(listEntryId, newPosition);
-        } catch (error) { Pop.error(error) }
+        }
+        catch (error) { Pop.error(error) }
       },
 
       async addToEnd(moveId) {
         try {
           const routineId = AppState.activeRoutine.id;
           await listEntriesService.createListEntry(routineId, moveId);
-        } catch (error) { Pop.error(error) }
+        }
+        catch (error) { Pop.error(error) }
+      },
+
+      async removeListEntry(listEntryId) {
+        try {
+          await listEntriesService.removeListEntry(listEntryId);
+        }
+        catch (error) { Pop.error(error) }
       },
 
       enableEditPosition(listEntryObj) {
@@ -139,6 +153,16 @@ export default {
 .duration{
   width: 3rem;
   text-align: center;
+}
+
+.closeBtn{
+  bottom: 0;
+  right: -.36rem;
+  opacity: .05;
+  transition: .25s;
+}
+.closeBtn:hover{
+  opacity: .8;
 }
 
 .hidden {
