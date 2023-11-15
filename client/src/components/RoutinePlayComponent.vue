@@ -35,8 +35,7 @@
             </p>
             <div v-if="listEntries[nextMoveIndexNumber]">
               <div v-if="listEntries[nextMoveIndexNumber].transition == false">
-                <img :src="listEntries[nextMoveIndexNumber].move.imgUrl" alt="Second Picture"
-                  class="small-picture mt-3">
+                <img :src="listEntries[nextMoveIndexNumber].move.imgUrl" alt="Second Picture" class="small-picture mt-3">
               </div>
               <div v-else>
                 <p>{{ listEntries[nextMoveIndexNumber].duration }} second interval before next pose.</p>
@@ -49,11 +48,11 @@
             <div v-else></div>
           </div>
         </section>
-        <div v-if="nextMoveIndexNumber <= listEntries.length">
+        <!-- <div v-if="nextMoveIndexNumber <= listEntries.length">
           <button @click="nextMove()" class="btn btn-success ">Change Move</button>
         </div>
         <div v-else>
-        </div>
+        </div> -->
 
         <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
