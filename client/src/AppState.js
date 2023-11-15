@@ -27,5 +27,6 @@ export const AppState = reactive({
   settings: {},
 
   finishedMove: false,
+  selectedPic: null,
 
 })
