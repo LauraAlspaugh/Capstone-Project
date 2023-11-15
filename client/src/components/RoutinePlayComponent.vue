@@ -15,8 +15,8 @@
                 <img :src="listEntries[currentMoveIndexNumber].move.imgUrl" alt="First image" />
               </div>
               <p class="routine-name italiana mt-5">{{ listEntries[currentMoveIndexNumber].move.englishName }}
-                <span class="btn fs-1" data-bs-toggle="modal" data-bs-target="#exampleModal"><i type="button"
-                    title="open modal " class="mdi mdi-dots-vertical"></i></span>
+                <span @click="showDetails = !showDetails" class="btn fs-1" type="button" role="button"><i
+                    title="show details " class="mdi mdi-dots-vertical"></i></span>
               </p>
 
             </div>
@@ -58,7 +58,7 @@
 
         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
         <!-- </div> -->
-        <div class="modal-body">
+        <div v-if="showDetails" class="modal-body">
           <RoutinePlayPageModal :moveProp="listEntries[currentMoveIndexNumber].move" />
         </div>
       </div>
@@ -84,6 +84,7 @@ import { logger } from "../utils/Logger.js";
 import TimerComponent from './TimerComponent.vue';
 import RoutinePlayPageModal from './RoutinePlayPageModal.vue';
 
+
 export default {
   setup() {
     let previousMoveIndexNumber = ref(-1);
@@ -93,6 +94,8 @@ export default {
     let nextMoveIsTransition = ref(false);
     const finishedMove = computed(() => AppState.finishedMove);
     let listEntries = computed(() => AppState.listEntries);
+    const showDetails = ref(false);
+
 
     watch(finishedMove, () => {
       if (finishedMove.value) {
@@ -127,68 +130,42 @@ export default {
       }
     }
 
+    // return {
+    //   previousMoveIndexNumber,
+    //   currentMoveIndexNumber,
+    //   nextMoveIndexNumber,
+    //   greenFilter,
+    //   nextMoveIsTransition,
+    //   finishedMove,
+    //   nextMove,
+    //   listEntries,
+    //   activeRoutine: computed(() => AppState.activeRoutine),
+    //   activeMove: computed(() => AppState.activeMove),
+
+    //   const showDetails: ref(false),
+
     return {
       previousMoveIndexNumber,
       currentMoveIndexNumber,
       nextMoveIndexNumber,
-      greenFilter,
-      nextMoveIsTransition,
-      finishedMove,
       nextMove,
       listEntries,
+      greenFilter,
+      nextMoveIsTransition,
+      showDetails,
+
       activeRoutine: computed(() => AppState.activeRoutine),
       activeMove: computed(() => AppState.activeMove),
-
-      const showDetails = ref(false)
-
-    return {
-        previousMoveIndexNumber,
-        currentMoveIndexNumber,
-        nextMoveIndexNumber,
-        greenFilter,
-        nextMoveIsTransition,
-        showDetails,
-
-        activeRoutine: computed(() => AppState.activeRoutine),
-        listEntries: computed(() => AppState.listEntries),
-        activeMove: computed(() => AppState.activeMove),
-        finishedMove: computed(() => AppState.finishedMove),
+      finishedMove: computed(() => AppState.finishedMove),
 
 
 
 
-        nextMove() {
-          if (greenFilter.value == true) {
-            logger.log("Switching green filter?");
-            greenFilter.value = false;
-            return;
-          }
-          if (nextMoveIndexNumber.value < this.listEntries.length) {
-            // if (AppState.listEntries[nextMoveIndexNumber.value].transition == false && AppState.listEntries[currentMoveIndexNumber.value].transition == true) {
-            //   logger.log("First condition TRUE, figure out what to do")
-            if (AppState.listEntries[nextMoveIndexNumber.value].transition == true && AppState.listEntries[currentMoveIndexNumber.value].transition == false) {
-              currentMoveIndexNumber.value += 2;
-              nextMoveIndexNumber.value += 2;
-              greenFilter.value = true;
-              logger.log("Second condition TRUE, next move is a transition and current is not, indexNumber", currentMoveIndexNumber.value);
-            }
-            else {
-              logger.log("Third condition TRUE, neither is interval so go to next move");
-              currentMoveIndexNumber.value++;
-              nextMoveIndexNumber.value++;
-            }
-            logger.log("Index number", currentMoveIndexNumber.value, "AppState.activeRoutine.length", AppState.listEntries.length);
-          }
-          else {
-            logger.log("false");
-            nextMoveIndexNumber.value += 1;
-            return;
-          }
-        },
-      };
-    },
-      components: { }
-  };
+
+    };
+  },
+  components: { RoutinePlayPageModal }
+};
 </script>
 
 
