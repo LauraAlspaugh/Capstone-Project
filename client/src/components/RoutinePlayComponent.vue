@@ -105,14 +105,7 @@ export default {
       activeMove: computed(() => AppState.activeMove),
       finishedMove: computed(() => AppState.finishedMove),
 
-      // document.getElementById("toggleBtn").onclick = function () {
-      //   let secondDiv = document.getElementById("secondDiv")
-      //   if (secondDiv.style.display === "none") {
-      //     secondDiv.style.display = "block";
-      //   } else {
-      //     secondDiv.style.display = "none";
-      //   }
-      // },
+
 
 
       nextMove() {
