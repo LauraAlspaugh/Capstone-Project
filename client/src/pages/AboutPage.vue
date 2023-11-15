@@ -3,9 +3,8 @@
     <section class="row justify-content-center p-3">
       <div class="col-12 text-center p-3 my-5 white-gb w-50">
         <p class="fs-1 p-3 rounded">About the App & Devs </p>
-        <p class="fs-5 p-2 rounded">Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati nostrum, ab sequi
-          architecto rem accusamus? Repellat voluptatibus repudiandae, unde dicta cum incidunt? Quibusdam explicabo
-          distinctio repellendus consequatur tenetur numquam deleniti.</p>
+        <p class="fs-5 p-2 rounded">A special thank you to all the developers who helped to create Rooted Flow. All the
+          time and effort was well worth it. And the opportunity to work together made for many memories. </p>
         <p class="fs-5 p-2 rounded">Express Node.js, Vue 3, Bootstrap 5, Mongoose, MongoDB (...)</p>
       </div>
     </section>
@@ -29,7 +28,7 @@
     </section>
     <section class="row justify-content-center align-items-center px-5">
       <div class="col-12 col-md-5 p-3 my-2 order-1 order-md-1 d-flex justify-content-center">
-        <img src="" alt="img for dev 3" class="img border p-2">
+        <img src="src/assets/img/lauraimage.jpg" alt="img for dev 3" class="img border p-2">
       </div>
       <div class="col-12 col-md-7 p-3 my-2 rounded order-2 order-md-2 d-flex justify-content-center desc">
         <p class="fs-5 p-2 rounded white-gb">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique, itaque

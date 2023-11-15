@@ -21,16 +21,24 @@
         <img type="button" :src="homeImgs[1].img" :alt="homeImgs[1].alt" class="img border p-2">
       </div>
       <div class="col-12 col-md-7 py-3 px-5 order-4 order-md-4 d-flex justify-content-center">
-        <p class="fs-5 p-2 rounded"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae vel a ipsum sunt
-          necessitatibus, architecto aliquid vero provident accusamus ad distinctio nemo consequatur recusandae officiis
-          non veniam, est cum? Quasi.</p>
+        <p class="fs-5 p-2 rounded"> Visit our Routine Designer Page to create and customize your own routine. Here, users
+          can choose a previously favorited routine, or create a new routine, from our drop-down menu. Click the lock
+          icon and your routine will be unlocked for you to access. This will enable users to change the order of poses in
+          your routine, as well as delete a pose from a routine entirely.
+          A side panel on your right will allow you as the user to search through poses, based on your level or preference
+          of pose. Users can click on each of these individual poses to see a pop-up with more details on that particular
+          pose. In the bottom left-hand corner you can access the play button, which will direct you to another page to
+          start your routine. </p>
       </div>
     </section>
     <section class="row justify-content-center align-items-center">
       <div class="col-12 col-md-7 py-3 px-5 order-2 order-md-1 d-flex justify-content-center">
-        <p class="fs-5 p-2 rounded">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus amet ipsa nisi
-          voluptates asperiores quaerat, repellat id ut totam expedita, neque dolorem error perspiciatis. Fugit aperiam
-          animi veritatis unde non.</p>
+        <p class="fs-5 p-2 rounded">Welcome to your Routine Play Page. Here, you will be guided through your routine with
+          a timer, and an order of your poses. The larger image shows your current pose, and the smaller image in the
+          right-hand corner shows your the upcoming pose. This allows you as the user to prepare for the next pose. When
+          you reach an interval, you will receive a message and an image of the next pose. Click on the vertical dots to
+          see a detailed description of each move. At Rooted Flow, we allow users to find the routine that best fits their
+          needs. </p>
       </div>
       <div @click="selectedPic(homeImgs[2])" class="col-12 col-md-5 p-3 order-1 order-md-2 d-flex justify-content-center">
         <img :src="homeImgs[2].img" :alt="homeImgs[2].alt" class="img border p-2">
@@ -47,8 +55,8 @@ export default {
   setup() {
     const homeImgs = [
       { img: '/src/assets/img/CatalogSnapshot.png', alt: 'Catalog Snapshot' },
-      { img: '', alt: '' },
-      { img: '', alt: '' }
+      { img: '/src/assets/img/routinedesignerpage.png', alt: 'Routine Designer Page Snapshot' },
+      { img: '/src/assets/img/routineplaypageimage.jpg', alt: 'Routine Play Page Snapshot' }
     ]
     return {
       homeImgs,
