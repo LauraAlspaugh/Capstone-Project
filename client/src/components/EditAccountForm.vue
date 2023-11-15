@@ -62,14 +62,15 @@
           </span>
           <span class="w-50">
             <div class="m-3 mt-0 d-flex align-items-center">
-              <label for="enableAudio">Use Custom Audio</label>
+              <label for="enableAudio">Use Transition Sound</label>
               <input v-model="editable.enableAudio" class="ms-4" type="checkbox" id="enableAudio">
             </div>
             <div class="m-3 mt-0">
-              <label for="customAudioId">Custom Audio</label>
-              <select v-model="editable.customAudioId" class="ms-2 form-select" id="customAudioId"
-                :disabled="!editable.enableAudio">
-                <option value="default">Default</option>
+              <label for="customAudioId">Transition Sound</label>
+              <select @change="testPlay(editable.transitionSound)" v-model="editable.transitionSound"
+                class="ms-2 form-select" id="transitionSound" :disabled="!editable.enableAudio">
+                <option v-for="transitionSound in transitionSounds" :key="transitionSound" :value="transitionSound">{{
+                  transitionSound.name }}</option>
               </select>
             </div>
           </span>
@@ -91,19 +92,18 @@ import { AppState } from "../AppState";
 import { accountService } from "../services/AccountService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
+import { computed } from "vue";
 
 export default {
   setup() {
     const transitionSounds = [
-      {
-        name: 'ding', audio: new Audio('/src/assets/sounds/chimes-14_By_bliind.wav')
-      },
-      { name: 'marimba', audio: new Audio('src/assets/sounds/g2_By_joesh2.wav') },
-      { name: 'ascend', audio: new Audio('src/assets/sounds/gamepack1-main-horrible-finish_By_adamgoik.wav') },
-      { name: 'gong', audio: new Audio('src/assets/sounds/gong_bymondfisch89_By_yudena.ogg') },
-      { name: 'chimes', audio: new Audio('src/assets/sounds/meinl-ch27-chimes_By_dpoggioli.wav') },
-      { name: 'singingBowl', audio: new Audio('src/assets/sounds/singing-bowl-gong_By_zambolino.wav') },
-      { name: 'solfeggioWindChimes', audio: new Audio('src/assets/sounds/solfeggio-wind-chimes-mi-528-hz-single-cut_By_the_very_real_horst__.wav') }
+      { name: 'Ascend', audio: new Audio('src/assets/sounds/gamepack1-main-horrible-finish_By_adamgoik.wav') },
+      { name: 'Chimes', audio: new Audio('src/assets/sounds/meinl-ch27-chimes_By_dpoggioli.wav') },
+      { name: 'Ding', audio: new Audio('/src/assets/sounds/chimes-14_By_bliind.wav') },
+      { name: 'Gong', audio: new Audio('src/assets/sounds/gong_bymondfisch89_By_yudena.ogg') },
+      { name: 'Marimba', audio: new Audio('src/assets/sounds/g2_By_joesh2.wav') },
+      { name: 'Singing Bowl', audio: new Audio('src/assets/sounds/singing-bowl-gong_By_zambolino.wav') },
+      { name: 'Solfeggio Wind Chimes', audio: new Audio('src/assets/sounds/solfeggio-wind-chimes-mi-528-hz-single-cut_By_the_very_real_horst__.wav') }
 
     ]
     const editable = ref({});
@@ -119,7 +119,8 @@ export default {
 
     return {
       editable,
-      transitionSounds,
+      transitionSounds: computed(() => AppState.transitionSounds),
+      activeTransitionSound: computed(() => AppState.activeTransitionSound),
       async updateProfile() {
         try {
           await accountService.updateProfile(editable.value);
@@ -128,6 +129,9 @@ export default {
           logger.error(error);
           Pop.error(error);
         }
+      },
+      testPlay(soundObject) {
+        soundObject.audio.play()
       }
 
     }

@@ -28,7 +28,15 @@ export const AppState = reactive({
 
   finishedMove: false,
   selectedPic: null,
-  transitionSounds: [],
+  transitionSounds: [
+    { name: 'Ascend', audio: new Audio('src/assets/sounds/gamepack1-main-horrible-finish_By_adamgoik.wav') },
+    { name: 'Chimes', audio: new Audio('src/assets/sounds/meinl-ch27-chimes_By_dpoggioli.wav') },
+    { name: 'Ding', audio: new Audio('/src/assets/sounds/chimes-14_By_bliind.wav') },
+    { name: 'Gong', audio: new Audio('src/assets/sounds/gong_bymondfisch89_By_yudena.ogg') },
+    { name: 'Marimba', audio: new Audio('src/assets/sounds/g2_By_joesh2.wav') },
+    { name: 'Singing Bowl', audio: new Audio('src/assets/sounds/singing-bowl-gong_By_zambolino.wav') },
+    { name: 'Solfeggio Wind Chimes', audio: new Audio('src/assets/sounds/solfeggio-wind-chimes-mi-528-hz-single-cut_By_the_very_real_horst__.wav') }
+  ],
   activeTransitionSound: null,
 
 })
