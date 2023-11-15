@@ -56,7 +56,16 @@
     </div>
   </div>
 
-
+  <div class="modal fade" id="expand-modal" tabindex="-1" data-bs-keyboard="false" role="dialog"
+    aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-top modal-dialog-scrollable modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-body p-0" v-if="selectedPic != null">
+          <ExpandPicModal />
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -88,6 +97,7 @@ import RoutineDetailCard from "./components/RoutineDetailCard.vue"
 import CreateNewRoutineModal from "./components/CreateNewRoutineModal.vue"
 // import RoutinePlayPageModal from './components/RoutinePlayPageModal.vue'
 import RoutinePlayComponent from './components/RoutinePlayComponent.vue'
+import ExpandPicModal from "./components/ExpandPicModal.vue"
 
 export default {
   setup() {
@@ -97,9 +107,10 @@ export default {
       activeRoutine: computed(() => AppState.activeRoutine),
       selectedRoutine: computed(() => AppState.selectedRoutine),
       listEntries: computed(() => AppState.listEntries),
+      selectedPic: computed(() => AppState.selectedPic)
     }
   },
-  components: { Navbar, MoveDetailCard, RoutineDetailCard, CreateNewRoutineModal, RoutinePlayComponent }
+  components: { Navbar, MoveDetailCard, RoutineDetailCard, CreateNewRoutineModal, RoutinePlayComponent, ExpandPicModal }
 }
 </script>
 <style lang="scss">

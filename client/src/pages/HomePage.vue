@@ -7,15 +7,18 @@
     </section>
     <section class="row justify-content-center align-items-center pt-3">
       <div class="col-12 col-md-7 py-3 px-5 order-2 order-md-1 d-flex justify-content-center">
-        <p class="fs-5 p-2 rounded">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis veniam temporibus quod,
-          tenetur accusantium alias voluptas? Iure, vel magni. Mollitia maiores vero totam, quaerat rem a rerum accusamus
-          minima saepe.</p>
+        <p class="fs-5 p-2 rounded">At Rooted Flow, we believe everyone should have the tools to create their own custom
+          yoga routine. We want to empower everyone, from beginner to expert, to take responsibility for their body
+          health. Within the Catalog page of this application, you learn more about many different yoga poses and their
+          benefits. You can favorite these poses for quick access when creating a routine. The Catalog page also provides
+          Rooted Flow and community routines that have already been designed for use. Once you create your own custom
+          routine or favorite a routine, these will appear in your favorites list.</p>
       </div>
-      <div class="col-12 col-md-5 p-3 order-1 order-md-2 d-flex justify-content-center">
-        <img src="" alt="img for text 1" class="img border p-2">
+      <div @click="selectedPic(homeImgs[0])" class="col-12 col-md-5 p-3 order-1 order-md-2 d-flex justify-content-center">
+        <img type="button" :src="homeImgs[0].img" :alt="homeImgs[0].alt" class="img border p-2">
       </div>
-      <div class="col-12 col-md-5 p-3 order-3 order-md-3 d-flex justify-content-center">
-        <img src="" alt="img for text 2" class="img border p-2">
+      <div @click="selectedPic(homeImgs[1])" class="col-12 col-md-5 p-3 order-3 order-md-3 d-flex justify-content-center">
+        <img type="button" :src="homeImgs[1].img" :alt="homeImgs[1].alt" class="img border p-2">
       </div>
       <div class="col-12 col-md-7 py-3 px-5 order-4 order-md-4 d-flex justify-content-center">
         <p class="fs-5 p-2 rounded"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae vel a ipsum sunt
@@ -29,17 +32,31 @@
           voluptates asperiores quaerat, repellat id ut totam expedita, neque dolorem error perspiciatis. Fugit aperiam
           animi veritatis unde non.</p>
       </div>
-      <div class="col-12 col-md-5 p-3 order-1 order-md-2 d-flex justify-content-center">
-        <img src="" alt="img for text 3" class="img border p-2">
+      <div @click="selectedPic(homeImgs[2])" class="col-12 col-md-5 p-3 order-1 order-md-2 d-flex justify-content-center">
+        <img :src="homeImgs[2].img" :alt="homeImgs[2].alt" class="img border p-2">
       </div>
     </section>
   </div>
 </template>
 
 <script>
+import { Modal } from "bootstrap";
+import { AppState } from "../AppState";
+
 export default {
   setup() {
-    return {}
+    const homeImgs = [
+      { img: '/src/assets/img/CatalogSnapshot.png', alt: 'Catalog Snapshot' },
+      { img: '', alt: '' },
+      { img: '', alt: '' }
+    ]
+    return {
+      homeImgs,
+      selectedPic(imgObj) {
+        AppState.selectedPic = imgObj
+        Modal.getOrCreateInstance('#expand-modal').show()
+      }
+    }
   }
 }
 </script>
