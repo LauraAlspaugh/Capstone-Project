@@ -104,7 +104,7 @@ export default {
     const resetTimer = () => {
       clearInterval(intervalId);
       intervalId = null;
-      countdown.value = 120;
+      countdown.value = totalTime;
       drawCircles();
       startTimer();
     };
