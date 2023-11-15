@@ -70,6 +70,7 @@ class RoutinesService {
 
     async deleteRoutine() {
         const routineObj = AppState.selectedRoutine;
+        if (routineObj.favoritedCount > 0){ throw new Error('Cannot delete - someone is still using this routine')}
         if (routineObj.creatorId != AppState.account.id) { throw new Error('Not yours to delete') }
         const res = await api.delete(`api/routines/${routineObj.id}/delete`)
         AppState.routines = AppState.routines.filter(routine => routine.id != routineObj.id);
