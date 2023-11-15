@@ -20,6 +20,8 @@ import { movesService } from '../services/MovesService.js'
 
 export default {
   setup() {
+    let finishedMove = computed(() => AppState.finishedMove);
+
     let myCanvas = ref(null);
     let totalTime = 10;  //total time we want to count down in seconds
     let countdown = ref(totalTime); //time remaining in seconds
@@ -84,6 +86,7 @@ export default {
           if (countdown.value <= 0) {
             clearInterval(intervalId);
             movesService.finishMove();
+            resetTimer();
             // or perform other actions when countdown reaches 0
           } else {
             drawCircles();
@@ -107,7 +110,10 @@ export default {
       countdown.value = totalTime;
       drawCircles();
       startTimer();
-    };
+      setTimeout(() => {
+        movesService.startMove();
+      }, 100);
+    }
 
     onMounted(() => {
       drawCircles();
