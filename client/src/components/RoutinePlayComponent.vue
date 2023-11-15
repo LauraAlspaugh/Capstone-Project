@@ -15,8 +15,8 @@
                 <img :src="listEntries[currentMoveIndexNumber].move.imgUrl" alt="First image" />
               </div>
               <p class="routine-name italiana mt-5">{{ listEntries[currentMoveIndexNumber].move.englishName }}
-                <span class="btn fs-1" data-bs-toggle="modal" data-bs-target="#exampleModal"><i type="button"
-                    title="open modal " class="mdi mdi-dots-vertical"></i></span>
+                <span @click="showDetails = !showDetails" type="button" role="button" class="btn fs-1"><i
+                    title="show details " class="mdi mdi-dots-vertical"></i></span>
               </p>
 
             </div>
@@ -58,7 +58,7 @@
 
         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
         <!-- </div> -->
-        <div class="modal-body">
+        <div v-if="showDetails" class="modal-body">
           <RoutinePlayPageModal :moveProp="listEntries[currentMoveIndexNumber].move" />
         </div>
       </div>
@@ -91,6 +91,7 @@ export default {
     let nextMoveIndexNumber = ref(1);
     let greenFilter = ref(false);
     let nextMoveIsTransition = ref(false);
+    const showDetails = ref(false)
 
     return {
       previousMoveIndexNumber,
@@ -98,11 +99,22 @@ export default {
       nextMoveIndexNumber,
       greenFilter,
       nextMoveIsTransition,
+      showDetails,
 
       activeRoutine: computed(() => AppState.activeRoutine),
       listEntries: computed(() => AppState.listEntries),
       activeMove: computed(() => AppState.activeMove),
       finishedMove: computed(() => AppState.finishedMove),
+
+      // document.getElementById("toggleBtn").onclick = function () {
+      //   let secondDiv = document.getElementById("secondDiv")
+      //   if (secondDiv.style.display === "none") {
+      //     secondDiv.style.display = "block";
+      //   } else {
+      //     secondDiv.style.display = "none";
+      //   }
+      // },
+
 
       nextMove() {
         if (greenFilter.value == true) {
