@@ -23,7 +23,7 @@
             </div>
 
             <div class="d-flex justify-content-between color3">
-                <span>{{ routineProp.playTime / 60 }} min</span>
+                <span>{{ (routineProp.playTime / 60).toFixed(1) }} min</span>
                 <span>{{ routineProp.level }}</span>
                 <!-- <span>{{ routineProp.target }}</span> -->
             </div>
@@ -77,7 +77,7 @@ export default {
             isFavRoutine: computed(() => AppState.myFavoriteRoutines.find((routine) => routine.routineId == props.routineProp.id)),
 
             setActiveRoutine() {
-                AppState.activeRoutine = props.routineProp;
+                AppState.selectedRoutine = props.routineProp;
                 Modal.getOrCreateInstance('#routine-modal').show();
             }
 
