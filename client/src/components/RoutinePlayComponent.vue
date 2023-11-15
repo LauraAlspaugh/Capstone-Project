@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid template-body">
+  <div class="container-fluid componentBody">
     <section class="row">
 
       <div v-if="activeRoutine" class="col-12  p-5 position-relative">
@@ -9,12 +9,12 @@
             src="../assets/img/RootedFlow Logo-only.png" />
           <button class="btn btn rounded-circle  bg-dark"><i class="mdi mdi-play fs-4 "></i></button></span>
         <section class="row ">
-          <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length">
+          <div v-if="nextMoveIndexNumber <= listEntries.length">
             <div v-if="activeRoutine" class="col-12 text-center mt-5">
               <div class="main-picture" :class="{ 'green-filter': greenFilter }">
-                <img :src="activeRoutine.listEntry[currentMoveIndexNumber].move.imgUrl" alt="First image" />
+                <img :src="listEntries[currentMoveIndexNumber].move.imgUrl" alt="First image" />
               </div>
-              <p class="routine-name italiana mt-5">{{ activeRoutine.listEntry[currentMoveIndexNumber].move.englishName }}
+              <p class="routine-name italiana mt-5">{{ listEntries[currentMoveIndexNumber].move.englishName }}
                 <span class="btn fs-1" data-bs-toggle="modal" data-bs-target="#exampleModal"><i type="button"
                     title="open modal " class="mdi mdi-dots-vertical"></i></span>
               </p>
@@ -24,19 +24,19 @@
         </section>
         <section class="row">
 
-          <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length"></div>
+          <div v-if="nextMoveIndexNumber <= listEntries.length"></div>
           <div class="col-12  d-flex justify-content-between   small-image">
             <p class="d-flex  pl-4">
               <TimerComponent />
             </p>
-            <div v-if="activeRoutine.listEntry[nextMoveIndexNumber]">
-              <div v-if="activeRoutine.listEntry[nextMoveIndexNumber].transition == false">
-                <img :src="activeRoutine.listEntry[nextMoveIndexNumber].move.imgUrl" alt="Second Picture"
+            <div v-if="listEntries[nextMoveIndexNumber]">
+              <div v-if="listEntries[nextMoveIndexNumber].transition == false">
+                <img :src="listEntries[nextMoveIndexNumber].move.imgUrl" alt="Second Picture"
                   class="small-picture mt-3">
               </div>
               <div v-else>
-                <p>{{ activeRoutine.listEntry[nextMoveIndexNumber].duration }} second interval before next pose.</p>
-                <img :src="activeRoutine.listEntry[nextMoveIndexNumber + 1].move.imgUrl" alt="Second Picture"
+                <p>{{ listEntries[nextMoveIndexNumber].duration }} second interval before next pose.</p>
+                <img :src="listEntries[nextMoveIndexNumber + 1].move.imgUrl" alt="Second Picture"
                   class="small-picture">
               </div>
               <!-- <p class="text-start pl-4">
@@ -46,7 +46,7 @@
             <div v-else></div>
           </div>
         </section>
-        <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length">
+        <div v-if="nextMoveIndexNumber <= listEntries.length">
           <button @click="nextMove()" class="btn btn-success ">Change Move</button>
         </div>
         <div v-else>
@@ -61,9 +61,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <RoutinePlayPageModal :moveProp="activeRoutine.listEntry[currentMoveIndexNumber].move" />
-
-
+                <RoutinePlayPageModal :moveProp="listEntries[currentMoveIndexNumber].move" />
               </div>
             </div>
           </div>
@@ -71,7 +69,7 @@
       </div>
 
     </section>
-    <!-- <div v-if="nextMoveIndexNumber <= activeRoutine.listEntry.length" > 
+    <!-- <div v-if="nextMoveIndexNumber <= listEntries.length" > 
         <button  @click="nextMove()" class="btn btn-success">Change Move</button>
         </div>
         <div v-else >
@@ -83,58 +81,41 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, onMounted, ref } from 'vue';
-import { useRoute } from "vue-router";
+import { computed, ref } from 'vue';
 import { logger } from "../utils/Logger.js";
-import Pop from "../utils/Pop.js";
-import { routinesService } from "../services/RoutinesService.js";
 import TimerComponent from './TimerComponent.vue';
 import RoutinePlayPageModal from './RoutinePlayPageModal.vue';
-import { movesService } from '../services/MovesService.js';
 
 export default {
   setup() {
-    const route = useRoute();
     let previousMoveIndexNumber = ref(-1);
     let currentMoveIndexNumber = ref(0);
     let nextMoveIndexNumber = ref(1);
     let greenFilter = ref(false);
     let nextMoveIsTransition = ref(false);
-    onMounted(() => {
-      if (route.params.routineId) {
-        getRoutineById();
-      }
-
-    });
-    async function getRoutineById() {
-      try {
-        const routineId = route.params.routineId;
-        await routinesService.setActiveRoutine(routineId);
-        logger.log(AppState.activeRoutine);
-      }
-      catch (error) {
-        Pop.error(error);
-      }
-    }
+    
     return {
       previousMoveIndexNumber,
       currentMoveIndexNumber,
       nextMoveIndexNumber,
       greenFilter,
       nextMoveIsTransition,
+
       activeRoutine: computed(() => AppState.activeRoutine),
+      listEntries: computed(() => AppState.listEntries),
       activeMove: computed(() => AppState.activeMove),
       finishedMove: computed(() => AppState.finishedMove),
+
       nextMove() {
         if (greenFilter.value == true) {
           logger.log("Switching green filter?");
           greenFilter.value = false;
           return;
         }
-        if (nextMoveIndexNumber.value < this.activeRoutine.listEntry.length) {
-          // if (AppState.activeRoutine.listEntry[nextMoveIndexNumber.value].transition == false && AppState.activeRoutine.listEntry[currentMoveIndexNumber.value].transition == true) {
+        if (nextMoveIndexNumber.value < this.listEntries.length) {
+          // if (AppState.listEntries[nextMoveIndexNumber.value].transition == false && AppState.listEntries[currentMoveIndexNumber.value].transition == true) {
           //   logger.log("First condition TRUE, figure out what to do")
-          if (AppState.activeRoutine.listEntry[nextMoveIndexNumber.value].transition == true && AppState.activeRoutine.listEntry[currentMoveIndexNumber.value].transition == false) {
+          if (AppState.listEntries[nextMoveIndexNumber.value].transition == true && AppState.listEntries[currentMoveIndexNumber.value].transition == false) {
             currentMoveIndexNumber.value += 2;
             nextMoveIndexNumber.value += 2;
             greenFilter.value = true;
@@ -145,7 +126,7 @@ export default {
             currentMoveIndexNumber.value++;
             nextMoveIndexNumber.value++;
           }
-          logger.log("Index number", currentMoveIndexNumber.value, "AppState.activeRoutine.length", AppState.activeRoutine.listEntry.length);
+          logger.log("Index number", currentMoveIndexNumber.value, "AppState.activeRoutine.length", AppState.listEntries.length);
         }
         else {
           logger.log("false");
@@ -165,7 +146,6 @@ export default {
   display: flex;
   justify-content: center;
   height: 400px;
-
   width: 100%;
 
   img {
@@ -174,8 +154,6 @@ export default {
     position: center;
     border: 3px solid black;
   }
-
-
 }
 
 .small-picture {
@@ -185,7 +163,6 @@ export default {
   position: center;
   border: 3px solid black;
 }
-
 .green-filter {
   position: relative;
 
@@ -199,7 +176,6 @@ export default {
     content: "";
     background-color: rgba(82, 109, 82, 0.465)
   }
-
   // filter: drop-shadow(8px 8px 10px green);
 }
 
@@ -215,9 +191,8 @@ export default {
   filter: sepia(100%) hue-rotate(90deg) saturate(400%);
 }
 
-.template-body {
+.componentBody {
   background-color: white;
-
 }
 
 .routine-name {

@@ -60,17 +60,18 @@ Launch demo modal
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { Move } from '../models/Move.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { movesService } from '../services/MovesService.js';
+
 export default {
     props: { moveProp: { type: Move, required: true } },
+    
     setup(props) {
-        onMounted(() => {
-            findMove()
-        })
+        let currentMoveIndexNumber = ref(0);
+
         async function findMove() {
             try {
                 const id = props.moveProp.id
@@ -80,18 +81,19 @@ export default {
                 // return move
                 logger.log('getting move', move)
                 return move
-            } catch (error) {
-                logger.error(error)
-                Pop.error(error)
-
             }
+            catch (error) { Pop.error(error) }
         }
-        let currentMoveIndexNumber = ref(0);
+        
+        onMounted(() => {
+            findMove();
+        })
+
         return {
+            currentMoveIndexNumber,
             routine: computed(() => AppState.routines),
             activeRoutine: computed(() => AppState.activeRoutine),
             activeMove: computed(() => AppState.activeMove),
-            currentMoveIndexNumber,
             move: computed(() => findMove())
         }
     }
