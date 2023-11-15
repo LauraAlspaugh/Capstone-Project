@@ -31,13 +31,11 @@
             </p>
             <div v-if="listEntries[nextMoveIndexNumber]">
               <div v-if="listEntries[nextMoveIndexNumber].transition == false">
-                <img :src="listEntries[nextMoveIndexNumber].move.imgUrl" alt="Second Picture"
-                  class="small-picture mt-3">
+                <img :src="listEntries[nextMoveIndexNumber].move.imgUrl" alt="Second Picture" class="small-picture mt-3">
               </div>
               <div v-else>
                 <p>{{ listEntries[nextMoveIndexNumber].duration }} second interval before next pose.</p>
-                <img :src="listEntries[nextMoveIndexNumber + 1].move.imgUrl" alt="Second Picture"
-                  class="small-picture">
+                <img :src="listEntries[nextMoveIndexNumber + 1].move.imgUrl" alt="Second Picture" class="small-picture">
               </div>
               <!-- <p class="text-start pl-4">
               <TimerComponent/>
@@ -52,21 +50,21 @@
         <div v-else>
         </div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <h5 class="modal-title" id="exampleModalLabel"></h5> -->
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <RoutinePlayPageModal :moveProp="listEntries[currentMoveIndexNumber].move" />
-              </div>
-            </div>
-          </div>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+        <!-- </div> -->
+        <div class="modal-body">
+          <RoutinePlayPageModal :moveProp="listEntries[currentMoveIndexNumber].move" />
         </div>
       </div>
+      <!-- </div> -->
+      <!-- </div>
+      </div> -->
 
     </section>
     <!-- <div v-if="nextMoveIndexNumber <= listEntries.length" > 
@@ -93,7 +91,7 @@ export default {
     let nextMoveIndexNumber = ref(1);
     let greenFilter = ref(false);
     let nextMoveIsTransition = ref(false);
-    
+
     return {
       previousMoveIndexNumber,
       currentMoveIndexNumber,
@@ -163,6 +161,7 @@ export default {
   position: center;
   border: 3px solid black;
 }
+
 .green-filter {
   position: relative;
 
@@ -176,6 +175,7 @@ export default {
     content: "";
     background-color: rgba(82, 109, 82, 0.465)
   }
+
   // filter: drop-shadow(8px 8px 10px green);
 }
 

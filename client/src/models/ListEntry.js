@@ -1,3 +1,5 @@
+import { Move } from "./Move.js"
+
 export class ListEntry {
     constructor(data) {
         this.id = data.id || data._id
@@ -9,7 +11,7 @@ export class ListEntry {
         this.transition = data.transition
         this.routineId = data.routineId
         this.moveId = data.moveId
-        this.move = data.move
+        this.move = new Move(data.move) 
         this.creatorId = data.creatorId
         this.creator = data.creator
         this.editPosition = false

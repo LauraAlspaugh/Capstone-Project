@@ -3,30 +3,34 @@
         <section v-if="activeMove" class="row">
             <div class="col-12 d-flex justify-content-between">
                 <!-- <p>{{activeRoutine.listEntry[currentMoveIndexNumber].move.level}}</p> -->
-                <p class="fs-5">{{ moveProp.level }}</p>
-                <i class=" fs-3 mdi mdi-heart"></i>
+                <!-- <p class="fs-5">{{ moveProp.level }}</p> -->
+                <!-- <i class=" fs-3 mdi mdi-heart"></i> -->
             </div>
         </section>
         <section v-if="activeMove" class="row">
-            <div class="col-12 text-start p-3">
+            <!-- <div class="col-12 text-start p-3">
                 <span class="pe-3 fs-5" v-for="body in moveProp.bodyPart" :key="body">{{ body }}</span>
-            </div>
+            </div> -->
         </section>
         <section v-if="activeMove" class="row">
-            <div class="col-12 text-start">
-                <p class="fs-4">Description: </p>
-                <!-- <li v-for="description in moveProp.descriptionArray" :key="description">{{ description }}
-                </li> -->
-                <p class="fs-5">{{ moveProp.description }}</p>
+            <div class="col-12 p-3 d-flex justify-content-between ">
+                <p class="fs-4 ">Description: </p>
+                <i class=" fs-3 me-3 mdi mdi-heart"></i>
             </div>
         </section>
-        <section v-if="activeMove" class="row">
+        <section class="row">
+            <div class="col-12">
+                <li v-for="description in moveProp.descriptionArray" :key="description">{{ description }}</li>
+                <!-- <p class="fs-5">{{ moveProp.description }}</p> -->
+            </div>
+        </section>
+        <!-- <section v-if="activeMove" class="row">
             <div class="col-12 text-start">
                 <p class="fs-4">Benefits: </p>
-                <!-- <li v-for="benefit in moveProp.benefitsArray" :key="benefit"> {{ benefit }}</li> -->
+                <li v-for="benefit in moveProp.benefitsArray" :key="benefit"> {{ benefit }}</li> 
                 <p class="fs-5">{{ moveProp.benefits }}</p>
             </div>
-        </section>
+        </section> -->
 
         <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         
@@ -68,7 +72,7 @@ import { movesService } from '../services/MovesService.js';
 
 export default {
     props: { moveProp: { type: Move, required: true } },
-    
+
     setup(props) {
         let currentMoveIndexNumber = ref(0);
 
@@ -84,7 +88,7 @@ export default {
             }
             catch (error) { Pop.error(error) }
         }
-        
+
         onMounted(() => {
             findMove();
         })
