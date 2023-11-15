@@ -68,12 +68,12 @@ class ListEntriesService {
         } if (!routineDoc) {
             throw new BadRequest('This is not a routine to be updated')
         }
+
         const routine = await dbContext.ListEntries.find({ routineId })
         listEntryData.position = routine.length + 1;
-        const interval = await dbContext.Moves.find({ englishName: 'Interval' })
-        logger.log('listentry interval find', interval);
-        if (listEntryData.moveId == interval.id) { listEntryData.transition = true; }
-        logger.log('listentry create obj', listEntryData);
+
+        const interval = await dbContext.Moves.find({ englishName: 'Interval' }).lean()
+        if (listEntryData.moveId == interval[0]._id.toString()) { listEntryData.transition = true; }
         const newListEntry = await dbContext.ListEntries.create(listEntryData)
         await newListEntry.populate('move', 'englishName sanskritName imgUrl duration bodyPart level description benefits')
         await _updateUsageCount(newListEntry.moveId)

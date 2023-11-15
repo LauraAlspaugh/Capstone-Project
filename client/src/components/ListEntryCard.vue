@@ -139,6 +139,7 @@ export default {
 
 .thumbnail {
   height: 3rem;
+  width: 3.5rem;
 }
 
 .timer-color {
