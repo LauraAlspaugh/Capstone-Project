@@ -49,7 +49,7 @@
     aria-labelledby="openPlayerLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
       <div class="modal-content">
-        <div class="modal-body">
+        <div class="modal-body" v-if="appState.activeRoutine?.id && appState.listEntries.length > 0">
           <RoutinePlayComponent />
         </div>
       </div>
