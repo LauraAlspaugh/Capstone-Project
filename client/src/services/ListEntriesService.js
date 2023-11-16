@@ -1,9 +1,17 @@
 import { AppState } from "../AppState"
 import { ListEntry } from "../models/ListEntry";
+import { ListEntryUpdate } from "../models/ListEntryUpdate";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { api } from "./AxiosService";
 
+async function _updatePositions(shiftPositions) {
+  const updatePositions = shiftPositions.map(entry => new ListEntryUpdate({
+    id: entry.id, position: entry.position, routineId: entry.routineId
+  })); // create objects with IDs & new positions
+  const res = await api.put('api/listentries', updatePositions)
+  logger.log('api put results', res.data)
+}
 class ListEntriesService{
 
   async getListEntriesByRoutineId(routineId) {
@@ -21,7 +29,15 @@ class ListEntriesService{
 
   async removeListEntry(listEntryId) {
     const res = await api.delete(`api/listentries/${listEntryId}`);
+    const currentPosition = AppState.listEntries.findIndex(entry => entry.id == listEntryId) + 1;
     AppState.listEntries = AppState.listEntries.filter(entry => entry.id != listEntryId)
+    const lastPosition = AppState.listEntries.length;
+    let shiftPositions = AppState.listEntries.slice(currentPosition - 1, lastPosition); // get copy of positions that will change
+    shiftPositions.forEach(entry => { entry.position-- });
+    shiftPositions.forEach((entry, i) => {
+      AppState.listEntries.splice(currentPosition - 1 + i, 1, shiftPositions[i])
+    })
+    await _updatePositions(shiftPositions);
     return res.data
   }
 
@@ -53,10 +69,7 @@ class ListEntriesService{
         AppState.listEntries.splice(newPosition - 1 + i, 1, shiftPositions[i])        
       })
     } 
-    logger.log('shiftPositions', shiftPositions);
-    const updatePositions = shiftPositions.map(entry => new ListEntry({ _id: entry.id, position: entry.position })); // create objects with IDs & new positions
-    const res = await api.put('api/listentries', updatePositions) 
-    logger.log('api put results', res.data)
+    await _updatePositions(shiftPositions);
   }
   
   async changeDuration(listEntryObj) {

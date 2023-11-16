@@ -104,7 +104,8 @@ class ListEntriesService {
     }
 
     async editPosition(listEntryData) {
-        const routine = await dbContext.Routines.findById(listEntryData.routineId);
+        const routine = await dbContext.Routines.findById(listEntryData[0].routineId);
+        logger.log('routine search on edit', routine, listEntryData)
         if (routine.creatorId.toString() != listEntryData.userId) {
             throw new Forbidden('Do not even try it')
         }
