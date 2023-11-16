@@ -3,9 +3,6 @@
     <section class="row">
       <div class="col-5">
         <canvas ref="myCanvas" width="190" height="190" class="timer"></canvas>
-        <button @click="resetTimer()" class="btn btn-success">Reset timer</button>
-        <button @click="pauseTimer()" class="btn btn-info">Pause timer</button>
-        <button @click="resumeTimer()" class="btn btn-warning">Restart timer</button>
       </div>
     </section>
   </div>
@@ -14,18 +11,27 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted, ref } from 'vue';
-import { logger } from '../utils/Logger.js';
+import { computed, reactive, onMounted, ref, watch } from 'vue';
 import { movesService } from '../services/MovesService.js'
 
 export default {
   setup() {
+
     let moveNumber = ref(0);
 
+    watch(moveNumber, () => {
+      if (moveNumber.value) {
+        countdown.value = AppState.activeRoutine.listEntry[moveNumber.value].duration
+      }
+    });
+
     let myCanvas = ref(null);
-    let totalTime = AppState.activeRoutine.listEntry[moveNumber.value].duration
-    // let totalTime = 10;  //total time we want to count down in seconds
-    let countdown = ref(totalTime); //time remaining in seconds
+
+    let totalTime = computed(() => {
+      return AppState.activeRoutine.listEntry[moveNumber.value].duration;
+    }); //total time we want to count down in seconds
+
+    let countdown = ref(AppState.activeRoutine.listEntry[moveNumber.value].duration); //time remaining in seconds, gets updated whenever moveNumber changes due to watch
 
     let intervalId;
 
@@ -55,7 +61,7 @@ export default {
         ctx.fill();
       }
 
-      let dotsToDisappear = Math.floor((countdown.value / totalTime) * numDots);
+      let dotsToDisappear = Math.floor((countdown.value / totalTime.value) * numDots);
 
       for (let i = 0; i < dotsToDisappear; i++) {
         let angle = (-i / numDots) * Math.PI * 2 + Math.PI / 2 + Math.PI;
@@ -88,7 +94,6 @@ export default {
             clearInterval(intervalId);
             movesService.finishMove();
             moveNumber.value++
-            logger.log("MoveNumber", moveNumber.value, "seconds", totalTime, "ActiveRoutine", AppState.activeRoutine)
             resetTimer();
             // or perform other actions when countdown reaches 0
           } else {
@@ -110,7 +115,7 @@ export default {
     const resetTimer = () => {
       clearInterval(intervalId);
       intervalId = null;
-      countdown.value = totalTime;
+      countdown.value = totalTime.value;
       drawCircles();
       startTimer();
       setTimeout(() => {

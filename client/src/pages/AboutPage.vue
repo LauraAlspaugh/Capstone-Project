@@ -25,7 +25,7 @@
           autem voluptate est at accusamus aperiam ipsa.</p>
       </div>
       <div class="col-12 col-md-5 p-3 my-2 order-3 order-md-4 d-flex justify-content-center">
-        <img src="" alt="img for dev 2" class="img border p-2">
+        <img src="src/assets/img/Erin.jpeg" alt="img for dev 2" class="img border p-2">
       </div>
     </section>
     <section class="row justify-content-center align-items-center px-5">

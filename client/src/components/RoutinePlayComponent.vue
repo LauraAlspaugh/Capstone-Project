@@ -41,42 +41,16 @@
                 <p>{{ listEntries[nextMoveIndexNumber].duration }} second interval before next pose.</p>
                 <img :src="listEntries[nextMoveIndexNumber + 1].move.imgUrl" alt="Second Picture" class="small-picture">
               </div>
-              <!-- <p class="text-start pl-4">
-              <TimerComponent/>
-            </p> -->
             </div>
             <div v-else></div>
           </div>
         </section>
-        <div v-if="nextMoveIndexNumber <= listEntries.length">
-          <button @click="nextMove()" class="btn btn-success ">Change Move</button>
-        </div>
-        <div v-else>
-        </div>
-
-        <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5> -->
-
-        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-        <!-- </div> -->
         <div v-if="showDetails" class="modal-body">
           <RoutinePlayPageModal :moveProp="listEntries[currentMoveIndexNumber].move" />
         </div>
       </div>
-      <!-- </div> -->
-      <!-- </div>
-      </div> -->
 
     </section>
-    <!-- <div v-if="nextMoveIndexNumber <= listEntries.length" > 
-        <button  @click="nextMove()" class="btn btn-success">Change Move</button>
-        </div>
-        <div v-else >
-        
-        </div>   -->
   </div>
 </template>
 
@@ -84,8 +58,6 @@
 <script>
 import { AppState } from '../AppState';
 import { computed, ref, watch } from 'vue';
-import { logger } from "../utils/Logger.js";
-import TimerComponent from './TimerComponent.vue';
 import RoutinePlayPageModal from './RoutinePlayPageModal.vue';
 
 
@@ -132,10 +104,7 @@ export default {
 
     function flipPlayingOrPaused() {
       isPlaying.value = !isPlaying.value
-      logger.log("isPlaying.value", isPlaying.value)
     }
-
-
 
     return {
       previousMoveIndexNumber,
