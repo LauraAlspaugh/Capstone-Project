@@ -149,7 +149,19 @@ export default {
       intervalId = null;
       countdown.value = totalTime.value;
       drawCircles();
+      setTimeout(() => {
+        movesService.startMove();
+      }, 100);
       startTimer();
+    }
+
+    const resetAndStopTimer = () => {
+      setTimeout(() => {
+        clearInterval(intervalId);
+        intervalId = null;
+        countdown.value = totalTime.value;
+        drawCircles();
+      }, 100)
       setTimeout(() => {
         movesService.startMove();
       }, 100);
@@ -157,7 +169,6 @@ export default {
 
     onMounted(() => {
       drawCircles();
-      // startTimer();
     })
 
 
@@ -168,6 +179,7 @@ export default {
       pauseTimer,
       resumeTimer,
       startTimer,
+      resetAndStopTimer,
     }
 
   }

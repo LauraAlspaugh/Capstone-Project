@@ -27,6 +27,7 @@ class AccountService {
     try {
       const res = await api.put('/account', newData);
       AppState.account = new Account(res.data);
+      AppState.activeTransitionSound = AppState.account.transitionSound
     } catch (error) {
       Pop.error(error);
     }

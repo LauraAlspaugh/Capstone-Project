@@ -40,6 +40,6 @@ export const AppState = reactive({
     { name: 'Singing Bowl', audio: new Audio('src/assets/sounds/singing-bowl-gong_By_zambolino.wav') },
     { name: 'Solfeggio Wind Chimes', audio: new Audio('src/assets/sounds/solfeggio-wind-chimes-mi-528-hz-single-cut_By_the_very_real_horst__.wav') }
   ],
-  activeTransitionSound: null,
+  activeTransitionSound: { name: 'Ding', audio: new Audio('/src/assets/sounds/chimes-14_By_bliind.wav') },
 
 })
