@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <section class="row">
       <div class="col-5">
-        <canvas ref="myCanvas" width="190" height="190" class="timer"></canvas>
+        <canvas ref="myCanvas" class="timer"></canvas>
       </div>
     </section>
   </div>
@@ -16,7 +16,13 @@ import { movesService } from '../services/MovesService.js'
 
 export default {
   setup() {
-    let scale = window.devicePixelRatio;
+    // let canvasWidth = 450;
+    // let canvasHeight = 450;
+
+    // const scaledWidth = computed(() => canvasWidth * scale);
+    // const scaledHeight = computed(() => canvasHeight * scale);
+
+    // let scale = window.devicePixelRatio;
 
     let moveNumber = ref(0);
 
@@ -37,29 +43,50 @@ export default {
     let intervalId;
 
     let numDots = 30
-    let outerDotsRadius = 60
-    let innerDotsRadius = 50
+    let outerDotsRadius = 120
+    let innerDotsRadius = 100
 
     const drawCircles = () => {
+
       let canvas = myCanvas.value;
 
       let ctx = canvas.getContext('2d');
 
+      // let canvasWidth = 290;
+      // let canvasHeight = 290;
+
+      canvas.width = 320;
+      canvas.height = 320;
+
+      // const scaledWidth = computed(() => canvasWidth * scale);
+      // const scaledHeight = computed(() => canvasHeight * scale);
+
+
+      // let scale = window.devicePixelRatio;
+      // canvas.width = scaledWidth.value;
+      // canvas.height = scaledHeight.value;
+      // canvas.width = canvasWidth * scale;
+      // canvas.height = canvasHeight * scale;
+
+      // ctx.scale(scale, scale);
+
       ctx.clearRect(25, 20, 150, 140);
 
       ctx.beginPath()
-      ctx.arc(95, 90, 70, 0, 2 * Math.PI);
-      ctx.lineWidth = 1;
+      ctx.arc(160, 160, 130, 0, 2 * Math.PI);
+      ctx.fillStyle = 'black';
+      ctx.lineWidth = 1.2;
       ctx.stroke();
 
       for (let i = 0; i < numDots; i++) {
         let angle = (i / numDots) * Math.PI * 2;
-        let x = 95 + outerDotsRadius * Math.cos(angle);
-        let y = 90 + outerDotsRadius * Math.sin(angle);
+        let x = 160 + outerDotsRadius * Math.cos(angle);
+        let y = 160 + outerDotsRadius * Math.sin(angle);
 
         ctx.beginPath();
         ctx.arc(x, y, 1, 0, 2 * Math.PI);
-        ctx.fillStyle = 'grey';
+        ctx.lineWidth = .25;
+        ctx.fillStyle = 'black';
         ctx.fill();
       }
 
@@ -67,11 +94,12 @@ export default {
 
       for (let i = 0; i < dotsToDisappear; i++) {
         let angle = (-i / numDots) * Math.PI * 2 + Math.PI / 2 + Math.PI;
-        let x = 95 + innerDotsRadius * Math.cos(angle);
-        let y = 90 + innerDotsRadius * Math.sin(angle);
+        let x = 160 + innerDotsRadius * Math.cos(angle);
+        let y = 160 + innerDotsRadius * Math.sin(angle);
 
         ctx.beginPath();
-        ctx.arc(x, y, 3, 0, 2 * Math.PI);
+        ctx.arc(x, y, 7, 0, 2 * Math.PI);
+        ctx.lineWidth = .25;
 
         if (i >= dotsToDisappear) {
           ctx.fillStyle = "white";
@@ -126,14 +154,6 @@ export default {
     }
 
     onMounted(() => {
-      let canvas = myCanvas.value;
-
-      let ctx = canvas.getContext('2d');
-
-      canvas.width = canvas.width * scale;
-      canvas.height = canvas.height * scale;
-      ctx.scale(scale, scale);
-
       drawCircles();
       // startTimer();
     })
@@ -146,6 +166,8 @@ export default {
       pauseTimer,
       resumeTimer,
       startTimer,
+      // scaledWidth,
+      // scaledHeight,
     }
 
   }
@@ -158,5 +180,9 @@ export default {
 <style lang="scss" scoped>
 .timer {
   border: 1px solid black;
+  width: 50%;
+  height: auto;
+  transform-origin: 0 0;
+  transform: scale(1); // The scaling is applied through width and height
 }
 </style>

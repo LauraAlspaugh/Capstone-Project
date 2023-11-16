@@ -30,9 +30,9 @@
 
           <div v-if="nextMoveIndexNumber <= listEntries.length"></div>
           <div class="col-12  d-flex justify-content-between   small-image">
-            <p class="d-flex  pl-4">
-              <TimerComponent ref="timer" />
-            </p>
+            <!-- <p class="d-flex  pl-4"> -->
+            <TimerComponent ref="timer" />
+            <!-- </p> -->
             <div v-if="listEntries[nextMoveIndexNumber]">
               <div v-if="listEntries[nextMoveIndexNumber].transition == false">
                 <img :src="listEntries[nextMoveIndexNumber].move.imgUrl" alt="Second Picture" class="small-picture mt-3">
