@@ -61,22 +61,25 @@ class ListEntriesService {
     // SECTION 🔽 AUTHENTICATION REQUIRED 🔽
 
     async createListEntry(listEntryData) {
-        const routineId = listEntryData.routineId
-        const routineDoc = await dbContext.Routines.findById(routineId)
+        const routineId = listEntryData.routineId;
+        const routineDoc = await dbContext.Routines.findById(routineId).populate('totalEntries');
         if (routineDoc.creatorId.toString() != listEntryData.creatorId) {
             throw new Forbidden('Do not even try it')
         } if (!routineDoc) {
             throw new BadRequest('This is not a routine to be updated')
         }
 
-        const routine = await dbContext.ListEntries.find({ routineId })
-        listEntryData.position = routine.length + 1;
+        // const routine = await dbContext.ListEntries.find({ routineId })
+        // listEntryData.position = routine.length + 1;
+        // @ts-ignore
+        listEntryData.position = routineDoc.totalEntries + 1;
 
-        const interval = await dbContext.Moves.findOne({ englishName: 'Interval' }).lean()
-        if (listEntryData.moveId == interval._id.toString()) { listEntryData.transition = true; }
+        // const interval = await dbContext.Moves.findOne({ englishName: 'Interval' }).lean()
+        // if (listEntryData.moveId == interval._id.toString()) { listEntryData.transition = true; }
 
         const move = await dbContext.Moves.findById(listEntryData.moveId);
         listEntryData.duration = move.time;
+        if (move.englishName == 'Interval') { listEntryData.transition = true; }
 
         const newListEntry = await dbContext.ListEntries.create(listEntryData)
         await newListEntry.populate('move', 'englishName sanskritName imgUrl duration bodyPart level description benefits')

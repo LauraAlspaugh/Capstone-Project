@@ -37,6 +37,12 @@ RoutineSchema.virtual('listEntry', {
     localField: '_id',
     ref: 'ListEntry'
 })
+RoutineSchema.virtual('totalEntries', {
+    foreignField: 'routineId',
+    localField: '_id',
+    ref: 'ListEntry',
+    count: true
+})
 
 RoutineSchema.virtual('favoritedCount', {
     foreignField: 'routineId',
