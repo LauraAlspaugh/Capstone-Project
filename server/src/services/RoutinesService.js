@@ -1,9 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { dbContext } from "../db/DbContext.js"
-import { RoutineSchema } from "../models/Routine.js";
 import { BadRequest, Forbidden } from "../utils/Errors.js"
 import { logger } from "../utils/Logger.js";
-import { ListEntrySchema } from "../models/ListEntry.js";
 
 const CALC_CACHE = {}
 
@@ -132,43 +130,47 @@ class RoutinesService {
         return newRoutine
     }
 
-    async cloneRoutine(creatorId, routineId, body) {
-        logger.log(creatorId, routineId, body);
-        // const ogRoutine = await dbContext.Routines.findById(routineId);
-        // // @ts-ignore
-        // const clonedRoutine = new RoutineSchema({
-        //     ...ogRoutine.toObject(),
-        //     _id: new mongoose.Types.ObjectId(),
-        //     name: ogRoutine.name + ' (clone)',
-        //     creatorId
-        // });
-        // await clonedRoutine.save();
+    async cloneRoutine(creatorId, routineId) {
+        logger.log('intro params', creatorId, routineId);
+        const ogRoutine = await dbContext.Routines.findById(routineId).lean();
+        logger.log('ogRoutine', ogRoutine);
+        // @ts-ignore
+        const clonedRoutine = new Model({
+            ...ogRoutine,
+            _id: new mongoose.Types.ObjectId(),
+            name: ogRoutine.name + ' (clone)',
+            creatorId
+        });
+        await clonedRoutine.save();
+        logger.log('clonedRoutine', clonedRoutine);
 
-        // const ogListEntries = await dbContext.ListEntries.find({ routineId });
+        const ogListEntries = await dbContext.ListEntries.find({ routineId }).lean();
+        logger.log('ogListEntries find', ogListEntries);
 
-        // ogListEntries.forEach(listEntry => {
-        //     // @ts-ignore
-        //     const clonedListEntry = new ListEntrySchema({
-        //         ...listEntry.toObject(),
-        //         _id: new mongoose.Types.ObjectId(),
-        //         routineId: clonedRoutine._id,
-        //         creatorId
-        //     });
-        //     clonedListEntry.save();
-        // })
+        ogListEntries.forEach(listEntry => {
+            // @ts-ignore
+            const clonedListEntry = new Model({
+                ...listEntry,
+                _id: new mongoose.Types.ObjectId(),
+                routineId: clonedRoutine._id,
+                creatorId
+            });
+            clonedListEntry.save();
+        })
 
-        // _calcTarget(clonedRoutine.id);
+        _calcTarget(clonedRoutine.id);
 
-        // await clonedRoutine.populate('creator', 'name picture')
-        // await clonedRoutine.populate({
-        //     path: 'listEntry',
-        //     select: 'name position duration transition moveId',
-        //     populate: {
-        //         path: 'move',
-        //         select: 'englishName imgUrl bodyPart level description benefits'
-        //     }
-        // })
-        // return clonedRoutine
+        await clonedRoutine.populate('creator', 'name picture')
+        await clonedRoutine.populate({
+            path: 'listEntry',
+            select: 'name position duration transition moveId',
+            populate: {
+                path: 'move',
+                select: 'englishName imgUrl bodyPart level description benefits'
+            }
+        })
+        logger.log('clonedRoutine to return', clonedRoutine);
+        return clonedRoutine
     }
 
     async editRoutine(routineId, userId, routineData) {

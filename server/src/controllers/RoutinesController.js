@@ -2,6 +2,7 @@ import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController.js";
 import { routinesService } from "../services/RoutinesService.js";
 import { listEntriesService } from "../services/ListEntriesService.js";
+import { logger } from "../utils/Logger.js";
 
 export class RoutinesController extends BaseController {
     constructor() {
@@ -13,7 +14,7 @@ export class RoutinesController extends BaseController {
             // 🔽 REQUIRES AUTHENTICATION 🔽
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createRoutine)
-            .get('/routineId/clone', this.cloneRoutine)
+            .post('/:routineId/clone', this.cloneRoutine)
             .put('/:routineId', this.editRoutine)
             .delete('/:routineId', this.archiveRoutine)
             .delete('/:routineId/delete', this.deleteRoutine)
@@ -58,9 +59,9 @@ export class RoutinesController extends BaseController {
         try {
             const creatorId = request.userInfo.id;
             const routineId = request.params.routineId;
-            const newRoutine = await routinesService.cloneRoutine(creatorId, routineId, request.body);
-            return response.send(newRoutine)
-        } catch (error) { next(error) }
+            const clonedRoutine = await routinesService.cloneRoutine(creatorId, routineId);
+            return response.send(clonedRoutine)
+        } catch (error) { logger.log(error); next(error) }
     }
 
     async editRoutine(request, response, next) {

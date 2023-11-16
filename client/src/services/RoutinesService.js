@@ -37,11 +37,11 @@ class RoutinesService {
 
     async cloneRoutine(routineId) {
         const res = await api.post(`api/routines/${routineId}/clone`)
-        const newRoutine = new Routine(res.data);
-        logger.log('cloned routine', newRoutine);
-        newRoutine.edit = true; // enable edit view on routine editor
-        await this.setActiveRoutine(newRoutine.id)
-        return newRoutine
+        const clonedRoutine = new Routine(res.data);
+        logger.log('cloned routine', clonedRoutine);
+        clonedRoutine.edit = true; // enable edit view on routine editor
+        await this.setActiveRoutine(clonedRoutine.id)
+        return clonedRoutine
     }
 
     async editRoutine(routineData) {
