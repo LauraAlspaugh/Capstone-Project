@@ -2,6 +2,9 @@ import mongoose, { Model } from "mongoose";
 import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
 import { logger } from "../utils/Logger.js";
+import { RoutineSchema } from "../models/Routine.js";
+import { ListEntrySchema } from "../models/ListEntry.js";
+import { favoritesService } from "./FavoritesService.js";
 
 const CALC_CACHE = {}
 
@@ -127,19 +130,24 @@ class RoutinesService {
                 select: 'englishName imgUrl bodyPart level description benefits'
             }
         })
+        await favoritesService.createFavoritedRoutine({ routineId: newRoutine.id, creatorId: routineData.creatorId });
+
         return newRoutine
     }
 
     async cloneRoutine(creatorId, routineId) {
         logger.log('intro params', creatorId, routineId);
-        const ogRoutine = await dbContext.Routines.findById(routineId).lean();
+        const ogRoutine = await dbContext.Routines.findById(routineId);
         logger.log('ogRoutine', ogRoutine);
         // @ts-ignore
-        const clonedRoutine = new Model({
-            ...ogRoutine,
+        const Routine = mongoose.model('Routine', RoutineSchema);
+
+        const clonedRoutine = new Routine({
+            ...ogRoutine.toObject(),
             _id: new mongoose.Types.ObjectId(),
             name: ogRoutine.name + ' (clone)',
-            creatorId
+            creatorId,
+            isNew: true
         });
         await clonedRoutine.save();
         logger.log('clonedRoutine', clonedRoutine);
@@ -147,9 +155,10 @@ class RoutinesService {
         const ogListEntries = await dbContext.ListEntries.find({ routineId }).lean();
         logger.log('ogListEntries find', ogListEntries);
 
+        const ListEntry = mongoose.model('ListEntry', ListEntrySchema);
         ogListEntries.forEach(listEntry => {
             // @ts-ignore
-            const clonedListEntry = new Model({
+            const clonedListEntry = new ListEntry({
                 ...listEntry,
                 _id: new mongoose.Types.ObjectId(),
                 routineId: clonedRoutine._id,
@@ -158,9 +167,14 @@ class RoutinesService {
             clonedListEntry.save();
         })
 
-        _calcTarget(clonedRoutine.id);
+        // _calcTarget(clonedRoutine.id);
+
+        await favoritesService.createFavoritedRoutine({ routineId: clonedRoutine.id, creatorId })
 
         await clonedRoutine.populate('creator', 'name picture')
+        await clonedRoutine.populate('moveCount')
+        await clonedRoutine.populate('favoritedCount')
+        await clonedRoutine.populate('totalEntries')
         await clonedRoutine.populate({
             path: 'listEntry',
             select: 'name position duration transition moveId',
@@ -169,7 +183,6 @@ class RoutinesService {
                 select: 'englishName imgUrl bodyPart level description benefits'
             }
         })
-        logger.log('clonedRoutine to return', clonedRoutine);
         return clonedRoutine
     }
 

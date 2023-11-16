@@ -80,6 +80,7 @@ export default {
             const newRoutine = await routinesService.createRoutine(routineForm.value);
             router.push({ name: 'RoutineDesigner', params: { routineId: newRoutine.id } });
           }
+          routinesService.getFavRoutines();
           Modal.getOrCreateInstance('#createOrEditRoutineModal').hide();
         }
         catch (error) {

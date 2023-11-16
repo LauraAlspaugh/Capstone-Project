@@ -55,6 +55,7 @@ export class RoutinesController extends BaseController {
             return response.send(newRoutine)
         } catch (error) { next(error) }
     }
+
     async cloneRoutine(request, response, next) {
         try {
             const creatorId = request.userInfo.id;

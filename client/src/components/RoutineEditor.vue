@@ -69,8 +69,11 @@ export default {
 
       async cloneRoutine() {
         try {
+          const yes = await Pop.confirm('Clone this routine?','')
+          if(!yes){return}
           const routineId = AppState.activeRoutine.id;
           await routinesService.cloneRoutine(routineId);
+          await routinesService.getFavRoutines();
         } catch (error) { Pop.error(error) }
       },
 

@@ -12,7 +12,7 @@
                                 <p class="mb-0 p-2 card hidden position-absolute">To permanently delete a routine, you must archive it first.</p>
                             </div>
                             <i v-if="selectedRoutine.isArchived" class="fs-3 onHover text-success mdi mdi-package-up" type="button" title="Unarchive the routine?" @click="unarchiveRoutine()"></i>
-                            <i v-if="selectedRoutine.isArchived && selectedRoutine.favoritedCount == 0" class="fs-3 onHover ms-5 text-danger mdi mdi-trash-can" type="button" title="Permanently delete the routine?" @click="deleteRoutine()"></i>
+                            <i v-if="selectedRoutine.isArchived && selectedRoutine.favoritedCount == 0" class="fs-3 onHover ms-5 text-danger mdi mdi-trash-can" type="button" title="Permanently delete the routine?" @click.stop="deleteRoutine()"></i>
                         </span>
                     </div>
                 </section>

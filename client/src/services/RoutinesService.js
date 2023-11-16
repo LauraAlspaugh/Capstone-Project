@@ -5,6 +5,11 @@ import { logger } from "../utils/Logger.js"
 import { api } from "./AxiosService.js"
 import { listEntriesService } from "./ListEntriesService.js"
 
+function _clearData() {
+    AppState.activeRoutine = {};
+    AppState.listEntries = [];
+}
+
 class RoutinesService {
     async getRoutines() {
         const res = await api.get('api/routines')
@@ -27,6 +32,7 @@ class RoutinesService {
     }
 
     async createRoutine(routineData) {
+        _clearData();
         const res = await api.post('api/routines', routineData)
         const newRoutine = new Routine(res.data);
         logger.log('new routine', newRoutine);
@@ -95,7 +101,7 @@ class RoutinesService {
     }
 
     async setActiveRoutine(routineId) {
-        AppState.activeRoutine = {};
+        _clearData();
         AppState.activeRoutine = await this.getRoutineById(routineId)
 
         await listEntriesService.getListEntriesByRoutineId(routineId)
