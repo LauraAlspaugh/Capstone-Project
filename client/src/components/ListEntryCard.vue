@@ -47,7 +47,7 @@
 
       <div class="position-relative">
         <i v-if="activeRoutine.edit" class="fs-5 text-danger closeBtn position-absolute mdi mdi-close-circle" type="button"
-        @click="removeListEntry(listEntry.id)"></i>
+        @click="removeListEntry(listEntry)"></i>
       </div>
     </section>
   </div>
@@ -60,13 +60,11 @@
 <script>
 import { computed } from "vue";
 import { AppState } from "../AppState.js";
-// import { Move } from "../models/Move";
 import Pop from "../utils/Pop";
 import {listEntriesService} from "../services/ListEntriesService.js"
 
 export default {
   props: {
-    // listEntries: { move: { type: Move } },
     keyImage: { type: String }
   },
 
@@ -95,9 +93,11 @@ export default {
         catch (error) { Pop.error(error) }
       },
 
-      async removeListEntry(listEntryId) {
+      async removeListEntry(listEntryObj) {
         try {
-          await listEntriesService.removeListEntry(listEntryId);
+          const yes = await Pop.confirm(`Remove '${listEntryObj.move.englishName}'?`);
+          if (!yes) { return }
+          await listEntriesService.removeListEntry(listEntryObj.id);
         }
         catch (error) { Pop.error(error) }
       },

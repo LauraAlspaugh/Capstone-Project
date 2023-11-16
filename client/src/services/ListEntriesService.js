@@ -32,6 +32,7 @@ class ListEntriesService{
     const currentPosition = AppState.listEntries.findIndex(entry => entry.id == listEntryId) + 1;
     AppState.listEntries = AppState.listEntries.filter(entry => entry.id != listEntryId)
     const lastPosition = AppState.listEntries.length;
+    if (currentPosition == lastPosition + 1) { return res.data } // last entry, no other entries need updating
     let shiftPositions = AppState.listEntries.slice(currentPosition - 1, lastPosition); // get copy of positions that will change
     shiftPositions.forEach(entry => { entry.position-- });
     shiftPositions.forEach((entry, i) => {
