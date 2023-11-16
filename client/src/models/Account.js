@@ -22,5 +22,6 @@ export class Account {
     this.bio = data.bio
     this.createdAt = new Date(data.createdAt)
     this.updatedAt = new Date(data.updatedAt)
+    this.transitionSound = data.transitionSound
   }
 }

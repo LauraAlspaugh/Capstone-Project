@@ -25,7 +25,9 @@ export const AccountSchema = new Schema(
     website: { type: String, required: false, maxLength: 64 },
     bio: { type: String, required: false, maxLength: 500 },
     appAuthor: { type: Boolean, required: false, default: false },
+    transitionSound: { type: String, enum: ['Ascend', 'Chimes', 'Ding', 'Gong', 'Marimba'], default: 'Ding' },
   },
-  { timestamps: true, toJSON: { virtuals: true } }
+  { timestamps: true, toJSON: { virtuals: true } },
+
 )
 
