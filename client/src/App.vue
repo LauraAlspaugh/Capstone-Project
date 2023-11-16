@@ -35,7 +35,8 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="createOrEditRoutineModalLabel">Create New Routine</h1>
+          <h1 v-if="editRoutine" class="modal-title fs-5" id="createOrEditRoutineModalLabel">Update Routine Details</h1>
+          <h1 v-else class="modal-title fs-5" id="createOrEditRoutineModalLabel">Create New Routine</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -104,6 +105,7 @@ export default {
       appState: computed(() => AppState),
       activeMove: computed(() => AppState.activeMove),
       activeRoutine: computed(() => AppState.activeRoutine),
+      editRoutine: computed(() => AppState.editRoutine),
       selectedRoutine: computed(() => AppState.selectedRoutine),
       listEntries: computed(() => AppState.listEntries),
       selectedPic: computed(() => AppState.selectedPic)

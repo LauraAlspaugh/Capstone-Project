@@ -26,16 +26,17 @@ class RoutinesService {
         }
     }
 
-    async createRoutine(body) {
-        const res = await api.post('api/routines', body)
+    async createRoutine(routineData) {
+        const res = await api.post('api/routines', routineData)
         const newRoutine = new Routine(res.data);
         logger.log('new routine', newRoutine);
-        AppState.editRoutine = true; // enable edit view on routine editor
+        newRoutine.edit = true; // enable edit view on routine editor
         AppState.activeRoutine = newRoutine;
+        return newRoutine
     }
 
-    async editRoutine(body) {
-        const res = await api.put('api/routines', body)
+    async editRoutine(routineData) {
+        const res = await api.put(`api/routines/${routineData.id}`, routineData)
         const updatedRoutine = new Routine(res.data);
         logger.log('updated routine', updatedRoutine);
         AppState.activeRoutine = updatedRoutine;

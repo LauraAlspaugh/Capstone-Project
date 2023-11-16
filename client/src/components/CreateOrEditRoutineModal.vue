@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="createRoutine()">
+  <form @submit.prevent="createOrEditRoutine()">
     <span class="d-flex mb-3">
       <div class="mx-3 w-50">
         <label for="name">Routine Name</label>
@@ -17,7 +17,8 @@
         class="form-control" required></textarea>
     </div>
     <div class="modal-footer">
-      <button type="submit" class="btn btn-primary me-3">Create New Routine</button>
+      <button v-if="editRoutine" type="submit" class="btn btn-primary me-3">Update Routine</button>
+      <button v-else type="submit" class="btn btn-primary me-3">Create New Routine</button>
     </div>
   </form>
   <hr>
@@ -68,14 +69,18 @@ export default {
       editRoutine: computed(()=> AppState.editRoutine),
       keyImage: computed(() => `url(${routineForm.value.keyImage})`),
 
-      async createRoutine() {
+      async createOrEditRoutine() {
         try {
           routineForm.value.description = routineForm.value.shortDescription
           routineForm.value.shortDescription = routineForm.value.shortDescription.slice(0, 50)
           routineForm.value.level = 'beginner'
-          await routinesService.createRoutine(routineForm.value);
+          if (this.editRoutine) {
+            await routinesService.editRoutine(routineForm.value);
+          } else {
+            const newRoutine = await routinesService.createRoutine(routineForm.value);
+            router.push({ name: 'RoutineDesigner', params: { routineId: newRoutine.id } });
+          }
           Modal.getOrCreateInstance('#createOrEditRoutineModal').hide();
-          router.push({ name: 'RoutineDesigner' });
         }
         catch (error) {
             logger.error(error);
