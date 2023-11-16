@@ -72,8 +72,8 @@ class ListEntriesService {
         const routine = await dbContext.ListEntries.find({ routineId })
         listEntryData.position = routine.length + 1;
 
-        const interval = await dbContext.Moves.find({ englishName: 'Interval' }).lean()
-        if (listEntryData.moveId == interval[0]._id.toString()) { listEntryData.transition = true; }
+        const interval = await dbContext.Moves.findOne({ englishName: 'Interval' }).lean()
+        if (listEntryData.moveId == interval._id.toString()) { listEntryData.transition = true; }
 
         const move = await dbContext.Moves.findById(listEntryData.moveId);
         listEntryData.duration = move.time;

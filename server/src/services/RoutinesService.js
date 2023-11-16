@@ -1,4 +1,6 @@
+import mongoose from "mongoose";
 import { dbContext } from "../db/DbContext.js"
+import { RoutineSchema } from "../models/Routine.js";
 import { BadRequest, Forbidden } from "../utils/Errors.js"
 import { logger } from "../utils/Logger.js";
 
@@ -127,6 +129,28 @@ class RoutinesService {
             }
         })
         return newRoutine
+    }
+
+    async cloneRoutine(creatorId, routineId) {
+        // const clonedRoutine = await dbContext.Routines.findById(routineId).exec(
+        //     function (err, doc) {
+        //         let newDoc = doc;
+        //         newDoc._id = new mongoose.Types.ObjectId();
+        //         newDoc.isNew = true;
+        //         newDoc.save(callback);
+        //     }
+        // )
+        // const clonedRoutine = await dbContext.
+        // await clonedRoutine.populate('creator', 'name picture')
+        // await clonedRoutine.populate({
+        //     path: 'listEntry',
+        //     select: 'name position duration transition moveId',
+        //     populate: {
+        //         path: 'move',
+        //         select: 'englishName imgUrl bodyPart level description benefits'
+        //     }
+        // })
+        // return clonedRoutine
     }
 
     async editRoutine(routineId, userId, routineData) {

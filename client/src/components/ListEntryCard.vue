@@ -20,7 +20,7 @@
       </span>
 
       <span v-if="listEntry?.move?.imgUrl" class="d-flex align-items-center">
-        <input v-if="activeRoutine.edit && listEntry.editPosition"  v-model="listEntry.position" type="number" class="form-control pos mx-2 p-0" @blur="saveEditPosition(listEntry)">
+        <input v-if="activeRoutine.edit && listEntry.editPosition"  v-model="listEntry.position" type="number" class="form-control pos mx-2 p-0" @blur="saveEditPosition(listEntry)" :max="listEntries.length" >
         <p v-else-if="activeRoutine.edit && !listEntry.enableEditPosition" type="button" class="mb-0 mx-2 border rounded pos px-1" @click="enableEditPosition(listEntry)">
           {{ listEntry.position }} 
         </p>
