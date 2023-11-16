@@ -180,7 +180,7 @@ export default {
 <style lang="scss" scoped>
 .timer {
   // border: 1px solid black;
-  width: 50%;
+  width: 100%;
   height: auto;
   transform-origin: 0 0;
   transform: scale(1); // The scaling is applied through width and height

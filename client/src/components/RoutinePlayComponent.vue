@@ -7,10 +7,11 @@
           aria-label="Close"></button>
         <span class="d-flex align-items-center"> <img class="logo-nav d-none d-lg-inline me-auto " alt="logo"
             src="../assets/img/RootedFlow Logo-only.png" />
-          <button v-if="isPlaying == false" @click="$refs.timer.startTimer(); flipPlayingOrPaused()"
-            class="btn btn rounded-circle  bg-dark"><i class="mdi mdi-play fs-4 "></i></button>
-          <button v-else @click=" $refs.timer.pauseTimer(); flipPlayingOrPaused()"
-            class="btn btn rounded-circle  bg-dark"><i class="mdi mdi-pause fs-4 "></i></button>
+          <button v-if="!isPlaying && !routineIsFinishedPlaying" @click="$refs.timer.startTimer(); flipPlayingOrPaused()"
+            class="btn btn rounded-circle  bg-dark"><i class="mdi mdi-play fs-4 " title="Play Routine"></i></button>
+          <button v-else-if="isPlaying && !routineIsFinishedPlaying"
+            @click="$refs.timer.pauseTimer(); flipPlayingOrPaused()" class="btn btn rounded-circle  bg-dark"
+            title="Pause Routine"><i class="mdi mdi-pause fs-4 "></i></button>
         </span>
         <section class="row ">
           <div v-if="routineIsFinishedPlaying == false">
@@ -28,20 +29,18 @@
             </div>
           </div>
           <div v-else class="col-12">
-            <p class="text-center fs-1 my-5 italiana">Would you like to replay {{ activeRoutine.name }}?</p>
+            <p class="text-center fs-1 my-2 italiana">Thank you for enjoying Rooted Flow!</p>
+            <p class="text-center fs-3 my-5 italiana">Would you like to replay {{ activeRoutine.name }}?</p>
             <div class="d-flex justify-content-center">
-              <button @click="replayRoutine()" class="btn btn-theme-color mx-4">Yes</button>
-              <button class="btn btn-theme-color mx-4">No</button>
+              <button @click="replayRoutine(); $refs.timer.resetTimer()" class="btn btn-theme-color mx-4">Yes</button>
+              <button class="btn btn-theme-color mx-4" data-bs-dismiss="modal" aria-label="Close">No</button>
             </div>
           </div>
         </section>
-        <section class="row">
-
-          <div v-if="nextMoveIndexNumber <= listEntries.length"></div>
-          <div class="col-12  d-flex justify-content-between   small-image">
-            <!-- <p class="d-flex  pl-4"> -->
+        <section class="row justify-content-between d-flex">
+          <!-- <div v-if="nextMoveIndexNumber <= listEntries.length"></div> -->
+          <!-- <div class="col-12  d-flex justify-content-between   small-image">
             <TimerComponent ref="timer" />
-            <!-- </p> -->
             <div v-if="listEntries[nextMoveIndexNumber]">
               <div v-if="listEntries[nextMoveIndexNumber].transition == false">
                 <img :src="listEntries[nextMoveIndexNumber].move.imgUrl" alt="Second Picture" class="small-picture mt-3">
@@ -52,14 +51,32 @@
               </div>
             </div>
             <div v-else></div>
+          </div> -->
+          <div class="col-4">
+            <TimerComponent ref="timer" :class="routineIsFinishedPlaying ? 'hidden' : ''" />
+          </div>
+          <div class="col-5">
+            <div v-if="showDetails && routineIsFinishedPlaying == false" class="modal-body">
+              <RoutinePlayPageModal :moveProp="listEntries[currentMoveIndexNumber].move" />
+            </div>
+          </div>
+          <div class="col-3">
+            <div v-if="listEntries[nextMoveIndexNumber]">
+              <div v-if="listEntries[nextMoveIndexNumber].transition == false">
+                <img :src="listEntries[nextMoveIndexNumber].move.imgUrl" alt="Second Picture" class="small-picture mt-3">
+              </div>
+              <div v-else>
+                <p>{{ listEntries[nextMoveIndexNumber].duration }} second interval before next pose.</p>
+                <img :src="listEntries[nextMoveIndexNumber + 1].move.imgUrl" alt="Second Picture" class="small-picture">
+              </div>
+            </div>
           </div>
         </section>
-        <div v-if="showDetails" class="modal-body">
-          <RoutinePlayPageModal :moveProp="listEntries[currentMoveIndexNumber].move" />
-        </div>
       </div>
-
     </section>
+    <!-- <div v-if="showDetails" class="modal-body">
+      <RoutinePlayPageModal :moveProp="listEntries[currentMoveIndexNumber].move" /> -->
+    <!-- </div> -->
   </div>
 </template>
 
@@ -119,11 +136,11 @@ export default {
     function replayRoutine() {
       movesService.startPlayingRoutine()
       wantsToReplayRoutine.value = true;
-      currentMoveIndexNumber = ref(0);
-      nextMoveIndexNumber = ref(1);
-      greenFilter = ref(false);
-      isPlaying = ref(false);
-      nextMoveIsTransition = ref(false);
+      isPlaying.value = true;
+      currentMoveIndexNumber.value = 0;
+      nextMoveIndexNumber.value = 1;
+      greenFilter.value = false;
+      nextMoveIsTransition.value = false;
     }
 
     return {
@@ -192,6 +209,10 @@ export default {
   }
 
   // filter: drop-shadow(8px 8px 10px green);
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 .btn-theme-color {
