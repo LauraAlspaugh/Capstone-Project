@@ -79,7 +79,7 @@
       <hr>
 
       <div class="d-flex justify-content-center pe-3">
-        <button class="btn btn-success">Submit Changes</button>
+        <button class="btn btn-outline-dark">Submit Changes</button>
       </div>
     </section>
   </form>
