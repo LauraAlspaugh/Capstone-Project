@@ -23,6 +23,12 @@ class MovesService {
         return newMove
     }
 
+    async createMoveBulk(moveData, creatorId) {
+        moveData.forEach(move => move.creatorId = creatorId);
+        const newMove = await dbContext.Moves.insertMany(moveData);
+        return newMove
+    }
+
     async editMove(moveId, userId, moveData) {
         let moveToEdit = await this.getMoveById(moveId);
         if (moveToEdit.creatorId.toString() != userId) {
