@@ -3,6 +3,7 @@ import { dbContext } from "../db/DbContext.js"
 import { RoutineSchema } from "../models/Routine.js";
 import { BadRequest, Forbidden } from "../utils/Errors.js"
 import { logger } from "../utils/Logger.js";
+import { ListEntrySchema } from "../models/ListEntry.js";
 
 const CALC_CACHE = {}
 
@@ -131,16 +132,33 @@ class RoutinesService {
         return newRoutine
     }
 
-    async cloneRoutine(creatorId, routineId) {
-        // const clonedRoutine = await dbContext.Routines.findById(routineId).exec(
-        //     function (err, doc) {
-        //         let newDoc = doc;
-        //         newDoc._id = new mongoose.Types.ObjectId();
-        //         newDoc.isNew = true;
-        //         newDoc.save(callback);
-        //     }
-        // )
-        // const clonedRoutine = await dbContext.
+    async cloneRoutine(creatorId, routineId, body) {
+        logger.log(creatorId, routineId, body);
+        // const ogRoutine = await dbContext.Routines.findById(routineId);
+        // // @ts-ignore
+        // const clonedRoutine = new RoutineSchema({
+        //     ...ogRoutine.toObject(),
+        //     _id: new mongoose.Types.ObjectId(),
+        //     name: ogRoutine.name + ' (clone)',
+        //     creatorId
+        // });
+        // await clonedRoutine.save();
+
+        // const ogListEntries = await dbContext.ListEntries.find({ routineId });
+
+        // ogListEntries.forEach(listEntry => {
+        //     // @ts-ignore
+        //     const clonedListEntry = new ListEntrySchema({
+        //         ...listEntry.toObject(),
+        //         _id: new mongoose.Types.ObjectId(),
+        //         routineId: clonedRoutine._id,
+        //         creatorId
+        //     });
+        //     clonedListEntry.save();
+        // })
+
+        // _calcTarget(clonedRoutine.id);
+
         // await clonedRoutine.populate('creator', 'name picture')
         // await clonedRoutine.populate({
         //     path: 'listEntry',
