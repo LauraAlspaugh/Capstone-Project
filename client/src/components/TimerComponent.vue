@@ -42,9 +42,9 @@ export default {
 
     let intervalId;
 
-    let numDots = 30
-    let outerDotsRadius = 120
-    let innerDotsRadius = 100
+    let numDots = 25
+    let outerDotsRadius = 100
+    let innerDotsRadius = 85
 
     const drawCircles = () => {
 
@@ -55,8 +55,8 @@ export default {
       // let canvasWidth = 290;
       // let canvasHeight = 290;
 
-      canvas.width = 320;
-      canvas.height = 320;
+      canvas.width = 270;
+      canvas.height = 270;
 
       // const scaledWidth = computed(() => canvasWidth * scale);
       // const scaledHeight = computed(() => canvasHeight * scale);
@@ -73,15 +73,15 @@ export default {
       ctx.clearRect(25, 20, 150, 140);
 
       ctx.beginPath()
-      ctx.arc(160, 160, 130, 0, 2 * Math.PI);
+      ctx.arc(140, 140, 110, 0, 2 * Math.PI);
       ctx.fillStyle = 'black';
       ctx.lineWidth = 1.2;
       ctx.stroke();
 
       for (let i = 0; i < numDots; i++) {
         let angle = (i / numDots) * Math.PI * 2;
-        let x = 160 + outerDotsRadius * Math.cos(angle);
-        let y = 160 + outerDotsRadius * Math.sin(angle);
+        let x = 140 + outerDotsRadius * Math.cos(angle);
+        let y = 140 + outerDotsRadius * Math.sin(angle);
 
         ctx.beginPath();
         ctx.arc(x, y, 1, 0, 2 * Math.PI);
@@ -94,11 +94,11 @@ export default {
 
       for (let i = 0; i < dotsToDisappear; i++) {
         let angle = (-i / numDots) * Math.PI * 2 + Math.PI / 2 + Math.PI;
-        let x = 160 + innerDotsRadius * Math.cos(angle);
-        let y = 160 + innerDotsRadius * Math.sin(angle);
+        let x = 140 + innerDotsRadius * Math.cos(angle);
+        let y = 140 + innerDotsRadius * Math.sin(angle);
 
         ctx.beginPath();
-        ctx.arc(x, y, 7, 0, 2 * Math.PI);
+        ctx.arc(x, y, 6, 0, 2 * Math.PI);
         ctx.lineWidth = .25;
 
         if (i >= dotsToDisappear) {
@@ -179,7 +179,7 @@ export default {
 
 <style lang="scss" scoped>
 .timer {
-  border: 1px solid black;
+  // border: 1px solid black;
   width: 50%;
   height: auto;
   transform-origin: 0 0;
