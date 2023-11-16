@@ -7,7 +7,8 @@
     </section>
     <section class="row justify-content-center align-items-center pt-3">
       <div class="col-12 col-md-7 py-3 px-5 order-2 order-md-1 d-flex justify-content-center">
-        <p @click="test" class="fs-5 p-2 rounded">At Rooted Flow, we believe everyone should have the tools to create
+        <p @click="test" class="fs-5 p-3 rounded white-gb">At Rooted Flow, we believe everyone should have the tools to
+          create
           their own custom
           yoga routine. We want to empower everyone, from beginner to expert, to take responsibility for their body
           health. Within the Catalog page of this application, you learn more about many different yoga poses and their
@@ -22,7 +23,8 @@
         <img type="button" :src="homeImgs[1].img" :alt="homeImgs[1].alt" class="img border p-2">
       </div>
       <div class="col-12 col-md-7 py-3 px-5 order-4 order-md-4 d-flex justify-content-center">
-        <p class="fs-5 p-2 rounded"> Visit our Routine Designer Page to create and customize your own routine. Here, users
+        <p class="fs-5 p-3 rounded white-gb"> Visit our Routine Designer Page to create and customize your own routine.
+          Here, users
           can choose a previously favorited routine, or create a new routine, from our drop-down menu. Click the lock
           icon and your routine will be unlocked for you to access. This will enable users to change the order of poses in
           your routine, as well as delete a pose from a routine entirely.
@@ -34,7 +36,8 @@
     </section>
     <section class="row justify-content-center align-items-center">
       <div class="col-12 col-md-7 py-3 px-5 order-2 order-md-1 d-flex justify-content-center">
-        <p class="fs-5 p-2 rounded">Welcome to your Routine Play Page. Here, you will be guided through your routine with
+        <p class="fs-5 p-3 rounded white-gb">Welcome to your Routine Play Page. Here, you will be guided through your
+          routine with
           a timer, and an order of your poses. The larger image shows your current pose, and the smaller image in the
           right-hand corner shows your the upcoming pose. This allows you as the user to prepare for the next pose. When
           you reach an interval, you will receive a message and an image of the next pose. Click on the vertical dots to
@@ -92,5 +95,6 @@ img {
     0 0 2rem .5rem white inset;
   background-color: #ffffffa8;
   backdrop-filter: blur(2px);
+  max-height: 22rem;
 }
 </style>
