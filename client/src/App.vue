@@ -30,16 +30,16 @@
     </div>
   </div>
 
-  <div class="modal modal-lg fade" id="createNewRoutineModal" data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1" aria-labelledby="createNewRoutineModalLabel" aria-hidden="true">
+  <div class="modal modal-lg fade" id="createOrEditRoutineModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="createOrEditRoutineModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="createNewRoutineModalLabel">Create New Routine</h1>
+          <h1 class="modal-title fs-5" id="createOrEditRoutineModalLabel">Create New Routine</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <CreateNewRoutineModal />
+          <CreateOrEditRoutineModal />
         </div>
       </div>
     </div>
@@ -94,8 +94,7 @@ import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
 import MoveDetailCard from "./components/MoveDetailCard.vue"
 import RoutineDetailCard from "./components/RoutineDetailCard.vue"
-import CreateNewRoutineModal from "./components/CreateNewRoutineModal.vue"
-// import RoutinePlayPageModal from './components/RoutinePlayPageModal.vue'
+import CreateOrEditRoutineModal from "./components/CreateOrEditRoutineModal.vue"
 import RoutinePlayComponent from './components/RoutinePlayComponent.vue'
 import ExpandPicModal from "./components/ExpandPicModal.vue"
 
@@ -110,7 +109,7 @@ export default {
       selectedPic: computed(() => AppState.selectedPic)
     }
   },
-  components: { Navbar, MoveDetailCard, RoutineDetailCard, CreateNewRoutineModal, RoutinePlayComponent, ExpandPicModal }
+  components: { Navbar, MoveDetailCard, RoutineDetailCard, CreateOrEditRoutineModal, RoutinePlayComponent, ExpandPicModal }
 }
 </script>
 <style lang="scss">

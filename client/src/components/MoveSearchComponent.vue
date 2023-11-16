@@ -199,7 +199,7 @@ export default {
 
 .moves-list {
     overflow-y: auto;
-    max-height: 40rem;
+    max-height: 60dvh;
 }
 
 ::-webkit-scrollbar {
@@ -219,5 +219,9 @@ export default {
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: #a8bbbf;
+}
+
+@media screen and (max-width<768px){
+    
 }
 </style>

@@ -23,7 +23,7 @@
   <hr>
   <div class="container-fluid">
     <section class="row justify-content-center">
-      <div class="col-9 col-md-10 col-lg-6 noClicky">
+      <div class="col-9 col-md-10 col-lg-6 noClicky" v-if="routineForm?.name">
         <RoutineCatalogCard :routineProp="routineForm" />
       </div>
     </section>
@@ -32,46 +32,57 @@
 
 
 <script>
-import { computed, ref } from 'vue';
+import { AppState } from "../AppState";
+import { computed, ref, watchEffect } from 'vue';
 import { useRouter } from "vue-router";
 import { Modal } from "bootstrap";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { routinesService } from "../services/RoutinesService";
 import RoutineCatalogCard from "./RoutineCatalogCard.vue";
-import { AppState } from "../AppState";
 
 export default {
     setup() {
-        const router = useRouter();
-        const routineForm = ref({
+      const router = useRouter();
+      const routineForm = ref({});
+
+    watchEffect(() => {
+      if (AppState.activeRoutine && AppState.editRoutine == true) {
+        routineForm.value = {...AppState.activeRoutine};
+        routineForm.value.shortDescription = routineForm.value.description;
+      } else {
+        routineForm.value = {
           name: 'Routine Name',
           // description: 'Description of this routine', // defined upon creation
           // keyImage: 'img URL',
           playTime: 0,
           level: '',
           shortDescription: 'Description of this routine', // used for drawing through prop
-          creator: {name:AppState.account?.name}
-        });
-        return {
-            routineForm,
-            keyImage: computed(() => `url(${routineForm.value.keyImage})`),
+          creator: { name: AppState.account?.name }
+        }
+      }
+      })
 
-            async createRoutine() {
-              try {
-                  routineForm.value.description = routineForm.value.shortDescription
-                  routineForm.value.shortDescription = routineForm.value.shortDescription.slice(0, 50)
-                  routineForm.value.level = 'beginner'
-                  await routinesService.createRoutine(routineForm.value);
-                  Modal.getOrCreateInstance('#createNewRoutineModal').hide();
-                  router.push({ name: 'RoutineDesigner' });
-                }
-                catch (error) {
-                    logger.error(error);
-                    Pop.error(error);
-                }
-            }
-        };
+    return {
+      routineForm,
+      editRoutine: computed(()=> AppState.editRoutine),
+      keyImage: computed(() => `url(${routineForm.value.keyImage})`),
+
+      async createRoutine() {
+        try {
+          routineForm.value.description = routineForm.value.shortDescription
+          routineForm.value.shortDescription = routineForm.value.shortDescription.slice(0, 50)
+          routineForm.value.level = 'beginner'
+          await routinesService.createRoutine(routineForm.value);
+          Modal.getOrCreateInstance('#createOrEditRoutineModal').hide();
+          router.push({ name: 'RoutineDesigner' });
+        }
+        catch (error) {
+            logger.error(error);
+            Pop.error(error);
+          }
+        }
+      };
     },
     components: { RoutineCatalogCard }
 };

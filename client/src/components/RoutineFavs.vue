@@ -1,11 +1,17 @@
 <template>
   <div class="rounded-top">
-    <span
-      class="d-flex align-items-center justify-content-center rounded-top border selectable lighten-30 bgBlur bgColor1"
-      data-bs-toggle="modal" data-bs-target="#createNewRoutineModal" type="button">
-      <p class="mb-0 p-2 fs-4 ">Create New Routine</p>
-      <i class="fs-1 mdi mdi-plus-circle"></i>
+    <span class="d-flex">
+    <span @click="editRoutineForm()" type="button" v-if="route?.name == 'RoutineEditor' &&  activeRoutine?.creatorId == account?.id"
+      class="d-flex align-items-center justify-content-center rounded-bottom border selectable lighten-30 bgBlur bgColor1 w-100">
+      <p class="mb-0 p-2 fs-5 ">Edit Routine</p>
+      <i class="fs-2 mdi mdi-pencil"></i>
     </span>
+    <span @click="createRoutineForm()" type="button" 
+      class="d-flex align-items-center justify-content-center rounded border selectable lighten-30 bgBlur bgColor1 w-100">
+      <p class="mb-0 p-2 fs-5 ">Create Routine</p>
+      <i class="fs-2 mdi mdi-plus-circle"></i>
+    </span>
+  </span>
     <span v-if="noFavRoutines" class="d-flex flex-column align-items-center">
       <span class="d-flex align-items-center ">
         <p class="mb-0 me-3 fs-3">Add some favorites! </p>
@@ -33,24 +39,33 @@
 <script>
 import { AppState } from '../AppState';
 import { computed } from 'vue';
-import Pop from "../utils/Pop";
+import { useRoute, useRouter } from "vue-router";
 import { routinesService } from "../services/RoutinesService";
-import { useRouter } from "vue-router";
+import Pop from "../utils/Pop";
+import { Modal } from "bootstrap";
 
 export default {
   setup() {
+    const route = useRoute();
     const router = useRouter();
 
     return {
+      route,
+
+      account: computed(() => AppState.account),
+      activeRoutine: computed(() => AppState.activeRoutine),
       favRoutines: computed(() => AppState.myFavoriteRoutines),
+      myRoutines: computed(() => AppState.myRoutines),
       noFavRoutines: computed(() => AppState.noFavRoutines),
 
-      async createRoutine() {
-        try {
-          await routinesService.createRoutine();
-          const routineId = AppState.activeRoutine.id 
-          router.push({name: 'RoutineEditor', params: {routineId} })
-        } catch (error) { Pop.error(error) }
+      createRoutineForm() {
+        AppState.editRoutine = false;
+        Modal.getOrCreateInstance('#createOrEditRoutineModal').show()
+      },
+      
+      editRoutineForm() {
+        AppState.editRoutine = true;
+        Modal.getOrCreateInstance('#createOrEditRoutineModal').show()
       },
 
       async setActiveRoutine(routineId) {

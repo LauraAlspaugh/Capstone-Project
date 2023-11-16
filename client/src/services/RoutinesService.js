@@ -34,6 +34,13 @@ class RoutinesService {
         AppState.activeRoutine = newRoutine;
     }
 
+    async editRoutine(body) {
+        const res = await api.put('api/routines', body)
+        const updatedRoutine = new Routine(res.data);
+        logger.log('updated routine', updatedRoutine);
+        AppState.activeRoutine = updatedRoutine;
+    }
+
     async favoriteRoutine(routineId) {
         const res = await api.post(`api/favorites/routines`, { routineId })
         AppState.myFavoriteRoutines.push(new FavoriteRoutine(res.data))

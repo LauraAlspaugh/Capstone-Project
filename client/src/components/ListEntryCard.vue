@@ -46,7 +46,7 @@
       </span>
 
       <div class="position-relative">
-        <i class="fs-5 text-danger closeBtn position-absolute mdi mdi-close-circle" type="button"
+        <i v-if="activeRoutine.edit" class="fs-5 text-danger closeBtn position-absolute mdi mdi-close-circle" type="button"
         @click="removeListEntry(listEntry.id)"></i>
       </div>
     </section>

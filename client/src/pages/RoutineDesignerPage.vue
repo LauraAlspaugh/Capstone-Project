@@ -62,7 +62,9 @@ export default {
     }
 
     onMounted(() => {
-      _setActiveIfProvided();
+      if (!AppState.activeRoutine?.id) {
+        _setActiveIfProvided();
+      }
     })
 
     return {
@@ -81,7 +83,7 @@ export default {
 }
 
 .hidden{
-  top: 4rem;
+  top: 4.8rem;
   left: 2rem;
   min-width: 10rem;
   max-width: 50vw;
@@ -100,7 +102,7 @@ export default {
 }
 
 .boxHeight {
-  max-height: 43dvh;
+  max-height: 42dvh;
 }
 
 @media screen and (max-width:768px){

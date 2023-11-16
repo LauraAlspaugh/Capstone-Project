@@ -21,6 +21,8 @@ export const AppState = reactive({
   myFavoriteMoves: [],
   /** @type {import('./models/Routine.js').Routine[]} */
   myFavoriteRoutines: [],
+  /** @type {import('./models/Routine.js').Routine[]} */
+  myRoutines: [],
   noFavRoutines: false,
   editRoutine: false,
 
