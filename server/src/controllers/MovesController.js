@@ -11,6 +11,7 @@ export class MovesController extends BaseController {
             // 🔽 REQUIRES AUTHENTICATION 🔽
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createMove)
+            .post('/bulk', this.createMoveBulk)
             .put('/:moveId', this.editMove)
             .delete('/:moveId', this.destroyMove)
     }
@@ -58,6 +59,16 @@ export class MovesController extends BaseController {
             const userId = request.userInfo.id;
             moveData.creatorId = userId;
             const newMove = await movesService.createMove(moveData)
+            return response.send(newMove)
+        } catch (error) { next(error) }
+    }
+
+    async createMoveBulk(request, response, next) {
+        try {
+            const moveData = request.body;
+            const userId = request.userInfo.id;
+            moveData.creatorId = userId;
+            const newMove = await movesService.createMoveBulk(moveData, userId)
             return response.send(newMove)
         } catch (error) { next(error) }
     }

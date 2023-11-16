@@ -149,7 +149,19 @@ export default {
       intervalId = null;
       countdown.value = totalTime.value;
       drawCircles();
+      setTimeout(() => {
+        movesService.startMove();
+      }, 100);
       startTimer();
+    }
+
+    const resetAndStopTimer = () => {
+      setTimeout(() => {
+        clearInterval(intervalId);
+        intervalId = null;
+        countdown.value = totalTime.value;
+        drawCircles();
+      }, 100)
       setTimeout(() => {
         movesService.startMove();
       }, 100);
@@ -157,7 +169,6 @@ export default {
 
     onMounted(() => {
       drawCircles();
-      // startTimer();
     })
 
 
@@ -168,6 +179,7 @@ export default {
       pauseTimer,
       resumeTimer,
       startTimer,
+      resetAndStopTimer,
     }
 
   }
@@ -180,7 +192,7 @@ export default {
 <style lang="scss" scoped>
 .timer {
   // border: 1px solid black;
-  width: 50%;
+  width: 100%;
   height: auto;
   transform-origin: 0 0;
   transform: scale(1); // The scaling is applied through width and height
