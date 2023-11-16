@@ -1,9 +1,11 @@
 <template>
   <div class="container-fluid">
-    <section class="row justify-content-center p-3">
-      <div class="col-12 text-center p-3 my-5 white-gb w-50">
+    <section class="row justify-content-center p-3 ">
+      <div class="col-12 text-center p-3 my-5 white-gb w-50 intro-page">
         <p class="fs-1 p-3 rounded">About the App & Devs </p>
-        <p class="fs-5 p-2 rounded">A special thank you to all the developers who helped to create Rooted Flow. All the
+        <p class="fs-5 p-2 rounded">A special thank you to all the developers who helped to create Rooted
+          Flow. All
+          the
           time and effort was well worth it. And the opportunity to work together made for many memories. </p>
         <p class="fs-5 p-2 rounded">Express Node.js, Vue 3, Bootstrap 5, Mongoose, MongoDB (...)</p>
       </div>
@@ -68,5 +70,15 @@ img {
 
 .img {
   height: 16rem;
+}
+
+@media screen and (max-width: 992px) {
+  .intro-page {
+    margin: 0rem;
+    width: 100%;
+
+    padding: 0rem;
+  }
+
 }
 </style>

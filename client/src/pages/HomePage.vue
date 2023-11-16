@@ -93,4 +93,12 @@ img {
   background-color: #ffffffa8;
   backdrop-filter: blur(2px);
 }
+
+@media screen and (max-width: 992px) {
+  .bigLogo {
+    height: 13rem;
+    width: 13rem;
+  }
+
+}
 </style>

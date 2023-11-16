@@ -35,8 +35,7 @@
             </p>
             <div v-if="listEntries[nextMoveIndexNumber]">
               <div v-if="listEntries[nextMoveIndexNumber].transition == false">
-                <img :src="listEntries[nextMoveIndexNumber].move.imgUrl" alt="Second Picture"
-                  class="small-picture mt-3">
+                <img :src="listEntries[nextMoveIndexNumber].move.imgUrl" alt="Second Picture" class="small-picture mt-3">
               </div>
               <div v-else>
                 <p>{{ listEntries[nextMoveIndexNumber].duration }} second interval before next pose.</p>
@@ -136,19 +135,7 @@ export default {
       logger.log("isPlaying.value", isPlaying.value)
     }
 
-    // return {
-    //   previousMoveIndexNumber,
-    //   currentMoveIndexNumber,
-    //   nextMoveIndexNumber,
-    //   greenFilter,
-    //   nextMoveIsTransition,
-    //   finishedMove,
-    //   nextMove,
-    //   listEntries,
-    //   activeRoutine: computed(() => AppState.activeRoutine),
-    //   activeMove: computed(() => AppState.activeMove),
 
-    //   const showDetails: ref(false),
 
     return {
       previousMoveIndexNumber,
@@ -247,6 +234,22 @@ export default {
 .btn-close {
   top: 1rem;
   right: 1rem;
+
+}
+
+@media screen and (max-width: 992px) {
+  .main-picture {
+    height: 15rem;
+    width: 15rem;
+    justify-content: center;
+    display: flex;
+  }
+
+  .small-picture {
+    // display: none;
+    width: 100%;
+    height: 100%;
+  }
 
 }
 </style>
