@@ -47,5 +47,13 @@ startMove() {
     AppState.finishedMove = false;
 }
 
+finishPlayingRoutine() {
+    AppState.routineIsFinishedPlaying = true;
+}
+
+startPlayingRoutine() {
+    AppState.routineIsFinishedPlaying = false;
+}
+
 }
 export const movesService = new MovesService()

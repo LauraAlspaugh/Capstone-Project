@@ -13,16 +13,25 @@
             class="btn btn rounded-circle  bg-dark"><i class="mdi mdi-pause fs-4 "></i></button>
         </span>
         <section class="row ">
-          <div v-if="nextMoveIndexNumber <= listEntries.length">
-            <div v-if="activeRoutine" class="col-12 text-center mt-5">
-              <div class="main-picture" :class="{ 'green-filter': greenFilter }">
-                <img :src="listEntries[currentMoveIndexNumber].move.imgUrl" alt="First image" />
-              </div>
-              <p class="routine-name italiana mt-5">{{ listEntries[currentMoveIndexNumber].move.englishName }}
-                <span @click="showDetails = !showDetails" class="btn fs-1" type="button" role="button"><i
-                    title="show details " class="mdi mdi-dots-vertical"></i></span>
-              </p>
+          <div v-if="routineIsFinishedPlaying == false">
+            <div v-if="nextMoveIndexNumber <= listEntries.length">
+              <div v-if="activeRoutine" class="col-12 text-center mt-5">
+                <div class="main-picture" :class="{ 'green-filter': greenFilter }">
+                  <img :src="listEntries[currentMoveIndexNumber].move.imgUrl" alt="First image" />
+                </div>
+                <p class="routine-name italiana mt-5">{{ listEntries[currentMoveIndexNumber].move.englishName }}
+                  <span @click="showDetails = !showDetails" class="btn fs-1" type="button" role="button"><i
+                      title="show details " class="mdi mdi-dots-vertical"></i></span>
+                </p>
 
+              </div>
+            </div>
+          </div>
+          <div v-else class="col-12">
+            <p class="text-center fs-1 my-5 italiana">Would you like to replay {{ activeRoutine.name }}?</p>
+            <div class="d-flex justify-content-center">
+              <button @click="replayRoutine()" class="btn btn-theme-color mx-4">Yes</button>
+              <button class="btn btn-theme-color mx-4">No</button>
             </div>
           </div>
         </section>
@@ -59,11 +68,11 @@
 import { AppState } from '../AppState';
 import { computed, ref, watch } from 'vue';
 import RoutinePlayPageModal from './RoutinePlayPageModal.vue';
+import { movesService } from '../services/MovesService.js'
 
 
 export default {
   setup() {
-    let previousMoveIndexNumber = ref(-1);
     let currentMoveIndexNumber = ref(0);
     let nextMoveIndexNumber = ref(1);
     let greenFilter = ref(false);
@@ -72,6 +81,7 @@ export default {
     const finishedMove = computed(() => AppState.finishedMove);
     let listEntries = computed(() => AppState.listEntries);
     const showDetails = ref(false);
+    let wantsToReplayRoutine = ref(false);
 
 
     watch(finishedMove, () => {
@@ -106,8 +116,17 @@ export default {
       isPlaying.value = !isPlaying.value
     }
 
+    function replayRoutine() {
+      movesService.startPlayingRoutine()
+      wantsToReplayRoutine.value = true;
+      currentMoveIndexNumber = ref(0);
+      nextMoveIndexNumber = ref(1);
+      greenFilter = ref(false);
+      isPlaying = ref(false);
+      nextMoveIsTransition = ref(false);
+    }
+
     return {
-      previousMoveIndexNumber,
       currentMoveIndexNumber,
       nextMoveIndexNumber,
       nextMove,
@@ -117,10 +136,12 @@ export default {
       showDetails,
       isPlaying,
       flipPlayingOrPaused,
+      replayRoutine,
 
       activeRoutine: computed(() => AppState.activeRoutine),
       activeMove: computed(() => AppState.activeMove),
       finishedMove: computed(() => AppState.finishedMove),
+      routineIsFinishedPlaying: computed(() => AppState.routineIsFinishedPlaying)
 
 
 
@@ -171,6 +192,15 @@ export default {
   }
 
   // filter: drop-shadow(8px 8px 10px green);
+}
+
+.btn-theme-color {
+  background-color: #6B8373b9;
+}
+
+.btn-theme-color:hover {
+  background-color: white;
+  border: 1px solid #6B8373b9;
 }
 
 .wrap {

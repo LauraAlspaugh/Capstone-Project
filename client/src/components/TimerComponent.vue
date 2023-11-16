@@ -13,29 +13,39 @@
 import { AppState } from '../AppState';
 import { computed, reactive, onMounted, ref, watch } from 'vue';
 import { movesService } from '../services/MovesService.js'
+import { logger } from "../utils/Logger.js"
 
 export default {
   setup() {
-    // let canvasWidth = 450;
-    // let canvasHeight = 450;
-
-    // const scaledWidth = computed(() => canvasWidth * scale);
-    // const scaledHeight = computed(() => canvasHeight * scale);
-
-    // let scale = window.devicePixelRatio;
+    let routineIsFinishedPlaying = computed(() => {
+      if (AppState.activeRoutine.listEntry[moveNumber.value]) {
+        return false
+      } else {
+        movesService.finishPlayingRoutine()
+        return true
+      }
+    })
 
     let moveNumber = ref(0);
 
     watch(moveNumber, () => {
       if (moveNumber.value) {
-        countdown.value = AppState.activeRoutine.listEntry[moveNumber.value].duration
+        if (AppState.activeRoutine.listEntry[moveNumber.value]) {
+          countdown.value = AppState.activeRoutine.listEntry[moveNumber.value].duration
+        } else {
+          countdown.value = 0
+        }
       }
     });
 
     let myCanvas = ref(null);
 
     let totalTime = computed(() => {
-      return AppState.activeRoutine.listEntry[moveNumber.value].duration;
+      if (AppState.activeRoutine.listEntry[moveNumber.value]) {
+        return AppState.activeRoutine.listEntry[moveNumber.value].duration;
+      } else {
+        return 0
+      }
     }); //total time we want to count down in seconds
 
     let countdown = ref(AppState.activeRoutine.listEntry[moveNumber.value].duration); //time remaining in seconds, gets updated whenever moveNumber changes due to watch
@@ -52,23 +62,8 @@ export default {
 
       let ctx = canvas.getContext('2d');
 
-      // let canvasWidth = 290;
-      // let canvasHeight = 290;
-
       canvas.width = 270;
       canvas.height = 270;
-
-      // const scaledWidth = computed(() => canvasWidth * scale);
-      // const scaledHeight = computed(() => canvasHeight * scale);
-
-
-      // let scale = window.devicePixelRatio;
-      // canvas.width = scaledWidth.value;
-      // canvas.height = scaledHeight.value;
-      // canvas.width = canvasWidth * scale;
-      // canvas.height = canvasHeight * scale;
-
-      // ctx.scale(scale, scale);
 
       ctx.clearRect(25, 20, 150, 140);
 
@@ -112,6 +107,7 @@ export default {
     }
 
     const startTimer = () => {
+      logger.log("Starting again")
       let endTime = new Date().getTime() + countdown.value * 1000;
       let intervalDuration = 50;
 
@@ -123,8 +119,14 @@ export default {
           if (countdown.value <= 0) {
             clearInterval(intervalId);
             movesService.finishMove();
-            moveNumber.value++
-            resetTimer();
+            if (!routineIsFinishedPlaying.value) {
+              moveNumber.value++
+              resetTimer();
+            } else {
+              logger.log("Routine over")
+              moveNumber.value = 0
+              drawCircles()
+            }
             // or perform other actions when countdown reaches 0
           } else {
             drawCircles();
@@ -166,8 +168,6 @@ export default {
       pauseTimer,
       resumeTimer,
       startTimer,
-      // scaledWidth,
-      // scaledHeight,
     }
 
   }

@@ -29,6 +29,7 @@ export const AppState = reactive({
   settings: {},
 
   finishedMove: false,
+  routineIsFinishedPlaying: false,
   selectedPic: null,
   transitionSounds: [
     { name: 'Ascend', audio: new Audio('src/assets/sounds/gamepack1-main-horrible-finish_By_adamgoik.wav') },
