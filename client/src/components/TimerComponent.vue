@@ -16,6 +16,7 @@ import { movesService } from '../services/MovesService.js'
 
 export default {
   setup() {
+    let scale = window.devicePixelRatio;
 
     let moveNumber = ref(0);
 
@@ -48,6 +49,7 @@ export default {
 
       ctx.beginPath()
       ctx.arc(95, 90, 70, 0, 2 * Math.PI);
+      ctx.lineWidth = 1;
       ctx.stroke();
 
       for (let i = 0; i < numDots; i++) {
@@ -124,6 +126,14 @@ export default {
     }
 
     onMounted(() => {
+      let canvas = myCanvas.value;
+
+      let ctx = canvas.getContext('2d');
+
+      canvas.width = canvas.width * scale;
+      canvas.height = canvas.height * scale;
+      ctx.scale(scale, scale);
+
       drawCircles();
       // startTimer();
     })
