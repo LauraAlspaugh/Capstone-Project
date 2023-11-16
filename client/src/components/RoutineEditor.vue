@@ -1,20 +1,20 @@
 <template>
   <div class="border boxShadow bgBlur rounded">
 
-    <section class="header d-flex align-items-center rounded-top px-3 py-2  position-relative z1">
+    <section class="header d-flex align-items-center rounded-top px-3 py-2 position-relative z1">
+      <button class="btn btn-secondary" type="button" @click="cloneRoutine()">Clone Routine</button>
       <div class="me-auto">
       </div>
       <span class="fs-1 mx-2 d-flex" v-if="routine.creatorId == account.id">
-        <span class="text-center me-2 position-relative" type="button" @click="unlockRoutine()">
-          <i title="Locked" class="color3 lh25 mdi mdi-lock"></i>
+        <span v-if="locked" title="Locked" class="text-center me-2 position-relative" type="button" @click="toggleRoutineLock()">
+          <i class="color3 lh25 mdi mdi-lock"></i>
           <p class="mb-0 tiny">Unlock <br> Routine</p>
         </span>
-        <span class="text-center position-relative" type="button" @click="saveRoutine()">
-          <i title="Unlocked" class="color2 lh25 mdi mdi-lock-open"></i>
+        <span v-else title="Unlocked" class="text-center position-relative" type="button" @click="toggleRoutineLock()">
+          <i class="color2 lh25 mdi mdi-lock-open"></i>
           <p class="mb-0 tiny">Lock <br> Routine</p>
         </span>
       </span>
-      <button class="btn btn-secondary ms-5">Clone Routine</button>
     </section>
 
     <section class="px-3">
@@ -45,6 +45,7 @@ import { computed } from 'vue';
 import ListEntryCard from "./ListEntryCard.vue";
 import Pop from "../utils/Pop";
 import { Routine } from "../models/Routine";
+import { routinesService } from "../services/RoutinesService";
 
 export default {
   props: { routine: { type: Routine } },
@@ -54,6 +55,7 @@ export default {
     return {
       account: computed(() => AppState.account),
       editRoutine: computed(() => AppState.editRoutine),
+      locked: computed(() => !AppState.activeRoutine.edit),
       totalPlayTime: computed(() => {
         let total = 0;
         AppState.listEntries.forEach(entry => total += entry.duration)
@@ -61,17 +63,16 @@ export default {
         return total
       }),
 
-      unlockRoutine() {
-        AppState.activeRoutine.edit = true;
+      toggleRoutineLock() {
+        AppState.activeRoutine.edit = !AppState.activeRoutine.edit;
       },
 
-      saveRoutine() {
+      async cloneRoutine() {
         try {
-          // submit changes to service > api and update
-          // routinesService.updateRoutine(routineData.value);
-          AppState.activeRoutine.edit = false;
+          const routineId = AppState.activeRoutine.id;
+          await routinesService.cloneRoutine(routineId);
         } catch (error) { Pop.error(error) }
-      }
+      },
 
     };
   },
@@ -131,6 +132,15 @@ export default {
 
 .z1 {
   z-index: 1;
+}
+
+.btn-secondary{
+  opacity: .5;
+  transition: .25s;
+}
+
+.btn-secondary:hover{
+  opacity: 1;
 }
 
 ::-webkit-scrollbar {

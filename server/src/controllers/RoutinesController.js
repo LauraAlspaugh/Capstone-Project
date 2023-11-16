@@ -13,7 +13,7 @@ export class RoutinesController extends BaseController {
             // 🔽 REQUIRES AUTHENTICATION 🔽
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createRoutine)
-            .post('/routineId', this.cloneRoutine)
+            .get('/routineId/clone', this.cloneRoutine)
             .put('/:routineId', this.editRoutine)
             .delete('/:routineId', this.archiveRoutine)
             .delete('/:routineId/delete', this.deleteRoutine)
@@ -58,7 +58,7 @@ export class RoutinesController extends BaseController {
         try {
             const creatorId = request.userInfo.id;
             const routineId = request.params.routineId;
-            const newRoutine = await routinesService.cloneRoutine(creatorId, routineId);
+            const newRoutine = await routinesService.cloneRoutine(creatorId, routineId, request.body);
             return response.send(newRoutine)
         } catch (error) { next(error) }
     }

@@ -35,6 +35,15 @@ class RoutinesService {
         return newRoutine
     }
 
+    async cloneRoutine(routineId) {
+        const res = await api.post(`api/routines/${routineId}/clone`)
+        const newRoutine = new Routine(res.data);
+        logger.log('cloned routine', newRoutine);
+        newRoutine.edit = true; // enable edit view on routine editor
+        await this.setActiveRoutine(newRoutine.id)
+        return newRoutine
+    }
+
     async editRoutine(routineData) {
         const res = await api.put(`api/routines/${routineData.id}`, routineData)
         const updatedRoutine = new Routine(res.data);
