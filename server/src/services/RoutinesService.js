@@ -6,7 +6,7 @@ import { RoutineSchema } from "../models/Routine.js";
 import { ListEntrySchema } from "../models/ListEntry.js";
 import { favoritesService } from "./FavoritesService.js";
 
-const CALC_CACHE = {}
+// const CALC_CACHE = {}
 
 async function _calcTarget(routineId) {
 
@@ -14,31 +14,34 @@ async function _calcTarget(routineId) {
     //     return CALC_CACHE[routineId]
     // }
 
-    const totalEntries = await dbContext.ListEntries.find({ routineId })
+    const allEntries = await dbContext.ListEntries.find({ routineId })
         .populate('move', 'englishName bodyPart level benefits description ')
-        .lean() // lean trims the document format back into a more readable object 
+        .lean() // lean trims from the DB document format back into a more readable object
+
 
     const bodyParts = {}
-
-    const movesObject = totalEntries.reduce((acc, entry) => {
-        const moveId = entry.moveId.toString()
-
-        // tally # of times a move is in a routine  --  acc = accumulator
-        // @ts-ignore
-        acc[moveId] = acc[moveId] || { name: entry.move.englishName, count: 0 }
-        acc[moveId].count++
-
+    allEntries.forEach(entry => {
         //tally number of instances a body part is mentioned as a target
         // @ts-ignore
-        entry.move.bodyPart.forEach(p => {
-            bodyParts[p] = bodyParts[p] || { name: p, count: 0 }
-            bodyParts[p].count++
+        entry.move.bodyPart.forEach(part => {
+            bodyParts[part] = bodyParts[part] || { name: part, count: 0 }
+            bodyParts[part].count++
         })
-
-        return acc
-    }, {})
+    })
+    // Remove the 'key' that was used to separate and count
     const bodyPartArray = Object.entries(bodyParts).map(e => (e[1]))
 
+    // tally # of times a move is in a routine  --  acc = accumulator
+    // const movesObject = allEntries.reduce((acc, entry) => {
+    //     const moveId = entry.moveId.toString()
+    //     // @ts-ignore
+    //     acc[moveId] = acc[moveId] || { name: entry.move.englishName, count: 0 }
+    //     acc[moveId].count++
+    //     return acc
+    // }, {})
+
+    // Original function, tested here: https://mongoplayground.net/p/aGS9HVtlEvm 
+    // --NOTE: Playground uses a STRING for ID, but actual objectId comparison required
     // const target = await dbContext.Routines.aggregate([
     //     { $match: { _id: ObjectId(routineId) } },
     //     { $lookup: { from: '$ListEntry', localField: "_id", foreignField: "routineId", as: "listEntry" } },
@@ -60,6 +63,7 @@ async function _calcTarget(routineId) {
         { new: true }
     )
 
+    // We're running this to recalc on each add/remove of a list-entry to a routine, so caching isn't necessary
     // CALC_CACHE[routineId] = { movesObject, bodyParts }
     // return CALC_CACHE[routineId]
 }
@@ -136,9 +140,7 @@ class RoutinesService {
     }
 
     async cloneRoutine(creatorId, routineId) {
-        logger.log('intro params', creatorId, routineId);
         const ogRoutine = await dbContext.Routines.findById(routineId);
-        logger.log('ogRoutine', ogRoutine);
         // @ts-ignore
         const Routine = mongoose.model('Routine', RoutineSchema);
 
@@ -150,11 +152,8 @@ class RoutinesService {
             isNew: true
         });
         await clonedRoutine.save();
-        logger.log('clonedRoutine', clonedRoutine);
 
         const ogListEntries = await dbContext.ListEntries.find({ routineId }).lean();
-        logger.log('ogListEntries find', ogListEntries);
-
         const ListEntry = mongoose.model('ListEntry', ListEntrySchema);
         ogListEntries.forEach(listEntry => {
             // @ts-ignore
@@ -167,8 +166,9 @@ class RoutinesService {
             clonedListEntry.save();
         })
 
-        // _calcTarget(clonedRoutine.id);
+        // _calcTarget(clonedRoutine.id); // Don't need to re-calculate since it is a direct clone
 
+        // Add new cloned routine to your favorites
         await favoritesService.createFavoritedRoutine({ routineId: clonedRoutine.id, creatorId })
 
         await clonedRoutine.populate('creator', 'name picture')
