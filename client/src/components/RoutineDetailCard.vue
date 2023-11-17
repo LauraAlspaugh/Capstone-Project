@@ -7,12 +7,20 @@
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
                         </button>
                         <span v-if="selectedRoutine.creatorId == account.id" >
-                            <div class="position-relative z3">
-                                <i v-if="!selectedRoutine.isArchived" class="fs-3 onHover showHidden text-success mdi mdi-package-down" type="button" title="Archive the routine?" @click="archiveRoutine()"></i>
-                                <p class="mb-0 p-2 card hidden position-absolute">To permanently delete a routine, you must archive it first.</p>
+                            <div v-if="!selectedRoutine.isArchived" class="position-relative z3">
+                                <i class="fs-3 onHover showHidden text-success mdi mdi-package-down" type="button" title="Archive the routine?" @click="archiveRoutine()"></i>
+                                <p class="mb-0 p-2 card hidden position-absolute">
+                                    Archive a routine to remove it from the community list. Anyone who has favorited it will still be able to use the routine.
+                                </p>
                             </div>
                             <i v-if="selectedRoutine.isArchived" class="fs-3 onHover text-success mdi mdi-package-up" type="button" title="Unarchive the routine?" @click="unarchiveRoutine()"></i>
-                            <i v-if="selectedRoutine.isArchived && selectedRoutine.favoritedCount == 0" class="fs-3 onHover ms-5 text-danger mdi mdi-trash-can" type="button" title="Permanently delete the routine?" @click.stop="deleteRoutine()"></i>
+                            <div v-if="selectedRoutine.isArchived && selectedRoutine.favoritedCount == 0" class="position-relative d-inline z3">
+                                <i class="fs-3 onHover showHidden ms-5 text-danger mdi mdi-trash-can" type="button" title="Permanently delete the routine?" @click="deleteRoutine()"></i>
+                                <p class="mb-0 p-2 card hidden position-absolute">
+                                    To permanently delete a routine, there can be no favorites on it.
+                                </p>
+                            </div>
+                            <p v-else-if="selectedRoutine.isArchived" class="">{{ selectedRoutine.favoritedCount }}</p>
                         </span>
                     </div>
                 </section>
