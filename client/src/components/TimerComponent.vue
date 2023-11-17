@@ -11,7 +11,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { movesService } from '../services/MovesService.js'
 import { logger } from "../utils/Logger.js"
 
@@ -48,7 +48,7 @@ export default {
       }
     }); //total time we want to count down in seconds
 
-    let countdown = ref(AppState.activeRoutine.listEntry[moveNumber.value].duration); //time remaining in seconds, gets updated whenever moveNumber changes due to watch
+    let countdown = ref(AppState.activeRoutine.listEntry[moveNumber.value]?.duration); //time remaining in seconds, gets updated whenever moveNumber changes due to watch
 
     let intervalId;
 

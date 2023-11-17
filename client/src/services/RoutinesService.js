@@ -21,6 +21,11 @@ class RoutinesService {
         return new Routine(res.data)
     }
 
+    async getMyRoutines() {
+        const res = await api.get('account/routines');
+        AppState.myRoutines = res.data.map(pojo => new Routine(pojo))
+    }
+
     async getFavRoutines() {
         const res = await api.get('api/favorites/routines')
         AppState.myFavoriteRoutines = res.data.map(pojo => new FavoriteRoutine(pojo))

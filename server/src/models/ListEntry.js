@@ -55,7 +55,7 @@ async function calcRuntime() {
         },
     ]);
 
-    routine.playTime = totalPlayTime[0].totalPlayTime
+    routine.playTime = totalPlayTime[0] ? totalPlayTime[0].totalPlayTime : 0
 
     await routine.save()
 }
