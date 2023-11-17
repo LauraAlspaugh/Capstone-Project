@@ -1,17 +1,17 @@
 <template>
   <div class="rounded-top">
     <span class="d-flex">
-    <span @click="editRoutineForm()" type="button" v-if="route?.name == 'RoutineDesigner' &&  activeRoutine && account.id == activeRoutine.creatorId"
-      class="d-flex align-items-center justify-content-center rounded-bottom border selectable lighten-30 bgBlur bgColor1 w-100">
-      <p class="mb-0 p-2 fs-5 ">Edit Routine</p>
-      <i class="fs-2 mdi mdi-pencil"></i>
+      <span @click="editRoutineForm()" type="button" v-if="route?.name == 'RoutineDesigner' &&  activeRoutine && account.id == activeRoutine.creatorId"
+        class="d-flex align-items-center justify-content-center rounded-bottom border selectable lighten-30 bgBlur bgColor1 w-100">
+        <p class="mb-0 p-2 fs-5 ">Edit Routine</p>
+        <i class="fs-2 mdi mdi-pencil"></i>
+      </span>
+      <span @click="createRoutineForm()" type="button" v-if="account.id"
+        class="d-flex align-items-center justify-content-center rounded border selectable lighten-30 bgBlur bgColor1 w-100">
+        <p class="mb-0 p-2 fs-5 ">Create Routine</p>
+        <i class="fs-2 mdi mdi-plus-circle"></i>
+      </span>
     </span>
-    <span @click="createRoutineForm()" type="button" 
-      class="d-flex align-items-center justify-content-center rounded border selectable lighten-30 bgBlur bgColor1 w-100">
-      <p class="mb-0 p-2 fs-5 ">Create Routine</p>
-      <i class="fs-2 mdi mdi-plus-circle"></i>
-    </span>
-  </span>
     <span v-if="noFavRoutines" class="d-flex flex-column align-items-center">
       <span class="d-flex align-items-center ">
         <p class="mb-0 me-3 fs-3">Add some favorites! </p>
