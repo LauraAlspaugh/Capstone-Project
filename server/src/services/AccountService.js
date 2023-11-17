@@ -52,6 +52,7 @@ function sanitizeBody(body) {
     bio: body.bio,
     createdAt: body.createdAt,
     updatedAt: body.updatedAt,
+    transitionSound: body.transitionSound,
   }
   return writable
 }
