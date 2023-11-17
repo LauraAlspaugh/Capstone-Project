@@ -45,11 +45,10 @@ import { AppState } from '../AppState';
 import { computed } from 'vue';
 import { Modal } from "bootstrap";
 import Pop from "../utils/Pop";
-import { Routine } from '../models/Routine.js';
 import { routinesService } from "../services/RoutinesService";
 
 export default {
-    props: { routineProp: { type: Routine, required: true } },
+    props: { routineProp: { type: Object} },
 
     setup(props) {
         return {

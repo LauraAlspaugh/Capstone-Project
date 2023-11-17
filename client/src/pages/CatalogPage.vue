@@ -173,7 +173,6 @@
 
 <script>
 import { AppState } from '../AppState';
-import { useRoute } from 'vue-router';
 import { computed, onMounted, ref } from 'vue';
 import Pop from '../utils/Pop.js';
 import RoutineCatalogCard from '../components/RoutineCatalogCard.vue';
@@ -185,7 +184,6 @@ import { Move } from "../models/Move.js";
 
 export default {
   setup() {
-    const route = useRoute();
 
     const levels = ["all", "beginner", "intermediate", "expert"];
     const focuses = ["all", "arms", "chest", "core", "neck", "glutes", "hamstrings", "hips", "inner thighs", "lower Back", "quads", "shoulder", "upper back"];
@@ -216,14 +214,6 @@ export default {
       catch (error) { Pop.error(error) }
     }
 
-    async function getMoveById() {
-      try {
-        const moveId = route.params.moveId
-        await movesService.getMoveById(moveId)
-      }
-      catch (error) { Pop.error(error) }
-    }
-
     return {
       editableLevel,
       editableFocus,
@@ -241,7 +231,7 @@ export default {
           let movesByLevel = AppState.moves.filter(
             (move) => move.level == editableLevel.value.toLocaleLowerCase()
           );
-          //and if focus is anything but "all", filter it even more by bodypart
+          //and if focus is anything but "all", filter it even more by bodyPart
           if (editableFocus.value && !editableFocus.value.includes("all")) {
             return movesByLevel.filter(move =>
               editableFocus.value.every(part => move.bodyPart.includes(part)))
