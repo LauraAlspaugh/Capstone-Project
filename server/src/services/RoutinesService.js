@@ -104,8 +104,8 @@ class RoutinesService {
         return routine
     }
 
-    async getRoutineByCreatorId(userId) {
-        const routines = await dbContext.Routines.find({ creatorId: userId })
+    async getRoutineByCreatorId(creatorId) {
+        const routines = await dbContext.Routines.find({ creatorId })
             .populate('creator', 'name picture')
             .populate("moveCount")
             .populate("favoritedCount")

@@ -21,6 +21,11 @@ class RoutinesService {
         return new Routine(res.data)
     }
 
+    async getMyRoutines() {
+        const res = await api.get('account/routines');
+        AppState.myRoutines = res.data.map(pojo => new Routine(pojo))
+    }
+
     async getFavRoutines() {
         const res = await api.get('api/favorites/routines')
         AppState.myFavoriteRoutines = res.data.map(pojo => new FavoriteRoutine(pojo))
@@ -98,6 +103,7 @@ class RoutinesService {
         if (routineObj.creatorId != AppState.account.id) { throw new Error('Not yours to delete') }
         const res = await api.delete(`api/routines/${routineObj.id}/delete`)
         AppState.routines = AppState.routines.filter(routine => routine.id != routineObj.id);
+        AppState.myRoutines = AppState.myRoutines.filter(routine => routine.id != routineObj.id);
         logger.log(res.data)
     }
 

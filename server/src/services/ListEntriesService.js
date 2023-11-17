@@ -119,20 +119,20 @@ class ListEntriesService {
                 { $set: { position } }
             )
             results.push(result);
-            logger.log('update bulk', { _id: id, position })
+            logger.log('update positions', { _id: id, position })
         })
         logger.log('results', results)
         return results
     }
 
     async destroyListEntry(listEntryId, userId) {
-        const listEntryToDelete = await this.getListEntryById(listEntryId)
+        const listEntryToDelete = await this.getListEntryById(listEntryId);
         if (listEntryToDelete.creatorId.toString() != userId) {
             throw new Forbidden('Not your list entry to delete!')
         }
         await listEntryToDelete.delete()
         await _updateUsageCount(listEntryToDelete.moveId)
-        return "This list entry has been deleted"
+        return "This list entry has been deleted: " + listEntryToDelete
     }
 
 }

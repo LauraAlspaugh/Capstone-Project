@@ -6,7 +6,7 @@
     <router-view />
   </main>
 
-  <!-- Modal Body -->
+  <!-- Modals -->
   <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
   <div class="modal fade" id="move-modal" tabindex="-1" data-bs-keyboard="false" role="dialog"
     aria-labelledby="modalTitleId" aria-hidden="true">
@@ -45,17 +45,6 @@
       </div>
     </div>
   </div>
-  <!-- Full screen modal -->
-  <div class="modal modal-lg fade" id="openPlayer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="openPlayerLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
-      <div class="modal-content">
-        <div class="modal-body" v-if="activeRoutine?.id && listEntries.length > 0">
-          <RoutinePlayComponent />
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="modal fade" id="expand-modal" tabindex="-1" data-bs-keyboard="false" role="dialog"
     aria-labelledby="modalTitleId" aria-hidden="true">
@@ -68,19 +57,28 @@
     </div>
   </div>
 
+  <!-- Full screen modal -->
+  <div class="modal modal-lg fade" id="openPlayer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="openPlayerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-body" v-if="activeRoutine?.id && listEntries.length > 0">
+          <RoutinePlayComponent />
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel"></h5>
-
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <RoutinePlayPageModal :moveProp="move" />
-
-
+          ...
         </div>
       </div>
     </div>

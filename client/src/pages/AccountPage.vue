@@ -10,23 +10,49 @@
         <EditAccountForm />
       </div>
     </section>
+    <section class="row" v-if="myRoutines.length > 0">
+      <div class="col-12 p-3">
+        <p class="fs-1 mb-0">My Routines</p>
+      </div>
+      <div v-for="routine in myRoutines" :key="routine.id" class="col-12 col-md-6 col-lg-4 p-3">
+        <RoutineCatalogCard :routineProp="routine" />
+      </div>
+
+    </section>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState';
 import EditAccountForm from "../components/EditAccountForm.vue";
 import UserCard from "../components/UserCard.vue";
+import { routinesService } from "../services/RoutinesService";
+import Pop from "../utils/Pop";
+import RoutineCatalogCard from "../components/RoutineCatalogCard.vue";
 
 export default {
   setup() {
+
+    async function _getMyRoutines() {
+      try {
+        await routinesService.getMyRoutines();
+      }
+      catch (error) { Pop.error(error) }
+    }
+
+    onMounted(() => {
+      _getMyRoutines();
+    })
+
     return {
       account: computed(() => AppState.account),
+      myRoutines: computed(() => AppState.myRoutines),
+
 
     }
   },
-  components: { EditAccountForm, UserCard }
+  components: { EditAccountForm, UserCard, RoutineCatalogCard }
 }
 </script>
 
