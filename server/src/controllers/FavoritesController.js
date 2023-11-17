@@ -12,8 +12,8 @@ export class FavoritesController extends BaseController {
       .get("/routines", this.getMyFavoritedRoutines)
       .post("/moves", this.createFavoritedMove)
       .post("/routines", this.createFavoritedRoutine)
-      .delete('/moves/:favoritedmoveId', this.removeFavoritedMove)
-      .delete('/routines/:favoritedroutineId', this.removeFavoritedRoutine)
+      .delete('/moves/:moveId', this.removeFavoritedMove)
+      .delete('/routines/:routineId', this.removeFavoritedRoutine)
   }
 
   // SECTION 🔽 AUTHENTICATION REQUIRED 🔽
@@ -53,18 +53,18 @@ export class FavoritesController extends BaseController {
 
   async removeFavoritedMove(request, response, next) {
     try {
-      const favoritedmoveId = request.params.favoritedmoveId
+      const moveId = request.params.moveId
       const userId = request.userInfo.id
-      const deleteMessage = await favoritesService.removeFavoritedMove(favoritedmoveId, userId)
+      const deleteMessage = await favoritesService.removeFavoritedMove(moveId, userId)
       return response.send(deleteMessage)
     } catch (error) { next(error) }
   }
 
   async removeFavoritedRoutine(request, response, next) {
     try {
-      const favoritedroutineId = request.params.favoritedroutineId
+      const routineId = request.params.routineId
       const userId = request.userInfo.id
-      const deleteMessage = await favoritesService.removeFavoritedRoutine(favoritedroutineId, userId)
+      const deleteMessage = await favoritesService.removeFavoritedRoutine(routineId, userId)
       return response.send(deleteMessage)
     } catch (error) { next(error) }
   }

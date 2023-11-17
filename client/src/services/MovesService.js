@@ -18,15 +18,13 @@ async getMoveById(moveId){
 }
 
 async favoriteMove(moveId){
-    const res = await api.post(`api/favorites/moves`, {moveId})
-    logger.log(res.data)
-    AppState.myFavoriteMoves.push(new FavoriteMove(res.data))
+    const res = await api.post(`api/favorites/moves`, { moveId });
+    AppState.myFavoriteMoves.push(new FavoriteMove(res.data));
 }
 
 async unfavoriteMove(moveId){
-    const myFavoritedMoveObjectData = AppState.myFavoriteMoves.find(favoriteMove => favoriteMove.moveId == moveId)
-    const res = await api.delete(`api/favorites/moves/${myFavoritedMoveObjectData.id}`)
-    AppState.myFavoriteMoves = AppState.myFavoriteMoves.filter(fav => fav.id != myFavoritedMoveObjectData.id)
+    const res = await api.delete(`api/favorites/moves/${moveId}`);
+    AppState.myFavoriteMoves = AppState.myFavoriteMoves.filter(fav => fav.moveId != moveId);
     return res.data
 }
 

@@ -35,28 +35,28 @@ class FavoritesService {
     return favoritedRoutine
   }
 
-  async removeFavoritedMove(favoritedmoveId, userId) {
-    const favoriteToDelete = await dbContext.FavoriteMoves.findById(favoritedmoveId)
+  async removeFavoritedMove(moveId, creatorId) {
+    const favoriteToDelete = await dbContext.FavoriteMoves.findOne({ moveId, creatorId })
     if (!favoriteToDelete) {
-      throw new BadRequest(`Could not find ID ${favoritedmoveId}`)
+      throw new BadRequest(`Could not find ID ${moveId}`)
     }
-    if (favoriteToDelete.creatorId != userId) {
+    if (favoriteToDelete.creatorId != creatorId) {
       throw new Forbidden(`You are not the one who liked this move`)
     }
-    await favoriteToDelete.remove()
-    return "This move has been removed from your favorites."
+    const results = await favoriteToDelete.remove()
+    return 'Successfully removed favorite: ' + results
   }
 
-  async removeFavoritedRoutine(favoritedroutineId, userId) {
-    const favoriteToDelete = await dbContext.FavoriteRoutines.findById(favoritedroutineId)
+  async removeFavoritedRoutine(routineId, creatorId) {
+    const favoriteToDelete = await dbContext.FavoriteRoutines.findOne({ routineId, creatorId })
     if (!favoriteToDelete) {
-      throw new BadRequest(`Could not find ID ${favoritedroutineId}`)
+      throw new BadRequest(`Could not find by Routine ID ${routineId}`)
     }
-    if (favoriteToDelete.creatorId != userId) {
+    if (favoriteToDelete.creatorId != creatorId) {
       throw new Forbidden(`You are not the one who liked this move`)
     }
-    await favoriteToDelete.remove()
-    return "This move has been removed from your favorites."
+    const results = (await favoriteToDelete.remove())
+    return 'Successfully removed favorite: ' + results
   }
 
 

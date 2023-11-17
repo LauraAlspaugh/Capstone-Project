@@ -27,6 +27,16 @@ export default {
       isFavRoutine: computed(() => AppState.myFavoriteRoutines.find((routine) => routine.routineId == props.id)),
 
 
+      async favorite() {
+        if (props.moveOrRoutine == 'move') {
+          await this.favoriteMove(props.id);
+        }
+        else {
+          await this.favoriteRoutine(props.id);
+        }
+        await routinesService.getFavRoutines();
+      },
+
       async favoriteMove(id) {
         try {
           await movesService.favoriteMove(id);
@@ -41,14 +51,14 @@ export default {
         catch (error) { Pop.error(error) }
       },
 
-      async favorite() {
+      async unfavorite() {
         if (props.moveOrRoutine == 'move') {
-          await this.favoriteMove(props.id);
+          await this.unfavoriteMove(props.id);
         }
         else {
-          await this.favoriteRoutine(props.id);
+          await this.unfavoriteRoutine(props.id);
         }
-        await routinesService.getFavRoutines();
+        await movesService.getMyFavoriteMoves();
       },
 
       async unfavoriteMove(id) {
@@ -63,16 +73,6 @@ export default {
           await routinesService.unfavoriteRoutine(id);
         }
         catch (error) { Pop.error(error) }
-      },
-
-      async unfavorite() {
-        if (props.moveOrRoutine == 'move') {
-          await this.unfavoriteMove(props.id);
-        }
-        else {
-          await this.unfavoriteRoutine(props.id);
-        }
-        await movesService.getMyFavoriteMoves();
       },
 
     }

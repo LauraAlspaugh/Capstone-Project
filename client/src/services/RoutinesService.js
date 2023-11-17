@@ -64,7 +64,7 @@ class RoutinesService {
 
     async unfavoriteRoutine(routineId) {
         const res = await api.delete(`api/favorites/routines/${routineId}`);
-        AppState.myFavoriteRoutines = AppState.myFavoriteRoutines.filter(fav => fav.id != routineId);
+        AppState.myFavoriteRoutines = AppState.myFavoriteRoutines.filter(fav => fav.routineId != routineId);
         return res.data
     }
 
