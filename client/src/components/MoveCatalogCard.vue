@@ -14,7 +14,7 @@
                     </section>
                     <section class="row my-2">
                         <div class="col">
-                            <span class="pe-4 color3 fw-bold" v-for="focus in moveProp.bodyPart" :key="focus"> 
+                            <span class="pe-4 color3 fw-bold" v-for="focus in moveProp.bodyPart" :key="focus">
                                 {{ focus }}
                             </span>
                         </div>
@@ -27,8 +27,10 @@
                     </section>
                 </div>
                 <div class="col-1 d-flex justify-content-end h-100">
-                    <span v-if="isFavMove" @click.stop="unfavoriteMove()" role="button"><i class="fs-2 mdi mdi-heart"></i></span>
-                    <span v-else @click.stop="favoriteMove()" role="button"><i class="fs-2 mdi mdi-heart-outline"></i></span>
+                    <span v-if="isFavMove" @click.stop="unfavoriteMove()" role="button"><i
+                            class="fs-2 mdi mdi-heart"></i></span>
+                    <span v-else @click.stop="favoriteMove()" role="button"><i
+                            class="fs-2 mdi mdi-heart-outline"></i></span>
                 </div>
             </section>
         </div>
@@ -93,5 +95,6 @@ img {
     border-radius: 3px;
     height: 15rem;
     width: 20rem;
+    object-fit: cover;
 }
 </style>

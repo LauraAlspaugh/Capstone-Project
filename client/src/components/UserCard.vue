@@ -19,10 +19,10 @@
     </div>
     <p class="pt-3">{{ profile.bio }}</p>
     <div class="fs-1 socials d-flex justify-content-center p-3">
-      <a :href="profile.github" target="_blank"><i class="p-3 mdi mdi-github" title="icon for github"></i></a>
+      <!-- <a :href="profile.github" target="_blank"><i class="p-3 mdi mdi-github" title="icon for github"></i></a>
       <a :href="profile.linkedin" target="_blank"><i class="p-3 mdi mdi-linkedin" title="icon for linked"></i></a>
       <a :href="profile.resume" target="_blank"><i class="p-3 mdi mdi-file-account"
-          title="icon for the user's resume"></i></a>
+          title="icon for the user's resume"></i></a> -->
       <a :href="profile.website" target="_blank"><i class="p-3 mdi mdi-web" title="icon for the user's website"></i></a>
     </div>
   </div>
@@ -54,7 +54,7 @@ img {
 }
 
 .bgColor {
-  background-color: #12345678;
+  background-color: #7e787178;
   backdrop-filter: blur(5px);
 }
 

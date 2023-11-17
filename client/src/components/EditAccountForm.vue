@@ -6,7 +6,7 @@
         <hr>
       </div>
 
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-md-12">
         <section class="user">
           <div class="m-3 mt-0">
             <label for="name">Name</label>
@@ -22,7 +22,7 @@
           </div>
         </section>
       </div>
-      <div class="col-12 col-md-6">
+      <!-- <div class="col-12 col-md-6">
         <section class="socials">
           <div class="m-3 mt-0">
             <label for="github">Github</label>
@@ -36,8 +36,8 @@
             <label for="resume">Resume</label>
             <input v-model="editable.resume" class="ms-2 form-control" type="url" id="resume" maxlength="128">
           </div>
-        </section>
-      </div>
+        </section> -->
+      <!-- </div> -->
       <div class="col-12">
         <div class="mx-3 mt-0 mb-4">
           <label for="bio">Bio</label>
