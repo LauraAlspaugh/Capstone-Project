@@ -1,6 +1,6 @@
 <template>
     <section class="row p-2 p-md-4 italiana">
-        <div class="col-12 d-block white-gb p-3" type="button" @click="setActiveRoutine()">
+        <div class="col-12 d-block white-gb p-3" type="button" @click="setSelectedRoutine()">
 
             <div class="row">
                 <div class="col-12">
@@ -37,8 +37,6 @@
             </div>
         </div>
     </section>
-    <!-- <p>{{ routineProp.name }}</p> -->
-    <!-- <p>{{ routineProp.description }}</p> -->
 </template>
 
 
@@ -55,6 +53,13 @@ export default {
 
     setup(props) {
         return {
+            myFavoriteRoutines: computed(() => AppState.myFavoriteRoutines),
+            isFavRoutine: computed(() => AppState.myFavoriteRoutines.find((routine) => routine.routineId == props.routineProp.id)),
+
+            setSelectedRoutine() {
+                AppState.selectedRoutine = props.routineProp;
+                Modal.getOrCreateInstance('#routine-modal').show();
+            },
 
             async favoriteRoutine() {
                 try {
@@ -70,16 +75,7 @@ export default {
                     await routinesService.unfavoriteRoutine(routineId)
                 }
                 catch (error) { Pop.error(error) }
-
             },
-
-            myFavoriteRoutines: computed(() => AppState.myFavoriteRoutines),
-            isFavRoutine: computed(() => AppState.myFavoriteRoutines.find((routine) => routine.routineId == props.routineProp.id)),
-
-            setActiveRoutine() {
-                AppState.selectedRoutine = props.routineProp;
-                Modal.getOrCreateInstance('#routine-modal').show();
-            }
 
         }
     }

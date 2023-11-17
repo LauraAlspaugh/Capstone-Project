@@ -69,11 +69,10 @@
                             <p class="text-mint"> Created by {{ selectedRoutine.creator.name }}</p>
                         </div>
                         <div class=" mb-5">
-                            <router-link :to="{ name: 'RoutineDesigner' }" class="">
-                                <button role="button" class="btn btn-outline-light p-2 text-white"
-                                    title="Open Full Routine in Routine Designer Page" data-bs-dismiss="modal">Open Full
-                                    Routine</button>
-                            </router-link>
+                            <button role="button" class="btn btn-outline-light p-2 text-white" @click="setActiveRoutine(selectedRoutine.id)"
+                                title="Open Full Routine in Routine Designer Page" data-bs-dismiss="modal">
+                                Open Full Routine
+                            </button>
                         </div>
 
                     </div>
@@ -91,14 +90,26 @@ import { computed } from 'vue';
 import Pop from "../utils/Pop";
 import FavoriteUnfavoriteMove from "./FavoriteUnfavoriteMove.vue";
 import { routinesService } from "../services/RoutinesService";
+import { useRouter } from "vue-router";
 import { Modal } from "bootstrap";
 
 export default {
     setup() {
+        const router = useRouter();
+
+
+
         return {
             account: computed(() => AppState.account),
             routines: computed(() => AppState.routines),
             selectedRoutine: computed(() => AppState.selectedRoutine),
+
+            async setActiveRoutine(routineId) {
+                try {
+                    router.push({ name: 'RoutineDesigner', params: { routineId } })
+                    await routinesService.setActiveRoutine(routineId);
+                } catch (error) { Pop.error(error) }
+            },
 
             async archiveRoutine() {
                 try {

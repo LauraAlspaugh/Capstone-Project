@@ -1,7 +1,7 @@
 <template>
   <div class="rounded-top">
     <span class="d-flex">
-    <span @click="editRoutineForm()" type="button" v-if="route?.name == 'RoutineEditor' &&  activeRoutine?.creatorId == account?.id"
+    <span @click="editRoutineForm()" type="button" v-if="route?.name == 'RoutineDesigner' &&  activeRoutine && account.id == activeRoutine.creatorId"
       class="d-flex align-items-center justify-content-center rounded-bottom border selectable lighten-30 bgBlur bgColor1 w-100">
       <p class="mb-0 p-2 fs-5 ">Edit Routine</p>
       <i class="fs-2 mdi mdi-pencil"></i>
@@ -21,8 +21,8 @@
         <small class="btn btn-secondary" @click="manualCheck()">Recheck</small>
       </p>
     </span>
-    <span v-else-if="favRoutines.length > 0">
-      <div v-for="fav in favRoutines" :key="fav.id" @click="setActiveRoutine(fav.routineId)"
+    <span v-else-if="myFavoriteRoutines.length > 0">
+      <div v-for="fav in myFavoriteRoutines" :key="fav.id" @click="setActiveRoutine(fav.routineId)"
         class="d-flex align-items-center justify-content-between border px-3 selectable lighten-30 bgBlur bgColor2">
         <p class="mb-0 p-2 fs-5 text-nowrap">{{ fav.routine.name }}</p>
         <p class="mb-0 p-2 fs-5 text-nowrap">{{ (fav.routine.playTime / 60).toFixed(1) }} min</p>
@@ -54,7 +54,7 @@ export default {
 
       account: computed(() => AppState.account),
       activeRoutine: computed(() => AppState.activeRoutine),
-      favRoutines: computed(() => AppState.myFavoriteRoutines),
+      myFavoriteRoutines: computed(() => AppState.myFavoriteRoutines),
       myRoutines: computed(() => AppState.myRoutines),
       noFavRoutines: computed(() => AppState.noFavRoutines),
 
@@ -71,7 +71,7 @@ export default {
       async setActiveRoutine(routineId) {
         try {
           await routinesService.setActiveRoutine(routineId);
-          router.push({name: 'RoutineEditor', params: {routineId} })
+          router.push({name: 'RoutineDesigner', params: {routineId} })
         } catch (error) { Pop.error(error) }
       },
 

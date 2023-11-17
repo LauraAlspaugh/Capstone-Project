@@ -15,14 +15,8 @@
             <img class="logo-nav d-inline d-lg-none" alt="logo" src="../assets/img/RootedFlow Logo-only-OG.png" />
           </router-link>
         </li>
-        <li v-if="activeRoutine?.id">
-          <router-link :to="{ name: 'RoutineDesigner', params: { routineId: activeRoutine.id} }"
-            class="fs-5 ms-2 me-1 btn text-black lighten-30 selectable text-uppercase">
-            Routine Designer
-          </router-link>
-        </li>
-        <li v-else>
-          <router-link :to="{ name: 'RoutineDesigner' }"
+        <li>
+          <router-link :to="{ name: 'RoutineDesigner'}"
             class="fs-5 ms-2 me-1 btn text-black lighten-30 selectable text-uppercase">
             Routine Designer
           </router-link>

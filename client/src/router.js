@@ -12,13 +12,13 @@ const routes = [
     component: loadPage('HomePage')
   },
   {
-    path: '/routine-designer',
+    path: '/routine-designer/:routineId',
     name: 'RoutineDesigner',
     component: loadPage('RoutineDesignerPage')
   },
   {
-    path: '/routine-designer/:routineId',
-    name: 'RoutineEditor',
+    path: '/routine-designer',
+    name: 'RoutineDesigner',
     component: loadPage('RoutineDesignerPage')
   },
   {

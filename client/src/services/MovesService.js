@@ -7,13 +7,11 @@ import { api } from "./AxiosService.js"
 class MovesService{
 async getMoves(){
     const res = await api.get('api/moves')
-    logger.log('getting moves!', res.data)
     AppState.moves = res.data.map(pojo => new Move(pojo))
 }
 async getMoveById(moveId){
     AppState.activeMove = null
     const res = await api.get(`api/moves/${moveId}`)
-    // logger.log('getting move by Id', res.data)
     AppState.activeMove = new Move(res.data)
 }
 
@@ -30,8 +28,6 @@ async unfavoriteMove(moveId){
 
 async getMyFavoriteMoves(){
     const res = await api.get(`api/favorites/moves`)
-    // logger.log('get my favorite moves', res.data)
-
     AppState.myFavoriteMoves = res.data.map(fav => new FavoriteMove(fav))
 }
 

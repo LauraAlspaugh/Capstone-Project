@@ -13,7 +13,6 @@ function _clearData() {
 class RoutinesService {
     async getRoutines() {
         const res = await api.get('api/routines')
-        // logger.log('getting routines!', res.data)
         AppState.routines = res.data.map(pojo => new Routine(pojo))
     }
 
@@ -24,9 +23,8 @@ class RoutinesService {
 
     async getFavRoutines() {
         const res = await api.get('api/favorites/routines')
-        // logger.log('getting fav routines!', res.data)
         AppState.myFavoriteRoutines = res.data.map(pojo => new FavoriteRoutine(pojo))
-        if (AppState.myFavoriteMoves.length == 0) {
+        if (AppState.myFavoriteRoutines.length == 0) {
             AppState.noFavRoutines = true;
         }
     }
@@ -60,11 +58,15 @@ class RoutinesService {
     async favoriteRoutine(routineId) {
         const res = await api.post(`api/favorites/routines`, { routineId });
         AppState.myFavoriteRoutines.push(new FavoriteRoutine(res.data));
+        const routine = AppState.routines.find(routine => routine.id == routineId);
+        routine.favoritedCount++
     }
 
     async unfavoriteRoutine(routineId) {
         const res = await api.delete(`api/favorites/routines/${routineId}`);
         AppState.myFavoriteRoutines = AppState.myFavoriteRoutines.filter(fav => fav.routineId != routineId);
+        const routine = AppState.routines.find(routine => routine.id == routineId);
+        routine.favoritedCount--
         return res.data
     }
 

@@ -199,7 +199,9 @@ export default {
     let wantsCommunityRoutines = ref(false);
 
     onMounted(() => {
-      getMoves();
+      if (!AppState.moves.length > 0) {
+        getMoves();
+      }
       getRoutines();
       // getMoveById();
     });
