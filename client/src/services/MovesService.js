@@ -24,12 +24,10 @@ async favoriteMove(moveId){
 }
 
 async unfavoriteMove(moveId){
-    // logger.log('moveId', moveId)
     const myFavoritedMoveObjectData = AppState.myFavoriteMoves.find(favoriteMove => favoriteMove.moveId == moveId)
-    // logger.log('myFavoritedMoveObjectData', myFavoritedMoveObjectData)
     const res = await api.delete(`api/favorites/moves/${myFavoritedMoveObjectData.id}`)
-    // logger.log(res.data)
     AppState.myFavoriteMoves = AppState.myFavoriteMoves.filter(fav => fav.id != myFavoritedMoveObjectData.id)
+    return res.data
 }
 
 async getMyFavoriteMoves(){

@@ -58,14 +58,13 @@ class RoutinesService {
     }
 
     async favoriteRoutine(routineId) {
-        const res = await api.post(`api/favorites/routines`, { routineId })
-        AppState.myFavoriteRoutines.push(new FavoriteRoutine(res.data))
+        const res = await api.post(`api/favorites/routines`, { routineId });
+        AppState.myFavoriteRoutines.push(new FavoriteRoutine(res.data));
     }
 
     async unfavoriteRoutine(routineId) {
-        const myFavoritedRoutineObjectData = AppState.myFavoriteRoutines.find(favoriteRoutine => favoriteRoutine.routineId == routineId)
-        const res = await api.delete(`api/favorites/routines/${myFavoritedRoutineObjectData.id}`)
-        AppState.myFavoriteRoutines = AppState.myFavoriteRoutines.filter(fav => fav.id != myFavoritedRoutineObjectData.id)
+        const res = await api.delete(`api/favorites/routines/${routineId}`);
+        AppState.myFavoriteRoutines = AppState.myFavoriteRoutines.filter(fav => fav.id != routineId);
         return res.data
     }
 
@@ -77,7 +76,7 @@ class RoutinesService {
         AppState.selectedRoutine = updated;
         const index = AppState.routines.findIndex(routine => routine.id == routineObj.id);
         AppState.routines.splice(index, 1, updated);
-        logger.log('archived', res.data)
+        await this.unfavoriteRoutine(routineObj.id);
     }
 
     async unarchiveRoutine() {
@@ -88,7 +87,7 @@ class RoutinesService {
         AppState.selectedRoutine = updated;
         const index = AppState.routines.findIndex(routine => routine.id == routineObj.id);
         AppState.routines.splice(index, 1, updated);
-        logger.log('archived', res.data)
+        await this.favoriteRoutine(routineObj.id);
     }
 
     async deleteRoutine() {

@@ -1,12 +1,12 @@
 <template>
     <div class="container-fluid">
-        <section class="row justify-content-center">
+        <section class="row justify-content-center position-relative z0">
             <div v-if="selectedRoutine?.keyImage" class="col active-move position-relative z0">
                 <section class="row">
                     <div class="col-12 d-flex justify-content-between align-items-center px-3 py-2">
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
                         </button>
-                        <span v-if="selectedRoutine.creatorId == account.id" >
+                        <span v-if="selectedRoutine.creatorId == account.id" class="d-flex align-items-center" >
                             <div v-if="!selectedRoutine.isArchived" class="position-relative z3">
                                 <i class="fs-3 onHover showHidden text-success mdi mdi-package-down" type="button" title="Archive the routine?" @click="archiveRoutine()"></i>
                                 <p class="mb-0 p-2 card hidden position-absolute">
@@ -17,10 +17,20 @@
                             <div v-if="selectedRoutine.isArchived && selectedRoutine.favoritedCount == 0" class="position-relative d-inline z3">
                                 <i class="fs-3 onHover showHidden ms-5 text-danger mdi mdi-trash-can" type="button" title="Permanently delete the routine?" @click="deleteRoutine()"></i>
                                 <p class="mb-0 p-2 card hidden position-absolute">
-                                    To permanently delete a routine, there can be no favorites on it.
+                                    Permanently delete the routine.
                                 </p>
                             </div>
-                            <p v-else-if="selectedRoutine.isArchived" class="">{{ selectedRoutine.favoritedCount }}</p>
+                            <div v-else-if="selectedRoutine.isArchived" class="text-white d-inline border rounded ms-3 px-1 dim">
+                                <div class="position-relative z3">
+                                    <span class="showHidden">
+                                        {{ selectedRoutine.favoritedCount }}x
+                                        <i class="mdi mdi-heart"></i>
+                                    </span>
+                                    <p class="mb-0 p-2 card hidden position-absolute">
+                                        To delete a routine, there can be no favorites on it.
+                                    </p>
+                                </div>
+                            </div>
                         </span>
                     </div>
                 </section>
@@ -150,6 +160,10 @@ img {
 
 .text-mint {
     color: #BCC8C4;
+}
+
+.dim{
+    opacity: .8;
 }
 
 .z3{
