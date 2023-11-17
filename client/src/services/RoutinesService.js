@@ -103,6 +103,7 @@ class RoutinesService {
         if (routineObj.creatorId != AppState.account.id) { throw new Error('Not yours to delete') }
         const res = await api.delete(`api/routines/${routineObj.id}/delete`)
         AppState.routines = AppState.routines.filter(routine => routine.id != routineObj.id);
+        AppState.myRoutines = AppState.myRoutines.filter(routine => routine.id != routineObj.id);
         logger.log(res.data)
     }
 
