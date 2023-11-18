@@ -12,7 +12,12 @@
     </section>
     <section class="row justify-content-center align-items-center px-5">
       <div class="col-12 col-md-5 p-3 my-2 order-1 order-md-1 d-flex justify-content-center">
-        <img src="" alt="img for dev 1" class="img border p-2">
+        <img src="src/assets/img/DJ.jpg" alt="DJ Aaron" class="img border p-2">
+        <div class="fs-1 socials d-flex flex-column justify-content-center mx-3 p-3">
+          <a href="https://github.com/koreangeekman" target="_blank"><i class="p-3 mdi mdi-github" title="icon for github"></i></a>
+          <a href="https://www.linkedin.com/in/djaaron/" target="_blank"><i class="p-3 mdi mdi-linkedin" title="icon for linked"></i></a>
+          <a href="https://koreangeekman.info/" target="_blank"><i class="p-3 mdi mdi-web" title="icon for the user's website"></i></a>
+        </div>
       </div>
       <div class="col-12 col-md-7 p-3 my-2 rounded order-2 order-md-2 d-flex justify-content-center desc">
         <p class="fs-5 p-2 rounded white-gb">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime itaque iusto
@@ -25,12 +30,22 @@
           autem voluptate est at accusamus aperiam ipsa.</p>
       </div>
       <div class="col-12 col-md-5 p-3 my-2 order-3 order-md-4 d-flex justify-content-center">
-        <img src="src/assets/img/Erin.jpeg" alt="img for dev 2" class="img border p-2">
+        <div class="fs-1 socials d-flex flex-column justify-content-center mx-3 p-3">
+          <a href="https://github.com/3rinmae" target="_blank"><i class="p-3 mdi mdi-github" title="icon for github"></i></a>
+          <a href="https://www.linkedin.com/in/erin-shiffler-8aa702296/" target="_blank"><i class="p-3 mdi mdi-linkedin" title="icon for linked"></i></a>
+          <a href="#" target="_blank"><i class="p-3 mdi mdi-web" title="icon for the user's website"></i></a>
+        </div>
+        <img src="src/assets/img/Erin.jpeg" alt="Erin Mae Shiffler" class="img border p-2">
       </div>
     </section>
     <section class="row justify-content-center align-items-center px-5">
       <div class="col-12 col-md-5 p-3 my-2 order-1 order-md-1 d-flex justify-content-center">
-        <img src="src/assets/img/lauraimage.jpg" alt="img for dev 3" class="img border p-2">
+        <img src="src/assets/img/lauraimage.jpg" alt="Laura Alspaugh" class="img border p-2">
+        <div class="fs-1 socials d-flex flex-column justify-content-center mx-3 p-3">
+          <a href="https://github.com/LauraAlspaugh" target="_blank"><i class="p-3 mdi mdi-github" title="icon for github"></i></a>
+          <a href="https://www.linkedin.com/in/laura-alspaugh/" target="_blank"><i class="p-3 mdi mdi-linkedin" title="icon for linked"></i></a>
+          <a href="#" target="_blank"><i class="p-3 mdi mdi-web" title="icon for the user's website"></i></a>
+        </div>
       </div>
       <div class="col-12 col-md-7 p-3 my-2 rounded order-2 order-md-2 d-flex justify-content-center desc">
         <p class="fs-5 p-2 rounded white-gb">Hi everyone, and thank you for visiting our site. My name is Laura, and I
@@ -45,7 +60,12 @@
           error quaerat ut, ipsa facere? Similique, recusandae adipisci.</p>
       </div>
       <div class="col-12 col-md-5 p-3 my-2 order-3 order-md-4 d-flex justify-content-center">
-        <img src="" alt="img for dev 2" class="img border p-2">
+        <div class="fs-1 socials d-flex flex-column justify-content-center mx-3 p-3">
+          <a href="https://github.com/kyndrill" target="_blank"><i class="p-3 mdi mdi-github" title="icon for github"></i></a>
+          <a href="https://www.linkedin.com/in/corinna-bolon-690003297/" target="_blank"><i class="p-3 mdi mdi-linkedin" title="icon for linked"></i></a>
+          <a href="#" target="_blank"><i class="p-3 mdi mdi-web" title="icon for the user's website"></i></a>
+        </div>
+        <img src="" alt="Corinna Bolon" class="img border p-2">
       </div>
     </section>
   </div>
