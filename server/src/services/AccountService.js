@@ -45,6 +45,7 @@ function sanitizeBody(body) {
     customLogoUrl: body.customLogoUrl,
     enableAudio: body.enableAudio,
     customAudioId: body.customAudioId,
+    transitionSound: body.transitionSound,
     github: body.github,
     linkedin: body.linkedin,
     resume: body.resume,

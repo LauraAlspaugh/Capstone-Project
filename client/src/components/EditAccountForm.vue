@@ -69,8 +69,8 @@
               <label for="customAudioId">Transition Sound</label>
               <select @change="testPlay(editable.transitionSound)" v-model="editable.transitionSound"
                 class="ms-2 form-select" id="transitionSound" :disabled="!editable.enableAudio">
-                <option v-for="transitionSound in transitionSounds" :key="transitionSound" :value="transitionSound">{{
-                  transitionSound.name }}</option>
+                <option v-for="transitionSound in transitionSounds" :key="transitionSound" :value="transitionSound.name">
+                  {{ transitionSound.name }}</option>
               </select>
             </div>
           </span>
@@ -120,8 +120,10 @@ export default {
           Pop.error(error);
         }
       },
-      testPlay(soundObject) {
-        soundObject.audio.play()
+      testPlay(soundName) {
+
+        const audioObject = AppState.transitionSounds.find(sound => sound.name == soundName)
+        audioObject.audio.play()
       }
 
     }

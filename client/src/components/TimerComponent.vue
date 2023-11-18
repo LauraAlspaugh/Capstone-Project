@@ -121,6 +121,7 @@ export default {
             movesService.finishMove();
             if (!routineIsFinishedPlaying.value) {
               moveNumber.value++
+              playAudioCue()
               resetTimer();
             } else {
               logger.log("Routine over")
@@ -133,6 +134,13 @@ export default {
           }
         }, intervalDuration);
       }
+    }
+    function playAudioCue() {
+      logger.log('play audio cue')
+      const soundName = AppState.account.transitionSound
+      const audioObject = AppState.transitionSounds.find(sound => sound.name == soundName)
+      logger.log('soundName', soundName, audioObject)
+      audioObject.audio.play()
     }
 
     const pauseTimer = () => {

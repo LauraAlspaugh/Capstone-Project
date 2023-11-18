@@ -142,6 +142,12 @@ export default {
         return;
       }
     }
+    function playAudioCue() {
+      logger.log('play audio cue')
+      const soundName = AppState.account.customAudioId
+      const audioObject = AppState.transitionSounds.find(sound => sound.name == soundName)
+      audioObject.audio.play()
+    }
 
     function flipPlayingOrPaused() {
       isPlaying.value = !isPlaying.value
