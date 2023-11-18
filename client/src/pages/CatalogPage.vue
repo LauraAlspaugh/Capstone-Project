@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- SECTION Filter by Poses or Routines -->
-    <section class="row ">
+    <section class="row">
       <div class="col-12 d-flex justify-content-center p-4 italiana">
         <div v-if="wantsPoses">
           <button class="btn-underline btn white-gb m-2 mt-sm-5 me-sm-5 fs-1">Poses</button>
@@ -13,160 +13,74 @@
         </div>
       </div>
     </section>
-    <!-- !SECTION filter by Poses or Routines End -->
 
     <section class="row">
       <div class="col-12 d-flex justify-content-center">
-        <!-- SECTION filter by Pose Level if wantsPoses but not favorites -->
-        <div v-if="wantsPoses && wantsToSeeFavorites == false">
-          <div class="dropdown me-sm-3">
-            <button class="btn white-gb dropdown-toggle italiana" type="button" id="dropdownMenu2"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              level
-            </button>
-            <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
-              <li class="ps-3" v-for="level in levels" :key="level">
-                <div class="form-check">
-                  <label class="form-check-label italiana" for="flexRadioDefault">
-                    <input v-model="editableLevel" class="form-check-input" type="radio" name="radio"
-                      @change="changeLevel(level)" :class="{ 'selectedLevel': level == selectedLevel }"
-                      value="${editableLevel}" id="flexRadioDefault">
-                    {{ level }}
-                  </label>
+        <div v-if="wantsPoses">
+          <MoveFilterBar />
+        </div>
+        <div v-else>
+          <section class="row py-2 image-border align-items-center justify-content-center filter-height">
+            <div class="col-12 justify-content-evenly align-items-center d-flex box">
+              <div>
+                <div v-if="!wantsRootedFlowRoutines">
+                  <button @click="swapShowRootedFlowAndShowAll()" class="btn white-gb italiana" type="button">
+                    RootedFlow
+                  </button>
                 </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <!-- !SECTION Filter by Level End -->
-
-        <!-- SECTION no filter if looking at Pose favorites -->
-        <div v-else-if="wantsPoses && wantsToSeeFavorites == true"></div>
-        <!-- !SECTION no filter if looking at Pose favorites -->
-
-        <!-- SECTION filter by RootedFlow Routines if !wantsPoses and !wantsRootedFlowRoutines yet -->
-        <div v-else-if="!wantsPoses && !wantsRootedFlowRoutines">
-          <button @click="swapShowRootedFlowAndShowAll()" class="btn white-gb italiana" type="button">
-            RootedFlow
-          </button>
-        </div>
-        <div v-else>
-          <button @click="swapShowRootedFlowAndShowAll()" class="btn white-gb italiana" type="button">
-            all routines
-          </button>
-        </div>
-        <!-- !SECTION Filter by RootedFlow Routines End -->
-
-
-        <!-- SECTION Filter Favorite Poses -->
-        <div v-if="wantsPoses && wantsToSeeFavorites == false">
-          <button @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
-            role="button" type="button">my favorites<i class="mdi mdi-heart"></i></button>
-        </div>
-        <!-- !SECTION Filter Favorite Poses End -->
-
-        <!-- SECTION be able to flip back to see all if looking at Pose favorites -->
-        <div v-else-if="wantsPoses && wantsToSeeFavorites == true">
-          <button @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
-            role="button" type="button">all poses</button>
-        </div>
-        <!-- !SECTION be able to flip back to see all if looking at Pose favorites -->
-
-        <!-- SECTION Filter Favorite Routines -->
-        <div v-else-if="!wantsPoses && wantsToSeeFavorites == false">
-          <button @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
-            role="button" type="button">my favorites <i class="mdi mdi-heart"></i></button>
-        </div>
-        <!-- !SECTION Filter Favorite Routines End -->
-
-        <!-- SECTION be able to flip back to see all if looking at Routine favorites -->
-        <div v-else>
-          <button @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
-            role="button" type="button">all routines</button>
-        </div>
-        <!-- !SECTION be able to flip back to see all if looking at Routine favorites -->
-
-        <!-- SECTION Filter by Pose Focus if wantsPoses -->
-        <div v-if="wantsPoses && wantsToSeeFavorites == false">
-          <div class="dropdown ms-sm-3">
-            <button class="btn white-gb dropdown-toggle italiana" type="button" id="dropdownMenu2"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              focus
-            </button>
-            <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
-              <li class="ps-3" v-for="focus in focuses" :key="focus">
-                <div class="form-check">
-                  <input v-model="editableFocus" class="form-check-input" type="checkbox" :value="focus"
-                    id="flexCheckDefault" @change="uncheckIfAll(focus)">
-                  <label class="form-check-label italiana" for="flexCheckDefault">
-                    {{ focus }}
-                  </label>
+                <div v-else>
+                  <button @click="swapShowRootedFlowAndShowAll()" class="btn white-gb italiana" type="button">
+                    all routines
+                  </button>
                 </div>
-              </li>
-            </ul>
-          </div>
+              </div>
+              <div>
+                <div v-if="wantsToSeeFavorites == false">
+                  <button @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
+                    role="button" type="button">my favorites <i class="mdi mdi-heart"></i></button>
+                </div>
+                <div v-else>
+                  <button @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
+                    role="button" type="button">all routines</button>
+                </div>
+              </div>
+              <div>
+                <div v-if="!wantsCommunityRoutines">
+                  <button @click="swapShowCommunityAndShowAll()" class="btn white-gb italiana" type="button">
+                    Community
+                  </button>
+                </div>
+                <div v-else-if="wantsCommunityRoutines">
+                  <button @click="swapShowCommunityAndShowAll()" class="btn white-gb italiana" type="button">
+                    all routines
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section v-if="wantsToSeeFavorites" class="row">
+            <div v-for="routine in myFavoriteRoutines" :key="routine.id" class="col-6 col-lg-4 col-xxl-3">
+              <RoutineCatalogCard :routineProp="routine" />
+            </div>
+          </section>
+          <section v-else-if="wantsRootedFlowRoutines" class="row">
+            <div v-for="routine in rootedFlowRoutines" :key="routine.id" class="col-6 col-lg-4 col-xxl-3">
+              <RoutineCatalogCard :routineProp="routine" />
+            </div>
+          </section>
+          <section v-else-if="wantsCommunityRoutines" class="row">
+            <div v-for="routine in communityRoutines" :key="routine.id" class="col-6 col-lg-4 col-xxl-3">
+              <RoutineCatalogCard :routineProp="routine" />
+            </div>
+          </section>
+          <section v-else class="row">
+            <div v-for="routine in routines" :key="routine.id" class="col-6 col-lg-4 col-xxl-3">
+              <RoutineCatalogCard :routineProp="routine" />
+            </div>
+          </section>
         </div>
-        <!-- !SECTION Filter by Pose Focus End -->
-
-        <!-- SECTION no filter if looking at Pose favorites -->
-        <div v-else-if="wantsPoses && wantsToSeeFavorites == true"></div>
-        <!-- !SECTION no filter if looking at Pose favorites -->
-
-        <!-- SECTION filter Routine by Community -->
-        <div v-else-if="!wantsPoses && !wantsCommunityRoutines">
-          <button @click="swapShowCommunityAndShowAll()" class="btn white-gb italiana" type="button">
-            Community
-          </button>
-        </div>
-        <div v-else>
-          <button @click="swapShowCommunityAndShowAll()" class="btn white-gb italiana" type="button">
-            all routines
-          </button>
-        </div>
-        <!-- !SECTION filter Routine by Community -->
-
       </div>
     </section>
-
-    <!-- SECTION show Move Cards if wantsPoses -->
-    <div v-if="wantsPoses">
-      <section v-if="wantsToSeeFavorites">
-        <div v-for="move in myFavoriteMoves" :key="move.id" class="col-12">
-          <MoveCatalogCard :moveProp="move" />
-        </div>
-      </section>
-      <section v-else class="row">
-        <div v-for="move in moves" :key="move.id" class="col-12">
-          <MoveCatalogCard :moveProp="move" />
-        </div>
-      </section>
-    </div>
-    <!-- !SECTION show Move Cards -->
-
-    <!-- SECTION show Routine Cards if !wantsPoses -->
-    <div v-else>
-      <section v-if="wantsToSeeFavorites" class="row">
-        <div v-for="routine in myFavoriteRoutines" :key="routine.id" class="col-6 col-lg-4 col-xxl-3">
-          <RoutineCatalogCard :routineProp="routine" />
-        </div>
-      </section>
-      <section v-else-if="wantsRootedFlowRoutines" class="row">
-        <div v-for="routine in rootedFlowRoutines" :key="routine.id" class="col-6 col-lg-4 col-xxl-3">
-          <RoutineCatalogCard :routineProp="routine" />
-        </div>
-      </section>
-      <section v-else-if="wantsCommunityRoutines" class="row">
-        <div v-for="routine in communityRoutines" :key="routine.id" class="col-6 col-lg-4 col-xxl-3">
-          <RoutineCatalogCard :routineProp="routine" />
-        </div>
-      </section>
-      <section v-else class="row">
-        <div v-for="routine in routines" :key="routine.id" class="col-6 col-lg-4 col-xxl-3">
-          <RoutineCatalogCard :routineProp="routine" />
-        </div>
-      </section>
-    </div>
-    <!-- !SECTION show Routine Cards -->
   </div>
 </template>
 
@@ -178,36 +92,19 @@ import Pop from '../utils/Pop.js';
 import RoutineCatalogCard from '../components/RoutineCatalogCard.vue';
 import MoveCatalogCard from '../components/MoveCatalogCard.vue';
 import { routinesService } from '../services/RoutinesService.js';
-import { movesService } from '../services/MovesService.js';
 import { Routine } from "../models/Routine.js";
-import { Move } from "../models/Move.js";
 
 export default {
   setup() {
 
-    const levels = ["all", "beginner", "intermediate", "advanced"];
-    const focuses = ["all", "arms", "chest", "core", "neck", "glutes", "hamstrings", "hips", "inner thighs", "lower Back", "quads", "shoulder", "upper back"];
-
-    let editableLevel = ref("");
-    let editableFocus = ref([]);
     let wantsPoses = ref(true);
-    let selectedLevel = ref("");
     let wantsToSeeFavorites = ref(false);
     let wantsRootedFlowRoutines = ref(false);
     let wantsCommunityRoutines = ref(false);
 
     onMounted(() => {
-      if (!AppState.moves.length > 0) {
-        getMoves();
-      }
       getRoutines();
-      // getMoveById();
     });
-
-    async function getMoves() {
-      try { await movesService.getMoves(); }
-      catch (error) { Pop.error(error); }
-    }
 
     async function getRoutines() {
       try { await routinesService.getRoutines() }
@@ -215,57 +112,14 @@ export default {
     }
 
     return {
-      editableLevel,
-      editableFocus,
-      levels,
-      focuses,
       wantsPoses,
-      selectedLevel,
       wantsToSeeFavorites,
       wantsRootedFlowRoutines,
       wantsCommunityRoutines,
 
-      moves: computed(() => {
-        //if level is anything but "all", filter it by level
-        if (editableLevel.value && editableLevel.value != "all") {
-          let movesByLevel = AppState.moves.filter(
-            (move) => move.level == editableLevel.value.toLocaleLowerCase()
-          );
-          //and if focus is anything but "all", filter it even more by bodyPart
-          if (editableFocus.value && !editableFocus.value.includes("all")) {
-            return movesByLevel.filter(move =>
-              editableFocus.value.every(part => move.bodyPart.includes(part)))
-          } else { //if level is anything but "all" and focus is "all" or unselected, just return what was filtered by level
-            return movesByLevel
-          }
-        }
-        //else if level is "all" or unselected, no filters for level
-        else if (!editableLevel.value || editableLevel.value == "all") {
-          //if focus is anything but "all", filter it just by body part
-          if (editableFocus.value && !editableFocus.value.includes("all")) {
-            return AppState.moves.filter(move =>
-              editableFocus.value.every(part => move.bodyPart.includes(part)))
-          }
-          //if level is "all" or unselected and focus is "all" or unselected, return moves from the AppState(no filter)
-          else {
-            return AppState.moves;
-          }
-        } else {
-          return AppState.moves;
-        }
-      }),
-
       routines: computed(() => {
         return AppState.routines.filter(
           (routine) => routine.isArchived == false);
-      }),
-
-      myFavoriteMoves: computed(() => {
-        let filteredMoves = []
-        AppState.myFavoriteMoves.forEach((move) => {
-          filteredMoves.push(new Move(move.move))
-        })
-        return filteredMoves
       }),
 
       myFavoriteRoutines: computed(() => {
@@ -285,11 +139,6 @@ export default {
         return AppState.routines.filter(
           (routine) => !routine.isExample && !routine.isPrivate)
       }),
-
-      changeLevel(level) {
-        editableLevel.value = level;
-        selectedLevel.value = level;
-      },
 
       swapPosesAndRoutines() {
         wantsPoses.value = !wantsPoses.value;
@@ -312,23 +161,6 @@ export default {
         wantsRootedFlowRoutines.value = false
         wantsToSeeFavorites.value = false
       },
-
-      uncheckIfAll(selection) {
-        if (selection == "all") {
-          this.editableFocus = [selection]
-          this.focuses.forEach((focus) => {
-            if (focus != "all" && this.editableFocus.indexOf(focus) != -1) {
-              this.editableFocus.splice(this.editableFocus.indexOf(focus))
-            }
-          })
-        } else {
-          this.editableFocus.forEach((focus) => {
-            if (focus == "all" && this.editableFocus.indexOf(focus) != -1) {
-              this.editableFocus.splice(this.editableFocus.indexOf(focus), 1)
-            }
-          })
-        }
-      }
 
     };
   },
@@ -355,5 +187,9 @@ export default {
 .btn-underline {
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
+}
+
+.box {
+  width: 50vw;
 }
 </style>
