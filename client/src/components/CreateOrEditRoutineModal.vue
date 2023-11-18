@@ -13,12 +13,17 @@
     </span>
     <div class="mx-3">
       <label for="name">Routine Description</label>
-      <textarea v-model="routineForm.shortDescription" name="description" id="description" rows="6"
-        class="form-control" required></textarea>
+      <textarea v-model="routineForm.shortDescription" name="description" id="description" rows="6" class="form-control" required></textarea>
     </div>
     <div class="modal-footer">
-      <button v-if="editRoutine" type="submit" class="btn btn-primary me-3">Update Routine</button>
-      <button v-else type="submit" class="btn btn-primary me-3">Create New Routine</button>
+      <span class="d-flex justify-content-between align-items-center w-100">
+        <span class="d-flex align-items-center">
+          <label for="isPrivate" class="me-2">Make Routine Private?</label>
+          <input v-model="routineForm.isPrivate" type="checkbox" name="isPrivate" id="isPrivate" checked>
+        </span>
+        <button v-if="editRoutine" type="submit" class="btn btn-primary me-3">Update Routine</button>
+        <button v-else type="submit" class="btn btn-primary me-3">Create New Routine</button>
+      </span>
     </div>
   </form>
   <hr>
@@ -103,5 +108,10 @@ export default {
 .noClicky{
 pointer-events: none;
 user-select: none;
+}
+
+input[type="checkbox"]{
+  height: 1rem;
+  width: 1rem;
 }
 </style>
