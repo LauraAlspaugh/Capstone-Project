@@ -86,7 +86,7 @@ export default {
             getMoves()
         })
 
-        const levels = ["all", "beginner", "intermediate", "expert"];
+        const levels = ["all", "beginner", "intermediate", "advanced"];
         const focuses = ["all", "arms", "chest", "core", "neck", "glutes", "hamstrings", "hips", "inner thighs", "lower Back", "quads", "shoulder", "upper back"];
 
         let editableLevel = ref("");

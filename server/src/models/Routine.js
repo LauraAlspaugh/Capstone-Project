@@ -5,7 +5,7 @@ export const RoutineSchema = new Schema({
     description: { type: String, required: true, maxLength: 700 },
     keyImage: { type: String, required: false, maxLength: 700 },
     category: [{ type: String, required: true }],
-    level: { type: String, required: false, enum: ['beginner', 'intermediate', 'expert'] },
+    level: { type: String, required: false, enum: ['beginner', 'intermediate', 'advanced'] },
     target: [{ type: Object, required: true, default: {} }],
     isPrivate: { type: Boolean, required: false, default: true },
     isExample: { type: Boolean, required: false, default: false },
