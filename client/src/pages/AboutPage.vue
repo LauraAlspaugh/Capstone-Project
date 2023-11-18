@@ -33,9 +33,11 @@
         <img src="src/assets/img/lauraimage.jpg" alt="img for dev 3" class="img border p-2">
       </div>
       <div class="col-12 col-md-7 p-3 my-2 rounded order-2 order-md-2 d-flex justify-content-center desc">
-        <p class="fs-5 p-2 rounded white-gb">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique, itaque
-          accusantium. Fugiat cumque vel nesciunt alias sed vero temporibus a repellat eius iste suscipit quibusdam esse
-          repudiandae fugit, unde in.</p>
+        <p class="fs-5 p-2 rounded white-gb">Hi everyone, and thank you for visiting our site. My name is Laura, and I
+          came
+          to CodeWorks in the fall of 2023. Since my introduction to web development a few years prior, I have always had
+          a passion for writing code. It's been an amazing experience working on this project with my classmates. Also a
+          special thank you to all the teachers at Code Works who helped us with this project. </p>
       </div>
       <div class="col-12 col-md-7 p-3 my-2 rounded order-4 order-md-3 d-flex justify-content-center desc">
         <p class="fs-5 p-2 rounded white-gb">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit cumque
