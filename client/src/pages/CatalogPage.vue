@@ -255,7 +255,10 @@ export default {
         }
       }),
 
-      routines: computed(() => AppState.routines),
+      routines: computed(() => {
+        return AppState.routines.filter(
+          (routine) => routine.isArchived == false);
+      }),
 
       myFavoriteMoves: computed(() => {
         let filteredMoves = []

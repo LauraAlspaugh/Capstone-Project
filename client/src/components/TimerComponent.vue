@@ -116,12 +116,15 @@ export default {
           let currentTime = new Date().getTime()
           countdown.value = Math.max(0, (endTime - currentTime) / 1000)
 
+          if (countdown.value <= 2) {
+            playAudioCue()
+          }
+
           if (countdown.value <= 0) {
             clearInterval(intervalId);
             movesService.finishMove();
             if (!routineIsFinishedPlaying.value) {
               moveNumber.value++
-              playAudioCue()
               resetTimer();
             } else {
               logger.log("Routine over")
