@@ -24,7 +24,6 @@
             </div>
           </div>
         </div>
-        <!-- </span> -->
         <section class="row ">
           <div v-if="routineIsFinishedPlaying == false">
             <div v-if="nextMoveIndexNumber <= listEntries.length">
@@ -99,7 +98,6 @@ import { AppState } from '../AppState';
 import { computed, ref, watch } from 'vue';
 import RoutinePlayPageModal from './RoutinePlayPageModal.vue';
 import { movesService } from '../services/MovesService.js'
-import { logger } from "../utils/Logger.js"
 
 
 export default {
@@ -120,9 +118,16 @@ export default {
       }
     });
 
+    function playAudioCue() {
+      const soundName = AppState.account.transitionSound
+      const audioObject = AppState.transitionSounds.find(sound => sound.name == soundName)
+      audioObject.audio.play()
+    }
+
     function nextMove() {
       if (greenFilter.value == true) {
         greenFilter.value = false;
+        playAudioCue()
         return;
       }
       if (nextMoveIndexNumber.value < listEntries.value.length) {
@@ -130,10 +135,12 @@ export default {
           currentMoveIndexNumber.value += 2;
           nextMoveIndexNumber.value += 2;
           greenFilter.value = true;
+          playAudioCue()
         }
         else {
           currentMoveIndexNumber.value++;
           nextMoveIndexNumber.value++;
+          playAudioCue()
         }
       }
       else {
@@ -142,12 +149,13 @@ export default {
         return;
       }
     }
-    function playAudioCue() {
-      logger.log('play audio cue')
-      const soundName = AppState.account.customAudioId
-      const audioObject = AppState.transitionSounds.find(sound => sound.name == soundName)
-      audioObject.audio.play()
-    }
+
+    // function playAudioCue() {
+    //   logger.log('play audio cue')
+    //   const soundName = AppState.account.customAudioId
+    //   const audioObject = AppState.transitionSounds.find(sound => sound.name == soundName)
+    //   audioObject.audio.play()
+    // }
 
     function flipPlayingOrPaused() {
       isPlaying.value = !isPlaying.value
@@ -183,9 +191,8 @@ export default {
 
       activeRoutine: computed(() => AppState.activeRoutine),
       activeMove: computed(() => AppState.activeMove),
-      finishedMove: computed(() => AppState.finishedMove),
-      routineIsFinishedPlaying: computed(() => AppState.routineIsFinishedPlaying)
-
+      // finishedMove: computed(() => AppState.finishedMove),
+      routineIsFinishedPlaying: computed(() => AppState.routineIsFinishedPlaying),
 
 
 

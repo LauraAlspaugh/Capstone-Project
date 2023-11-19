@@ -116,9 +116,9 @@ export default {
           let currentTime = new Date().getTime()
           countdown.value = Math.max(0, (endTime - currentTime) / 1000)
 
-          if (countdown.value <= 2) {
-            playAudioCue()
-          }
+          // if (countdown.value <= 2) {
+          //   playAudioCue()
+          // }
 
           if (countdown.value <= 0) {
             clearInterval(intervalId);
@@ -138,13 +138,16 @@ export default {
         }, intervalDuration);
       }
     }
-    function playAudioCue() {
-      logger.log('play audio cue')
-      const soundName = AppState.account.transitionSound
-      const audioObject = AppState.transitionSounds.find(sound => sound.name == soundName)
-      logger.log('soundName', soundName, audioObject)
-      audioObject.audio.play()
-    }
+
+    // function playAudioCue() {
+    //   logger.log('play audio cue')
+    //   const soundName = AppState.account.transitionSound
+    //   const audioObject = AppState.transitionSounds.find(sound => sound.name == soundName)
+    //   logger.log('soundName', soundName, audioObject)
+    //   if (intervalId != null) {
+    //     audioObject.audio.play()
+    //   }
+    // }
 
     const pauseTimer = () => {
       clearInterval(intervalId);
