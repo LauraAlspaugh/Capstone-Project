@@ -13,7 +13,16 @@ function _clearData() {
 class RoutinesService {
     async getRoutines() {
         const res = await api.get('api/routines')
-        AppState.routines = res.data.map(pojo => new Routine(pojo))
+        let unarchivedRoutines = res.data.filter((data) => !data.isArchived)
+        logger.log("unarchivedRoutines", unarchivedRoutines)
+        let publicAndMyRoutines = []
+        unarchivedRoutines.forEach((data) => {
+            if (data.creatorId == AppState.account.id || !data.isPrivate) {
+                publicAndMyRoutines.push(data)
+            }
+        })
+        logger.log("publicAndMyRoutines", publicAndMyRoutines)
+        AppState.routines = publicAndMyRoutines.map(pojo => new Routine(pojo))
     }
 
     async getRoutineById(routineId) {
@@ -23,12 +32,20 @@ class RoutinesService {
 
     async getMyRoutines() {
         const res = await api.get('account/routines');
-        AppState.myRoutines = res.data.map(pojo => new Routine(pojo))
+        let unarchivedRoutines = res.data.filter((data) => !data.isArchived)
+        AppState.myRoutines = unarchivedRoutines.map(pojo => new Routine(pojo))
     }
 
     async getFavRoutines() {
         const res = await api.get('api/favorites/routines')
-        AppState.myFavoriteRoutines = res.data.map(pojo => new FavoriteRoutine(pojo))
+        let unarchivedRoutines = res.data.filter((data) => !data.routine.isArchived)
+        let publicAndMyRoutines = []
+        unarchivedRoutines.forEach((data) => {
+            if (data.routine.creatorId == AppState.account.id || !data.routine.isPrivate) {
+                publicAndMyRoutines.push(data)
+            }
+        })
+        AppState.myFavoriteRoutines = publicAndMyRoutines.map(pojo => new FavoriteRoutine(pojo))
         if (AppState.myFavoriteRoutines.length == 0) {
             AppState.noFavRoutines = true;
         }

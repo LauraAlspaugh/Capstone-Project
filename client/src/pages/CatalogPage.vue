@@ -107,7 +107,9 @@ export default {
     });
 
     async function getRoutines() {
-      try { await routinesService.getRoutines() }
+      try {
+        await routinesService.getRoutines()
+      }
       catch (error) { Pop.error(error) }
     }
 
@@ -118,15 +120,17 @@ export default {
       wantsCommunityRoutines,
       account: computed(() => AppState.account),
 
-      routines: computed(() => {
-        return AppState.routines.filter(
-          (routine) => routine.isArchived == false && routine.isPrivate == false)
-      }),
+      // routines: computed(() => {
+      //   return AppState.routines.filter(
+      //     (routine) => routine.isPrivate == false)
+      // }),
 
-      unarchivedRoutines: computed(() => {
-        return AppState.routines.filter(
-          (routine) => routine.isArchived == false)
-      }),
+      routines: computed(() => AppState.routines),
+
+      // unarchivedRoutines: computed(() => {
+      //   return AppState.routines.filter(
+      //     (routine) => routine.isArchived == false)
+      // }),
 
       myFavoriteRoutines: computed(() => {
         let filteredRoutines = []
@@ -153,7 +157,8 @@ export default {
 
       communityRoutines: computed(() => {
         return AppState.routines.filter(
-          (routine) => !routine.isExample && !routine.isPrivate)
+          // (routine) => !routine.isExample && !routine.isPrivate)
+          (routine) => !routine.isExample)
       }),
 
       swapPosesAndRoutines() {

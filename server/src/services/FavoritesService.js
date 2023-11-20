@@ -8,7 +8,6 @@ class FavoritesService {
       .populate({
         path: "move", populate: { path: "creator", select: "name picture" }
       })
-    logger.log('myFavoritedMoves', myFavoritedMoves)
     return myFavoritedMoves
   }
 
@@ -17,7 +16,6 @@ class FavoritesService {
       .populate({
         path: "routine", populate: { path: "creator", select: "name picture" }
       })
-    logger.log('myFavoritedRoutines', myFavoritedRoutines)
     return myFavoritedRoutines
   }
 
