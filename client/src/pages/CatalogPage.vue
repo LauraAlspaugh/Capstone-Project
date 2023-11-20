@@ -116,10 +116,16 @@ export default {
       wantsToSeeFavorites,
       wantsRootedFlowRoutines,
       wantsCommunityRoutines,
+      account: computed(() => AppState.account),
 
       routines: computed(() => {
         return AppState.routines.filter(
-          (routine) => routine.isArchived == false);
+          (routine) => routine.isArchived == false && routine.isPrivate == false)
+      }),
+
+      unarchivedRoutines: computed(() => {
+        return AppState.routines.filter(
+          (routine) => routine.isArchived == false)
       }),
 
       myFavoriteRoutines: computed(() => {
@@ -128,6 +134,16 @@ export default {
           filteredRoutines.push(new Routine(routine.routine))
         })
         return filteredRoutines
+      }),
+
+      myRoutines: computed(() => {
+        let myRoutines = []
+        AppState.routines.forEach((routine) => {
+          if (routine.id == AppState.account.id) {
+            myRoutines.push(routine)
+          }
+        })
+        return myRoutines
       }),
 
       rootedFlowRoutines: computed(() => {
