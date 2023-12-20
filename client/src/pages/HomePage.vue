@@ -58,9 +58,9 @@ import { AppState } from "../AppState";
 export default {
   setup() {
     const homeImgs = [
-      { img: '/src/assets/img/CatalogSnapshot.png', alt: 'Catalog Snapshot' },
-      { img: '/src/assets/img/routinedesignerpage.png', alt: 'Routine Designer Page Snapshot' },
-      { img: '/src/assets/img/routineplaypageimage.jpg', alt: 'Routine Play Page Snapshot' }
+      { img: '/img/CatalogSnapshot.png', alt: 'Catalog Snapshot' },
+      { img: '/img/routinedesignerpage.png', alt: 'Routine Designer Page Snapshot' },
+      { img: '/img/routineplaypageimage.jpg', alt: 'Routine Play Page Snapshot' }
     ]
     return {
       homeImgs,
@@ -69,7 +69,7 @@ export default {
         Modal.getOrCreateInstance('#expand-modal').show()
       },
       test() {
-        const sound = new Audio('/src/assets/sounds/chimes-14_By_bliind.wav')
+        const sound = new Audio('/sounds/chimes-14_By_bliind.wav')
         sound.play()
       }
     }
