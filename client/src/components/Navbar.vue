@@ -11,12 +11,12 @@
       <ul class="navbar-nav me-auto align-items-center">
         <li>
           <router-link class="navbar-brand d-flex mx-3" :to="{ name: 'Home' }">
-            <img class="logo-nav d-none d-lg-inline" alt="logo" src="../assets/img/RootedFlow Logo-only.png" />
-            <img class="logo-nav d-inline d-lg-none" alt="logo" src="../assets/img/RootedFlow Logo-only-OG.png" />
+            <img class="logo-nav d-none d-lg-inline" alt="logo" :src="logo" />
+            <img class="logo-nav d-inline d-lg-none" alt="logo" :src="logo_og" />
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'RoutineDesigner'}"
+          <router-link :to="{ name: 'RoutineDesigner' }"
             class="fs-5 ms-2 me-1 btn text-black lighten-30 selectable text-uppercase">
             Routine Designer
           </router-link>
@@ -46,10 +46,14 @@
 import { computed } from "vue";
 import { AppState } from "../AppState";
 import Login from './Login.vue';
+import logo from '../assets/img/RootedFlow-Logo-only.png'
+import logo_og from '../assets/img/RootedFlow-Logo-only-OG.png'
 
 export default {
   setup() {
     return {
+      logo,
+      logo_og,
       activeRoutine: computed(() => AppState.activeRoutine),
 
     }

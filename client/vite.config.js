@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     outDir: 'docs',
-    sourcemap: false
+    sourcemap: false,
   },
   server: {
     port: 8080

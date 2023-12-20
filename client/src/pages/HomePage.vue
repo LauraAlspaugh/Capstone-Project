@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <section class="row justify-content-center">
       <div class="col-12 d-flex justify-content-center py-5">
-        <img src="../assets/img/RootedFlow Logo-lg.png" alt="Rooted Flow Logo" class="bigLogo rounded-circle pt-5 px-3">
+        <img :src="logo" alt="Rooted Flow Logo" class="bigLogo rounded-circle pt-5 px-3">
       </div>
     </section>
     <section class="row justify-content-center align-items-center pt-3">
@@ -54,6 +54,7 @@
 <script>
 import { Modal } from "bootstrap";
 import { AppState } from "../AppState";
+import logo from '../assets/img/RootedFlow-Logo-lg.png'
 
 export default {
   setup() {
@@ -63,6 +64,7 @@ export default {
       { img: '/img/routineplaypageimage.jpg', alt: 'Routine Play Page Snapshot' }
     ]
     return {
+      logo,
       homeImgs,
       selectedPic(imgObj) {
         AppState.selectedPic = imgObj
