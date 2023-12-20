@@ -1,0 +1,8 @@
+version: '3'
+services:
+  app:
+    image: lauraalspaugh/capstoneproject:latest
+    env_file: 
+      - capstoneproject-env   
+    ports:
+      - "3001:3001"
