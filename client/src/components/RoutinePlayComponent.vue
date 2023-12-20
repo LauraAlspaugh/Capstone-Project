@@ -7,7 +7,7 @@
           class=" fs-3 btn-close position-absolute " data-bs-dismiss="modal" aria-label="Close"></button>
         <div class="d-flex justify-content-between">
           <span class="d-flex align-items-center"> <img class="logo-nav d-none d-lg-inline me-auto " alt="logo"
-              src="../assets/img/RootedFlow Logo-only.png" /></span>
+              src="/img/RootedFlow-Logo-only.png" /></span>
           <div>
             <div class="my-3 me-3">
               <button v-if="!isPlaying && !routineIsFinishedPlaying"
