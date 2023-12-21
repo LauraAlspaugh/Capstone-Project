@@ -1,18 +1,18 @@
 <template>
   <div v-if="listEntries.length > 0">
     <section v-for="listEntry in listEntries" :key="listEntry.id"
-      class="d-flex align-items-center rounded shadow my-1 p-1 showHidden white-gb">
+      class="d-flex align-items-center rounded shadow my-1 p-1 showHidden white-gb2">
 
       <span class="d-flex align-items-center" v-if="activeRoutine.edit && listEntry?.move?.imgUrl">
 
-        <i class="fs-4 hidden timer-color mdi mdi-plus selectable darken-20 rounded hidden"
+        <i class="fs-4 hidden navbar-cream mdi mdi-plus selectable darken-20 rounded hidden"
           @click="addToEnd(listEntry.moveId)" type="button" title="Add a copy to the end"></i>
 
-        <i class="fs-4 px-1 timer-color mdi mdi-triangle selectable darken-20 rounded" v-if="listEntry.position != 1"
+        <i class="fs-4 px-1 navbar-cream mdi mdi-triangle selectable darken-20 rounded" v-if="listEntry.position != 1"
           @click="changePosition(listEntry.id, (listEntry.position - 1))" type="button" title="Move entry up"></i>
         <i class="fs-4 px-1 invisible mdi mdi-triangle" v-else></i>
 
-        <i class="fs-4 px-1 timer-color mdi mdi-triangle-down selectable darken-20 rounded"
+        <i class="fs-4 px-1 navbar-cream mdi mdi-triangle-down selectable darken-20 rounded"
           v-if="listEntry.position != listEntries.length" type="button" title="Move entry down"
           @click="changePosition(listEntry.id, (listEntry.position + 1))"></i>
         <i class="fs-4 px-1 invisible mdi mdi-triangle-down" v-else></i>
@@ -37,13 +37,13 @@
       <p v-else class="fs-4 mb-0 me-auto">{{ listEntry.move.englishName || listEntry.name }}</p>
 
       <span v-if="listEntry?.move?.imgUrl" class="d-flex align-items-center me-1">
-        <i v-if="listEntry.editDuration" class="fs-5 mx-1 mdi mdi-cancel" type="button"
+        <i v-if="listEntry.editDuration" class="fs-5 mx-1 mdi mdi-cancel" type="button" title="save and close"
           @click="cancelEditDuration(listEntry)"></i>
         <input v-if="activeRoutine.edit && listEntry.editDuration" v-model="listEntry.duration"
           :placeholder="listEntry.move.defaultTime" type="number" class="form-control duration fs-5 p-0 ps-1"
           @blur="saveEditDuration(listEntry)">
-        <p v-else-if="activeRoutine.edit && !listEntry.editDuration" class="mb-0 me-2 fs-5 text-nowrap" type="button"
-          @click="enableEditDuration(listEntry)">
+        <p v-else-if="activeRoutine.edit && !listEntry.editDuration" title="click to edit"
+          class="mb-0 me-2 fs-5 text-nowrap" type="button" @click="enableEditDuration(listEntry)">
           {{ listEntry.duration }} sec
         </p>
         <p v-else class="mb-0 me-2 fs-5 text-nowrap">
@@ -140,6 +140,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.navbar-cream {
+  color: #E0DDDB;
+}
+
 .bgColor {
   background-color: #6B8373;
 }
