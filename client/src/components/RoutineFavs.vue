@@ -1,7 +1,8 @@
 <template>
   <div class="rounded-top">
     <span class="d-flex">
-      <span @click="editRoutineForm()" type="button" v-if="route?.name == 'RoutineDesigner' &&  activeRoutine && account.id == activeRoutine.creatorId"
+      <span @click="editRoutineForm()" type="button"
+        v-if="route?.name == 'RoutineDesigner' && activeRoutine && account.id == activeRoutine.creatorId"
         class="d-flex align-items-center justify-content-center rounded-bottom border selectable lighten-30 bgBlur bgColor1 w-100">
         <p class="mb-0 p-2 fs-5 ">Edit Routine</p>
         <i class="fs-2 mdi mdi-pencil"></i>
@@ -38,16 +39,30 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed } from 'vue';
+import { computed, watchEffect } from 'vue';
 import { useRoute, useRouter } from "vue-router";
 import { routinesService } from "../services/RoutinesService";
 import Pop from "../utils/Pop";
 import { Modal } from "bootstrap";
+import { logger } from "../utils/Logger.js";
 
 export default {
   setup() {
     const route = useRoute();
     const router = useRouter();
+
+    watchEffect(() => {
+      if (AppState.account.id) {
+        logger.log('watchEffect running on routine favs')
+        _getFavRoutines();
+      }
+    })
+
+    async function _getFavRoutines() {
+      try {
+        await routinesService.getFavRoutines();
+      } catch (error) { Pop.error(error) }
+    }
 
     return {
       route,
@@ -62,7 +77,7 @@ export default {
         AppState.editRoutine = false;
         Modal.getOrCreateInstance('#createOrEditRoutineModal').show()
       },
-      
+
       editRoutineForm() {
         AppState.editRoutine = true;
         Modal.getOrCreateInstance('#createOrEditRoutineModal').show()
@@ -71,7 +86,7 @@ export default {
       async setActiveRoutine(routineId) {
         try {
           await routinesService.setActiveRoutine(routineId);
-          router.push({name: 'RoutineDesigner', params: {routineId} })
+          router.push({ name: 'RoutineDesigner', params: { routineId } })
         } catch (error) { Pop.error(error) }
       },
 

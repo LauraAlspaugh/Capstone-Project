@@ -58,7 +58,7 @@ export default {
         if (routineId) {
           await routinesService.setActiveRoutine(routineId);
         }
-      } catch (error) { Pop.error(error) }
+      } catch (error) { Pop.error(error); }
     }
 
     onMounted(() => {
@@ -72,7 +72,7 @@ export default {
 
     }
   },
-  components:{ RoutineEditor, RoutineFavs, MoveSearchComponent }
+  components: { RoutineEditor, RoutineFavs, MoveSearchComponent }
 };
 </script>
 
@@ -82,7 +82,7 @@ export default {
   background-color: #6B8373b9;
 }
 
-.hidden{
+.hidden {
   top: 4.8rem;
   left: 2rem;
   min-width: 10rem;
@@ -92,12 +92,12 @@ export default {
   visibility: hidden;
 }
 
-.showHidden:hover+.hidden{
+.showHidden:hover+.hidden {
   opacity: 1;
   visibility: visible;
 }
 
-.z3{
+.z3 {
   z-index: 3;
 }
 
@@ -105,8 +105,8 @@ export default {
   max-height: 42dvh;
 }
 
-@media screen and (max-width:768px){
-  .boxHeight{
+@media screen and (max-width:768px) {
+  .boxHeight {
     max-height: 100%;
   }
 }
