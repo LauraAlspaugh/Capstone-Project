@@ -79,18 +79,20 @@
               title="Corinna's LinkedIn"></i></a>
           <a href="https://corinnabolon.com" target="_blank"><i class="p-3 mdi mdi-web" title="Corinna's website"></i></a>
         </div>
-        <img src="src/assets/img/Corinna.jpg" alt="Corinna Bolon" class="img border p-2">
+        <img :src="Corinna" alt="Corinna Bolon" class="img border p-2">
       </div>
     </section>
   </div>
 </template>
 
 <script>
-
+import Corinna from '/src/assets/img/Corinna.jpg'
 
 export default {
   setup() {
-    return {};
+    return {
+      Corinna
+    };
   },
   // components: { MoveDetailCard, RoutineDetailCard, MoveSearchComponent }
 }
