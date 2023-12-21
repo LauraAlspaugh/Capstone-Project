@@ -82,15 +82,12 @@ export default {
   background-color: #6B8373b9;
 }
 
-<<<<<<< HEAD
-=======
 .cream-bg {
   border: 1px solid #C4D0CC;
   background-color: #e0dddbd5;
   backdrop-filter: blur(3px)
 }
 
->>>>>>> 4bb21af1334c90868a785643d223bfae54d5b6de
 .hidden {
   top: 4.8rem;
   left: 2rem;
