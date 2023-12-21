@@ -1,9 +1,9 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid italiana">
     <section v-if="activeRoutine?.id" class="row justify-content-evenly">
       <div class="col-12 col-md-8 col-lg-7 pt-3 pe-lg-5">
         <div class="boxHeight pt-5">
-          <span class="d-flex align-items-center">
+          <!-- <span class="d-flex align-items-center">
             <div class="dropdown open">
               <button class="fs-1 mb-0 pe-3 text-nowrap btn d-flex showHidden" type="button" id="triggerId"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -15,7 +15,7 @@
                 <RoutineFavs />
               </div>
             </div>
-          </span>
+          </span> -->
           <!-- ROUTINE COMPONENT  -->
           <RoutineEditor :routine="activeRoutine" />
         </div>
@@ -72,7 +72,7 @@ export default {
 
     }
   },
-  components:{ RoutineEditor, RoutineFavs, MoveSearchComponent }
+  components: { RoutineEditor, RoutineFavs, MoveSearchComponent }
 };
 </script>
 
@@ -82,7 +82,7 @@ export default {
   background-color: #6B8373b9;
 }
 
-.hidden{
+.hidden {
   top: 4.8rem;
   left: 2rem;
   min-width: 10rem;
@@ -92,12 +92,12 @@ export default {
   visibility: hidden;
 }
 
-.showHidden:hover+.hidden{
+.showHidden:hover+.hidden {
   opacity: 1;
   visibility: visible;
 }
 
-.z3{
+.z3 {
   z-index: 3;
 }
 
@@ -105,8 +105,8 @@ export default {
   max-height: 42dvh;
 }
 
-@media screen and (max-width:768px){
-  .boxHeight{
+@media screen and (max-width:768px) {
+  .boxHeight {
     max-height: 100%;
   }
 }
