@@ -15,11 +15,10 @@
         <img src="/img/DJ.jpg" alt="DJ Aaron" class="img border p-2">
         <div class="fs-1 socials d-flex flex-column justify-content-center mx-3 p-3">
           <a href="https://github.com/koreangeekman" target="_blank"><i class="p-3 mdi mdi-github"
-              title="icon for github"></i></a>
+              title="DJ's GitHub"></i></a>
           <a href="https://www.linkedin.com/in/djaaron/" target="_blank"><i class="p-3 mdi mdi-linkedin"
-              title="icon for linked"></i></a>
-          <a href="https://koreangeekman.info/" target="_blank"><i class="p-3 mdi mdi-web"
-              title="icon for the user's website"></i></a>
+              title="DJ's LinkedIn"></i></a>
+          <a href="https://koreangeekman.info/" target="_blank"><i class="p-3 mdi mdi-web" title="DJ's website"></i></a>
         </div>
       </div>
       <div class="col-12 col-md-7 p-3 my-2 rounded order-2 order-md-2 d-flex justify-content-center desc">
@@ -37,10 +36,10 @@
       <div class="col-12 col-md-5 p-3 my-2 order-3 order-md-4 d-flex justify-content-center">
         <div class="fs-1 socials d-flex flex-column justify-content-center mx-3 p-3">
           <a href="https://github.com/3rinmae" target="_blank"><i class="p-3 mdi mdi-github"
-              title="icon for github"></i></a>
+              title="Erin's GitHub"></i></a>
           <a href="https://www.linkedin.com/in/erin-mae-shiffler" target="_blank"><i class="p-3 mdi mdi-linkedin"
-              title="icon for linked"></i></a>
-          <a href="#" target="_blank"><i class="p-3 mdi mdi-web" title="icon for the user's website"></i></a>
+              title="Erin's LinkedIn"></i></a>
+          <a href="#" target="_blank"><i class="p-3 mdi mdi-web" title="Erin's website"></i></a>
         </div>
         <img src="/img/Erin.jpeg" alt="Erin Mae Shiffler" class="img border p-2">
       </div>
@@ -50,10 +49,10 @@
         <img src="/img/lauraimage.jpg" alt="Laura Alspaugh" class="img border p-2">
         <div class="fs-1 socials d-flex flex-column justify-content-center mx-3 p-3">
           <a href="https://github.com/LauraAlspaugh" target="_blank"><i class="p-3 mdi mdi-github"
-              title="icon for github"></i></a>
+              title="Laura's GitHub"></i></a>
           <a href="https://www.linkedin.com/in/laura-alspaugh/" target="_blank"><i class="p-3 mdi mdi-linkedin"
-              title="icon for linked"></i></a>
-          <a href="#" target="_blank"><i class="p-3 mdi mdi-web" title="icon for the user's website"></i></a>
+              title="Laura's LinkedIn"></i></a>
+          <a href="#" target="_blank"><i class="p-3 mdi mdi-web" title="Laura's website"></i></a>
         </div>
       </div>
       <div class="col-12 col-md-7 p-3 my-2 rounded order-2 order-md-2 d-flex justify-content-center desc">
@@ -64,19 +63,23 @@
           special thank you to all the teachers at Code Works who helped us with this project. </p>
       </div>
       <div class="col-12 col-md-7 p-3 my-2 rounded order-4 order-md-3 d-flex justify-content-center desc">
-        <p class="fs-5 p-2 rounded white-gb">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit cumque
-          officia placeat nihil nostrum, perferendis amet ducimus, similique recusandae voluptatibus aspernatur culpa
-          error quaerat ut, ipsa facere? Similique, recusandae adipisci.</p>
+        <p class="fs-5 p-2 rounded white-gb">Hi everyone! I'm Corinna, a Codeworks student from the fall 2023 cohort. I am
+          so proud of our team and this capstone project, and delighted to share it with you. It was born of our
+          collective passion for creating an app that would be beautiful, easy to use, and beneficial for both body and
+          mind. This was a great education in how to plan a project of this scale, and I particularly enjoyed figuring out
+          how to build features that we hadn't learned in class, such as the timer. It was an incredible experience to
+          work with this team, and I am so grateful to all of our instructors for their advice, guidance, and
+          encouragement.</p>
       </div>
       <div class="col-12 col-md-5 p-3 my-2 order-3 order-md-4 d-flex justify-content-center">
         <div class="fs-1 socials d-flex flex-column justify-content-center mx-3 p-3">
-          <a href="https://github.com/kyndrill" target="_blank"><i class="p-3 mdi mdi-github"
-              title="icon for github"></i></a>
+          <a href="https://github.com/corinnabolon" target="_blank"><i class="p-3 mdi mdi-github"
+              title="Corinna's GitHub"></i></a>
           <a href="https://www.linkedin.com/in/corinna-bolon-690003297/" target="_blank"><i class="p-3 mdi mdi-linkedin"
-              title="icon for linked"></i></a>
-          <a href="#" target="_blank"><i class="p-3 mdi mdi-web" title="icon for the user's website"></i></a>
+              title="Corinna's LinkedIn"></i></a>
+          <a href="https://corinnabolon.com" target="_blank"><i class="p-3 mdi mdi-web" title="Corinna's website"></i></a>
         </div>
-        <img src="" alt="Corinna Bolon" class="img border p-2">
+        <img src="src/assets/img/Corinna.jpg" alt="Corinna Bolon" class="img border p-2">
       </div>
     </section>
   </div>

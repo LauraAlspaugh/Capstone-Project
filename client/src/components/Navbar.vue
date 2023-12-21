@@ -11,7 +11,7 @@
       <ul class="navbar-nav me-auto align-items-center">
         <li>
           <router-link class="navbar-brand d-flex mx-3" :to="{ name: 'Home' }">
-            <img class="logo-nav d-none d-lg-inline" alt="logo" :src="logo" />
+            <img class="logo-nav d-none d-lg-inline" alt="logo" :src="logo" title="Home" />
             <img class="logo-nav d-inline d-lg-none" alt="logo" :src="logo_og" />
           </router-link>
         </li>

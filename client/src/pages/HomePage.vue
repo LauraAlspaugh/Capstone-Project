@@ -17,10 +17,12 @@
           routine or favorite a routine, these will appear in your favorites list.</p>
       </div>
       <div @click="selectedPic(homeImgs[0])" class="col-12 col-md-5 p-3 order-1 order-md-2 d-flex justify-content-center">
-        <img type="button" :src="homeImgs[0].img" :alt="homeImgs[0].alt" class="img border p-2">
+        <img type="button" :src="homeImgs[0].img" :alt="homeImgs[0].alt" class="img border p-2"
+          title="Catalog screenshot">
       </div>
       <div @click="selectedPic(homeImgs[1])" class="col-12 col-md-5 p-3 order-3 order-md-3 d-flex justify-content-center">
-        <img type="button" :src="homeImgs[1].img" :alt="homeImgs[1].alt" class="img border p-2">
+        <img type="button" :src="homeImgs[1].img" :alt="homeImgs[1].alt" class="img border p-2"
+          title="Routine designer screenshot">
       </div>
       <div class="col-12 col-md-7 py-3 px-5 order-4 order-md-4 d-flex justify-content-center">
         <p class="fs-5 p-3 rounded white-gb"> Visit our Routine Designer Page to create and customize your own routine.
@@ -45,7 +47,7 @@
           needs. </p>
       </div>
       <div @click="selectedPic(homeImgs[2])" class="col-12 col-md-5 p-3 order-1 order-md-2 d-flex justify-content-center">
-        <img :src="homeImgs[2].img" :alt="homeImgs[2].alt" class="img border p-2">
+        <img :src="homeImgs[2].img" :alt="homeImgs[2].alt" class="img border p-2" title="Routine play page screenshot">
       </div>
     </section>
   </div>

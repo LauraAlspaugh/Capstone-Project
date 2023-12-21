@@ -9,15 +9,15 @@
             </div>
 
             <div class="d-flex justify-content-between pt-2">
-                <span class="fs-4"> 
+                <span class="fs-4">
                     {{ routineProp.name }}
                 </span>
                 <span class="">
                     <span v-if="isFavRoutine" @click.stop="unfavoriteRoutine()" role="button" class="fs-3">
-                        <i class="mdi mdi-heart"></i>
+                        <i class="mdi mdi-heart" title="Unfavorite this routine"></i>
                     </span>
                     <span v-else @click.stop="favoriteRoutine()" role="button" class="fs-3">
-                        <i class="mdi mdi-heart-outline"></i>
+                        <i class="mdi mdi-heart-outline" title="Favorite this routine"></i>
                     </span>
                 </span>
             </div>
@@ -48,7 +48,7 @@ import Pop from "../utils/Pop";
 import { routinesService } from "../services/RoutinesService";
 
 export default {
-    props: { routineProp: { type: Object} },
+    props: { routineProp: { type: Object } },
 
     setup(props) {
         return {
@@ -97,11 +97,11 @@ img {
     position: center;
 }
 
-.noTouchy{
+.noTouchy {
     pointer-events: none;
 }
 
-.touchy{
+.touchy {
     // pointer-events: visible;
 }
 </style>
