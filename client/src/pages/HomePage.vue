@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <section class="row justify-content-center">
       <div class="col-12 d-flex justify-content-center py-5">
-        <img src="../assets/img/RootedFlow Logo-lg.png" alt="Rooted Flow Logo" class="bigLogo rounded-circle pt-5 px-3">
+        <img :src="logo" alt="Rooted Flow Logo" class="bigLogo rounded-circle pt-5 px-3">
       </div>
     </section>
     <section class="row justify-content-center align-items-center pt-3">
@@ -54,22 +54,24 @@
 <script>
 import { Modal } from "bootstrap";
 import { AppState } from "../AppState";
+import logo from '../assets/img/RootedFlow-Logo-lg.png'
 
 export default {
   setup() {
     const homeImgs = [
-      { img: '/src/assets/img/CatalogSnapshot.png', alt: 'Catalog Snapshot' },
-      { img: '/src/assets/img/routinedesignerpage.png', alt: 'Routine Designer Page Snapshot' },
-      { img: '/src/assets/img/routineplaypageimage.jpg', alt: 'Routine Play Page Snapshot' }
+      { img: '/img/CatalogSnapshot.png', alt: 'Catalog Snapshot' },
+      { img: '/img/routinedesignerpage.png', alt: 'Routine Designer Page Snapshot' },
+      { img: '/img/routineplaypageimage.jpg', alt: 'Routine Play Page Snapshot' }
     ]
     return {
+      logo,
       homeImgs,
       selectedPic(imgObj) {
         AppState.selectedPic = imgObj
         Modal.getOrCreateInstance('#expand-modal').show()
       },
       test() {
-        const sound = new Audio('/src/assets/sounds/chimes-14_By_bliind.wav')
+        const sound = new Audio('/sounds/chimes-14_By_bliind.wav')
         sound.play()
       }
     }

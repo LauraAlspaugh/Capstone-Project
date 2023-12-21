@@ -2,9 +2,11 @@
   <div @click="setActiveMove(moveBasicProp)" type="button">
     <section class="image-border d-flex">
       <div class="d-flex align-items-center w-100">
-        <img class="thumbnail" :class="moveBasicProp.englishName == 'Interval'? 'rounded-circle' : ''" :src="moveBasicProp.imgUrl" alt="move picture">
+        <img class="thumbnail" :class="moveBasicProp.englishName == 'Interval' ? 'rounded-circle' : ''"
+          :src="moveBasicProp.imgUrl" alt="move picture">
         <p class="fs-5 m-0 me-auto italiana fw-bold p-2">{{ moveBasicProp.englishName }}</p>
-        <i class="fs-4 mx-2 text-secondary dimmed mdi mdi-plus" type="button" @click.stop="addMoveToRoutine(moveBasicProp)"></i>
+        <i class="fs-4 mx-2 mint dimmed mdi mdi-plus" type="button" title="add pose to routine"
+          @click.stop="addMoveToRoutine(moveBasicProp)"></i>
       </div>
     </section>
   </div>
@@ -23,11 +25,11 @@ export default {
   props: { moveBasicProp: { type: Move, required: true } },
 
   setup() {
-    
+
     return {
       moves: computed(() => AppState.moves),
       myFavoriteMoves: computed(() => AppState.myFavoriteMoves),
-      
+
       setActiveMove(moveObj) {
         AppState.activeMove = moveObj;
         Modal.getOrCreateInstance('#move-modal').show()
@@ -49,24 +51,29 @@ export default {
 
 <style lang="scss" scoped>
 .image-border {
-  border: 2px solid #D7DBDB;
-  background-color: #E3E0DE;
+  border: 1px solid #C4D0CC;
+  background-color: #e0dddbd5;
+  backdrop-filter: blur(3px)
+}
+
+.mint {
+  color: #C4D0CC;
 }
 
 .thumbnail {
   object-fit: cover;
   position: center;
   height: 5rem;
-  width: 5rem ;
+  width: 5rem;
   padding: 4px;
 }
 
-.dimmed{
+.dimmed {
   opacity: .3;
   transition: .25s;
 }
 
-.dimmed:hover{
+.dimmed:hover {
   opacity: 1;
 }
 </style>

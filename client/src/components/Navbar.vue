@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-grey px-3 ps-lg-0 pe-lg-3 ">
+  <nav class="navbar navbar-expand-lg navbar-grey px-3 ps-lg-0 pe-lg-3 italiana">
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -11,23 +11,23 @@
       <ul class="navbar-nav me-auto align-items-center">
         <li>
           <router-link class="navbar-brand d-flex mx-3" :to="{ name: 'Home' }">
-            <img class="logo-nav d-none d-lg-inline" alt="logo" src="../assets/img/RootedFlow Logo-only.png" />
-            <img class="logo-nav d-inline d-lg-none" alt="logo" src="../assets/img/RootedFlow Logo-only-OG.png" />
+            <img class="logo-nav d-none d-lg-inline" alt="logo" :src="logo" />
+            <img class="logo-nav d-inline d-lg-none" alt="logo" :src="logo_og" />
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'RoutineDesigner'}"
-            class="fs-5 ms-2 me-1 btn text-black lighten-30 selectable text-uppercase">
+          <router-link :to="{ name: 'RoutineDesigner' }"
+            class="fs-4 ms-2 me-1 btn text-black lighten-30 selectable text-uppercase">
             Routine Designer
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'Catalog' }" class="fs-5 mx-1 btn text-black lighten-30 selectable text-uppercase">
+          <router-link :to="{ name: 'Catalog' }" class="fs-4 mx-1 btn text-black lighten-30 selectable text-uppercase">
             Catalog
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'About' }" class="fs-5 ms-1 btn text-black lighten-30 selectable text-uppercase">
+          <router-link :to="{ name: 'About' }" class="fs-4 ms-1 btn text-black lighten-30 selectable text-uppercase">
             About
           </router-link>
         </li>
@@ -46,10 +46,14 @@
 import { computed } from "vue";
 import { AppState } from "../AppState";
 import Login from './Login.vue';
+import logo from '../assets/img/RootedFlow-Logo-only.png'
+import logo_og from '../assets/img/RootedFlow-Logo-only-OG.png'
 
 export default {
   setup() {
     return {
+      logo,
+      logo_og,
       activeRoutine: computed(() => AppState.activeRoutine),
 
     }
