@@ -22,7 +22,7 @@
       </div>
       <div v-if="activeRoutine.edit" class="col-12 col-md-4 col-lg-4 col-xxl-3 pt-3 pe-md-4 pe-lg-5 about">
         <!-- MOVE SEARCH/FILTER COMPONENT -->
-        <div class="boxHeight pt-5">
+        <div class="boxHeight pt-5 ">
           <MoveSearchComponent />
         </div>
       </div>
@@ -80,6 +80,12 @@ export default {
 <style lang="scss" scoped>
 .bgColor {
   background-color: #6B8373b9;
+}
+
+.cream-bg {
+  border: 1px solid #C4D0CC;
+  background-color: #e0dddbd5;
+  backdrop-filter: blur(3px)
 }
 
 .hidden {

@@ -1,5 +1,7 @@
 <template>
-    <MoveFilterBar />
+    <div class="cream-bg w-100 p-0 m-0">
+        <MoveFilterBar />
+    </div>
 </template>
 
 
@@ -15,6 +17,12 @@ export default {
 
 
 <style lang="scss" scoped>
+.cream-bg {
+    border: 1px solid #C4D0CC;
+    background-color: #e0dddbd5;
+    backdrop-filter: blur(3px)
+}
+
 .selectedLevel {
     background-color: #0F2D24;
 }
