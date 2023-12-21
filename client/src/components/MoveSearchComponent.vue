@@ -1,5 +1,5 @@
 <template>
-    <div class="cream-bg w-100 p-0 m-0">
+    <div class="container-fluid cream-bg w-100 px-3 m-0">
         <MoveFilterBar />
     </div>
 </template>
