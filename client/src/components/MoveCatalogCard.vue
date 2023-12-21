@@ -27,10 +27,10 @@
                     </section>
                 </div>
                 <div class="col-1 d-flex justify-content-end h-100">
-                    <span v-if="isFavMove" @click.stop="unfavoriteMove()" role="button"><i
-                            class="fs-2 mdi mdi-heart"></i></span>
-                    <span v-else @click.stop="favoriteMove()" role="button"><i
-                            class="fs-2 mdi mdi-heart-outline"></i></span>
+                    <span v-if="isFavMove" @click.stop="unfavoriteMove()" role="button"><i class="fs-2 mdi mdi-heart"
+                            title="Unfavorite this move"></i></span>
+                    <span v-else @click.stop="favoriteMove()" role="button"><i class="fs-2 mdi mdi-heart-outline"
+                            title="Favorite this move"></i></span>
                 </div>
             </section>
         </div>

@@ -1,8 +1,13 @@
 <template>
   <div>
-    <span v-if="isFavMove" @click="unfavorite()" role="button"><i class="fs-2 mdi mdi-heart"></i></span>
-    <span v-if="isFavRoutine" @click="unfavorite()" role="button"><i class="fs-2 mdi mdi-heart"></i></span>
-    <span v-else-if="!isFavMove" @click="favorite()" role="button"><i class="fs-2 mdi mdi-heart-outline"></i></span>
+    <span v-if="isFavMove" @click="unfavorite()" role="button"><i class="fs-2 mdi mdi-heart"
+        title="Unfavorite this move"></i></span>
+    <span v-if="isFavRoutine" @click="unfavorite()" role="button"><i class="fs-2 mdi mdi-heart"
+        title="Unfavorite this routine"></i></span>
+    <span v-else-if="!isFavMove" @click="favorite()" role="button"><i class="fs-2 mdi mdi-heart-outline"
+        title="Favorite this move"></i></span>
+    <span v-else-if="!isFavRoutine" @click="favorite()" role="button"><i class="fs-2 mdi mdi-heart"
+        title="Favorite this routine"></i></span>
   </div>
 </template>
 
