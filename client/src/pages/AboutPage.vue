@@ -28,15 +28,17 @@
           officiis quisquam. Totam quaerat dignissimos eius!</p>
       </div>
       <div class="col-12 col-md-7 p-3 my-2 rounded order-4 order-md-3 d-flex justify-content-center desc">
-        <p class="fs-5 p-2 rounded white-gb">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci,
-          architecto. Fuga ad animi earum culpa expedita dignissimos mollitia vitae, molestiae tempore. Quibusdam adipisci
-          autem voluptate est at accusamus aperiam ipsa.</p>
+        <p class="fs-5 p-2 rounded white-gb">Hi! My name is Erin. This capstone project was fueled by my passion for
+          leveraging technology to enhance individual well-being. I was excited for the fresh challenges beyond the scope
+          of my academic endeavors that this would provide. Throughout this collaborative venture, I have found immense
+          value in the support of my dedicated team members and the guidance provided by our instructors, fostering both
+          personal and professional growth in the dynamic field of software development.</p>
       </div>
       <div class="col-12 col-md-5 p-3 my-2 order-3 order-md-4 d-flex justify-content-center">
         <div class="fs-1 socials d-flex flex-column justify-content-center mx-3 p-3">
           <a href="https://github.com/3rinmae" target="_blank"><i class="p-3 mdi mdi-github"
               title="icon for github"></i></a>
-          <a href="https://www.linkedin.com/in/erin-shiffler-8aa702296/" target="_blank"><i class="p-3 mdi mdi-linkedin"
+          <a href="https://www.linkedin.com/in/erin-mae-shiffler" target="_blank"><i class="p-3 mdi mdi-linkedin"
               title="icon for linked"></i></a>
           <a href="#" target="_blank"><i class="p-3 mdi mdi-web" title="icon for the user's website"></i></a>
         </div>
@@ -111,4 +113,5 @@ img {
     padding: 0rem;
   }
 
-}</style>
+}
+</style>
