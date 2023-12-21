@@ -1,12 +1,25 @@
 <template>
-  <div class="border boxShadow bgBlur rounded">
-
-    <section class="header d-flex align-items-center rounded-top px-3 py-2 position-relative z1">
+  <div class="border green-gb bgBlur rounded">
+    <section class="header d-flex align-items-center justify-content-between rounded-top px-3 py-2 position-relative z1">
+      <span class="d-flex align-items-center">
+        <div class="dropdown open">
+          <button class="fs-1 mb-0 pe-3 text-nowrap btn d-flex showHidden navbar-cream" type="button" id="triggerId"
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ routine.name }}
+            <i class="fs-1 mdi mdi-dots-vertical"></i>
+          </button>
+          <div class="hidden position-absolute z3 px-3 py-2 card">{{ routine.description }}</div>
+          <div class="dropdown-menu p-0" aria-labelledby="triggerId">
+            <RoutineFavs />
+          </div>
+        </div>
+      </span>
       <button class="btn btn-secondary" type="button" @click="cloneRoutine()">Clone Routine</button>
       <div class="me-auto">
       </div>
       <span class="fs-1 mx-2 d-flex" v-if="routine.creatorId == account.id">
-        <span v-if="locked" title="Locked" class="text-center me-2 position-relative" type="button" @click="toggleRoutineLock()">
+        <span v-if="locked" title="Locked" class="text-center me-2 position-relative" type="button"
+          @click="toggleRoutineLock()">
           <i class="color3 lh25 mdi mdi-lock"></i>
           <p class="mb-0 tiny">Unlock <br> Routine</p>
         </span>
@@ -23,8 +36,8 @@
       </div>
     </section>
 
-    <section class="rounded-bottom mx-3 d-flex align-items-center">
-      <i class="fs-1 ms-2 ps-4 btn color1 mdi mdi-play-box me-auto" type="button" data-bs-toggle="modal"
+    <section class="rounded-bottom mx-3 d-flex align-items-center navbar-cream">
+      <i class="fs-1 p-0  btn navbar-cream mdi mdi-play me-auto" type="button" data-bs-toggle="modal"
         data-bs-target="#openPlayer"></i>
       <p class="fs-5 mb-0 me-3"><small>Total Time: </small>
         <b v-if="totalPlayTime">
@@ -69,8 +82,8 @@ export default {
 
       async cloneRoutine() {
         try {
-          const yes = await Pop.confirm('Clone this routine?','')
-          if(!yes){return}
+          const yes = await Pop.confirm('Clone this routine?', '')
+          if (!yes) { return }
           const routineId = AppState.activeRoutine.id;
           await routinesService.cloneRoutine(routineId);
           await routinesService.getFavRoutines();
@@ -93,6 +106,14 @@ export default {
   box-shadow:
     0 0 20px 5px white inset;
   // 0 0 3px 1px white;
+}
+
+.green-gb {
+  background: #2b4a3fd9;
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.6px);
+  -webkit-backdrop-filter: blur(5.6px);
 }
 
 .tiny {
@@ -133,16 +154,20 @@ export default {
   // background-color: #C4D0CC;
 }
 
+.navbar-cream {
+  color: #E0DDDB;
+}
+
 .z1 {
   z-index: 1;
 }
 
-.btn-secondary{
+.btn-secondary {
   opacity: .5;
   transition: .25s;
 }
 
-.btn-secondary:hover{
+.btn-secondary:hover {
   opacity: 1;
 }
 
@@ -163,5 +188,34 @@ export default {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: #a8bbbf;
+}
+
+.hidden {
+  top: 4.8rem;
+  left: 2rem;
+  min-width: 10rem;
+  max-width: 50vw;
+  opacity: 0;
+  transition: .25s;
+  visibility: hidden;
+}
+
+.showHidden:hover+.hidden {
+  opacity: 1;
+  visibility: visible;
+}
+
+.z3 {
+  z-index: 3;
+}
+
+.boxHeight {
+  max-height: 42dvh;
+}
+
+@media screen and (max-width:768px) {
+  .boxHeight {
+    max-height: 100%;
+  }
 }
 </style>

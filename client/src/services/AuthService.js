@@ -31,7 +31,6 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function () {
   await accountService.getAccount()
   socketService.authenticate(AuthService.bearer)
   // NOTE if there is something you want to do once the user is authenticated, place that here
-  _getFavRoutines();
   getMyFavoriteMoves()
 })
 
@@ -51,16 +50,7 @@ async function refreshAuthToken(config) {
 }
 
 async function getMyFavoriteMoves() {
-  try {
-    await movesService.getMyFavoriteMoves()
-  } catch (error) {
-    logger.error(error)
-    Pop.error(error)
-  }
+  try { await movesService.getMyFavoriteMoves(); }
+  catch (error) { Pop.error(error); }
 }
 
-async function _getFavRoutines() {
-  try {
-    await routinesService.getFavRoutines();
-  } catch (error) { Pop.error(error) }
-}

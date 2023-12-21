@@ -1,9 +1,9 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid italiana">
     <section v-if="activeRoutine?.id" class="row justify-content-evenly">
       <div class="col-12 col-md-8 col-lg-7 pt-3 pe-lg-5">
         <div class="boxHeight pt-5">
-          <span class="d-flex align-items-center">
+          <!-- <span class="d-flex align-items-center">
             <div class="dropdown open">
               <button class="fs-1 mb-0 pe-3 text-nowrap btn d-flex showHidden" type="button" id="triggerId"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -15,14 +15,14 @@
                 <RoutineFavs />
               </div>
             </div>
-          </span>
+          </span> -->
           <!-- ROUTINE COMPONENT  -->
           <RoutineEditor :routine="activeRoutine" />
         </div>
       </div>
       <div v-if="activeRoutine.edit" class="col-12 col-md-4 col-lg-4 col-xxl-3 pt-3 pe-md-4 pe-lg-5 about">
         <!-- MOVE SEARCH/FILTER COMPONENT -->
-        <div class="boxHeight pt-5">
+        <div class="boxHeight pt-5 ">
           <MoveSearchComponent />
         </div>
       </div>
@@ -58,7 +58,7 @@ export default {
         if (routineId) {
           await routinesService.setActiveRoutine(routineId);
         }
-      } catch (error) { Pop.error(error) }
+      } catch (error) { Pop.error(error); }
     }
 
     onMounted(() => {
@@ -72,7 +72,7 @@ export default {
 
     }
   },
-  components:{ RoutineEditor, RoutineFavs, MoveSearchComponent }
+  components: { RoutineEditor, RoutineFavs, MoveSearchComponent }
 };
 </script>
 
@@ -82,7 +82,13 @@ export default {
   background-color: #6B8373b9;
 }
 
-.hidden{
+.cream-bg {
+  border: 1px solid #C4D0CC;
+  background-color: #e0dddbd5;
+  backdrop-filter: blur(3px)
+}
+
+.hidden {
   top: 4.8rem;
   left: 2rem;
   min-width: 10rem;
@@ -92,12 +98,12 @@ export default {
   visibility: hidden;
 }
 
-.showHidden:hover+.hidden{
+.showHidden:hover+.hidden {
   opacity: 1;
   visibility: visible;
 }
 
-.z3{
+.z3 {
   z-index: 3;
 }
 
@@ -105,8 +111,8 @@ export default {
   max-height: 42dvh;
 }
 
-@media screen and (max-width:768px){
-  .boxHeight{
+@media screen and (max-width:768px) {
+  .boxHeight {
     max-height: 100%;
   }
 }
