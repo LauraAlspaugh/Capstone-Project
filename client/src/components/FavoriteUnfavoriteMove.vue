@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div v-if="account.id">
     <span v-if="isFavMove" @click="unfavorite()" role="button"><i class="fs-2 mdi mdi-heart"
         title="Unfavorite this move"></i></span>
-    <span v-if="isFavRoutine" @click="unfavorite()" role="button"><i class="fs-2 mdi mdi-heart"
+    <span v-else-if="isFavRoutine" @click="unfavorite()" role="button"><i class="fs-2 mdi mdi-heart"
         title="Unfavorite this routine"></i></span>
     <span v-else-if="!isFavMove" @click="favorite()" role="button"><i class="fs-2 mdi mdi-heart-outline"
         title="Favorite this move"></i></span>
@@ -23,6 +23,7 @@ export default {
   props: { id: { type: String }, moveOrRoutine: { type: String } },
   setup(props) {
     return {
+      account: computed(() => AppState.account),
       moves: computed(() => AppState.moves),
       myFavoriteMoves: computed(() => AppState.myFavoriteMoves),
       isFavMove: computed(() => AppState.myFavoriteMoves.find((move) => move.moveId == props.id)),

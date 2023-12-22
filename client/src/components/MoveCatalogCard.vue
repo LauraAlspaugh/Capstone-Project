@@ -26,7 +26,7 @@
                         </div>
                     </section>
                 </div>
-                <div class="col-1 d-flex justify-content-end h-100">
+                <div v-if="account.id" class="col-1 d-flex justify-content-end h-100">
                     <span v-if="isFavMove" @click.stop="unfavoriteMove()" role="button"><i class="fs-2 mdi mdi-heart"
                             title="Unfavorite this move"></i></span>
                     <span v-else @click.stop="favoriteMove()" role="button"><i class="fs-2 mdi mdi-heart-outline"
@@ -51,6 +51,7 @@ export default {
 
     setup(props) {
         return {
+            account: computed(() => AppState.account),
             myFavoriteMoves: computed(() => AppState.myFavoriteMoves),
             isFavMove: computed(() => AppState.myFavoriteMoves.find((move) => move.moveId == props.moveProp.id)),
 
