@@ -1,5 +1,6 @@
 <template>
-  <section class="row py-2 image-border align-items-center justify-content-center filter-height">
+  <section class="row py-2 image-border align-items-center justify-content-center filter-height sticky-top"
+    :class="[route.name == 'RoutineDesigner' ? 'cream-bg' : '']">
     <div class="col-12 justify-content-evenly align-items-center d-flex box p-0">
       <div v-if="!wantsToSeeFavorites" class="dropdown me-sm-3">
         <button class="btn white-gb dropdown-toggle italiana fw-bold" type="button" id="dropdownMenu2"
@@ -199,6 +200,12 @@ export default {
 
 
 <style lang="scss" scoped>
+.cream-bg {
+  border: 1px solid #C4D0CC;
+  background-color: #e0dddbd5;
+  backdrop-filter: blur(3px)
+}
+
 .selectedLevel {
   background-color: #0F2D24;
 }
