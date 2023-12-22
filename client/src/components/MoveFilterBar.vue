@@ -1,6 +1,6 @@
 <template>
-  <section class="row py-2 image-border align-items-center justify-content-center filter-height sticky-top"
-    :class="[route.name == 'RoutineDesigner' ? 'cream-bg' : '']">
+  <section class="row py-2 image-border align-items-center justify-content-center filter-height"
+    :class="[route.name == 'RoutineDesigner' ? 'cream-bg sticky-top' : '']">
     <div class="col-12 justify-content-evenly align-items-center d-flex box p-0">
       <div v-if="!wantsToSeeFavorites" class="dropdown me-sm-3">
         <button class="btn white-gb dropdown-toggle italiana fw-bold" type="button" id="dropdownMenu2"
@@ -66,9 +66,10 @@
       </div>
     </section>
   </div>
+  <!-- SECTION catalog page -->
   <div v-else>
     <section v-if="wantsToSeeFavorites">
-      <div v-for="move in myFavoriteMoves" :key="move.id" class="col-12">
+      <div v-for="move in myFavoriteMovesForCatalog" :key="move.id" class="col-12">
         <MoveCatalogCard :moveProp="move" />
       </div>
     </section>
@@ -159,10 +160,50 @@ export default {
         }
       }),
 
+      movesForCatalog: computed(() => {
+        //if level is anything but "all", filter it by level
+        if (editableLevel.value && editableLevel.value != "all") {
+          let movesByLevel = AppState.moves.filter(
+            (move) => move.level == editableLevel.value.toLocaleLowerCase()
+          );
+          //and if focus is anything but "all", filter it even more by bodypart
+          if (editableFocus.value && !editableFocus.value.includes("all")) {
+            return movesByLevel.filter(move =>
+              editableFocus.value.every(part => move.bodyPart.includes(part)))
+          } else { //if level is anything but "all" and focus is "all" or unselected, just return what was filtered by level
+            return movesByLevel
+          }
+        }
+        //else if level is "all" or unselected, no filters for level
+        else if (!editableLevel.value || editableLevel.value == "all") {
+          //if focus is anything but "all", filter it just by body part
+          if (editableFocus.value && !editableFocus.value.includes("all")) {
+            return AppState.moves.filter(move =>
+              editableFocus.value.every(part => move.bodyPart.includes(part)))
+          }
+          //if level is "all" or unselected and focus is "all" or unselected, return moves from the AppState(no filter)
+          else {
+            return AppState.moves;
+          }
+        } else {
+          return AppState.moves;
+        }
+      }),
+
       myFavoriteMoves: computed(() => {
         let filteredMoves = []
         AppState.myFavoriteMoves.forEach((move) => {
           filteredMoves.push(new Move(move.move))
+        })
+        return filteredMoves
+      }),
+
+      myFavoriteMovesForCatalog: computed(() => {
+        let filteredMoves = []
+        AppState.myFavoriteMoves.forEach((move) => {
+          if (move.move.englishName != "Interval") {
+            filteredMoves.push(new Move(move.move))
+          }
         })
         return filteredMoves
       }),

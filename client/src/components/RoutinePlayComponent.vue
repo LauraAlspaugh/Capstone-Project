@@ -236,7 +236,7 @@ export default {
     margin-inline: auto;
     top: 0;
     height: 100%;
-    aspect-ratio: 1/1;
+    width: 35dvw;
     content: "";
     background-color: rgba(82, 109, 82, 0.465)
   }
