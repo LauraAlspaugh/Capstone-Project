@@ -25,10 +25,13 @@ class ListEntriesService{
     logger.log('routineId', routineId, ' moveId', moveId)
     const res = await api.post('api/listentries', { routineId, moveId });
     AppState.listEntries.push(new ListEntry(res.data))
+    AppState.activeRoutine.listEntry.push(new ListEntry(res.data))
   }
 
   async removeListEntry(listEntryId) {
     const res = await api.delete(`api/listentries/${listEntryId}`);
+    let activeRoutineListEntryIndex = AppState.activeRoutine.listEntry.findIndex(listEntry => listEntry.id == listEntryId)
+    AppState.activeRoutine.listEntry.splice(activeRoutineListEntryIndex, 1)
     const currentPosition = AppState.listEntries.findIndex(entry => entry.id == listEntryId) + 1;
     AppState.listEntries = AppState.listEntries.filter(entry => entry.id != listEntryId)
     const lastPosition = AppState.listEntries.length;

@@ -145,7 +145,7 @@ class RoutinesService {
 
         await listEntriesService.getListEntriesByRoutineId(routineId)
     }
-
+    
     manualCheck() {
         if (AppState.myFavoriteMoves.length == 0) {
             AppState.noFavRoutines = true;
