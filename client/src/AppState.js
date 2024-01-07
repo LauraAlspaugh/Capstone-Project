@@ -23,6 +23,10 @@ export const AppState = reactive({
   myFavoriteRoutines: [],
   /** @type {import('./models/Routine.js').Routine[]} */
   myRoutines: [],
+  /** @type {import('./models/Routine.js').Routine[]} */
+  rootedFlowRoutines: [],
+  /** @type {import('./models/Routine.js').Routine[]} */
+  communityRoutines: [],
   noFavRoutines: false,
   editRoutine: false,
 

@@ -150,16 +150,18 @@ export default {
         return myRoutines
       }),
 
-      rootedFlowRoutines: computed(() => {
-        return AppState.routines.filter(
-          (routine) => routine.isExample)
-      }),
+      rootedFlowRoutines: computed(() => AppState.rootedFlowRoutines),
+      // rootedFlowRoutines: computed(() => {
+      //   return AppState.routines.filter(
+      //     (routine) => routine.isExample)
+      // }),
 
-      communityRoutines: computed(() => {
-        return AppState.routines.filter(
-          // (routine) => !routine.isExample && !routine.isPrivate)
-          (routine) => !routine.isExample)
-      }),
+      communityRoutines: computed(() => AppState.communityRoutines),
+      // communityRoutines: computed(() => {
+      //   return AppState.routines.filter(
+      //     // (routine) => !routine.isExample && !routine.isPrivate)
+      //     (routine) => !routine.isExample)
+      // }),
 
       swapPosesAndRoutines() {
         wantsPoses.value = !wantsPoses.value;

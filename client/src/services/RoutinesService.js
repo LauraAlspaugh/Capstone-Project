@@ -23,6 +23,17 @@ class RoutinesService {
         })
         logger.log("publicAndMyRoutines", publicAndMyRoutines)
         AppState.routines = publicAndMyRoutines.map(pojo => new Routine(pojo))
+        AppState.routines.forEach((routine) => {
+            if (routine.isExample == true || routine.creatorId == "6584af02f285ed9414523f12") {
+                AppState.rootedFlowRoutines.push(routine)
+            } else {
+                if (routine.creatorId != AppState.account.id) {
+                    AppState.communityRoutines.push(routine)
+                } else if (!routine.isPrivate) {
+                    AppState.communityRoutines.push(routine)
+                }
+            }
+        })
     }
 
     async getRoutineById(routineId) {
@@ -53,6 +64,10 @@ class RoutinesService {
 
     async createRoutine(routineData) {
         _clearData();
+        if (routineData.creatorId == "6584af02f285ed9414523f12") {
+            routineData.isExample = true
+            routineData.isPrivate = false
+        }
         const res = await api.post('api/routines', routineData)
         const newRoutine = new Routine(res.data);
         logger.log('new routine', newRoutine);
