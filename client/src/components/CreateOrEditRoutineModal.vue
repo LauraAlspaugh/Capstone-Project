@@ -3,7 +3,8 @@
     <span class="d-flex mb-3">
       <div class="mx-3 w-50">
         <label for="name">Routine Name</label>
-        <input v-model="routineForm.name" type="text" name="name" id="name" class="form-control" required>
+        <input v-model="routineForm.name" type="text" name="name" id="name" class="form-control"
+          placeholder="Routine name" required>
       </div>
       <div class="mx-3 w-50">
         <label for="name">Cover Image</label>
@@ -13,7 +14,8 @@
     </span>
     <div class="mx-3">
       <label for="name">Routine Description</label>
-      <textarea v-model="routineForm.shortDescription" name="description" id="description" rows="6" class="form-control" required></textarea>
+      <textarea v-model="routineForm.shortDescription" name="description" id="description" rows="6" class="form-control"
+        placeholder="Description of this routine" required></textarea>
     </div>
     <div class="modal-footer">
       <span class="d-flex justify-content-between align-items-center w-100">
@@ -48,30 +50,30 @@ import { routinesService } from "../services/RoutinesService";
 import RoutineCatalogCard from "./RoutineCatalogCard.vue";
 
 export default {
-    setup() {
-      const router = useRouter();
-      const routineForm = ref({});
+  setup() {
+    const router = useRouter();
+    const routineForm = ref({});
 
     watchEffect(() => {
       if (AppState.activeRoutine && AppState.editRoutine == true) {
-        routineForm.value = {...AppState.activeRoutine};
+        routineForm.value = { ...AppState.activeRoutine };
         routineForm.value.shortDescription = routineForm.value.description;
       } else {
         routineForm.value = {
-          name: 'Routine Name',
+          name: '',
           // description: 'Description of this routine', // defined upon creation
           // keyImage: 'img URL',
           playTime: 0,
           level: '',
-          shortDescription: 'Description of this routine', // used for drawing through prop
+          shortDescription: '', // used for drawing through prop
           creator: { name: AppState.account?.name }
         }
       }
-      })
+    })
 
     return {
       routineForm,
-      editRoutine: computed(()=> AppState.editRoutine),
+      editRoutine: computed(() => AppState.editRoutine),
       keyImage: computed(() => `url(${routineForm.value.keyImage})`),
 
       async createOrEditRoutine() {
@@ -89,28 +91,28 @@ export default {
           Modal.getOrCreateInstance('#createOrEditRoutineModal').hide();
         }
         catch (error) {
-            logger.error(error);
-            Pop.error(error);
-          }
+          logger.error(error);
+          Pop.error(error);
         }
-      };
-    },
-    components: { RoutineCatalogCard }
+      }
+    };
+  },
+  components: { RoutineCatalogCard }
 };
 </script>
 
 
 <style lang="scss" scoped>
-.keyImage{
+.keyImage {
   object-fit: cover;
 }
 
-.noClicky{
-pointer-events: none;
-user-select: none;
+.noClicky {
+  pointer-events: none;
+  user-select: none;
 }
 
-input[type="checkbox"]{
+input[type="checkbox"] {
   height: 1rem;
   width: 1rem;
 }

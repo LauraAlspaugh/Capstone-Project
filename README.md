@@ -1,0 +1,1 @@
+Rooted Flow is a full stack application that we, as a group of collaborators, build out over a two-week time period. It uses Vue for the front end framework, and node.Js for the server side. The application serves as a yoga routine design template, where users can choose from pre-build routines, or build their own. 

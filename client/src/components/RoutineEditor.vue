@@ -1,6 +1,6 @@
 <template>
   <div class="border green-gb bgBlur rounded">
-    <section class="header d-flex align-items-center justify-content-between rounded-top px-3 py-2 position-relative z1">
+    <section class="header d-flex align-items-center justify-content-between rounded-top px-2 py-2 position-relative z1">
       <span class="d-flex align-items-center">
         <div class="dropdown open">
           <button class="fs-1 mb-0 pe-3 text-nowrap btn d-flex showHidden navbar-cream" type="button" id="triggerId"
@@ -36,10 +36,11 @@
       </div>
     </section>
 
-    <section class="rounded-bottom mx-3 d-flex align-items-center navbar-cream">
-      <i class="fs-1 p-0  btn navbar-cream mdi mdi-play me-auto" type="button" data-bs-toggle="modal"
-        data-bs-target="#openPlayer"></i>
-      <p class="fs-5 mb-0 me-3"><small>Total Time: </small>
+    <section class="rounded-bottom mx-3 d-flex align-items-center navbar-cream"
+      :class="[listEntries.length > 0 ? 'justify-content-between' : 'justify-content-end']">
+      <i v-if="listEntries.length > 0" class="fs-1 p-0  btn navbar-cream mdi mdi-play me-auto" type="button"
+        data-bs-toggle="modal" data-bs-target="#openPlayer"></i>
+      <p class="fs-5 mb-0 me-3 py-3"><small>Total Time: </small>
         <b v-if="totalPlayTime">
           {{ (totalPlayTime / 60 >= 1 ? Math.floor(totalPlayTime / 60) + ' min ' : '') +
             (totalPlayTime % 60 != 0 ? totalPlayTime % 60 + ' sec' : '') }}
@@ -67,6 +68,7 @@ export default {
 
     return {
       account: computed(() => AppState.account),
+      listEntries: computed(() => AppState.listEntries),
       editRoutine: computed(() => AppState.editRoutine),
       locked: computed(() => !AppState.activeRoutine.edit),
       totalPlayTime: computed(() => {

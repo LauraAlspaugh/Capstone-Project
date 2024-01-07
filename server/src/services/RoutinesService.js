@@ -141,6 +141,7 @@ class RoutinesService {
 
     async cloneRoutine(creatorId, routineId) {
         const ogRoutine = await dbContext.Routines.findById(routineId);
+        ogRoutine.isExample = false
         // @ts-ignore
         const Routine = mongoose.model('Routine', RoutineSchema);
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid cream-bg w-100 ps-4 m-0 moves-list">
+    <div class="container-fluid cream-bg w-100 boxHeight ps-4 m-0 moves-list">
         <MoveFilterBar />
     </div>
 </template>
@@ -17,6 +17,10 @@ export default {
 
 
 <style lang="scss" scoped>
+.boxHeight {
+    min-height: 83dvh;
+}
+
 .cream-bg {
     border: 1px solid #C4D0CC;
     background-color: #e0dddbd5;

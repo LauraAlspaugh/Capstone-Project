@@ -236,7 +236,7 @@ export default {
     margin-inline: auto;
     top: 0;
     height: 100%;
-    width: 35dvw;
+    width: 30%;
     content: "";
     background-color: rgba(82, 109, 82, 0.465)
   }
