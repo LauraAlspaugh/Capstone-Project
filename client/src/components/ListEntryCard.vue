@@ -52,8 +52,8 @@
       </span>
 
       <div class="position-relative">
-        <i v-if="activeRoutine.edit" class="fs-5 text-danger closeBtn position-absolute mdi mdi-close-circle"
-          type="button" @click="removeListEntry(listEntry)"></i>
+        <i v-if="activeRoutine.edit" class="fs-5 closeBtn position-absolute mdi mdi-close-circle" type="button"
+          title="remove pose" @click="removeListEntry(listEntry)"></i>
       </div>
     </section>
   </div>
@@ -140,6 +140,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+img {
+  object-fit: cover;
+}
+
 .navbar-cream {
   color: #E0DDDB;
 }
@@ -172,6 +176,7 @@ export default {
   right: -.36rem;
   opacity: .05;
   transition: .25s;
+  color: #ff5454cc;
 }
 
 .closeBtn:hover {
