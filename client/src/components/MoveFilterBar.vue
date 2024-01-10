@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid p-0">
-    <section class="row py-2 image-border align-items-center justify-content-center filter-height"
-      :class="[route.name == 'RoutineDesigner' ? 'cream-bg sticky-top' : '']">
+  <div class="container-fluid p-0 sticky-top">
+    <section class="row py-2 mx-0 image-border align-items-center justify-content-center filter-height"
+      :class="[route.name == 'RoutineDesigner' ? 'cream-bg ' : '']">
       <div class="col-12 justify-content-evenly align-items-center d-flex box p-0">
         <div v-if="!wantsToSeeFavorites" class="dropdown me-sm-3">
           <button class="btn white-gb dropdown-toggle italiana fw-bold" type="button" id="dropdownMenu2"

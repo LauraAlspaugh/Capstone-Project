@@ -3,10 +3,10 @@
     <section class="header d-flex align-items-center justify-content-between rounded-top px-2 py-2 position-relative z1">
       <span class="d-flex align-items-center">
         <div class="dropdown open">
-          <button class="fs-1 mb-0 pe-3 text-nowrap btn d-flex showHidden navbar-cream" type="button" id="triggerId"
+          <button class="fs-2 mb-0 pe-3 text-nowrap btn d-flex showHidden navbar-cream" type="button" id="triggerId"
             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ routine.name }}
-            <i class="fs-1 mdi mdi-dots-vertical"></i>
+            <i class="fs-2 mdi mdi-dots-vertical"></i>
           </button>
           <div class="hidden position-absolute z3 px-3 py-2 card">{{ routine.description }}</div>
           <div class="dropdown-menu p-0" aria-labelledby="triggerId">
@@ -14,7 +14,7 @@
           </div>
         </div>
       </span>
-      <button class="btn btn-secondary" type="button" @click="cloneRoutine()">Clone Routine</button>
+      <!-- <button class="btn btn-secondary" type="button" @click="cloneRoutine()">Clone Routine</button> -->
       <div class="me-auto">
       </div>
       <span class="fs-1 mx-2 d-flex" v-if="routine.creatorId == account.id">
