@@ -5,7 +5,7 @@
         <img class="thumbnail" :class="moveBasicProp.englishName == 'Interval' ? 'rounded-circle' : ''"
           :src="moveBasicProp.imgUrl" alt="move picture">
         <p class="fs-5 m-0 me-auto italiana fw-bold px-2">{{ moveBasicProp.englishName }}</p>
-        <i class="fs-4 px-2 mint dimmed mdi mdi-plus" type="button" title="add pose to routine"
+        <i class="fs-4 px-2 darkGreen dimmed mdi mdi-plus" type="button" title="add pose to routine"
           @click.stop="addMoveToRoutine(moveBasicProp)"></i>
       </div>
     </section>
@@ -58,6 +58,10 @@ export default {
 
 .mint {
   color: #C4D0CC;
+}
+
+.darkGreen {
+  color: #2b4a3fd9;
 }
 
 .thumbnail {
