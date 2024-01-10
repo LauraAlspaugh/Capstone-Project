@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid cream-bg w-100 boxHeight ps-4 m-0 moves-list">
+    <div class="container-fluid cream-bg w-100 boxHeight p-0 m-0 moves-list rounded">
         <MoveFilterBar />
     </div>
 </template>
@@ -43,6 +43,7 @@ export default {
 .moves-list {
     overflow-y: auto;
     max-height: 70dvh;
+    // max-width: max-content;
 }
 
 ::-webkit-scrollbar {

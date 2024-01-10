@@ -1,11 +1,11 @@
 <template>
-  <div @click="setActiveMove(moveBasicProp)" type="button">
+  <div @click="setActiveMove(moveBasicProp)" type="button" class="container p-0">
     <section class="image-border d-flex">
-      <div class="d-flex align-items-center w-100">
+      <div class="d-flex align-items-center justify-content-between w-100">
         <img class="thumbnail" :class="moveBasicProp.englishName == 'Interval' ? 'rounded-circle' : ''"
           :src="moveBasicProp.imgUrl" alt="move picture">
-        <p class="fs-5 m-0 me-auto italiana fw-bold p-2">{{ moveBasicProp.englishName }}</p>
-        <i class="fs-4 mx-2 mint dimmed mdi mdi-plus" type="button" title="add pose to routine"
+        <p class="fs-5 m-0 me-auto italiana fw-bold px-2">{{ moveBasicProp.englishName }}</p>
+        <i class="fs-4 px-2 mint dimmed mdi mdi-plus" type="button" title="add pose to routine"
           @click.stop="addMoveToRoutine(moveBasicProp)"></i>
       </div>
     </section>
