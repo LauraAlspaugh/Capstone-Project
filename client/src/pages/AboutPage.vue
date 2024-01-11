@@ -7,7 +7,7 @@
           Flow. All
           the
           time and effort was well worth it. And the opportunity to work together made for many memories. </p>
-        <p class="fs-5 p-2 rounded">Express Node.js, Vue 3, Bootstrap 5, Mongoose, MongoDB (...)</p>
+        <p class="fs-5 p-2 rounded">Vue, Bootstrap, Express, Node.js, Mongoose, MongoDB</p>
       </div>
     </section>
     <section class="row justify-content-center align-items-center px-5">
