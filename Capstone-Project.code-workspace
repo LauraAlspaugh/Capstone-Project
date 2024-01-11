@@ -1,6 +1,10 @@
 {
   "folders": [
     {
+      "path": "tasks",
+      "name": "ToDo"
+    },
+    {
       "path": "client",
       "name": "client"
     },

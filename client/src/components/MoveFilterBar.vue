@@ -1,59 +1,61 @@
 <template>
-  <section class="row py-2 image-border align-items-center justify-content-center filter-height"
-    :class="[route.name == 'RoutineDesigner' ? 'cream-bg sticky-top' : '']">
-    <div class="col-12 justify-content-evenly align-items-center d-flex box p-0">
-      <div v-if="!wantsToSeeFavorites" class="dropdown me-sm-3">
-        <button class="btn white-gb dropdown-toggle italiana fw-bold" type="button" id="dropdownMenu2"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          level
-        </button>
-        <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
-          <li class="ps-3" v-for="level in levels" :key="level">
-            <div class="form-check">
-              <label class="form-check-label italiana" for="flexRadioDefault">
-                <input v-model="editableLevel" class="form-check-input" type="radio" name="radio"
-                  @change="changeLevel(level)" :class="{ 'selectedLevel': level == selectedLevel }"
-                  value="${editableLevel}" id="flexRadioDefault">
-                {{ level }}
-              </label>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <div v-if="wantsToSeeFavorites == false">
-          <p v-if="route.name == 'RoutineDesigner'" @click="swapShowFavoritesAndShowAll()" role="button" type="button"
-            class="fs-2 mx-0 my-1"><i class="mdi mdi-heart"></i></p>
-          <button v-else @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
-            role="button" type="button">my favorites<i class="mdi mdi-heart"></i></button>
+  <div class="container-fluid p-0 sticky-top">
+    <section class="row py-2 mx-0 image-border align-items-center justify-content-center filter-height"
+      :class="[route.name == 'RoutineDesigner' ? 'cream-bg ' : '']">
+      <div class="col-12 justify-content-evenly align-items-center d-flex box p-0">
+        <div v-if="!wantsToSeeFavorites" class="dropdown me-sm-3">
+          <button class="btn white-gb dropdown-toggle italiana fw-bold" type="button" id="dropdownMenu2"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            level
+          </button>
+          <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
+            <li class="ps-3" v-for="level in levels" :key="level">
+              <div class="form-check">
+                <label class="form-check-label italiana" for="flexRadioDefault">
+                  <input v-model="editableLevel" class="form-check-input" type="radio" name="radio"
+                    @change="changeLevel(level)" :class="{ 'selectedLevel': level == selectedLevel }"
+                    value="${editableLevel}" id="flexRadioDefault">
+                  {{ level }}
+                </label>
+              </div>
+            </li>
+          </ul>
         </div>
-        <div v-else>
-          <p @click="swapShowFavoritesAndShowAll()" role="button" type="button" class="btn white-gb italiana mx-0 my-1">
-            all
-            moves</p>
+        <div>
+          <div v-if="wantsToSeeFavorites == false">
+            <p v-if="route.name == 'RoutineDesigner'" @click="swapShowFavoritesAndShowAll()" role="button" type="button"
+              class="fs-2 mx-0 my-1"><i class="mdi mdi-heart"></i></p>
+            <button v-else @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
+              role="button" type="button">my favorites<i class="mdi mdi-heart"></i></button>
+          </div>
+          <div v-else>
+            <p @click="swapShowFavoritesAndShowAll()" role="button" type="button" class="btn white-gb italiana mx-0 my-1">
+              all
+              moves</p>
+          </div>
+        </div>
+        <div v-if="!wantsToSeeFavorites" class="dropdown ms-sm-3">
+          <button class="btn white-gb dropdown-toggle italiana fw-bold" type="button" id="dropdownMenu2"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            focus
+          </button>
+          <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
+            <li class="ps-3" v-for="focus in focuses" :key="focus">
+              <div class="form-check">
+                <input v-model="editableFocus" class="form-check-input" type="checkbox" :value="focus"
+                  id="flexCheckDefault" @change="uncheckIfAll(focus)">
+                <label class="form-check-label italiana" for="flexCheckDefault">
+                  {{ focus }}
+                </label>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
-      <div v-if="!wantsToSeeFavorites" class="dropdown ms-sm-3">
-        <button class="btn white-gb dropdown-toggle italiana fw-bold" type="button" id="dropdownMenu2"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          focus
-        </button>
-        <ul class="dropdown-menu bg-white" aria-labelledby="dropdownMenu2">
-          <li class="ps-3" v-for="focus in focuses" :key="focus">
-            <div class="form-check">
-              <input v-model="editableFocus" class="form-check-input" type="checkbox" :value="focus" id="flexCheckDefault"
-                @change="uncheckIfAll(focus)">
-              <label class="form-check-label italiana" for="flexCheckDefault">
-                {{ focus }}
-              </label>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-  <div v-if="route.name == 'RoutineDesigner'">
-    <section v-if="moves.length > 0" class="row moves-list">
+    </section>
+  </div>
+  <div v-if="route.name == 'RoutineDesigner'" class="container-fluid p-0 m-0">
+    <section v-if="moves.length > 0" class="row moves-list p-0 m-0">
       <div v-if="!wantsToSeeFavorites" class="col-12 p-0">
         <div v-for="move in moves" :key="move.id" class="">
           <MoveBasicCard :moveBasicProp="move" />

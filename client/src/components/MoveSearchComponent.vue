@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid cream-bg w-100 boxHeight ps-4 m-0 moves-list">
+    <div class="container-fluid cream-bg w-100 boxHeight p-0 m-0 moves-list rounded">
         <MoveFilterBar />
     </div>
 </template>
@@ -17,9 +17,9 @@ export default {
 
 
 <style lang="scss" scoped>
-.boxHeight {
-    min-height: 83dvh;
-}
+// .boxHeight {
+//     min-height: 83dvh;
+// }
 
 .cream-bg {
     border: 1px solid #C4D0CC;
@@ -41,8 +41,9 @@ export default {
 }
 
 .moves-list {
+    max-height: 74.5dvh;
     overflow-y: auto;
-    max-height: 70dvh;
+    // max-width: max-content;
 }
 
 ::-webkit-scrollbar {

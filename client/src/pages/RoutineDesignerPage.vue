@@ -28,7 +28,7 @@
       </div>
     </section>
     <section v-else class="row justify-content-center">
-      <div class=" col-12 col-md-auto mt-5">
+      <div class=" col-12 col-md-auto mt-5 boxHeight">
         <p class="p-2 mb-4 fs-3 fw-bold text-center rounded bgColor">My Favorite Routines</p>
         <!-- ROUTINE FAVORITES LIST -->
         <RoutineFavs />
@@ -107,9 +107,9 @@ export default {
   z-index: 3;
 }
 
-.boxHeight {
-  max-height: 42dvh;
-}
+// .boxHeight {
+//   max-height: 42dvh;
+// }
 
 @media screen and (max-width:768px) {
   .boxHeight {

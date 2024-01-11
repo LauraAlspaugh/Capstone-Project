@@ -7,6 +7,11 @@
         <p class="mb-0 p-2 fs-5 ">Edit Routine</p>
         <i class="fs-2 mdi mdi-pencil"></i>
       </span>
+      <span @click="cloneRoutine()" type="button" v-else-if="route?.name == 'RoutineDesigner' && activeRoutine"
+        class="d-flex align-items-center justify-content-center rounded-bottom border selectable lighten-30 bgBlur bgColor1 w-100">
+        <p class="mb-0 p-2 fs-5 ">Clone Routine</p>
+        <i class="fs-2 mdi mdi-pencil"></i>
+      </span>
       <span @click="createRoutineForm()" type="button" v-if="account.id"
         class="d-flex align-items-center justify-content-center rounded border selectable lighten-30 bgBlur bgColor1 w-100">
         <p class="mb-0 p-2 fs-5 ">Create Routine</p>
@@ -92,8 +97,19 @@ export default {
 
       manualCheck() {
         routinesService.manualCheck();
-      }
+      },
 
+      async cloneRoutine() {
+        try {
+          const yes = await Pop.confirm('Would you like to clone this routine in order to make edits?', '')
+          if (!yes) { return }
+          const routineId = AppState.activeRoutine.id;
+          await routinesService.cloneRoutine(routineId);
+          await routinesService.getFavRoutines();
+        } catch (error) {
+          Pop.error(error)
+        }
+      }
     }
   }
 };
