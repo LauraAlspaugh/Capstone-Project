@@ -35,8 +35,8 @@ async getMyFavoriteMoves(){
     const res = await api.get(`api/favorites/moves`)
     AppState.myFavoriteMoves = res.data.map(fav => new FavoriteMove(fav))
     AppState.myFavoriteMoves.sort((m1, m2) => {
-        if (m1.englishName < m2.englishName) return -1;
-        if (m1.englishName > m2.englishName) return 1;
+        if (m1.move.englishName < m2.move.englishName) return -1;
+        if (m1.move.englishName > m2.move.englishName) return 1;
         return 0
     })
 }

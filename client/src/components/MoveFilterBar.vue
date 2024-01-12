@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid p-0 sticky-top">
+  <div class="container-fluid p-0 sticky-top filterPadding">
     <section class="row py-2 mx-0 image-border align-items-center justify-content-center filter-height"
       :class="[route.name == 'RoutineDesigner' ? 'cream-bg ' : '']">
       <div class="col-12 justify-content-evenly align-items-center d-flex box p-0">
@@ -268,5 +268,10 @@ export default {
 
 .box {
   width: 50vw;
+}
+
+.filterPadding {
+  // margin-top: 10dvh;
+  // top: 88px;
 }
 </style>
