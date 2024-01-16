@@ -61,9 +61,9 @@ import logo from '../assets/img/RootedFlow-Logo-lg.png'
 export default {
   setup() {
     const homeImgs = [
-      { img: '/src/assets/img/CatalogSnapshot.png', alt: 'Catalog Snapshot' },
-      { img: '/src/assets/img/RoutineDesignerPage.png', alt: 'Routine Designer Page Snapshot' },
-      { img: '/src/assets/img/routineplaypageimage.jpg', alt: 'Routine Play Page Snapshot' }
+      { img: 'src/assets/img/CatalogSnapshot.png', alt: 'Catalog Snapshot' },
+      { img: 'src/assets/img/RoutineDesignerPage.png', alt: 'Routine Designer Page Snapshot' },
+      { img: 'src/assets/img/RoutinePlayPageImage.jpg', alt: 'Routine Play Page Snapshot' }
     ]
     return {
       logo,
