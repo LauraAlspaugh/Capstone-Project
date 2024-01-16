@@ -2,16 +2,16 @@
   <div class="container-fluid italiana">
 
     <section v-if="activeRoutine?.id" class="row justify-content-evenly">
-      <div class="col-12 col-md-8 col-lg-7 pt-3 pe-lg-5">
-        <div class="boxHeight pt-5">
+      <div class="col-12 col-md-8 col-lg-7 pt-1 pt-md-3 pe-lg-5">
+        <div class="boxHeight pt-1 pt-md-5">
           <!-- ROUTINE COMPONENT  -->
           <RoutineEditor :routine="activeRoutine" />
         </div>
       </div>
 
-      <div v-if="activeRoutine.edit" class="col-12 col-md-4 col-lg-4 col-xxl-3 pt-3 pe-md-4 pe-lg-5">
+      <div v-show="activeRoutine.edit" class="col-12 col-md-4 col-lg-5 col-xxl-4 pt-3 pe-md-4 pe-lg-5">
         <!-- MOVE SEARCH/FILTER COMPONENT -->
-        <div class="boxHeight pt-5 ">
+        <div class="boxHeight pt-1 pt-md-5 ">
           <MoveSearchComponent />
         </div>
       </div>
@@ -116,13 +116,4 @@ export default {
   z-index: 3;
 }
 
-// .boxHeight {
-//   max-height: 42dvh;
-// }
-
-@media screen and (max-width:768px) {
-  .boxHeight {
-    max-height: 100%;
-  }
-}
 </style>

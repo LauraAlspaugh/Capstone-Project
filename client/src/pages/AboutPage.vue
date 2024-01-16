@@ -3,7 +3,7 @@
 
     <section class="row justify-content-center p-3">
       <div class="col-12 col-md-9 col-lg-6 text-center p-1 p-md-3 my-5 white-gb intro-page">
-        <p class="fs-1 p-3">About the App & Devs </p>
+        <p class="fs-1 p-3">About the App & Devs</p>
         <p class="fs-5 p-2">A special thank you to all the developers who helped to create Rooted
           Flow. All the time and effort was well worth it. And the opportunity to work together made for many memories.</p>
           <br>
