@@ -1,39 +1,47 @@
 <template>
   <div class="container-fluid italiana">
+
     <section v-if="activeRoutine?.id" class="row justify-content-evenly">
       <div class="col-12 col-md-8 col-lg-7 pt-3 pe-lg-5">
         <div class="boxHeight pt-5">
-          <!-- <span class="d-flex align-items-center">
-            <div class="dropdown open">
-              <button class="fs-1 mb-0 pe-3 text-nowrap btn d-flex showHidden" type="button" id="triggerId"
-                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ activeRoutine.name }}
-                <i class="fs-1 mdi mdi-dots-vertical"></i>
-              </button>
-              <div class="hidden position-absolute z3 px-3 py-2 card">{{ activeRoutine.description }}</div>
-              <div class="dropdown-menu p-0" aria-labelledby="triggerId">
-                <RoutineFavs />
-              </div>
-            </div>
-          </span> -->
           <!-- ROUTINE COMPONENT  -->
           <RoutineEditor :routine="activeRoutine" />
         </div>
       </div>
-      <div v-if="activeRoutine.edit" class="col-12 col-md-4 col-lg-4 col-xxl-3 pt-3 pe-md-4 pe-lg-5 about">
+
+      <div v-if="activeRoutine.edit" class="col-12 col-md-4 col-lg-4 col-xxl-3 pt-3 pe-md-4 pe-lg-5">
         <!-- MOVE SEARCH/FILTER COMPONENT -->
         <div class="boxHeight pt-5 ">
           <MoveSearchComponent />
         </div>
       </div>
     </section>
-    <section v-else class="row justify-content-center">
-      <div class=" col-12 col-md-auto mt-5 boxHeight">
+
+    <section v-else-if="account?.id" class="row justify-content-center">
+      <div class="col-12 col-md-auto mt-5 boxHeight">
         <p class="p-2 mb-4 fs-3 fw-bold text-center rounded bgColor">My Favorite Routines</p>
         <!-- ROUTINE FAVORITES LIST -->
         <RoutineFavs />
       </div>
     </section>
+
+    <section v-else class="row justify-content-center">
+      <div class="col-auto mt-5">
+        <div class="p-3 mb-4 rounded white-gb">
+          <p class="fs-3 fw-bold text-center">No active routine set</p>
+          <p class="fs-5 fw-bold text-center">
+            Login to select favorites and edit your routines <br>
+            or set an active routine to start
+          </p>
+        </div>
+        <div class="p-1 text-center">
+          <router-link :to="{ name: 'Catalog' }" class="btn selectable cream-bg">
+            <p class="p-1 mb-0 fs-3 fw-bold text-uppercase">Browse the Catalog</p>
+          </router-link>
+        </div>
+      </div>
+    </section>
+    
   </div>
 </template>
 
@@ -68,6 +76,7 @@ export default {
     })
 
     return {
+      account: computed(() => AppState.account),
       activeRoutine: computed(() => AppState.activeRoutine),
 
     }

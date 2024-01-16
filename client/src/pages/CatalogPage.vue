@@ -90,7 +90,7 @@ import { AppState } from '../AppState';
 import { computed, onMounted, ref } from 'vue';
 import Pop from '../utils/Pop.js';
 import RoutineCatalogCard from '../components/RoutineCatalogCard.vue';
-import MoveCatalogCard from '../components/MoveCatalogCard.vue';
+import MoveFilterBar from '../components/MoveFilterBar.vue';
 import { routinesService } from '../services/RoutinesService.js';
 import { Routine } from "../models/Routine.js";
 
@@ -188,7 +188,7 @@ export default {
     };
   },
 
-  components: { MoveCatalogCard, RoutineCatalogCard }
+  components: { MoveFilterBar, RoutineCatalogCard }
 };
 </script>
 

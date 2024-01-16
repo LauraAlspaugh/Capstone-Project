@@ -1,16 +1,19 @@
 <template>
   <div class="container-fluid">
-    <section class="row justify-content-center p-3 ">
-      <div class="col-12 text-center p-3 my-5 white-gb w-50 intro-page">
-        <p class="fs-1 p-3 rounded">About the App & Devs </p>
-        <p class="fs-5 p-2 rounded">A special thank you to all the developers who helped to create Rooted
-          Flow. All
-          the
-          time and effort was well worth it. And the opportunity to work together made for many memories. </p>
-        <p class="fs-5 p-2 rounded">Vue, Bootstrap, Express, Node.js, Mongoose, MongoDB</p>
+
+    <section class="row justify-content-center p-3">
+      <div class="col-12 col-md-9 col-lg-6 text-center p-1 p-md-3 my-5 white-gb intro-page">
+        <p class="fs-1 p-3">About the App & Devs </p>
+        <p class="fs-5 p-2">A special thank you to all the developers who helped to create Rooted
+          Flow. All the time and effort was well worth it. And the opportunity to work together made for many memories.</p>
+          <br>
+        <p class="fs-5">Technologies Used</p>
+        <p class="fs-5 pb-2">HTML/CSS, Bootstrap, JavaScript, <br>
+          Vue.js, Express.js, Node.js, Mongoose, MongoDB</p>
       </div>
     </section>
-    <section class="row justify-content-center align-items-center px-5">
+
+    <section class="row justify-content-center align-items-center px-1 px-md-5">
       <div class="col-12 col-md-5 p-3 my-2 order-1 order-md-1 d-flex justify-content-center">
         <img src="/img/DJ.jpg" alt="DJ Aaron" class="img border p-2">
         <div class="fs-1 socials d-flex flex-column justify-content-center mx-3 p-3">
@@ -22,10 +25,9 @@
         </div>
       </div>
       <div class="col-12 col-md-7 p-3 my-2 rounded order-2 order-md-2 d-flex justify-content-center desc">
-        <p class="fs-5 p-2 rounded white-gb">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime itaque iusto
-          numquam, excepturi facilis voluptatibus voluptates vero in? Iste voluptatem praesentium consequuntur nobis. Ad,
-          officiis quisquam. Totam quaerat dignissimos eius!</p>
+        <p class="fs-5 p-2 rounded white-gb">Hi! I am DJ - a tale of two+ countries, jack of all trades, discoverer of things and stuff, nature lover and active lifer wanna-be, mental health and HealthyGamer advocate, code ninja and hobbyist game dev, freestyle writer of non-particular prose and poetry, a-typical tech nerd and a friendly neighborhood bear-hugger!</p>
       </div>
+
       <div class="col-12 col-md-7 p-3 my-2 rounded order-4 order-md-3 d-flex justify-content-center desc">
         <p class="fs-5 p-2 rounded white-gb">Hi! My name is Erin. This capstone project was fueled by my passion for
           leveraging technology to enhance individual well-being. I was excited for the fresh challenges beyond the scope
@@ -44,7 +46,8 @@
         <img src="/img/Erin.jpeg" alt="Erin Mae Shiffler" class="img border p-2">
       </div>
     </section>
-    <section class="row justify-content-center align-items-center px-5">
+
+    <section class="row justify-content-center align-items-center px-1 px-md-5">
       <div class="col-12 col-md-5 p-3 my-2 order-1 order-md-1 d-flex justify-content-center">
         <img src="/img/lauraimage.jpg" alt="Laura Alspaugh" class="img border p-2">
         <div class="fs-1 socials d-flex flex-column justify-content-center mx-3 p-3">
@@ -82,6 +85,7 @@
         <img :src="Corinna" alt="Corinna Bolon" class="img border p-2">
       </div>
     </section>
+
   </div>
 </template>
 
@@ -113,8 +117,6 @@ img {
 @media screen and (max-width: 992px) {
   .intro-page {
     margin: 0rem;
-    width: 100%;
-
     padding: 0rem;
   }
 
