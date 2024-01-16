@@ -79,22 +79,16 @@ a:hover {
 
 .navbar-grey {
   background-color: #E0DDDB;
-  /* height: 60px; */
 }
 
 .logo-nav {
   height: 5rem;
 }
 
-nav {
-  /* height: 133px; */
-}
-
 @media screen and (min-width: 992px) {
   nav {
     height: 6rem;
   }
-
 }
 
 @media screen and (max-width: 992px) {

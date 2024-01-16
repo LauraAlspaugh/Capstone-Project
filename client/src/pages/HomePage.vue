@@ -62,7 +62,7 @@ export default {
   setup() {
     const homeImgs = [
       { img: '/img/CatalogSnapshot.png', alt: 'Catalog Snapshot' },
-      { img: '/img/routinedesignerpage.png', alt: 'Routine Designer Page Snapshot' },
+      { img: 'src/assets/img/RoutineDesignerPage.png', alt: 'Routine Designer Page Snapshot' },
       { img: '/img/routineplaypageimage.jpg', alt: 'Routine Play Page Snapshot' }
     ]
     return {
