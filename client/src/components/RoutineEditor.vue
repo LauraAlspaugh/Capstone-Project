@@ -3,7 +3,7 @@
     <section class="header d-flex align-items-center justify-content-between rounded-top px-2 py-2 position-relative z1">
       <span class="d-flex align-items-center">
         <div class="dropdown open">
-          <button class="fs-2 mb-0 pe-3 text-nowrap btn d-flex showHidden navbar-cream" type="button" id="triggerId"
+          <button class="fs-2 mb-0 pe-3 btn d-flex showHidden navbar-cream" type="button" id="triggerId"
             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ routine.name }}
             <i class="fs-2 mdi mdi-dots-vertical"></i>
