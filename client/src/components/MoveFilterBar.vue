@@ -23,10 +23,12 @@
         </div>
         <div>
           <div v-if="wantsToSeeFavorites == false">
-            <p v-if="route.name == 'RoutineDesigner'" @click="swapShowFavoritesAndShowAll()" role="button" type="button"
+            <div v-if="account?.id">
+              <p v-if="route.name == 'RoutineDesigner'" @click="swapShowFavoritesAndShowAll()" role="button" type="button"
               class="fs-2 mx-0 my-1"><i class="mdi mdi-heart"></i></p>
-            <button v-else @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
+              <button v-else @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
               role="button" type="button">my favorites<i class="mdi mdi-heart"></i></button>
+            </div>
           </div>
           <div v-else>
             <p @click="swapShowFavoritesAndShowAll()" role="button" type="button" class="btn white-gb italiana mx-0 my-1">
@@ -92,165 +94,151 @@
 
 
 <script>
+import Pop from '../utils/Pop.js';
 import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState';
 import { logger } from '../utils/Logger.js';
-import Pop from '../utils/Pop.js';
 import { movesService } from '../services/MovesService.js';
+import MoveCatalogCard from "./MoveCatalogCard.vue";
 import { Move } from "../models/Move.js";
 
 export default {
-
-  setup() {
-
-    onMounted(() => {
-      if (!AppState.moves.length > 0) {
-        getMoves();
-      }
-      logger.log("Route!", route.name)
-    })
-
-    const route = useRoute()
-    const levels = ["all", "beginner", "intermediate", "advanced"];
-    const focuses = ["all", "arms", "chest", "core", "neck", "glutes", "hamstrings", "hips", "inner thighs", "lower Back", "quads", "shoulder", "upper back"];
-
-    let editableLevel = ref("");
-    let editableFocus = ref([]);
-    let selectedLevel = ref("");
-    let wantsToSeeFavorites = ref(false);
-
-    async function getMoves() {
-      try {
-        await movesService.getMoves();
-      }
-      catch (error) {
-        logger.error(error);
-        Pop.error(error);
-      }
-    }
-
-    return {
-      levels,
-      focuses,
-      editableLevel,
-      editableFocus,
-      selectedLevel,
-      wantsToSeeFavorites,
-      route,
-
-      moves: computed(() => {
-        //if level is anything but "all", filter it by level
-        if (editableLevel.value && editableLevel.value != "all") {
-          let movesByLevel = AppState.moves.filter(
-            (move) => move.level == editableLevel.value.toLocaleLowerCase()
-          );
-          //and if focus is anything but "all", filter it even more by bodypart
-          if (editableFocus.value && !editableFocus.value.includes("all")) {
-            return movesByLevel.filter(move =>
-              editableFocus.value.every(part => move.bodyPart.includes(part)))
-          } else { //if level is anything but "all" and focus is "all" or unselected, just return what was filtered by level
-            return movesByLevel
-          }
-        }
-        //else if level is "all" or unselected, no filters for level
-        else if (!editableLevel.value || editableLevel.value == "all") {
-          //if focus is anything but "all", filter it just by body part
-          if (editableFocus.value && !editableFocus.value.includes("all")) {
-            return AppState.moves.filter(move =>
-              editableFocus.value.every(part => move.bodyPart.includes(part)))
-          }
-          //if level is "all" or unselected and focus is "all" or unselected, return moves from the AppState(no filter)
-          else {
-            return AppState.moves;
-          }
-        } else {
-          return AppState.moves;
-        }
-      }),
-
-      movesForCatalog: computed(() => {
-        let filteredMoves = []
-        AppState.moves.forEach((move) => {
-          if (move.englishName != "Interval") {
-            filteredMoves.push(move)
-          }
-        })
-        //if level is anything but "all", filter it by level
-        if (editableLevel.value && editableLevel.value != "all") {
-          let movesByLevel = filteredMoves.filter(
-            (move) => move.level == editableLevel.value.toLocaleLowerCase()
-          );
-          //and if focus is anything but "all", filter it even more by bodypart
-          if (editableFocus.value && !editableFocus.value.includes("all")) {
-            return movesByLevel.filter(move =>
-              editableFocus.value.every(part => move.bodyPart.includes(part)))
-          } else { //if level is anything but "all" and focus is "all" or unselected, just return what was filtered by level
-            return movesByLevel
-          }
-        }
-        //else if level is "all" or unselected, no filters for level
-        else if (!editableLevel.value || editableLevel.value == "all") {
-          //if focus is anything but "all", filter it just by body part
-          if (editableFocus.value && !editableFocus.value.includes("all")) {
-            return filteredMoves.filter(move =>
-              editableFocus.value.every(part => move.bodyPart.includes(part)))
-          }
-          //if level is "all" or unselected and focus is "all" or unselected, return moves from the AppState(no filter)
-          else {
-            return filteredMoves;
-          }
-        } else {
-          return filteredMoves;
-        }
-      }),
-
-      myFavoriteMoves: computed(() => {
-        let filteredMoves = []
-        AppState.myFavoriteMoves.forEach((move) => {
-          filteredMoves.push(new Move(move.move))
-        })
-        return filteredMoves
-      }),
-
-      myFavoriteMovesForCatalog: computed(() => {
-        let filteredMoves = []
-        AppState.myFavoriteMoves.forEach((move) => {
-          if (move.move.englishName != "Interval") {
-            filteredMoves.push(new Move(move.move))
-          }
-        })
-        return filteredMoves
-      }),
-
-      swapShowFavoritesAndShowAll() {
-        wantsToSeeFavorites.value = !wantsToSeeFavorites.value;
-      },
-
-      changeLevel(level) {
-        editableLevel.value = level;
-        selectedLevel.value = level;
-      },
-
-      uncheckIfAll(selection) {
-        if (selection == "all") {
-          this.editableFocus = [selection]
-          this.focuses.forEach((focus) => {
-            if (focus != "all" && this.editableFocus.indexOf(focus) != -1) {
-              this.editableFocus.splice(this.editableFocus.indexOf(focus))
+    setup() {
+        onMounted(() => {
+            if (!AppState.moves.length > 0) {
+                getMoves();
             }
-          })
-        } else {
-          this.editableFocus.forEach((focus) => {
-            if (focus == "all" && this.editableFocus.indexOf(focus) != -1) {
-              this.editableFocus.splice(this.editableFocus.indexOf(focus), 1)
+            logger.log("Route!", route.name);
+        });
+        const route = useRoute();
+        const levels = ["all", "beginner", "intermediate", "advanced"];
+        const focuses = ["all", "arms", "chest", "core", "neck", "glutes", "hamstrings", "hips", "inner thighs", "lower Back", "quads", "shoulder", "upper back"];
+        let editableLevel = ref("");
+        let editableFocus = ref([]);
+        let selectedLevel = ref("");
+        let wantsToSeeFavorites = ref(false);
+        async function getMoves() {
+            try {
+                await movesService.getMoves();
             }
-          })
+            catch (error) {
+                logger.error(error);
+                Pop.error(error);
+            }
         }
-      },
-
-    };
-  },
+        return {
+            levels,
+            focuses,
+            editableLevel,
+            editableFocus,
+            selectedLevel,
+            wantsToSeeFavorites,
+            route,
+            account: computed(() => AppState.account),
+            moves: computed(() => {
+                //if level is anything but "all", filter it by level
+                if (editableLevel.value && editableLevel.value != "all") {
+                    let movesByLevel = AppState.moves.filter((move) => move.level == editableLevel.value.toLocaleLowerCase());
+                    //and if focus is anything but "all", filter it even more by bodypart
+                    if (editableFocus.value && !editableFocus.value.includes("all")) {
+                        return movesByLevel.filter(move => editableFocus.value.every(part => move.bodyPart.includes(part)));
+                    }
+                    else { //if level is anything but "all" and focus is "all" or unselected, just return what was filtered by level
+                        return movesByLevel;
+                    }
+                }
+                //else if level is "all" or unselected, no filters for level
+                else if (!editableLevel.value || editableLevel.value == "all") {
+                    //if focus is anything but "all", filter it just by body part
+                    if (editableFocus.value && !editableFocus.value.includes("all")) {
+                        return AppState.moves.filter(move => editableFocus.value.every(part => move.bodyPart.includes(part)));
+                    }
+                    //if level is "all" or unselected and focus is "all" or unselected, return moves from the AppState(no filter)
+                    else {
+                        return AppState.moves;
+                    }
+                }
+                else {
+                    return AppState.moves;
+                }
+            }),
+            movesForCatalog: computed(() => {
+                let filteredMoves = [];
+                AppState.moves.forEach((move) => {
+                    if (move.englishName != "Interval") {
+                        filteredMoves.push(move);
+                    }
+                });
+                //if level is anything but "all", filter it by level
+                if (editableLevel.value && editableLevel.value != "all") {
+                    let movesByLevel = filteredMoves.filter((move) => move.level == editableLevel.value.toLocaleLowerCase());
+                    //and if focus is anything but "all", filter it even more by bodypart
+                    if (editableFocus.value && !editableFocus.value.includes("all")) {
+                        return movesByLevel.filter(move => editableFocus.value.every(part => move.bodyPart.includes(part)));
+                    }
+                    else { //if level is anything but "all" and focus is "all" or unselected, just return what was filtered by level
+                        return movesByLevel;
+                    }
+                }
+                //else if level is "all" or unselected, no filters for level
+                else if (!editableLevel.value || editableLevel.value == "all") {
+                    //if focus is anything but "all", filter it just by body part
+                    if (editableFocus.value && !editableFocus.value.includes("all")) {
+                        return filteredMoves.filter(move => editableFocus.value.every(part => move.bodyPart.includes(part)));
+                    }
+                    //if level is "all" or unselected and focus is "all" or unselected, return moves from the AppState(no filter)
+                    else {
+                        return filteredMoves;
+                    }
+                }
+                else {
+                    return filteredMoves;
+                }
+            }),
+            myFavoriteMoves: computed(() => {
+                let filteredMoves = [];
+                AppState.myFavoriteMoves.forEach((move) => {
+                    filteredMoves.push(new Move(move.move));
+                });
+                return filteredMoves;
+            }),
+            myFavoriteMovesForCatalog: computed(() => {
+                let filteredMoves = [];
+                AppState.myFavoriteMoves.forEach((move) => {
+                    if (move.move.englishName != "Interval") {
+                        filteredMoves.push(new Move(move.move));
+                    }
+                });
+                return filteredMoves;
+            }),
+            swapShowFavoritesAndShowAll() {
+                wantsToSeeFavorites.value = !wantsToSeeFavorites.value;
+            },
+            changeLevel(level) {
+                editableLevel.value = level;
+                selectedLevel.value = level;
+            },
+            uncheckIfAll(selection) {
+                if (selection == "all") {
+                    this.editableFocus = [selection];
+                    this.focuses.forEach((focus) => {
+                        if (focus != "all" && this.editableFocus.indexOf(focus) != -1) {
+                            this.editableFocus.splice(this.editableFocus.indexOf(focus));
+                        }
+                    });
+                }
+                else {
+                    this.editableFocus.forEach((focus) => {
+                        if (focus == "all" && this.editableFocus.indexOf(focus) != -1) {
+                            this.editableFocus.splice(this.editableFocus.indexOf(focus), 1);
+                        }
+                    });
+                }
+            },
+        };
+    },
+    components: { MoveCatalogCard }
 };
 </script>
 

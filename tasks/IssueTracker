@@ -1,24 +1,30 @@
-
 Anon user actions that should not be available:
-- [Routine Designer Page] My Favorite Routines List
-- [Catalog Page] Poses & Routines "my favorites" filter
+
+- [Routine Designer Page] My Favorite Routines List --[v-if account?.id added]
+- [Catalog Page] Poses & Routines "my favorites" filter --[v-if account?.id added]
 
 Mobile View:
+
 - [Routine Designer Page]
 
-- [Catalog Page] 
-    * Poses 
-      - Off-center
-      - Large side margins
-    * Routines
-      - Two columns -> reduce to one?
-      - Large side margins
+- [Catalog Page]
+
+  - Poses
+    - Off-center
+    - Large side margins
+  - Routines
+    - Two columns -> reduce to one?
+    - Large side margins
 
 - [NavBar]
-    - Convert BG color to transparent until expanded?
-    [Login]
-      - Center the Login button 
+
+  - Convert BG color to transparent until expanded?
+
+  [Login]
+
+  - Center the Login button -- done
 
 Misc:
+
 - [Move Detail Card]
-    - Disable (i) about adding to routine when not logged in && when no routine set active? Only active when in routine editor?
+  - Disable (i) about adding to routine when not logged in && when no routine set active? Only active when in routine editor?

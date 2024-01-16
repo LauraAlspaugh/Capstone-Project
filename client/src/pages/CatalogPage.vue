@@ -15,7 +15,7 @@
     </section>
 
     <section class="row">
-      <div class="col-12 d-flex justify-content-center">
+      <div class="col-12 px-0 d-flex justify-content-center">
         <div v-if="wantsPoses">
           <MoveFilterBar />
         </div>
@@ -36,8 +36,10 @@
               </div>
               <div>
                 <div v-if="wantsToSeeFavorites == false">
-                  <button @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
-                    role="button" type="button">my favorites <i class="mdi mdi-heart"></i></button>
+                  <div v-if="account?.id">
+                    <button @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
+                      role="button" type="button">my favorites <i class="mdi mdi-heart"></i></button>
+                  </div>
                 </div>
                 <div v-else>
                   <button @click="swapShowFavoritesAndShowAll()" class="btn white-gb ms-1 me-1 ms-sm-3 me-sm-3 italiana"
