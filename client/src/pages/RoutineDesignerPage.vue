@@ -41,7 +41,7 @@
         </div>
       </div>
     </section>
-    
+
   </div>
 </template>
 
@@ -115,5 +115,4 @@ export default {
 .z3 {
   z-index: 3;
 }
-
 </style>

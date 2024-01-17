@@ -2,6 +2,7 @@ Anon user actions that should not be available:
 
 - [Routine Designer Page] My Favorite Routines List --[v-if account?.id added]
 - [Catalog Page] Poses & Routines "my favorites" filter --[v-if account?.id added]
+_ [All Pages] Add a font for paragraphs instead of using title font everywhere
 
 Mobile View:
 
